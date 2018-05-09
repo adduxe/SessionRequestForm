@@ -15,7 +15,8 @@ namespace SessionRequest.Controllers
         [HttpGet("[action]")]
         public IEnumerable<MSessionRequest> GetSessionRequests()
         {
-            return GetMockSessionRequests();
+            List<MSessionRequest> sessionRequests = GetMockSessionRequests();
+            return sessionRequests;
         }
 
         private List<MSessionRequest> GetMockSessionRequests()
@@ -51,9 +52,8 @@ namespace SessionRequest.Controllers
                 Revisions = sessionRequestRevisions
             };
 
-
-
-            return null;
+            sessionRequests.Add(sessionRequest);
+            return sessionRequests;
      }
     }
 }

@@ -14,8 +14,8 @@ export class SessionRequestListComponent implements OnInit {
   constructor(private sessionRequestService : SessionRequestService) { }
 
   ngOnInit() {
-    this.sessionRequestList = mockSessionRequests;
-    //this.getSessionRequest();
+    //this.sessionRequestList = mockSessionRequests;
+    this.getSessionRequest();
   }
 
   getSessionRequest() {
