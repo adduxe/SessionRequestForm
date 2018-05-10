@@ -53,6 +53,69 @@ namespace SessionRequest.Controllers
             };
 
             sessionRequests.Add(sessionRequest);
+
+            List<MSessionRequestRevision> sessionRequestRevisions2 = new List<MSessionRequestRevision>();
+            MSessionRequestRevision sessionRequestRevision3 = new MSessionRequestRevision
+            {
+                VersionNumber = 0,
+                Action = "Create",
+                ActionBy = "lipan",
+                ActionDate = DateTime.Parse("Aug 1, 2016")
+            };
+            MSessionRequestRevision sessionRequestRevision4 = new MSessionRequestRevision
+            {
+                VersionNumber = 1,
+                Action = "Modify",
+                ActionBy = "anthonyd",
+                ActionDate = DateTime.Parse("Sep 1, 2016")
+            };
+            sessionRequestRevisions2.Add(sessionRequestRevision3);
+            sessionRequestRevisions2.Add(sessionRequestRevision4);
+            MSessionRequest sessionRequest1 = new MSessionRequest
+            {
+                SessionRequestID = 2135,
+                SessionCode = "20173-136",
+                Term = "20173",
+                Status = "Waiting for Fee",
+                Owner = "sebastianw",
+                LateChange = false,
+                OwnerChanged = true,
+                Revisions = sessionRequestRevisions2
+            };
+
+            sessionRequests.Add(sessionRequest1);
+
+            List<MSessionRequestRevision> sessionRequestRevisions3 = new List<MSessionRequestRevision>();
+            MSessionRequestRevision sessionRequestRevision5 = new MSessionRequestRevision
+            {
+                VersionNumber = 0,
+                Action = "Create",
+                ActionBy = "lipan",
+                ActionDate = DateTime.Parse("Aug 1, 2017")
+            };
+            MSessionRequestRevision sessionRequestRevision6 = new MSessionRequestRevision
+            {
+                VersionNumber = 1,
+                Action = "Modify",
+                ActionBy = "anthonyd",
+                ActionDate = DateTime.Parse("Sep 1, 2017")
+            };
+            sessionRequestRevisions3.Add(sessionRequestRevision5);
+            sessionRequestRevisions3.Add(sessionRequestRevision6);
+            MSessionRequest sessionRequest2 = new MSessionRequest
+            {
+                SessionRequestID = 2137,
+                SessionCode = "20183-136",
+                Term = "20183",
+                Status = "Cancelled",
+                Owner = "lipan",
+                LateChange = true,
+                OwnerChanged = true,
+                Revisions = sessionRequestRevisions3
+            };
+
+            sessionRequests.Add(sessionRequest2);
+
             return sessionRequests;
      }
     }

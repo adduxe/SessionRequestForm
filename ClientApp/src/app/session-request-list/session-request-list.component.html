@@ -1,14 +1,23 @@
-<kendo-grid [data]="sessionRequestList" [height]="410">
+<kendo-grid
+  [data]="gridData"
+  [pageSize]="state.take"
+  [skip]="state.skip"
+  [sort]="state.sort"
+  [filter]="state.filter"
+  [sortable]="true"
+  [pageable]="true"
+  [filterable]="true"
+  (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="term" title="Term"></kendo-grid-column>
   <kendo-grid-column field="sessionCode" title="Session Code"></kendo-grid-column>
   <kendo-grid-column field="status" title="Status"></kendo-grid-column>
   <kendo-grid-column field="owner" title="Owner"></kendo-grid-column>
-  <kendo-grid-column field="lateChange" title="Late Change">
+  <kendo-grid-column field="lateChange" title="Late Change" filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
       <input type="checkbox" [checked]="dataItem.lateChange" disabled />
     </ng-template>
   </kendo-grid-column>
-  <kendo-grid-column field="ownerChanged" title="Owner Changed">
+  <kendo-grid-column field="ownerChanged" title="Owner Changed" filter="boolean">
     <ng-template kendoGridCellTemplate let-dataItem>
       <input type="checkbox" [checked]="dataItem.ownerChanged" disabled />
     </ng-template>

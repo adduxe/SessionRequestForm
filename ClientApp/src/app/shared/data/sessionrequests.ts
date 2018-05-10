@@ -1,38 +1,60 @@
 export const mockSessionRequests = [
   {
-    "SessionRequestID": 2134,
-    "SessionCode": "20172-136",
-    "Term": "20172",
-    "Status": "Waiting for Approval",
-    "Owner": "lipan",
-    "LateChange": false,
-    "OwnerChanged": true,
-    "Revisions": [
+    "sessionRequestID": 2134,
+    "sessionCode": "20172-136",
+    "term": "20172",
+    "status": "Waiting for Approval",
+    "owner": "lipan",
+    "lateChange": false,
+    "ownerChanged": true,
+    "revisions": [
       {
-      "VersionNumber": 0,
-      "ActionBy": "lipan",
-      "Action": "create",
-      "ActionDate": new Date(2016, 8, 20)
+      "versionNumber": 0,
+      "actionBy": "lipan",
+      "action": "create",
+      "actionDate": new Date(2016, 8, 20)
       }]
   },
   {
-    "SessionRequestID": 2135,
-    "SessionCode": "20173-321",
-    "Term": "20173",
-    "Status": "Waiting for Fee",
-    "Owner": "lipan",
-    "LateChange": false,
-    "OwnerChanged": true,
-    "Revisions": [{
-      "VersionNumber": 0,
-      "ActionBy": "lipan",
-      "Action": "create",
-      "ActionDate": new Date(2016, 10, 20)
+    "sessionRequestID": 2135,
+    "sessionCode": "20173-321",
+    "term": "20173",
+    "status": "Waiting for Fee",
+    "owner": "lipan",
+    "lateChange": false,
+    "ownerChanged": true,
+    "revisions": [{
+      "versionNumber": 0,
+      "actionBy": "lipan",
+      "action": "create",
+      "actionDate": new Date(2016, 10, 20)
     },
       {
-        "VersionNumber": 1,
-        "ActionBy": "anthonyd",
-        "Action": "modify",
-        "ActionDate": new Date(2016, 10, 20)
+        "versionNumber": 1,
+        "actionBy": "anthonyd",
+        "action": "modify",
+        "actionDate": new Date(2016, 10, 20)
       }]
-  }]
+  },
+  {
+    "sessionRequestID": 2136,
+    "sessionCode": "20174-321",
+    "term": "20174",
+    "status": "Approved",
+    "owner": "Sebastian",
+    "lateChange": true,
+    "ownerChanged": true,
+    "revisions": [{
+      "versionNumber": 0,
+      "actionBy": "Sebastian",
+      "action": "create",
+      "actionDate": new Date(2017, 1, 20)
+    },
+    {
+      "versionNumber": 1,
+      "actionBy": "anthonyd",
+      "action": "modify",
+      "actionDate": new Date(2017, 3, 20)
+    }]
+  }
+]
