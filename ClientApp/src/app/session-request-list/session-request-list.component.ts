@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { mockSessionRequests } from '../../shared/data/sessionrequests';
-import { SessionRequest } from '../../shared/models/sessionrequest';
-import { SessionRequestService } from '../../shared/services/sessionrequest.service';
+import { mockSessionRequests } from '../shared/data/sessionrequests';
+import { SessionRequest } from '../shared/models/sessionrequest';
+import { SessionRequestService } from '../shared/services/sessionrequest.service';
 
 @Component({
   selector: 'sr-session-request-list',
@@ -11,7 +11,7 @@ import { SessionRequestService } from '../../shared/services/sessionrequest.serv
 export class SessionRequestListComponent implements OnInit {
   public sessionRequestList: SessionRequest[];
 
-  constructor(private sessionRequestService : SessionRequestService) { }
+  constructor(private sessionRequestService: SessionRequestService) { }
 
   ngOnInit() {
     //this.sessionRequestList = mockSessionRequests;
