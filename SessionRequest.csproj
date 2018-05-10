@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\detail-page\detail.page.component.ts" />
     <None Remove="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <None Remove="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <None Remove="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
@@ -37,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\detail-page\detail.page.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
