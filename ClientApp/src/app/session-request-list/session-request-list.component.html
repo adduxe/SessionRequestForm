@@ -1,13 +1,12 @@
-<kendo-grid
-  [data]="gridData"
-  [pageSize]="state.take"
-  [skip]="state.skip"
-  [sort]="state.sort"
-  [filter]="state.filter"
-  [sortable]="true"
-  [pageable]="true"
-  [filterable]="true"
-  (dataStateChange)="dataStateChange($event)">
+<kendo-grid [data]="gridData"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [filter]="state.filter"
+            [sortable]="true"
+            [pageable]="true"
+            [filterable]="true"
+            (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="term" title="Term"></kendo-grid-column>
   <kendo-grid-column field="sessionCode" title="Session Code"></kendo-grid-column>
   <kendo-grid-column field="status" title="Status"></kendo-grid-column>
@@ -22,5 +21,8 @@
       <input type="checkbox" [checked]="dataItem.ownerChanged" disabled />
     </ng-template>
   </kendo-grid-column>
+  <div *kendoGridDetailTemplate="let dataItem">
+    <sr-revision-list [sr]="dataItem"></sr-revision-list>
+  </div>
 </kendo-grid>
 

@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GridDataResult } from '@progress/kendo-angular-grid';
-import { toODataString } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs/Observable';
+import { toODataString } from '@progress/kendo-data-query';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map } from 'rxjs/operators/map';
 import { tap } from 'rxjs/operators/tap';
 
 @Injectable()
-export class DataService extends BehaviorSubject<GridDataResult>{
+export class GidDataService extends BehaviorSubject<GridDataResult>{
   public loading: boolean;
   public baseUrl: string;
 
@@ -23,15 +23,32 @@ export class DataService extends BehaviorSubject<GridDataResult>{
   }
 
   private fetch(actionName: string, state: any): Observable<GridDataResult> {
+    const queryStr = `${toODataString(state)}&$count=true`;
     this.loading = true;
+
     return this.http
-      .get(`${this.baseUrl}${actionName}`)
+      .get(`${this.baseUrl}${actionName}?${queryStr}`)
       .pipe(
-      map(response => (<GridDataResult>{
-        data: response['value']
-      })),
-      tap(() => this.loading = false)
-      );
+        map(response => (<GridDataResult>{
+          data: response['value'],
+          total: parseInt(response['@odata.count'], 10)
+        })),
+        tap(() => this.loading = false)
+      )
+      .catch(this.handleError);
+  }
+
+  private handleError(error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      errMsg = `${error.status} - ${error.statusText || ''}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 
   public queryForPendingSessionRequest(actionName: string, state?: any): void {

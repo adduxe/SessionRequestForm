@@ -15,6 +15,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SessionRequestListComponent } from './session-request-list/session-request-list.component'
 
 import { SessionRequestService } from './shared/services/sessionrequest.service';
+import { RevisionListComponent } from './revision-list/revision-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SessionRequestService } from './shared/services/sessionrequest.service'
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    SessionRequestListComponent
+    SessionRequestListComponent,
+    RevisionListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { process, State } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 import { mockSessionRequests } from '../shared/data/sessionrequests';
 import { SessionRequest } from '../shared/models/sessionrequest';
@@ -14,6 +14,8 @@ import { SessionRequestService } from '../shared/services/sessionrequest.service
 export class SessionRequestListComponent implements OnInit {
   public gridData: GridDataResult;
   public sessionRequestList: SessionRequest[];
+  @ViewChild(GridComponent) grid: GridComponent;
+
   public state: State = {
     skip: 0,
     take: 5,
@@ -34,6 +36,11 @@ export class SessionRequestListComponent implements OnInit {
     this.sessionRequestList = mockSessionRequests;
     this.getSessionRequest();
     //this.gridData = process(this.sessionRequestList, this.state);
+  }
+
+  public ngAfterViewInit(): void {
+    // Expand the first row initially
+    this.grid.expandRow(0);
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
