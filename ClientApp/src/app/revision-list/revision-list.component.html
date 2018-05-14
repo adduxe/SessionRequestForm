@@ -5,6 +5,7 @@
             [filter]="state.filter"
             [sortable]="true"
             [pageable]="true"
+            [selectable]="true"
             (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="versionNumber" title="Version Number"></kendo-grid-column>
   <kendo-grid-column field="action" title="Action"></kendo-grid-column>

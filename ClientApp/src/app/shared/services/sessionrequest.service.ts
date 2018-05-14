@@ -3,6 +3,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Observer } from 'rxjs/Observer';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { SessionRequest } from '../models/sessionrequest';
 
@@ -12,12 +13,19 @@ export class SessionRequestService {
   options: RequestOptions;
   url: string;
 
+  private srSource = new BehaviorSubject<SessionRequest>(null);
+  currentSessionRequest = this.srSource.asObservable();
+
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.headers = new Headers({
       'Content-Type': 'application/json'
     });
     this.options = new RequestOptions({ headers: this.headers });
     this.url = baseUrl;
+  }
+
+  changeSessionRequest(sessionRequest: SessionRequest) {
+    this.srSource.next(sessionRequest);
   }
 
   getAllSessionRequest(): Observable<SessionRequest[]> {

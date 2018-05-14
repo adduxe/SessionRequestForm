@@ -16,10 +16,12 @@ import { SessionRequestService } from '../shared/services/sessionrequest.service
 export class SessionRequestListComponent implements OnInit {
   private sub: any;
   private operation: string;
+
   public gridData: GridDataResult;
   public sessionRequestList: SessionRequest[];
   @ViewChild(GridComponent) grid: GridComponent;
 
+  public mySelection: number[] = [2137];
   public state: State = {
     skip: 0,
     take: 5,
@@ -39,9 +41,8 @@ export class SessionRequestListComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.operation = params['operation'];
-      this.sessionRequestList = mockSessionRequests;
+      //this.sessionRequestList = mockSessionRequests;
       this.getSessionRequest();
-      //this.gridData = process(this.sessionRequestList, this.state);
     });
   }
 
@@ -54,6 +55,7 @@ export class SessionRequestListComponent implements OnInit {
     this.state = state;
     this.gridData = process(this.sessionRequestList, this.state);
   }
+
   getSessionRequest() {
     this.sessionRequestService.getAllSessionRequest().subscribe(res => {
       this.sessionRequestList = res;
@@ -63,5 +65,11 @@ export class SessionRequestListComponent implements OnInit {
 
       this.gridData = process(this.sessionRequestList, this.state);
     }, error => console.error(error));
+  }
+
+  dataSelectionChange(selection) {
+    const selectedData = selection.selectedRows[0].dataItem;
+    this.sessionRequestService.changeSessionRequest(selectedData);
+    console.log(selectedData);
   }
 }
