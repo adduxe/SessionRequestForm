@@ -5,236 +5,266 @@
     <title>Detail Page</title>
 </head>
 <body>
-  <h1 style="color: #cca300;">Detail Page</h1>
 
-  <table class="table table-hover">
-    <tr style="color: red;">
-      <th>
-        <h4>Semester</h4>
-      </th>
-      <th>
-        <h4>Session</h4>
-      </th>
-      <th>
-        <h4>School</h4>
-      </th>
-      <th>
-        <h4>Department</h4>
-      </th>
-      <th>
-        <h4>Contact</h4>
-      </th>
-      <th>
-        <h4>Phone</h4>
-      </th>
-      <th>
-        <h4>Email</h4>
-      </th>
-    </tr>
-    <tr>
-      <td>
-        {{ session.academicTerm }}
-      </td>
-      <td>
-        {{ session.sessionCode }}
-      </td>
-      <td>
-        {{ session.owningSchool }}
-      </td>
-      <td>
-        {{ session.owningDepartment }}
-      </td>
-      <td>
-        {{ session.userContact }}
-      </td>
-      <td>
-        {{ session.userPhone }}
-      </td>
-      <td>
-        {{ session.userEmail }}
-      </td>
-    </tr>
-  </table>
-
-  <br />
-
-  <table class="table table-hover table-bordered">
-    <thead>
-      <tr style="color: red;">
-        <td>
-          &nbsp;
-        </td>
-        <th>
-          <b>Classes</b>
-        </th>
-        <th>
-          <b>Session Break 1</b>
-        </th>
-        <th>
-          <b>Session Break 2</b>
-        </th>
-        <td>
-          <b>Finals</b>
-        </td>
-        <td>
-          <b>Final Grades</b>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>
-          <b>Start</b>
-        </th>
-        <td>
-          {{ session.firstDayOfClass | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.sessionBreakStart_1 | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.sessionBreakStart_2 | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.firstDayOfFinals | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <b>End</b>
-        </th>
-        <td>
-          {{ session.lastDayOfClass | date: "MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.sessionBreakEnd_1 | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.sessionBreakEnd_2 | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.lastDayOfFinals | date:"MMM dd, yyyy" }}
-        </td>
-        <td>
-          {{ session.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <br />
-  <div class="row" style="color:black;padding-top:10px;">
-    <div class="col-md-1">
-      &nbsp;
-    </div>
-    <div class="col-md-3">
-      <b style="color: red;">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
-    </div>
-    <div class="col-md-3">
-      <b style="color: red;">Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
-    </div>
-    <div class="col-md-4">
-      <b style="color: red;">Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
-    </div>
+  <div class="row" style="color:black;padding-top:10px; text-align:center;">
+      <h1 style="color: #cca300;">Detail Page</h1>
   </div>
-  <br />
-  <table class="table table-hover">
-    <tr style="color: red;">
-      <th>
-        Campus
-      </th>
-      <th>
-        Start Date
-      </th>
-      <th>
-        End Date
-      </th>
-    </tr>
-    <tr *ngFor="let eachLocation of session.classLocations">
-      <td>
-        {{ eachLocation.location }}
+  <br/>
+  <table width="100%">
+    <tr>
+      <td align="center">
+        <button class="btn btn-success"><b>Approve</b></button>
       </td>
-      <td>
-        {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
+      <td align="center">
+        <button class="btn btn-danger">Reject</button>
       </td>
-      <td>
-        {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
+      <td align="center">
+        <button class="btn btn-warning">Cancel</button>
+      </td>
+      <td align="center">
+        <button class="btn btn-info" onclick="window.open('diff-page');">Compare</button>
       </td>
     </tr>
   </table>
-
-  <br>
-
-  <table class="table table-bordered table-hover">
-    <thead style="color: red;">
-      <tr class="red">
-        <th rowspan="2">Rate Type</th>
-        <th rowspan="2">Rate per Unit</th>
-        <th rowspan="2">Flat Rate</th>
-        <th colspan="2">Undergraduate</th>
-        <th colspan="2">Graduate</th>
-      </tr>
-      <tr class="red">
-        <th>Flat Rate<br>Min. Units</th>
-        <th>Flat Rate<br>Max. Units</th>
-        <th>Flat Rate<br>Min. Units</th>
-        <th>Flat Rate<br>Max. Units</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="black">
-        <td>{{ rateName }}</td>
-        <td>{{ session.ratePerUnitAmount }}</td>
-        <td>{{ session.flatRateAmount }}</td>
-        <td>{{ session.flatRateUnitsMin }}</td>
-        <td>{{ session.flatRateUnitsMax }}</td>
-        <td>{{ session.gradFlatRateUnitsMin }}</td>
-        <td>{{ session.gradFlatRateUnitsMax }}</td>
-      </tr>
-    <tbody>
-  </table>
-  <article>
-    <h4 style="color:red;">Comments:</h4>
-    <p>{{ session.comments }}</p>
-  </article>
-
-  <table class="table table-hover">
-    <thead style="color:red;">
-      <tr>
-        <th class="red" colspan="4"><h3>Special Fees</h3></th>
+  <br/>
+    <table class="table table-hover">
+      <tr style="color: red;">
+        <th>
+          <h4>Semester</h4>
+        </th>
+        <th>
+          <h4>Session</h4>
+        </th>
+        <th>
+          <h4>School</h4>
+        </th>
+        <th>
+          <h4>Department</h4>
+        </th>
+        <th>
+          <h4>Contact</h4>
+        </th>
+        <th>
+          <h4>Phone</h4>
+        </th>
+        <th>
+          <h4>Email</h4>
+        </th>
       </tr>
       <tr>
+        <td>
+          {{ session.academicTerm }}
+        </td>
+        <td>
+          {{ session.sessionCode }}
+        </td>
+        <td>
+          {{ session.owningSchool }}
+        </td>
+        <td>
+          {{ session.owningDepartment }}
+        </td>
+        <td>
+          {{ session.userContact }}
+        </td>
+        <td>
+          {{ session.userPhone }}
+        </td>
+        <td>
+          {{ session.userEmail }}
+        </td>
+      </tr>
+    </table>
+
+    <br />
+
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr style="color: red;">
+          <td>
+            &nbsp;
+          </td>
+          <th>
+            <b>Classes</b>
+          </th>
+          <th>
+            <b>Session Break 1</b>
+          </th>
+          <th>
+            <b>Session Break 2</b>
+          </th>
+          <td>
+            <b>Finals</b>
+          </td>
+          <td>
+            <b>Final Grades</b>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>
+            <b>Start</b>
+          </th>
+          <td>
+            {{ session.firstDayOfClass | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.sessionBreakStart_1 | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.sessionBreakStart_2 | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.firstDayOfFinals | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <b>End</b>
+          </th>
+          <td>
+            {{ session.lastDayOfClass | date: "MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.sessionBreakEnd_1 | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.sessionBreakEnd_2 | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.lastDayOfFinals | date:"MMM dd, yyyy" }}
+          </td>
+          <td>
+            {{ session.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <div class="row" style="color:black;padding-top:10px;">
+      <div class="col-md-1">
+        &nbsp;
+      </div>
+      <div class="col-md-3">
+        <b style="color: red;">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
+      </div>
+      <div class="col-md-3">
+        <b style="color: red;">Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
+      </div>
+      <div class="col-md-4">
+        <b style="color: red;">Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
+      </div>
+    </div>
+    <br />
+    <table class="table table-hover">
+      <tr style="color: red;">
         <th>
-          Fee Code
+          Campus
         </th>
         <th>
-          Description
+          Start Date
         </th>
         <th>
-          Amount
-        </th>
-        <th>
-          Assessed To
+          End Date
         </th>
       </tr>
-    </thead>
-    <tr *ngFor="let eachFee of session.specialFees">
-      <td>
-        {{ eachFee.feeCode }}
-      </td>
-      <td>
-        {{ eachFee.feeCode }}
-      </td>
-      <td>
-        {{ eachFee.amount }}
-      </td>
-      <td>
-        {{ eachFee.assessedTo }}
-      </td>
-    </tr>
-  </table>
+      <tr *ngFor="let eachLocation of session.classLocations">
+        <td>
+          {{ eachLocation.location }}
+        </td>
+        <td>
+          {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
+        </td>
+      </tr>
+    </table>
+
+    <br>
+
+    <table class="table table-bordered table-hover">
+      <thead style="color: red;">
+        <tr>
+          <td rowspan="2" align="center">
+            <b>Rate Type</b>
+          </td>
+          <td rowspan="2" align="center">
+            <b>Rate per Unit</b>
+          </td>
+          <td rowspan="2" align="center">
+            <b>Flat Rate</b>
+          </td>
+          <td colspan="2" align="center">
+            <b>Undergraduate</b>
+          </td>
+          <td colspan="2" align="center">
+            <b>Graduate</b>
+          </td>
+        </tr>
+        <tr class="red">
+          <td align="center"><b>Flat Rate<br>Min. Units</b></td>
+          <td align="center"><b>Flat Rate<br>Max. Units</b></td>
+          <td align="center"><b>Flat Rate<br>Min. Units</b></td>
+          <td align="center"><b>Flat Rate<br>Max. Units</b></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="black">
+          <td align="center">{{ rateName }}</td>
+          <td align="center">{{ session.ratePerUnitAmount }}</td>
+          <td align="center">{{ session.flatRateAmount }}</td>
+          <td align="center">{{ session.flatRateUnitsMin }}</td>
+          <td align="center">{{ session.flatRateUnitsMax }}</td>
+          <td align="center">{{ session.gradFlatRateUnitsMin }}</td>
+          <td align="center">{{ session.gradFlatRateUnitsMax }}</td>
+        </tr>
+      <tbody>
+    </table>
+    <article>
+      <h4 style="color:red;">Comments:</h4>
+      <p>{{ session.comments }}</p>
+    </article>
+
+    <table class="table table-hover">
+      <thead style="color:red;">
+        <tr>
+          <th class="red" colspan="4"><h3>Special Fees</h3></th>
+        </tr>
+        <tr>
+          <th>
+            Fee Code
+          </th>
+          <th>
+            Description
+          </th>
+          <th>
+            Amount
+          </th>
+          <th>
+            Assessed To
+          </th>
+        </tr>
+      </thead>
+      <tr *ngFor="let eachFee of session.specialFees">
+        <td>
+          {{ eachFee.feeCode }}
+        </td>
+        <td>
+          {{ eachFee.feeCode }}
+        </td>
+        <td>
+          {{ eachFee.amount }}
+        </td>
+        <td>
+          {{ eachFee.assessedTo }}
+        </td>
+      </tr>
+    </table>
 
 </body>
 </html>

@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DetailPageComponent } from './detail-page/detail.page.component';
+import { DiffPageComponent } from './diff-page/diff.page.component';
 
 import { SessionRequestListComponent } from './session-request/session-request-list/session-request-list.component'
 
@@ -25,7 +26,8 @@ import { SessionRequestService } from './shared/services/sessionrequest.service'
     CounterComponent,
     FetchDataComponent,
     SessionRequestListComponent,
-    DetailPageComponent
+    DetailPageComponent,
+    DiffPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,6 +39,7 @@ import { SessionRequestService } from './shared/services/sessionrequest.service'
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'srlist', component: SessionRequestListComponent },
+      { path: 'diff-page', component: DiffPageComponent },
       { path: 'detail-page', component: DetailPageComponent }
     ])
   ],

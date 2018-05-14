@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Diff Page</title>
+  <!-- CHANGED DELETED ADDED -->
+  <style>
+
+    .added {
+      background-color: green;
+    }
+
+    .changed {
+      background-color: yellow;
+    }
+
+    .deleted {
+      background-color: rgb(252, 216, 217);
+    }
+  </style>
+
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-6 deleted" id="newRev">
+      New Revision
+      <button onclick="sampMethod();">Compare</button>
+    </div>
+    <div class="col-md-6 added" id="oldRev">
+      Old Revision
+    </div>
+  </div>
+</body>
+</html>
