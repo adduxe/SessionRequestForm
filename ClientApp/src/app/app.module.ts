@@ -8,8 +8,6 @@ import { GridModule } from '@progress/kendo-angular-grid';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 import { SessionRequestService } from './shared/services/sessionrequest.service';
@@ -21,8 +19,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
     FetchDataComponent,
     SessionRequestListComponent,
     RevisionListComponent,
@@ -35,7 +31,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     GridModule,
     RouterModule.forRoot([
       { path: '', component: DashboardComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'srlist/:operation', component: SessionRequestListComponent },
