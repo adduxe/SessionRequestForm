@@ -7,128 +7,125 @@
 <body>
   <h1>Detail Page</h1>
 
-  <b>{{ sampleVar }}</b>
+  <!--<b>{{ sampleVar }}</b>
 
   <ul>
     <li *ngFor="let fee of specialFees">{{ fee.feeCode }}  {{ fee.amount }}</li>
-  </ul>
+  </ul>-->
 
-  <div class="row" style="color: #990000">
-    <div class="col-md-1 k-header">
-      <h4>Semester</h4>
-    </div>
-    <div class="col-md-1 k-header">
-      <h4>Session</h4>
-    </div>
-    <div class="col-md-2 k-header">
-      <h4>School</h4>
-    </div>
-    <div class="col-md-2 k-header">
-      <h4>Department</h4>
-    </div>
-    <div class="col-md-2 k-header">
-      <h4>Contact</h4>
-    </div>
-    <div class="col-md-2 k-header">
-      <h4>Phone</h4>
-    </div>
-    <div class="col-md-2 k-header">
-      <h4>Email</h4>
-    </div>
-  </div>
+  <table class="table">
+    <tr style="color: red;">
+      <th>
+        <h4>Semester</h4>
+      </th>
+      <th>
+        <h4>Session</h4>
+      </th>
+      <th>
+        <h4>School</h4>
+      </th>
+      <th>
+        <h4>Department</h4>
+      </th>
+      <th>
+        <h4>Contact</h4>
+      </th>
+      <th>
+        <h4>Phone</h4>
+      </th>
+      <th>
+        <h4>Email</h4>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        {{ session.academicTerm }}
+      </td>
+      <td>
+        {{ session.sessionCode }}
+      </td>
+      <td>
+        {{ session.owningSchool }}
+      </td>
+      <td>
+        {{ session.owningDepartment }}
+      </td>
+      <td>
+        {{ session.userContact }}
+      </td>
+      <td>
+        {{ session.userPhone }}
+      </td>
+      <td>
+        {{ session.userEmail }}
+      </td>
+    </tr>
+  </table>
 
-  <div class="row red">
-    <div class="col-md-1">
-      {{ session.academicTerm }}
-    </div>
-    <div class="col-md-1">
-      {{ session.sessionCode }}
-    </div>
-    <div class="col-md-2">
-      {{ session.owningSchool }}
-    </div>
-    <div class="col-md-2">
-      {{ session.owningDepartment }}
-    </div>
-    <div class="col-md-2">
-      {{ session.userContact }}
-    </div>
-    <div class="col-md-2">
-      {{ session.userPhone }}
-    </div>
-    <div class="col-md-2">
-      {{ session.userEmail }}
-    </div>
-  </div>
   <br />
-  <div class="row" style="color:black;padding-top:10px;">
-    <div class="col-md-1">
-      <div class="col-sm-12">
+
+  <table class="table">
+    <tr style="color: red;">
+      <td>
         &nbsp;
-      </div>
-      <div class="col-sm-12">
-        <b class="red pull-right">Start</b>
-      </div>
-      <div class="col-sm-12">
-        <b class="red pull-right">End</b>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="col-sm-12">
-        <b class="red">Classes</b>
-      </div>
-      <div class="col-sm-12">
-        {{ session.firstDayOfClass | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-      <div class="col-sm-12">
-        {{ session.lastDayOfClass | date: "MMM dd, yyyy" }}&nbsp;
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="col-sm-12">
-        <b class="red">Session Break 1</b>
-      </div>
-      <div class="col-sm-12">
-        {{ session.sessionBreakStart_1 | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-      <div class="col-sm-12">
-        {{ session.sessionBreakEnd_1 | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="col-sm-12">
-        <b class="red">Session Break 2</b>
-      </div>
-      <div class="col-sm-12">
-        {{ session.sessionBreakStart_2 | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-      <div class="col-sm-12">
-        {{ session.sessionBreakEnd_2 | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="col-sm-12">
-        <b class="red">Finals</b>
-      </div>
-      <div class="col-sm-12">
-        {{ session.firstDayOfFinals | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-      <div class="col-sm-12">
-        {{ session.lastDayOfFinals | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="col-sm-12">
-        <b class="red">Final Grades</b>
-      </div>
-      <div class="col-sm-12">
-        {{ session.firstDayForFinalGrading | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-      <div class="col-sm-12">
-        {{ session.lastDayForFinalGrading | date:"MMM dd, yyyy" }}&nbsp;
-      </div>
-    </div>
-  </div>
+      </td>
+      <th>
+        <b>Classes</b>
+      </th>
+      <th>
+        <b>Session Break 1</b>
+      </th>
+      <th>
+        <b>Session Break 2</b>
+      </th>
+      <td>
+        <b>Finals</b>
+      </td>
+      <td>
+        <b>Final Grades</b>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <b>Start</b>
+      </th>
+      <td>
+        {{ session.firstDayOfClass | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.sessionBreakStart_1 | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.sessionBreakStart_2 | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.firstDayOfFinals | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <b>End</b>
+      </th>
+      <td>
+        {{ session.lastDayOfClass | date: "MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.sessionBreakEnd_1 | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.sessionBreakEnd_2 | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.lastDayOfFinals | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ session.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
+      </td>
+    </tr>
+  </table>
   <br />
   <div class="row" style="color:black;padding-top:10px;">
     <div class="col-md-1">
@@ -199,24 +196,31 @@
     <tr>
       <th>
         Fee Code &nbsp; &nbsp; &nbsp; &nbsp;
+      </th>
+      <th>
         Description &nbsp; &nbsp; &nbsp; &nbsp;
+      </th>
+      <th>
         Amount &nbsp; &nbsp; &nbsp; &nbsp;
+      </th>
+      <th>
         Assessed To &nbsp; &nbsp; &nbsp; &nbsp;
       </th>
     </tr>
-    <tr>
+    <tr *ngFor="let eachFee of session.specialFees">
       <td>
-        <ul>
-
-          <li  *ngFor="let eachFee in session.specialFees">
-            {{ eachFee.feeCode }} &nbsp; &nbsp; &nbsp; &nbsp;
-            {{ eachFee.feeCode }} &nbsp; &nbsp; &nbsp; &nbsp;
-            {{ eachFee.amount }} &nbsp; &nbsp; &nbsp; &nbsp;
-            {{ eachFee.assessedTo }} &nbsp; &nbsp; &nbsp; &nbsp;
-          </li>
-        </ul>
+        {{ eachFee.feeCode }} &nbsp; &nbsp; &nbsp; &nbsp;
       </td>
-  </tr>
+      <td>
+        {{ eachFee.feeCode }} &nbsp; &nbsp; &nbsp; &nbsp;
+      </td>
+      <td>
+        {{ eachFee.amount }} &nbsp; &nbsp; &nbsp; &nbsp;
+      </td>
+      <td>
+        {{ eachFee.assessedTo }} &nbsp; &nbsp; &nbsp; &nbsp;
+      </td>
+    </tr>
   </table>
 
 </body>
