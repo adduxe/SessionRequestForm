@@ -52,7 +52,7 @@ export class GidDataService extends BehaviorSubject<GridDataResult>{
   }
 
   public queryForPendingSessionRequest(actionName: string, state?: any): void {
-    this.query(actionName, Object.assign({}, state, {
+    /*this.query(actionName, Object.assign({}, state, {
       filter: {
         logic: 'or',
         filters: [
@@ -60,33 +60,65 @@ export class GidDataService extends BehaviorSubject<GridDataResult>{
           { field: 'status', operator: 'contains', value: 'Waiting for Fee' }
         ]
       }
-    }));
+    }));*/
+
+    const filters = {
+      filter: {
+        filters: [{ field: 'status', operator: 'contains', value: 'Waiting for Approval' },
+                  { field: 'status', operator: 'contains', value: 'Waiting for Fee' }
+        ],
+        logic: 'and'
+      }
+    };
+
+    const newState = { state, ...filters };
+    this.query(actionName, newState);
   }
 
   public queryForCategory({ CategoryID }: { CategoryID: number }, actionName: string, state?: any): void {
-    this.query(actionName, Object.assign({}, state, {
+    /*this.query(actionName, Object.assign({}, state, {
       filter: {
         filters: [{
           field: 'CategoryID', operator: 'eq', value: CategoryID
         }],
         logic: 'and'
       }
-    }));
+    }));*/
+
+    const filters = {
+      filter: {
+        filters: [{ field: 'CategoryID', operator: 'eq', value: CategoryID}],
+        logic: 'and'
+      }
+    };
+
+    const newState = { state, ...filters };
+    this.query(actionName, newState);
   }
 
-  public queryForProductName(productName: string, actionName:string, state?: any): void {
-    this.query(actionName, Object.assign({}, state, {
+  public queryForProductName(productName: string, actionName: string, state?: any): void {
+    const filters = {
+      filter: {
+        filters: [{ field: 'ProductName', operator: 'contains', value: productName}],
+        logic: 'and'
+      }
+    };
+
+    const newState = { state, ...filters };
+    this.query(actionName, newState);
+
+    /*this.query(actionName, Object.assign({}, state, {
       filter: {
         filters: [{
           field: 'ProductName', operator: 'contains', value: productName
         }],
         logic: 'and'
       }
-    }));
+    }));*/
   }
 
   public queryAll(actionName: string, st?: any): Observable<GridDataResult> {
-    const state = Object.assign({}, st);
+    const state = st; //Object.assign({}, st);
     delete state.skip;
     delete state.take;
 

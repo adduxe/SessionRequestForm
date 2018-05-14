@@ -71,5 +71,8 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
+<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+	<TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+	<TypeScriptEmitDecoratorMetadata>true</TypeScriptEmitDecoratorMetadata>
+</PropertyGroup>
 </Project>

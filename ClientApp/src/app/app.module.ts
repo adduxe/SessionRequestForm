@@ -12,10 +12,10 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
-import { SessionRequestListComponent } from './session-request-list/session-request-list.component'
-
 import { SessionRequestService } from './shared/services/sessionrequest.service';
+import { SessionRequestListComponent } from './session-request-list/session-request-list.component'
 import { RevisionListComponent } from './revision-list/revision-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { RevisionListComponent } from './revision-list/revision-list.component';
     CounterComponent,
     FetchDataComponent,
     SessionRequestListComponent,
-    RevisionListComponent
+    RevisionListComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,10 +34,11 @@ import { RevisionListComponent } from './revision-list/revision-list.component';
     FormsModule,
     GridModule,
     RouterModule.forRoot([
-      { path: '', component: SessionRequestListComponent, pathMatch: 'full' },
+      { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'srlist', component: SessionRequestListComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'srlist/:operation', component: SessionRequestListComponent },
     ])
   ],
   providers: [

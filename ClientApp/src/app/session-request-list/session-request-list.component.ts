@@ -1,4 +1,6 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { process, State } from '@progress/kendo-data-query';
 import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
@@ -12,6 +14,8 @@ import { SessionRequestService } from '../shared/services/sessionrequest.service
   styleUrls: ['./session-request-list.component.css']
 })
 export class SessionRequestListComponent implements OnInit {
+  private sub: any;
+  private operation: string;
   public gridData: GridDataResult;
   public sessionRequestList: SessionRequest[];
   @ViewChild(GridComponent) grid: GridComponent;
@@ -30,12 +34,15 @@ export class SessionRequestListComponent implements OnInit {
     }
   };
 
-  constructor(private sessionRequestService: SessionRequestService) { }
+  constructor(private route: ActivatedRoute, private sessionRequestService: SessionRequestService) { }
 
   ngOnInit() {
-    this.sessionRequestList = mockSessionRequests;
-    this.getSessionRequest();
-    //this.gridData = process(this.sessionRequestList, this.state);
+    this.sub = this.route.params.subscribe(params => {
+      this.operation = params['operation'];
+      this.sessionRequestList = mockSessionRequests;
+      this.getSessionRequest();
+      //this.gridData = process(this.sessionRequestList, this.state);
+    });
   }
 
   public ngAfterViewInit(): void {
@@ -50,6 +57,10 @@ export class SessionRequestListComponent implements OnInit {
   getSessionRequest() {
     this.sessionRequestService.getAllSessionRequest().subscribe(res => {
       this.sessionRequestList = res;
+      if (this.operation == 'all') {
+        delete this.state.filter;
+      }
+
       this.gridData = process(this.sessionRequestList, this.state);
     }, error => console.error(error));
   }
