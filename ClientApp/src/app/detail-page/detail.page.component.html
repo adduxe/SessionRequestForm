@@ -5,15 +5,9 @@
     <title>Detail Page</title>
 </head>
 <body>
-  <h1>Detail Page</h1>
+  <h1 style="color: #cca300;">Detail Page</h1>
 
-  <!--<b>{{ sampleVar }}</b>
-
-  <ul>
-    <li *ngFor="let fee of specialFees">{{ fee.feeCode }}  {{ fee.amount }}</li>
-  </ul>-->
-
-  <table class="table">
+  <table class="table table-hover">
     <tr style="color: red;">
       <th>
         <h4>Semester</h4>
@@ -64,67 +58,71 @@
 
   <br />
 
-  <table class="table">
-    <tr style="color: red;">
-      <td>
-        &nbsp;
-      </td>
-      <th>
-        <b>Classes</b>
-      </th>
-      <th>
-        <b>Session Break 1</b>
-      </th>
-      <th>
-        <b>Session Break 2</b>
-      </th>
-      <td>
-        <b>Finals</b>
-      </td>
-      <td>
-        <b>Final Grades</b>
-      </td>
-    </tr>
-    <tr>
-      <th>
-        <b>Start</b>
-      </th>
-      <td>
-        {{ session.firstDayOfClass | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.sessionBreakStart_1 | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.sessionBreakStart_2 | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.firstDayOfFinals | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        <b>End</b>
-      </th>
-      <td>
-        {{ session.lastDayOfClass | date: "MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.sessionBreakEnd_1 | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.sessionBreakEnd_2 | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.lastDayOfFinals | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ session.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
-      </td>
-    </tr>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr style="color: red;">
+        <td>
+          &nbsp;
+        </td>
+        <th>
+          <b>Classes</b>
+        </th>
+        <th>
+          <b>Session Break 1</b>
+        </th>
+        <th>
+          <b>Session Break 2</b>
+        </th>
+        <td>
+          <b>Finals</b>
+        </td>
+        <td>
+          <b>Final Grades</b>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <b>Start</b>
+        </th>
+        <td>
+          {{ session.firstDayOfClass | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.sessionBreakStart_1 | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.sessionBreakStart_2 | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.firstDayOfFinals | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <b>End</b>
+        </th>
+        <td>
+          {{ session.lastDayOfClass | date: "MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.sessionBreakEnd_1 | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.sessionBreakEnd_2 | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.lastDayOfFinals | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ session.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
+        </td>
+      </tr>
+    </tbody>
   </table>
   <br />
   <div class="row" style="color:black;padding-top:10px;">
@@ -132,32 +130,45 @@
       &nbsp;
     </div>
     <div class="col-md-3">
-      <b class="red">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
+      <b style="color: red;">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
     </div>
     <div class="col-md-3">
-      <b class="red">Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
+      <b style="color: red;">Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
     </div>
     <div class="col-md-4">
-      <b class="red">Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
+      <b style="color: red;">Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
     </div>
   </div>
-  <div class="row" style="color:black;padding-top:10px;">
-    <div class="col-md-1">
-      &nbsp;
-    </div>
-    <div class="col-md-3">
-      <b class="red">Classes held on campus?</b>&nbsp;&nbsp;{{ session.isClassHeldAtUpc ? 'Yes' : 'No' }}
-    </div>
-    <div class="col-md-3">
-      <b class="red">Campus Location</b>&nbsp;&nbsp;{{ campusName }}
-    </div>
-    <div class="col-md-4">
-      <b class="red">Other Campus:</b>&nbsp;&nbsp;{{ session.otherCampusLocation }}
-    </div>
-  </div>
+  <br />
+  <table class="table table-hover">
+    <tr style="color: red;">
+      <th>
+        Campus
+      </th>
+      <th>
+        Start Date
+      </th>
+      <th>
+        End Date
+      </th>
+    </tr>
+    <tr *ngFor="let eachLocation of session.classLocations">
+      <td>
+        {{ eachLocation.location }}
+      </td>
+      <td>
+        {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
+      </td>
+      <td>
+        {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
+      </td>
+    </tr>
+  </table>
+
   <br>
+
   <table class="table table-bordered table-hover">
-    <thead>
+    <thead style="color: red;">
       <tr class="red">
         <th rowspan="2">Rate Type</th>
         <th rowspan="2">Rate per Unit</th>
@@ -185,40 +196,42 @@
     <tbody>
   </table>
   <article>
-    <h4 class="red">Comments:</h4>
+    <h4 style="color:red;">Comments:</h4>
     <p>{{ session.comments }}</p>
   </article>
 
-  <table class="table" align="center">
-    <tr>
-      <th class="red" colspan="4"><h3>Special Fees</h3></th>
-    </tr>
-    <tr>
-      <th>
-        Fee Code &nbsp; &nbsp; &nbsp; &nbsp;
-      </th>
-      <th>
-        Description &nbsp; &nbsp; &nbsp; &nbsp;
-      </th>
-      <th>
-        Amount &nbsp; &nbsp; &nbsp; &nbsp;
-      </th>
-      <th>
-        Assessed To &nbsp; &nbsp; &nbsp; &nbsp;
-      </th>
-    </tr>
+  <table class="table table-hover">
+    <thead style="color:red;">
+      <tr>
+        <th class="red" colspan="4"><h3>Special Fees</h3></th>
+      </tr>
+      <tr>
+        <th>
+          Fee Code
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Amount
+        </th>
+        <th>
+          Assessed To
+        </th>
+      </tr>
+    </thead>
     <tr *ngFor="let eachFee of session.specialFees">
       <td>
-        {{ eachFee.feeCode }} &nbsp; &nbsp; &nbsp; &nbsp;
+        {{ eachFee.feeCode }}
       </td>
       <td>
-        {{ eachFee.feeCode }} &nbsp; &nbsp; &nbsp; &nbsp;
+        {{ eachFee.feeCode }}
       </td>
       <td>
-        {{ eachFee.amount }} &nbsp; &nbsp; &nbsp; &nbsp;
+        {{ eachFee.amount }}
       </td>
       <td>
-        {{ eachFee.assessedTo }} &nbsp; &nbsp; &nbsp; &nbsp;
+        {{ eachFee.assessedTo }}
       </td>
     </tr>
   </table>

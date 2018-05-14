@@ -7,14 +7,6 @@ import { Component } from '@angular/core';
 
 export class DetailPageComponent {
 
-  public sampleVar = 1000;
-
-
-  public specialFees = [
-    { feeCode: 'M101', amount: 100 },
-    { feeCode: 'T505', amount: 500 }
-  ];
-
   public session = {
       sessionBreaks: [],
       specialFees: [
@@ -40,7 +32,6 @@ export class DetailPageComponent {
             amount: 666
           }
       ],
-      submissions: [],
       requestId: 10421,
       lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
       academicTerm: "20183",
@@ -59,9 +50,23 @@ export class DetailPageComponent {
       firstDayForFinalGrading: "2018-05-20T00:00:00",
       lastDayForFinalGrading: "2018-06-01T00:00:00",
       lastDayForEnrollmentOptionChange: "2018-04-10T00:00:00",
-      isClassHeldAtUpc: false,
-      uscCampusLocation: "CAT",
-      otherCampusLocation: "",
+      classLocations: [
+        {
+          location: "Catalina Island",
+          startDate: "2018-04-01T00:00:00",
+          endDate: "2018-04-10T00:00:00"
+        },
+        {
+          location: "Health Science Campus",
+          startDate: "2018-04-01T00:00:00",
+          endDate: "2018-04-10T00:00:00"
+        },
+        {
+          location: "Marina del Rey",
+          startDate: "2018-04-01T00:00:00",
+          endDate: "2018-04-10T00:00:00"
+        }
+      ],
       rateType: "BKNPT1",
       ratePerUnitAmount: 1863,
       flatRateAmount: 33695,
