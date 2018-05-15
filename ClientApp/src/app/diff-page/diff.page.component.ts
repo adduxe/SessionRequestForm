@@ -15,8 +15,6 @@ let sampMethod = function sampleMethod() {
 
 export class DiffPageComponent {
 
-  public sampMethod sampleMethod();
-
   public currSession = {
     sessionBreaks: [],
     specialFees: [
