@@ -15,7 +15,7 @@ let sampMethod = function sampleMethod() {
 
 export class DiffPageComponent {
 
-  public currSession = {
+  public currSess = {
     sessionBreaks: [],
     specialFees: [
       {
@@ -86,7 +86,7 @@ export class DiffPageComponent {
     comments: "Catalina\nM22520001\nM225\nM19920063"
   };
 
-  public prevSession = {
+  public prevSess = {
     sessionBreaks: [],
     specialFees: [
       {

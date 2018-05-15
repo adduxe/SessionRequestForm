@@ -27,12 +27,152 @@
 
 
   <div class="row">
-    <div class="col-md-6 deleted" id="newRev">
-      New Revision
-    </div>
-    <div class="col-md-6 added" id="oldRev">
-      Old Revision
-    </div>
+    <table class="table table-hover">
+      <tr>
+        <th>Field Name</th>
+        <th>Current Value</th>
+        <th>Previous Value</th>
+      </tr>
+      <tr>
+        <th>Academic Term</th>
+        <td>{{ currSess.academicTerm }}</td>
+        <td>{{ prevSess.academicTerm }}</td>
+      </tr>
+      <tr>
+        <th>Session Code</th>
+        <td>{{ currSess.sessionCode }}</td>
+        <td>{{ prevSess.sessionCode }}</td>
+      </tr>
+      <tr>
+        <th>Owning School</th>
+        <td>{{ currSess.owningSchool }}</td>
+        <td>{{ prevSess.owningSchool }}</td>
+      </tr>
+      <tr>
+        <th>Owning Department</th>
+        <td>{{ currSess.owningDepartment }}</td>
+        <td>{{ prevSess.owningDepartment }}</td>
+      </tr>
+      <tr>
+        <th>User Contact</th>
+        <td>{{ currSess.userContact }}</td>
+        <td>{{ prevSess.userContact }}</td>
+      </tr>
+      <tr>
+        <th>User Email</th>
+        <td>{{ currSess.userEmail }}</td>
+        <td>{{ prevSess.userEmail }}</td>
+      </tr>
+      <tr>
+        <th>User Phone</th>
+        <td>{{ currSess.userPhone }}</td>
+        <td>{{ prevSess.userPhone }}</td>
+      </tr>
+      <tr>
+        <th>First Day of Class</th>
+        <td>{{ currSess.firstDayOfClass | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.firstDayOfClass | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>Last Day of Class</th>
+        <td>{{ currSess.lastDayOfClass | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.lastDayOfClass | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>Last Day for Adding/Dropping Classes</th>
+        <td>{{ currSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>Last Day for Class Withdrawal</th>
+        <td>{{ currSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>First Day of Finals</th>
+        <td>{{ currSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>Last Day of Finals</th>
+        <td>{{ currSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>First Day for Final Grading</th>
+        <td>{{ currSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <th>Last Day for Final Grading</th>
+        <td>{{ currSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
+        <td>{{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered">
+            <tr>
+              <th>Class Location</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <tr *ngFor="let eachLoc of currSess.classLocations">
+              <th>{{ eachLoc.location }}</th>
+              <th>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</th>
+              <th>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</th>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-hover">
+            <tr *ngFor="let eachLoc of prevSess.classLocations">
+              <th>{{ eachLoc.location }}</th>
+              <th>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</th>
+              <th>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <th>Rate Type</th>
+        <td>{{ currSess.rateType }}</td>
+        <td>{{ prevSess.rateType }}</td>
+      </tr>
+      <tr>
+        <th>Rate Per Unit Amount</th>
+        <td>{{ currSess.ratePerUnitAmount }}</td>
+        <td>{{ prevSess.ratePerUnitAmount }}</td>
+      </tr>
+      <tr>
+        <th>Flat Rate Amount</th>
+        <td>{{ currSess.flatRateAmount }}</td>
+        <td>{{ prevSess.flatRateAmount }}</td>
+      </tr>
+      <tr>
+        <th>Undergraduate Flat Rate Units (Min.)</th>
+        <td>{{ currSess.flatRateUnitsMin }}</td>
+        <td>{{ prevSess.flatRateUnitsMin }}</td>
+      </tr>
+      <tr>
+        <th>Undergraduate Flat Rate Units (Max.)</th>
+        <td>{{ currSess.flatRateUnitsMax }}</td>
+        <td>{{ prevSess.flatRateUnitsMax }}</td>
+      </tr>
+      <tr>
+        <th>Graduate Flat Rate Units (Min.)</th>
+        <td>{{ currSess.gradFlatRateUnitsMin }}</td>
+        <td>{{ prevSess.gradFlatRateUnitsMin }}</td>
+      </tr>
+      <tr>
+        <th>Graduate Flat Rate Units (Max.)</th>
+        <td>{{ currSess.gradFlatRateUnitsMax }}</td>
+        <td>{{ prevSess.gradFlatRateUnitsMax }}</td>
+      </tr>
+    </table>
   </div>
 </body>
 </html>
