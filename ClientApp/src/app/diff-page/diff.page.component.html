@@ -7,7 +7,7 @@
   <style>
 
     .added {
-      background-color: green;
+      background-color: lightgreen;
     }
 
     .changed {
@@ -20,12 +20,8 @@
   </style>
 
 </head>
+
 <body>
-  <table>
-
-  </table>
-
-
   <div class="row">
     <table class="table table-hover">
       <tr>
@@ -109,38 +105,9 @@
         <td>{{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
-        <td>
-          <table class="table table-bordered">
-            <tr>
-              <th>Class Location</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table class="table table-bordered">
-            <tr *ngFor="let eachLoc of currSess.classLocations">
-              <th>{{ eachLoc.location }}</th>
-              <th>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</th>
-              <th>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</th>
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table class="table table-hover">
-            <tr *ngFor="let eachLoc of prevSess.classLocations">
-              <th>{{ eachLoc.location }}</th>
-              <th>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</th>
-              <th>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</th>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
         <th>Rate Type</th>
-        <td>{{ currSess.rateType }}</td>
-        <td>{{ prevSess.rateType }}</td>
+        <td class="changed">{{ currSess.rateType }}</td>
+        <td class="changed">{{ prevSess.rateType }}</td>
       </tr>
       <tr>
         <th>Rate Per Unit Amount</th>
@@ -171,6 +138,110 @@
         <th>Graduate Flat Rate Units (Max.)</th>
         <td>{{ currSess.gradFlatRateUnitsMax }}</td>
         <td>{{ prevSess.gradFlatRateUnitsMax }}</td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered">
+            <tr>
+              <td align="center" colspan="3">
+                <b>Class Locations</b>
+              </td>
+            </tr>
+            <tr>
+              <th>Class Location</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <tr *ngFor="let eachLoc of currSess.classLocations">
+              <td class="changed">{{ eachLoc.location }}</td>
+              <td class="changed">{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
+              <td class="changed">{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-hover">
+            <tr *ngFor="let eachLoc of prevSess.classLocations">
+              <td class="changed">{{ eachLoc.location }}</td>
+              <td class="changed">{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
+              <td class="changed">{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered">
+            <tr>
+              <td colspan="3" align="center">
+                <b>Special Fees</b>
+              </td>
+            </tr>
+            <tr>
+              <th>Fee Code</th>
+              <th>Amount</th>
+              <th>Assessed To</th>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <tr *ngFor="let eachFee of currSess.specialFees">
+              <td>{{ eachFee.feeCode }}</td>
+              <td>{{ eachFee.amount }}</td>
+              <td>{{ eachFee.assessedTo }}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <tr *ngFor="let eachFee of prevSess.specialFees">
+              <td class="deleted">{{ eachFee.feeCode }}</td>
+              <td class="deleted">{{ eachFee.amount }}</td>
+              <td class="deleted">{{ eachFee.assessedTo }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered">
+            <tr>
+              <td align="center" colspan="2">
+                <b>Session Breaks</b>
+              </td>
+            </tr>
+            <tr>
+              <th>Begin Date</th>
+              <th>End Date</th>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <tr *ngFor="let eachBreak of currSess.sessionBreaks">
+              <td class="added">{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
+              <td class="added">{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <tr *ngFor="let eachBreak of prevSess.sessionBreaks">
+              <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
+              <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <th>Comments</th>
+        <td>{{ currSess.comments }}</td>
+        <td>{{ prevSess.comments }}</td>
       </tr>
     </table>
   </div>

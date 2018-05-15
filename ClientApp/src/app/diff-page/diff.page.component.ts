@@ -16,30 +16,23 @@ let sampMethod = function sampleMethod() {
 export class DiffPageComponent {
 
   public currSess = {
-    sessionBreaks: [],
-    specialFees: [
+    sessionBreaks: [
       {
-        feeId: 28,
-        requestId: 10421,
-        feeCode: "M22520001",
-        assessedTo: "U",
-        amount: 777
+        id: 1022,
+        lastUpdateTimeStamp: "2017-05-16T10:31:02.033",
+        startDate: "2017-05-15T00:00:00",
+        endDate: "2017-05-16T00:00:00",
+        requestId: 1092
       },
       {
-        feeId: 29,
-        requestId: 10421,
-        feeCode: "M225",
-        assessedTo: "G",
-        amount: 888
-      },
-      {
-        feeId: 30,
-        requestId: 10421,
-        feeCode: "M19920063",
-        assessedTo: "B",
-        amount: 666
+        id: 1023,
+        lastUpdateTimeStamp: "2017-05-16T10:31:02.033",
+        startDate: "2017-05-08T00:00:00",
+        endDate: "2017-05-09T00:00:00",
+        requestId: 1092
       }
     ],
+    specialFees: [],
     requestId: 10421,
     lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
     academicTerm: "20183",
@@ -141,12 +134,12 @@ export class DiffPageComponent {
         endDate: "2018-04-10T00:00:00"
       },
       {
-        location: "Marina del Rey",
-        startDate: "2018-04-01T00:00:00",
-        endDate: "2018-04-10T00:00:00"
+        location: "",
+        startDate: "",
+        endDate: ""
       }
     ],
-    rateType: "BKNPT1",
+    rateType: "BKNPT2",
     ratePerUnitAmount: 1863,
     flatRateAmount: 33695,
     flatRateUnitsMin: 1,
