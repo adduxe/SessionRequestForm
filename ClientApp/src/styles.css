@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+/** Start of styles for Detail page  */
+.contactSection {
+  background-color: aliceblue;
+}
+
+.datesSection {
+  background-color: antiquewhite;
+}
+
+/** End of styles for Detail page  */
+
+/** Start of styles for Diff page  */
+
+.added {
+  background-color: lightgreen;
+}
+
+.changed {
+  background-color: yellow;
+}
+
+.deleted {
+  background-color: rgb(252, 216, 217);
+}
+
+/** End of styles for Diff page  */

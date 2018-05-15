@@ -76,7 +76,7 @@ export class DiffPageComponent {
     gradFlatRateUnitsMin: 1,
     gradFlatRateUnitsMax: 2,
     requestDate: "2018-04-18T15:20:52.643",
-    comments: "Catalina\nM22520001\nM225\nM19920063"
+    comments: "Changed the rate type, Class Locations, and Special Fee Fields."
   };
 
   public prevSess = {
