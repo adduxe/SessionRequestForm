@@ -9,7 +9,7 @@
             [selectable]="true"
             [kendoGridSelectBy]="'sessionRequestID'"
             [selectedKeys]="mySelection"
-            (selectionChange)="dataSelectionChange($event)">
+            (selectionChange)="dataSelectionChange($event)"
             (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="term" title="Term"></kendo-grid-column>
   <kendo-grid-column field="sessionCode" title="Session Code"></kendo-grid-column>

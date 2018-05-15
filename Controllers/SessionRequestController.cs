@@ -59,7 +59,7 @@ namespace SessionRequest.Controllers
             {
                 VersionNumber = 0,
                 Action = "Create",
-                ActionBy = "lipan",
+                ActionBy = "sebastianw",
                 ActionDate = DateTime.Parse("Aug 1, 2016")
             };
             MSessionRequestRevision sessionRequestRevision4 = new MSessionRequestRevision
@@ -115,6 +115,99 @@ namespace SessionRequest.Controllers
             };
 
             sessionRequests.Add(sessionRequest2);
+
+            List<MSessionRequestRevision> sessionRequestRevisions4 = new List<MSessionRequestRevision>();
+            MSessionRequestRevision sessionRequestRevision7 = new MSessionRequestRevision
+            {
+                VersionNumber = 0,
+                Action = "Create",
+                ActionBy = "lipan",
+                ActionDate = DateTime.Parse("Aug 1, 2017")
+            };
+            MSessionRequestRevision sessionRequestRevision8 = new MSessionRequestRevision
+            {
+                VersionNumber = 1,
+                Action = "Modify",
+                ActionBy = "anthonyd",
+                ActionDate = DateTime.Parse("Sep 1, 2017")
+            };
+            sessionRequestRevisions4.Add(sessionRequestRevision7);
+            sessionRequestRevisions4.Add(sessionRequestRevision8);
+            MSessionRequest sessionRequest3 = new MSessionRequest
+            {
+                SessionRequestID = 2138,
+                SessionCode = "20171-136",
+                Term = "20171",
+                Status = "Denied",
+                Owner = "lipan",
+                LateChange = false,
+                OwnerChanged = false,
+                Revisions = sessionRequestRevisions4
+            };
+
+            sessionRequests.Add(sessionRequest3);
+
+            List<MSessionRequestRevision> sessionRequestRevisions9 = new List<MSessionRequestRevision>();
+            MSessionRequestRevision sessionRequestRevision9 = new MSessionRequestRevision
+            {
+                VersionNumber = 0,
+                Action = "Create",
+                ActionBy = "sebastianw",
+                ActionDate = DateTime.Parse("Aug 1, 2016")
+            };
+            MSessionRequestRevision sessionRequestRevision10 = new MSessionRequestRevision
+            {
+                VersionNumber = 1,
+                Action = "Modify",
+                ActionBy = "anthonyd",
+                ActionDate = DateTime.Parse("Sep 1, 2016")
+            };
+            sessionRequestRevisions9.Add(sessionRequestRevision9);
+            sessionRequestRevisions9.Add(sessionRequestRevision10);
+            MSessionRequest sessionRequest6 = new MSessionRequest
+            {
+                SessionRequestID = 2145,
+                SessionCode = "20164-123",
+                Term = "20164",
+                Status = "Waiting for Approval",
+                Owner = "sebastianw",
+                LateChange = false,
+                OwnerChanged = true,
+                Revisions = sessionRequestRevisions9
+            };
+
+            sessionRequests.Add(sessionRequest6);
+
+            List<MSessionRequestRevision> sessionRequestRevisions10 = new List<MSessionRequestRevision>();
+            MSessionRequestRevision sessionRequestRevision11 = new MSessionRequestRevision
+            {
+                VersionNumber = 0,
+                Action = "Create",
+                ActionBy = "anthonyd",
+                ActionDate = DateTime.Parse("Dec 1, 2016")
+            };
+            MSessionRequestRevision sessionRequestRevision12 = new MSessionRequestRevision
+            {
+                VersionNumber = 1,
+                Action = "Modify",
+                ActionBy = "anthonyd",
+                ActionDate = DateTime.Parse("Jan 1, 2017")
+            };
+            sessionRequestRevisions10.Add(sessionRequestRevision12);
+            sessionRequestRevisions10.Add(sessionRequestRevision11);
+            MSessionRequest sessionRequest7 = new MSessionRequest
+            {
+                SessionRequestID = 2146,
+                SessionCode = "20174-111",
+                Term = "20174",
+                Status = "Waiting for Rate",
+                Owner = "anthonyd",
+                LateChange = false,
+                OwnerChanged = true,
+                Revisions = sessionRequestRevisions10
+            };
+
+            sessionRequests.Add(sessionRequest7);
 
             return sessionRequests;
      }

@@ -22,3 +22,9 @@
     </tr>
   </tbody>
 </table>
+<div *ngIf="sessionRequest">
+  {{sessionRequest.term}}<br />
+  {{sessionRequest.sessionCode}}<br />
+  {{sessionRequest.sessionRequestID}}<br />
+</div>
+<button class="button" (click)="goBack()">Back</button>

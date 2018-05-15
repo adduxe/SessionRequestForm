@@ -1,6 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { process, State } from '@progress/kendo-data-query';
 import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
@@ -19,12 +18,14 @@ export class SessionRequestListComponent implements OnInit {
 
   public gridData: GridDataResult;
   public sessionRequestList: SessionRequest[];
+  public currentSessionRequest: SessionRequest;
+
   @ViewChild(GridComponent) grid: GridComponent;
 
-  public mySelection: number[] = [2137];
+  public mySelection: number[] = [];
   public state: State = {
     skip: 0,
-    take: 5,
+    take: 3,
 
     // Initial filter descriptor
     filter: {
@@ -36,19 +37,26 @@ export class SessionRequestListComponent implements OnInit {
     }
   };
 
-  constructor(private route: ActivatedRoute, private sessionRequestService: SessionRequestService) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private sessionRequestService: SessionRequestService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.operation = params['operation'];
       //this.sessionRequestList = mockSessionRequests;
       this.getSessionRequest();
+      this.sessionRequestService.currentSessionRequest.subscribe(sr => this.currentSessionRequest = sr);
+      if (this.currentSessionRequest != null)
+      {
+        this.mySelection = [this.currentSessionRequest.sessionRequestID];
+      }
     });
   }
 
   public ngAfterViewInit(): void {
     // Expand the first row initially
-    this.grid.expandRow(0);
+    //this.grid.expandRow(0);
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
@@ -71,5 +79,6 @@ export class SessionRequestListComponent implements OnInit {
     const selectedData = selection.selectedRows[0].dataItem;
     this.sessionRequestService.changeSessionRequest(selectedData);
     console.log(selectedData);
+    this.router.navigate(['/fetch-data']);
   }
 }
