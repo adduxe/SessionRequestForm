@@ -9,6 +9,22 @@
   background-color: antiquewhite;
 }
 
+.classSection {
+  background-color: aquamarine;
+}
+
+.ratesSection {
+  background-color: aliceblue;
+}
+
+.specialFeeSection {
+  background-color: antiquewhite;
+}
+
+.commentsSection {
+  background-color: aquamarine;
+}
+
 /** End of styles for Detail page  */
 
 /** Start of styles for Diff page  */
