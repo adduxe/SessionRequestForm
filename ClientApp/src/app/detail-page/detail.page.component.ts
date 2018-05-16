@@ -7,9 +7,12 @@ import { Component } from '@angular/core';
 
 export class DetailPageComponent {
 
-  public session = {
-      sessionBreaks: [],
-      specialFees: [
+  session = {
+    sessionBreakStart_1: "2018-04-1T15:20:52.657",
+    sessionBreakEnd_1: "2018-04-5T15:20:52.657",
+    sessionBreakStart_2: "2018-04-20T15:20:52.657",
+    sessionBreakEnd_2: "2018-04-25T15:20:52.657",
+    specialFees: [
           {
             feeId: 28,
             requestId: 10421,
@@ -76,106 +79,6 @@ export class DetailPageComponent {
       gradFlatRateUnitsMax: 2,
       requestDate: "2018-04-18T15:20:52.643",
       comments: "Catalina\nM22520001\nM225\nM19920063"
-    };
-}
+  };
 
-/*
- *
-{
-  "submissionId": 0,
-  "lastUpdatedTimeStamp": "2018-05-10T21:00:45.434Z",
-  "faoAction": "string",
-  "faoActionDate": "2018-05-10T21:00:45.434Z",
-  "faoActionReason": "string",
-  "rnrAction": "string",
-  "rnrActionDate": "2018-05-10T21:00:45.434Z",
-  "rnrActionReason": "string",
-  "burAction": "string",
-  "burActionDate": "2018-05-10T21:00:45.434Z",
-  "burActionReason": "string",
-  "requestId": 0,
-  "session": {
-    "requestId": 0,
-    "lastUpdateTimeStamp": "2018-05-10T21:00:45.434Z",
-    "academicTerm": "string",
-    "sessionCode": "string",
-    "owningSchool": "string",
-    "owningDepartment": "string",
-    "userContact": "string",
-    "userEmail": "string",
-    "userPhone": "string",
-    "firstDayOfClass": "2018-05-10T21:00:45.434Z",
-    "lastDayOfClass": "2018-05-10T21:00:45.434Z",
-    "lastDayForAddDrop": "2018-05-10T21:00:45.434Z",
-    "lastDayForWithdrawal": "2018-05-10T21:00:45.434Z",
-    "firstDayOfFinals": "2018-05-10T21:00:45.434Z",
-    "lastDayOfFinals": "2018-05-10T21:00:45.434Z",
-    "firstDayForFinalGrading": "2018-05-10T21:00:45.434Z",
-    "lastDayForFinalGrading": "2018-05-10T21:00:45.434Z",
-    "lastDayForEnrollmentOptionChange": "2018-05-10T21:00:45.434Z",
-    "isClassHeldAtUpc": true,
-    "uscCampusLocation": "string",
-    "otherCampusLocation": "string",
-    "rateType": "string",
-    "ratePerUnitAmount": 0,
-    "flatRateAmount": 0,
-    "flatRateUnitsMin": 0,
-    "flatRateUnitsMax": 0,
-    "gradFlatRateUnitsMin": 0,
-    "gradFlatRateUnitsMax": 0,
-    "requestDate": "2018-05-10T21:00:45.434Z",
-    "comments": "string",
-    "sections": [
-      {
-        "sectionId": 0,
-        "lastUpdateTimeStamp": "2018-05-10T21:00:45.434Z",
-        "sectionNumber": "string",
-        "requestId": 0,
-        "prefix": "string",
-        "title": "string",
-        "courseNumber": "string",
-        "unitValue": 0,
-        "instructorName": "string",
-        "estimatedEnrollment": 0,
-        "comments": "string",
-        "incomeAccountNumber": 0,
-        "schedules": [
-          {
-            "scheduleId": 0,
-            "lastUpdateTimeStamp": "2018-05-10T21:00:45.434Z",
-            "sectionId": 0,
-            "classDayOfWeek": "string",
-            "classStartTime": "string",
-            "classEndTime": "string",
-            "section": {}
-          }
-        ],
-        "session": {}
-      }
-    ],
-    "sessionBreaks": [
-      {
-        "id": 0,
-        "lastUpdateTimeStamp": "2018-05-10T21:00:45.434Z",
-        "startDate": "2018-05-10T21:00:45.434Z",
-        "endDate": "2018-05-10T21:00:45.434Z",
-        "requestId": 0,
-        "session": {}
-      }
-    ],
-    "submissions": [
-      {}
-    ],
-    "specialFees": [
-      {
-        "feeId": 0,
-        "requestId": 0,
-        "feeCode": "string",
-        "assessedTo": "string",
-        "amount": 0
-      }
-    ]
-  }
 }
- *
-*/
