@@ -80,38 +80,36 @@ let shallow = function (a, b, compare) {
 }
 
 enum SESS {
-  NOTHING = 0,
-  ACADTERM = 1,
-  SESSCODE = 2,
-  OWNSCHOOL = 3,
-  OWNDEPT = 4,
-  USERCONTACT = 5,
-  USEREMAIL = 6,
-  USERPHONE = 7,
-  CLASSFIRSTDAY = 8,
-  CLASSLASTDAY = 9,
-  DROPLASTDAY = 10,
-  WITHDRAWLASTDAY = 11,
-  FINALSFIRSTDAY = 12,
-  FINALSLASTDAY = 13,
-  GRADESFIRSTDAY = 14,
-  GRADESLASTDAY = 15,
-  RATETYPE = 16,
-  PERUNITAMOUNT = 17,
-  FLATRATEAMOUNT = 18,
-  UGRADUNITSMIN = 19,
-  UGRADUNITSMAX = 20,
-  GRADUNITSMIN = 21,
-  GRADUNITSMAX = 22,
-  CLASSLOCATION = 23,
-  SPECIALFEES = 24,
-  SESSIONBREAKS = 25,
-  COMMENTS = 26
+  ACADTERM      = 0,
+  SESSCODE      = 1,
+  OWNSCHOOL     = 2,
+  OWNDEPT       = 3,
+  USERCONTACT   = 4,
+  USEREMAIL     = 5,
+  USERPHONE     = 6,
+  CLASSFIRSTDAY = 7,
+  CLASSLASTDAY  = 8,
+  DROPLASTDAY   = 9,
+  WITHDRAWLASTDAY = 10,
+  FINALSFIRSTDAY  = 11,
+  FINALSLASTDAY = 12,
+  GRADESFIRSTDAY  = 13,
+  GRADESLASTDAY = 14,
+  RATETYPE      = 15,
+  PERUNITAMOUNT = 16,
+  FLATRATEAMOUNT = 17,
+  UGRADUNITSMIN = 18,
+  UGRADUNITSMAX = 19,
+  GRADUNITSMIN  = 20,
+  GRADUNITSMAX  = 21,
+  CLASSLOCATION = 22,
+  SPECIALFEES   = 23,
+  SESSIONBREAKS = 24,
+  COMMENTS      = 25
 }
 
 enum DIFF {
-  SAME = 0,
-  NEW = 1,
+  NEW     = 1,
   CHANGED = 2,
   DELETED = 3,
 }
@@ -125,7 +123,34 @@ enum DIFF {
 
 export class DiffPageComponent {
 
-  diffArr: boolean[][] = [[false, false, false, false], [false, false, false, false]];
+  diffArr: boolean[][] = [    // Need to initialize the array or else the HTML will error out.
+    [false, false, false],   // Acad term
+    [false, false, false],   // Session Code
+    [false, false, false],   // Owning School
+    [false, false, false],   // Owning Department
+    [false, false, false],   // User Contact
+    [false, false, false],   // User Email
+    [false, false, false],   // User Phone
+    [false, false, false],   // First Day of Classes
+    [false, false, false],   // Last Day of Classes
+    [false, false, false],   // Last Day to Add/Drop Classes
+    [false, false, false],   // Last Day to Withdraw Classes
+    [false, false, false],   // First Day of Finals
+    [false, false, false],   // Last Day of Finals
+    [false, false, false],   // First Day for Grading
+    [false, false, false],   // Last Day for Grading
+    [false, false, false],   // Rate Type
+    [false, false, false],   // Rate per Unit Amount
+    [false, false, false],   // Flate rate Amount
+    [false, false, false],   // Undergrad Units Min
+    [false, false, false],   // Undergrad Units Max
+    [false, false, false],   // Grad Units Min
+    [false, false, false],   // Grad Units Max
+    [false, false, false],   // Class Location
+    [false, false, false],   // Session Breaks
+    [false, false, false],   // Special Fees
+    [false, false, false]    // Comments
+  ];
 
   DIFF = DIFF;    // to export the DIFF enum to the HTML
   SESS = SESS;    // to export the SESS enum to the HTML
