@@ -6,6 +6,7 @@ import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { SessionRequest } from '../models/sessionrequest';
+import { SessionRequestState } from '../models/sessionrequeststate';
 
 @Injectable()
 export class SessionRequestService {
@@ -13,7 +14,7 @@ export class SessionRequestService {
   options: RequestOptions;
   url: string;
 
-  private srSource = new BehaviorSubject<SessionRequest>(null);
+  private srSource = new BehaviorSubject<SessionRequestState>(null);
   currentSessionRequest = this.srSource.asObservable();
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -24,13 +25,19 @@ export class SessionRequestService {
     this.url = baseUrl;
   }
 
-  changeSessionRequest(sessionRequest: SessionRequest) {
-    this.srSource.next(sessionRequest);
+  changeSessionRequest(sessionRequestState: SessionRequestState) {
+    this.srSource.next(sessionRequestState);
   }
 
   getAllSessionRequest(): Observable<SessionRequest[]> {
     console.log(this.url + 'api/SessionRequest/GetSessionRequests');
     return this.http.get(this.url + 'api/SessionRequest/GetSessionRequests')
+      .catch(this.handleError);
+  }
+
+  getPendingSessionRequest(): Observable<SessionRequest[]> {
+    console.log(this.url + 'api/SessionRequest/GetPendingSessionRequests');
+    return this.http.get(this.url + 'api/SessionRequest/GetPendingSessionRequests')
       .catch(this.handleError);
   }
 

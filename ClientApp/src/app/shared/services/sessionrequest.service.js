@@ -28,12 +28,17 @@ var SessionRequestService = /** @class */ (function () {
         this.options = new http_1.RequestOptions({ headers: this.headers });
         this.url = baseUrl;
     }
-    SessionRequestService.prototype.changeSessionRequest = function (sessionRequest) {
-        this.srSource.next(sessionRequest);
+    SessionRequestService.prototype.changeSessionRequest = function (sessionRequestState) {
+        this.srSource.next(sessionRequestState);
     };
     SessionRequestService.prototype.getAllSessionRequest = function () {
         console.log(this.url + 'api/SessionRequest/GetSessionRequests');
         return this.http.get(this.url + 'api/SessionRequest/GetSessionRequests')
+            .catch(this.handleError);
+    };
+    SessionRequestService.prototype.getPendingSessionRequest = function () {
+        console.log(this.url + 'api/SessionRequest/GetPendingSessionRequests');
+        return this.http.get(this.url + 'api/SessionRequest/GetPendingSessionRequests')
             .catch(this.handleError);
     };
     SessionRequestService.prototype.handleError = function (error) {

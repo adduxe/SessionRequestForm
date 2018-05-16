@@ -1,10 +1,11 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { process, State } from '@progress/kendo-data-query';
-import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { GridComponent, GridDataResult, DataStateChangeEvent, PageChangeEvent } from '@progress/kendo-angular-grid';
 
 import { mockSessionRequests } from '../shared/data/sessionrequests';
 import { SessionRequest } from '../shared/models/sessionrequest';
+import { SessionRequestState } from '../shared/models/sessionrequeststate';
 import { SessionRequestService } from '../shared/services/sessionrequest.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class SessionRequestListComponent implements OnInit {
 
   public gridData: GridDataResult;
   public sessionRequestList: SessionRequest[];
-  public currentSessionRequest: SessionRequest;
+  public currentSessionRequest: SessionRequestState;
 
   @ViewChild(GridComponent) grid: GridComponent;
 
@@ -28,13 +29,13 @@ export class SessionRequestListComponent implements OnInit {
     take: 3,
 
     // Initial filter descriptor
-    filter: {
+    /*filter: {
       logic: 'or',
       filters: [
         { field: 'status', operator: 'contains', value: 'Waiting for Approval' },
         { field: 'status', operator: 'contains', value: 'Waiting for Fee' }
       ]
-    }
+    }*/
   };
 
   constructor(private route: ActivatedRoute,
@@ -45,12 +46,13 @@ export class SessionRequestListComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.operation = params['operation'];
       //this.sessionRequestList = mockSessionRequests;
-      this.getSessionRequest();
       this.sessionRequestService.currentSessionRequest.subscribe(sr => this.currentSessionRequest = sr);
       if (this.currentSessionRequest != null)
       {
-        this.mySelection = [this.currentSessionRequest.sessionRequestID];
+        this.mySelection = [this.currentSessionRequest.sessionRequest.sessionRequestID];
+        this.state = this.currentSessionRequest.state;
       }
+      this.getSessionRequest();
     });
   }
 
@@ -64,19 +66,33 @@ export class SessionRequestListComponent implements OnInit {
     this.gridData = process(this.sessionRequestList, this.state);
   }
 
-  getSessionRequest() {
-    this.sessionRequestService.getAllSessionRequest().subscribe(res => {
-      this.sessionRequestList = res;
-      if (this.operation == 'all') {
-        delete this.state.filter;
-      }
-
-      this.gridData = process(this.sessionRequestList, this.state);
-    }, error => console.error(error));
+  private getSessionRequest() {
+    if (this.operation == 'all') {
+      this.sessionRequestService.getAllSessionRequest().subscribe(res => {
+        this.sessionRequestList = res;
+        this.filterData();
+      }, error => console.error(error));
+    }
+    else {
+      this.sessionRequestService.getPendingSessionRequest().subscribe(res => {
+        this.sessionRequestList = res;
+        this.filterData();
+      }, error => console.error(error));
+    }
   }
 
-  dataSelectionChange(selection) {
-    const selectedData = selection.selectedRows[0].dataItem;
+  private filterData() {
+    if (this.sessionRequestList != null && this.sessionRequestList.length > 0) {
+      this.gridData = process(this.sessionRequestList, this.state);
+      /*this.gridData = {
+        data: this.sessionRequestList.slice(this.state.skip, this.state.skip + this.state.take),
+        total: this.sessionRequestList.length
+      };*/
+    }
+  }
+
+  public dataSelectionChange(selection) {
+    const selectedData = { sessionRequest: selection.selectedRows[0].dataItem, state: this.state };
     this.sessionRequestService.changeSessionRequest(selectedData);
     console.log(selectedData);
     this.router.navigate(['/fetch-data']);

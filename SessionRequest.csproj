@@ -33,6 +33,7 @@
     <None Remove="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <None Remove="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <None Remove="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
+    <None Remove="ClientApp\src\app\shared\models\sessionrequeststate.ts" />
     <None Remove="ClientApp\src\app\shared\services\griddata.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\sessionrequest.service.ts" />
   </ItemGroup>
@@ -41,6 +42,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\sessionrequeststate.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\griddata.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\sessionrequest.service.ts" />
   </ItemGroup>

@@ -4,11 +4,11 @@
             [sort]="state.sort"
             [filter]="state.filter"
             [sortable]="true"
-            [pageable]="true"
             [filterable]="true"
             [selectable]="true"
             [kendoGridSelectBy]="'sessionRequestID'"
-            [selectedKeys]="mySelection"
+            [selectedKeys]="mySelection"            
+            [pageable]="{buttonCount: 5}"
             (selectionChange)="dataSelectionChange($event)"
             (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="term" title="Term"></kendo-grid-column>
