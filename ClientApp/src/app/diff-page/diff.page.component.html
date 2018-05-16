@@ -6,12 +6,12 @@
 </head>
 
 <body>
-  <div class="row">
-    <table class="table table-hover">
+  <div>
+    <table class="table table-hover table-striped">
       <tr>
-        <th class="col-md-4">Field Name</th>
-        <th (click)="showPrevious = !showPrevious" class="col-md-4">Current Value</th>
-        <th (click)="showPrevious = false" *ngIf="showPrevious" class="col-md-4">Previous Value</th>
+        <th class="col-md-4"></th>
+        <th (click)="showPrevious = !showPrevious" class="col-md-4 diffrow">CURRENT VALUE</th>
+        <th (click)="showPrevious = false" *ngIf="showPrevious" class="col-md-4 diffrow">PREVIOUS VALUE</th>
       </tr>
       <tr>
         <th>Academic Term</th>
@@ -212,7 +212,7 @@
           <h4><b>Class Locations</b></h4>
         </td>
         <td>
-          <table class="table table-bordered">
+          <table class="table table-bordered" *ngIf="currSess.classLocations?.length > 0">
             <tr>
               <th>Class Location</th>
               <th>Start Date</th>
@@ -226,7 +226,7 @@
           </table>
         </td>
         <td *ngIf="showPrevious">
-          <table class="table table-hover">
+          <table class="table table-hover" *ngIf="prevSess.classLocations?.length > 0">
             <tr>
               <th>Class Location</th>
               <th>Start Date</th>
@@ -259,7 +259,7 @@
           </table>
         </td>
         <td *ngIf="showPrevious">
-          <table class="table table-bordered">
+          <table class="table table-bordered" *ngIf="prevSess.specialFees?.length > 0">
             <tr>
               <th>Fee Code</th>
               <th>Amount</th>
@@ -278,7 +278,7 @@
           <h4><b>Session Breaks</b></h4>
         </td>
         <td>
-          <table class="table table-bordered">
+          <table class="table table-bordered" *ngIf="currSess.sessionBreaks?.length > 0">
             <tr>
               <th>Begin Date</th>
               <th>End Date</th>
@@ -290,7 +290,7 @@
           </table>
         </td>
         <td *ngIf="showPrevious">
-          <table class="table table-bordered">
+          <table class="table table-bordered" *ngIf="prevSess.sessionBreaks?.length > 0">
             <tr>
               <th>Begin Date</th>
               <th>End Date</th>
