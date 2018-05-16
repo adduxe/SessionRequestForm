@@ -9,16 +9,16 @@
   <div>
     <table class="table table-hover table-striped">
       <tr>
-        <th class="col-md-4"></th>
+        <th class="col-md-4" (click)="sample()">&nbsp;&nbsp;</th>
         <th (click)="showPrevious = !showPrevious" class="col-md-4 diffrow">CURRENT VALUE</th>
-        <th (click)="showPrevious = false" *ngIf="showPrevious" class="col-md-4 diffrow">PREVIOUS VALUE</th>
+        <th (click)="showPrevious = false" *ngIf="showPrevious" class="col-md-4">PREVIOUS VALUE</th>
       </tr>
       <tr>
         <th>Academic Term</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
+        <td [ngClass]="{'added':diffArr[SESS.ACADTERM][DIFF.NEW], 'deleted':false, 'changed':diffArr[SESS.ACADTERM][DIFF.CHANGE]}">
           {{ currSess.academicTerm }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
+        <td [ngClass]="{'added':diffArr[SESS.ACADTERM][DIFF.NEW], 'deleted':false, 'changed':diffArr[SESS.ACADTERM][DIFF.CHANGE] }" *ngIf="showPrevious">
           {{ prevSess.academicTerm }}
         </td>
       </tr>
@@ -146,10 +146,10 @@
       </tr>
       <tr>
         <th>Rate Type</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':true }">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':rateType }">
           {{ currSess.rateType }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':true }" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':rateType }" *ngIf="showPrevious">
           {{ prevSess.rateType }}
         </td>
       </tr>
