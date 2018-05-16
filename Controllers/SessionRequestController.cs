@@ -15,7 +15,7 @@ namespace SessionRequest.Controllers
         [HttpGet("[action]")]
         public IEnumerable<MSessionRequest> GetSessionRequests()
         {
-            List<MSessionRequest> sessionRequests = GetMockSessionRequests();
+            List<MSessionRequest> sessionRequests = GetMockSessionRequests().OrderByDescending(x => x.SessionRequestID).ToList();
             return sessionRequests;
         }
 
@@ -24,19 +24,16 @@ namespace SessionRequest.Controllers
         {
             List<MSessionRequest> sessionRequests = GetMockSessionRequests();
 
-            List<MSessionRequest> filtedSR = new List<MSessionRequest>();
-
-            List<string> pendingStatus = new List<string>();
-            pendingStatus.Add("Waiting for Approval");
-            pendingStatus.Add("Waiting for Fee");
-            pendingStatus.Add("Waiting for Rate");
-
-            foreach (string status in pendingStatus)
+            List<string> pendingStatuses = new List<string>
             {
-                filtedSR.Add(sessionRequests.Find(s => s.Status.Equals(status)));
-            }
+                "Waiting for Approval",
+                "Waiting for Fee",
+                "Waiting for Rate"
+            };
 
-            filtedSR = filtedSR.OrderBy(s => s.SessionRequestID).ToList();
+            List<MSessionRequest> filtedSR = sessionRequests.Where(x => pendingStatuses.Contains(x.Status))
+                                                            .OrderByDescending(x => x.SessionRequestID)
+                                                            .ToList();
 
             return filtedSR;
         }
