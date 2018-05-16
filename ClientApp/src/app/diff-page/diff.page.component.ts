@@ -150,4 +150,6 @@ export class DiffPageComponent {
     comments: "Catalina\nM22520001\nM225\nM19920063"
   };
 
+  showPrevious: boolean = true;
+
 }

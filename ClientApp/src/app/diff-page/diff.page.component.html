@@ -10,118 +10,118 @@
     <table class="table table-hover">
       <tr>
         <th>Field Name</th>
-        <th>Current Value</th>
-        <th>Previous Value</th>
+        <th (click)="showPrevious = !showPrevious">Current Value</th>
+        <th (click)="showPrevious = false" *ngIf="showPrevious">Previous Value</th>
       </tr>
       <tr>
         <th>Academic Term</th>
         <td>{{ currSess.academicTerm }}</td>
-        <td *ngIf="prevSess">{{ prevSess.academicTerm }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.academicTerm }}</td>
       </tr>
       <tr>
         <th>Session Code</th>
         <td>{{ currSess.sessionCode }}</td>
-        <td *ngIf="prevSess">{{ prevSess.sessionCode }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.sessionCode }}</td>
       </tr>
       <tr>
         <th>Owning School</th>
         <td>{{ currSess.owningSchool }}</td>
-        <td *ngIf="prevSess">{{ prevSess.owningSchool }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.owningSchool }}</td>
       </tr>
       <tr>
         <th>Owning Department</th>
         <td>{{ currSess.owningDepartment }}</td>
-        <td *ngIf="prevSess">{{ prevSess.owningDepartment }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.owningDepartment }}</td>
       </tr>
       <tr>
         <th>User Contact</th>
         <td>{{ currSess.userContact }}</td>
-        <td *ngIf="prevSess">{{ prevSess.userContact }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.userContact }}</td>
       </tr>
       <tr>
         <th>User Email</th>
         <td>{{ currSess.userEmail }}</td>
-        <td *ngIf="prevSess">{{ prevSess.userEmail }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.userEmail }}</td>
       </tr>
       <tr>
         <th>User Phone</th>
         <td>{{ currSess.userPhone }}</td>
-        <td *ngIf="prevSess">{{ prevSess.userPhone }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.userPhone }}</td>
       </tr>
       <tr>
         <th>First Day of Class</th>
         <td>{{ currSess.firstDayOfClass | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.firstDayOfClass | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.firstDayOfClass | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>Last Day of Class</th>
         <td>{{ currSess.lastDayOfClass | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.lastDayOfClass | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.lastDayOfClass | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>Last Day for Adding/Dropping Classes</th>
         <td>{{ currSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>Last Day for Class Withdrawal</th>
         <td>{{ currSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>First Day of Finals</th>
         <td>{{ currSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>Last Day of Finals</th>
         <td>{{ currSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>First Day for Final Grading</th>
         <td>{{ currSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>Last Day for Final Grading</th>
         <td>{{ currSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
-        <td *ngIf="prevSess">{{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}</td>
       </tr>
       <tr>
         <th>Rate Type</th>
         <td class="changed">{{ currSess.rateType }}</td>
-        <td class="changed" *ngIf="prevSess">{{ prevSess.rateType }}</td>
+        <td class="changed" *ngIf="showPrevious">{{ prevSess.rateType }}</td>
       </tr>
       <tr>
         <th>Rate Per Unit Amount</th>
         <td>{{ currSess.ratePerUnitAmount }}</td>
-        <td *ngIf="prevSess">{{ prevSess.ratePerUnitAmount }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.ratePerUnitAmount }}</td>
       </tr>
       <tr>
         <th>Flat Rate Amount</th>
         <td>{{ currSess.flatRateAmount }}</td>
-        <td *ngIf="prevSess">{{ prevSess.flatRateAmount }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.flatRateAmount }}</td>
       </tr>
       <tr>
         <th>Undergraduate Flat Rate Units (Min.)</th>
         <td>{{ currSess.flatRateUnitsMin }}</td>
-        <td *ngIf="prevSess">{{ prevSess.flatRateUnitsMin }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.flatRateUnitsMin }}</td>
       </tr>
       <tr>
         <th>Undergraduate Flat Rate Units (Max.)</th>
         <td>{{ currSess.flatRateUnitsMax }}</td>
-        <td *ngIf="prevSess">{{ prevSess.flatRateUnitsMax }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.flatRateUnitsMax }}</td>
       </tr>
       <tr>
         <th>Graduate Flat Rate Units (Min.)</th>
         <td>{{ currSess.gradFlatRateUnitsMin }}</td>
-        <td *ngIf="prevSess">{{ prevSess.gradFlatRateUnitsMin }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.gradFlatRateUnitsMin }}</td>
       </tr>
       <tr>
         <th>Graduate Flat Rate Units (Max.)</th>
         <td>{{ currSess.gradFlatRateUnitsMax }}</td>
-        <td *ngIf="prevSess">{{ prevSess.gradFlatRateUnitsMax }}</td>
+        <td *ngIf="showPrevious">{{ prevSess.gradFlatRateUnitsMax }}</td>
       </tr>
       <tr>
         <td>
@@ -147,7 +147,7 @@
             </tr>
           </table>
         </td>
-        <td *ngIf="prevSess">
+        <td *ngIf="showPrevious">
           <table class="table table-hover">
             <tr *ngFor="let eachLoc of prevSess.classLocations">
               <td class="changed">{{ eachLoc.location }}</td>
@@ -181,7 +181,7 @@
             </tr>
           </table>
         </td>
-        <td *ngIf="prevSess">
+        <td *ngIf="showPrevious">
           <table class="table table-bordered">
             <tr *ngFor="let eachFee of prevSess.specialFees">
               <td class="deleted">{{ eachFee.feeCode }}</td>
@@ -213,7 +213,7 @@
             </tr>
           </table>
         </td>
-        <td *ngIf="prevSess">
+        <td *ngIf="showPrevious">
           <table class="table table-bordered">
             <tr *ngFor="let eachBreak of prevSess.sessionBreaks">
               <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
@@ -225,7 +225,7 @@
       <tr>
         <th>Comments</th>
         <td class="changed">{{ currSess.comments }}</td>
-        <td class="changed" *ngIf="prevSess">{{ prevSess.comments }}</td>
+        <td class="changed" *ngIf="showPrevious">{{ prevSess.comments }}</td>
       </tr>
     </table>
   </div>
