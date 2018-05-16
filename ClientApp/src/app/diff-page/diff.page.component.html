@@ -3,17 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <title>Diff Page</title>
-  <style>
-    .strike {
-      text-decoration: line-through;
-    }
-    .bold {
-      font-weight: bold;
-    }
-    .error {
-      color: red;
-    }
-  </style>
 </head>
 
 <body>
@@ -26,80 +15,80 @@
       </tr>
       <tr>
         <th>Academic Term</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.academicTerm }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.academicTerm }}
         </td>
       </tr>
       <tr>
         <th>Session Code</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.sessionCode }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.sessionCode }}
         </td>
       </tr>
       <tr>
         <th>Owning School</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.owningSchool }}
         </td>
         <td *ngIf="showPrevious">{{ prevSess.owningSchool }}</td>
       </tr>
       <tr>
         <th>Owning Department</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.owningDepartment }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.owningDepartment }}
         </td>
       </tr>
       <tr>
         <th>User Contact</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.userContact }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.userContact }}
         </td>
       </tr>
       <tr>
         <th>User Email</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.userEmail }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.userEmail }}
         </td>
       </tr>
       <tr>
         <th>User Phone</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.userPhone }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.userPhone }}
         </td>
       </tr>
       <tr>
         <th>First Day of Class</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.firstDayOfClass | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.firstDayOfClass | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
       <tr>
         <th>Last Day of Class</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.lastDayOfClass | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.lastDayOfClass | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
@@ -108,16 +97,16 @@
         <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
           {{ currSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
       <tr>
         <th>Last Day for Class Withdrawal</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
@@ -130,112 +119,106 @@
       </tr>
       <tr>
         <th>Last Day of Finals</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
       <tr>
         <th>First Day for Final Grading</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
       <tr>
         <th>Last Day for Final Grading</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
         </td>
       </tr>
       <tr>
         <th>Rate Type</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':true }">
           {{ currSess.rateType }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':true }" *ngIf="showPrevious">
           {{ prevSess.rateType }}
         </td>
       </tr>
       <tr>
         <th>Rate Per Unit Amount</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.ratePerUnitAmount }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.ratePerUnitAmount }}
         </td>
       </tr>
       <tr>
         <th>Flat Rate Amount</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.flatRateAmount }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.flatRateAmount }}
         </td>
       </tr>
       <tr>
         <th>Undergraduate Flat Rate Units (Min.)</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.flatRateUnitsMin }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.flatRateUnitsMin }}
         </td>
       </tr>
       <tr>
         <th>Undergraduate Flat Rate Units (Max.)</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.flatRateUnitsMax }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.flatRateUnitsMax }}
         </td>
       </tr>
       <tr>
         <th>Graduate Flat Rate Units (Min.)</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.gradFlatRateUnitsMin }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.gradFlatRateUnitsMin }}
         </td>
       </tr>
       <tr>
         <th>Graduate Flat Rate Units (Max.)</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.gradFlatRateUnitsMax }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.gradFlatRateUnitsMax }}
         </td>
       </tr>
       <tr>
+        <td align="left" style="vertical-align: middle;">
+          <h4><b>Class Locations</b></h4>
+        </td>
         <td>
           <table class="table table-bordered">
-            <tr>
-              <td align="center" colspan="3">
-                <b>Class Locations</b>
-              </td>
-            </tr>
             <tr>
               <th>Class Location</th>
               <th>Start Date</th>
               <th>End Date</th>
             </tr>
-          </table>
-        </td>
-        <td>
-          <table class="table table-bordered">
-            <tr *ngFor="let eachLoc of currSess.classLocations" [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+            <tr *ngFor="let eachLoc of currSess.classLocations" [ngClass]="{'added':false, 'deleted':false, 'changed':true }">
               <td>{{ eachLoc.location }}</td>
               <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
               <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
@@ -244,7 +227,12 @@
         </td>
         <td *ngIf="showPrevious">
           <table class="table table-hover">
-            <tr *ngFor="let eachLoc of prevSess.classLocations" [ngClass]="{'added':false, 'deleted':false, 'changed':false}" >
+            <tr>
+              <th>Class Location</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+            <tr *ngFor="let eachLoc of prevSess.classLocations" [ngClass]="{'added':false, 'deleted':false, 'changed':true }">
               <td>{{ eachLoc.location }}</td>
               <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
               <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
@@ -253,23 +241,17 @@
         </td>
       </tr>
       <tr>
+        <td align="left" style="vertical-align: middle;">
+          <h4><b>Special Fees</b></h4>
+        </td>
         <td>
-          <table class="table table-bordered">
-            <tr>
-              <td colspan="3" align="center">
-                <b>Special Fees</b>
-              </td>
-            </tr>
+          <table class="table table-bordered" *ngIf="currSess.specialFees?.length > 0">
             <tr>
               <th>Fee Code</th>
               <th>Amount</th>
               <th>Assessed To</th>
             </tr>
-          </table>
-        </td>
-        <td>
-          <table class="table table-bordered">
-            <tr *ngFor="let eachFee of currSess.specialFees" [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+            <tr *ngFor="let eachFee of currSess.specialFees" [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
               <td>{{ eachFee.feeCode }}</td>
               <td>{{ eachFee.amount }}</td>
               <td>{{ eachFee.assessedTo }}</td>
@@ -278,7 +260,12 @@
         </td>
         <td *ngIf="showPrevious">
           <table class="table table-bordered">
-            <tr *ngFor="let eachFee of prevSess.specialFees" [ngClass]="{'added':false, 'deleted':false, 'changed':false}" >
+            <tr>
+              <th>Fee Code</th>
+              <th>Amount</th>
+              <th>Assessed To</th>
+            </tr>
+            <tr *ngFor="let eachFee of prevSess.specialFees" [ngClass]="{'added':false, 'deleted':true, 'changed':false }">
               <td>{{ eachFee.feeCode }}</td>
               <td>{{ eachFee.amount }}</td>
               <td>{{ eachFee.assessedTo }}</td>
@@ -287,22 +274,16 @@
         </td>
       </tr>
       <tr>
+        <td align="left" style="vertical-align: middle;">
+          <h4><b>Session Breaks</b></h4>
+        </td>
         <td>
           <table class="table table-bordered">
-            <tr>
-              <td align="center" colspan="2">
-                <b>Session Breaks</b>
-              </td>
-            </tr>
             <tr>
               <th>Begin Date</th>
               <th>End Date</th>
             </tr>
-          </table>
-        </td>
-        <td>
-          <table class="table table-bordered">
-            <tr *ngFor="let eachBreak of currSess.sessionBreaks" [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+            <tr *ngFor="let eachBreak of currSess.sessionBreaks" [ngClass]="{'added':true, 'deleted':false, 'changed':false }">
               <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
               <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
             </tr>
@@ -310,7 +291,11 @@
         </td>
         <td *ngIf="showPrevious">
           <table class="table table-bordered">
-            <tr *ngFor="let eachBreak of prevSess.sessionBreaks" [ngClass]="{'added':false, 'deleted':false, 'changed':false}" >
+            <tr>
+              <th>Begin Date</th>
+              <th>End Date</th>
+            </tr>
+            <tr *ngFor="let eachBreak of prevSess.sessionBreaks" [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
               <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
               <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
             </tr>
@@ -319,10 +304,10 @@
       </tr>
       <tr>
         <th>Comments</th>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false}">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }">
           {{ currSess.comments }}
         </td>
-        <td  [ngClass]="{'added':false, 'deleted':false, 'changed':false}" *ngIf="showPrevious">
+        <td  [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.comments }}
         </td>
       </tr>

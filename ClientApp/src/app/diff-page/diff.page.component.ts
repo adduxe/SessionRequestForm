@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
 
-//let sampMethod = function sampleMethod() {
-//  if (this.currSession.academicTerm == this.prevSession.academicTerm) {
-//    alert("Terms are the same");
-//  }
-//}
-
 @Component({
   selector: 'diff-page',
   templateUrl: './diff.page.component.html',
 })
-
 
 export class DiffPageComponent {
 
@@ -131,11 +124,6 @@ export class DiffPageComponent {
         location: "Health Science Campus",
         startDate: "2018-04-01T00:00:00",
         endDate: "2018-04-10T00:00:00"
-      },
-      {
-        location: "",
-        startDate: "",
-        endDate: ""
       }
     ],
     rateType: "BKNPT2",
