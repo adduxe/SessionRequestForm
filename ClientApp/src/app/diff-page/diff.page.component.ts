@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
-let sampMethod = function sampleMethod() {
-  if (this.currSession.academicTerm == this.prevSession.academicTerm) {
-    alert("Terms are the same");
-  }
-}
-
+//let sampMethod = function sampleMethod() {
+//  if (this.currSession.academicTerm == this.prevSession.academicTerm) {
+//    alert("Terms are the same");
+//  }
+//}
 
 @Component({
   selector: 'diff-page',
