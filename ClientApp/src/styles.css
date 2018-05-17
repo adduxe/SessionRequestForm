@@ -42,6 +42,7 @@
 
 .deleted {
   background-color: rgb(252, 216, 217);
+/*  text-decoration: line-through; */
 }
 
 /** End of styles for Diff page  */

@@ -123,7 +123,7 @@ enum DIFF {
 
 export class DiffPageComponent {
 
-  diffArr: boolean[][] = [    // Need to initialize the array or else the HTML will error out.
+  public diffArr: boolean[][] = [    // Need to initialize the array or else the HTML will error out.
     [false, false, false],   // Acad term
     [false, false, false],   // Session Code
     [false, false, false],   // Owning School
@@ -155,11 +155,44 @@ export class DiffPageComponent {
   DIFF = DIFF;    // to export the DIFF enum to the HTML
   SESS = SESS;    // to export the SESS enum to the HTML
 
-  markChanges() {   // will mark the fields that changed in current and previous revisions
-    console.log('clicked');
-    if (this.currSess.rateType != this.prevSess.rateType) {
-      this.diffArr[SESS.RATETYPE][DIFF.CHANGED] = true;
+  public CompareHiLite(newVal: string, oldVal: string, sessVal: number)       // compare the new and previous value of the field
+  {
+    switch (true) {
+
+      case ((newVal.length > 0) && (oldVal.length == 0)):
+        this.diffArr[sessVal][DIFF.NEW] = true;
+        break;
+
+      case ((newVal.length == 0) && (oldVal.length > 0)):
+        this.diffArr[sessVal][DIFF.DELETED] = true;
+        break;
+
+      case (newVal != oldVal):
+        this.diffArr[sessVal][DIFF.CHANGED] = true;
+        break;
+
+      default:
+        break;
     }
+    return;
+  } // CompareHiLite(string, string...)
+
+
+  public CompArrHiLite(newVal, oldVal, sessVal) {
+
+
+    return;
+  }
+
+
+
+  public markDifferences() {   // will mark the fields that changed in current and previous revisions
+    console.log('clicked');
+
+    this.CompareHiLite(this.currSess.rateType, this.prevSess.rateType, SESS.RATETYPE);
+    //if ( != ) {
+    //  this.diffArr[SESS.RATETYPE][DIFF.CHANGED] = true;
+    //}
 
     if (this.currSess.classLocations != this.prevSess.classLocations) {
       this.diffArr[SESS.CLASSLOCATION][DIFF.CHANGED] = true;
@@ -172,8 +205,6 @@ export class DiffPageComponent {
     if ((this.currSess.sessionBreaks.length > 0) && (this.prevSess.sessionBreaks.length == 0)) {
       this.diffArr[SESS.SESSIONBREAKS][DIFF.NEW] = true;
     }
-
-
   }
   
   public currSess = {
@@ -229,7 +260,7 @@ export class DiffPageComponent {
         endDate: "2018-04-10T00:00:00"
       }
     ],
-    rateType: "BKNPT1",
+    rateType: "",
     ratePerUnitAmount: 1863,
     flatRateAmount: 33695,
     flatRateUnitsMin: 1,
@@ -293,6 +324,11 @@ export class DiffPageComponent {
         location: "Health Science Campus",
         startDate: "2018-04-01T00:00:00",
         endDate: "2018-04-10T00:00:00"
+      },
+      {
+        location: "Marina del Rey",
+        startDate: "2018-04-01T00:00:00",
+        endDate: "2018-04-10T00:00:00"
       }
     ],
     rateType: "BKNPT2",
@@ -307,7 +343,5 @@ export class DiffPageComponent {
   };
 
   showPrevious: boolean = true;
-
-  rateType: boolean = (this.currSess.rateType != this.prevSess.rateType);
 
 }
