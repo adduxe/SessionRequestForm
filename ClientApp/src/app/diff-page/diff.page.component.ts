@@ -73,8 +73,21 @@ export class DiffPageComponent {
     [false, false, false]    // Comments
   ];
 
+  public hideShowPrev: string = "<<<<";
+
   DIFF = DIFF;    // to export the DIFF enum to the HTML
   SESS = SESS;    // to export the SESS enum to the HTML
+
+  public HideShowPrevVersion() {
+
+    this.showPrevious = !(this.showPrevious);
+    if (this.showPrevious) {
+      this.hideShowPrev = "<<<<";
+    } else {
+      this.hideShowPrev = ">>>>";
+    }
+    return;
+  }   // HideShowPrevVersion()
 
   public CompareHiLite(newVal, oldVal, sessVal: number)       // compare the new and previous value of the field
   {
@@ -88,7 +101,7 @@ export class DiffPageComponent {
         this.diffArr[sessVal][DIFF.DELETED] = true;
         break;
 
-      case (JSON.stringify(newVal) != JSON.stringify(oldVal)) :                              // Changed Value
+      case (JSON.stringify(newVal) != JSON.stringify(oldVal)) : // Changed Value
         this.diffArr[sessVal][DIFF.CHANGED] = true;
         break;
 
@@ -101,14 +114,53 @@ export class DiffPageComponent {
     return;
   } // CompareHiLite(string, string...)
 
-
   public markDifferences() {   // will mark the fields that changed in current and previous revisions
-    console.log('clicked');
 
-    var newVal = this.currSess;
-    var oldVal = this.prevSess;
+    var newVal = this.currSess, oldVal = this.prevSess;
+
+    this.CompareHiLite(newVal.academicTerm, oldVal.academicTerm, SESS.ACADTERM);
+
+    this.CompareHiLite(newVal.sessionCode, oldVal.sessionCode, SESS.SESSCODE);
+
+    this.CompareHiLite(newVal.owningSchool, oldVal.owningSchool, SESS.OWNSCHOOL);
+
+    this.CompareHiLite(newVal.owningDepartment, oldVal.owningDepartment, SESS.OWNDEPT);
+
+    this.CompareHiLite(newVal.userContact, oldVal.userContact, SESS.USERCONTACT);
+
+    this.CompareHiLite(newVal.userEmail, oldVal.userEmail, SESS.USEREMAIL);
+
+    this.CompareHiLite(newVal.userPhone, oldVal.userPhone, SESS.USERPHONE);
+
+    this.CompareHiLite(newVal.firstDayOfClass, oldVal.firstDayOfClass, SESS.CLASSFIRSTDAY);
+
+    this.CompareHiLite(newVal.lastDayOfClass, oldVal.lastDayOfClass, SESS.CLASSLASTDAY);
+
+    this.CompareHiLite(newVal.lastDayForAddDrop, oldVal.lastDayForAddDrop, SESS.DROPLASTDAY);
+
+    this.CompareHiLite(newVal.lastDayForWithdrawal, oldVal.lastDayForWithdrawal, SESS.WITHDRAWLASTDAY);
+
+    this.CompareHiLite(newVal.firstDayOfFinals, oldVal.firstDayOfFinals, SESS.FINALSFIRSTDAY);
+
+    this.CompareHiLite(newVal.lastDayOfFinals, oldVal.lastDayOfFinals, SESS.FINALSLASTDAY);
+
+    this.CompareHiLite(newVal.firstDayForFinalGrading, oldVal.firstDayForFinalGrading, SESS.GRADESFIRSTDAY);
+
+    this.CompareHiLite(newVal.lastDayForFinalGrading, oldVal.lastDayForFinalGrading, SESS.GRADESLASTDAY);
 
     this.CompareHiLite(newVal.rateType, oldVal.rateType, SESS.RATETYPE);
+
+    this.CompareHiLite(newVal.ratePerUnitAmount, oldVal.ratePerUnitAmount, SESS.PERUNITAMOUNT);
+
+    this.CompareHiLite(newVal.flatRateAmount, oldVal.flatRateAmount, SESS.FLATRATEAMOUNT);
+
+    this.CompareHiLite(newVal.flatRateUnitsMin, oldVal.flatRateUnitsMin, SESS.UGRADUNITSMIN);
+
+    this.CompareHiLite(newVal.flatRateUnitsMax, oldVal.flatRateUnitsMax, SESS.UGRADUNITSMAX);
+
+    this.CompareHiLite(newVal.gradFlatRateUnitsMin, oldVal.gradFlatRateUnitsMin, SESS.GRADUNITSMIN);
+
+    this.CompareHiLite(newVal.gradFlatRateUnitsMax, oldVal.gradFlatRateUnitsMax, SESS.GRADUNITSMAX);
 
     this.CompareHiLite(newVal.specialFees, oldVal.specialFees, SESS.SPECIALFEES);
 
@@ -116,6 +168,9 @@ export class DiffPageComponent {
 
     this.CompareHiLite(newVal.classLocations, oldVal.classLocations, SESS.CLASSLOCATION);
 
+    this.CompareHiLite(newVal.comments, oldVal.comments, SESS.COMMENTS);
+
+    return;
   }
   
   public currSess = {
@@ -171,7 +226,7 @@ export class DiffPageComponent {
         endDate: "2018-04-10T00:00:00"
       }
     ],
-    rateType: "",
+    rateType: "BKNPT1",
     ratePerUnitAmount: 1863,
     flatRateAmount: 33695,
     flatRateUnitsMin: 1,
