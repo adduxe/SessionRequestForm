@@ -155,12 +155,27 @@ export class DiffPageComponent {
   DIFF = DIFF;    // to export the DIFF enum to the HTML
   SESS = SESS;    // to export the SESS enum to the HTML
 
-  sample() {
+  markChanges() {   // will mark the fields that changed in current and previous revisions
     console.log('clicked');
-    this.diffArr[SESS.ACADTERM][DIFF.NEW] = true;
+    if (this.currSess.rateType != this.prevSess.rateType) {
+      this.diffArr[SESS.RATETYPE][DIFF.CHANGED] = true;
+    }
+
+    if (this.currSess.classLocations != this.prevSess.classLocations) {
+      this.diffArr[SESS.CLASSLOCATION][DIFF.CHANGED] = true;
+    }
+
+    if ((this.prevSess.specialFees.length > 0) && (this.currSess.specialFees.length == 0)) {
+      this.diffArr[SESS.SPECIALFEES][DIFF.DELETED] = true;
+    }
+
+    if ((this.currSess.sessionBreaks.length > 0) && (this.prevSess.sessionBreaks.length == 0)) {
+      this.diffArr[SESS.SESSIONBREAKS][DIFF.NEW] = true;
+    }
+
+
   }
-
-
+  
   public currSess = {
     sessionBreaks: [
       {

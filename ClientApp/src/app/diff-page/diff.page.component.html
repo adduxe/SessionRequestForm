@@ -9,7 +9,7 @@
   <div>
     <table class="table table-hover table-striped">
       <tr>
-        <th class="col-md-4" (click)="sample()">&nbsp;&nbsp;</th>
+        <th class="col-md-4" (click)="markChanges()">&nbsp;&nbsp;</th>
         <th (click)="showPrevious = !showPrevious" class="col-md-4 diffrow">CURRENT VALUE</th>
         <th (click)="showPrevious = false" *ngIf="showPrevious" class="col-md-4">PREVIOUS VALUE</th>
       </tr>
@@ -146,16 +146,16 @@
       </tr>
       <tr>
         <th>Rate Type</th>
-        <td [ngClass]="{'added':diffArr[SESS.RATETYPE][DIFF.NEW], 'deleted':diffArr[SESS.RATETYPE][DIFF.DELETED], 'changed':diffArr[SESS.RATETYPE][DIFF.CHANGED] }">
+        <td [ngClass]="{'added': diffArr[SESS.RATETYPE][DIFF.NEW], 'deleted' : diffArr[SESS.RATETYPE][DIFF.DELETED], 'changed': diffArr[SESS.RATETYPE][DIFF.CHANGED] }">
           {{ currSess.rateType }}
         </td>
-        <td [ngClass]="{'added':false, 'deleted':false, 'changed':rateType }" *ngIf="showPrevious">
+        <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
           {{ prevSess.rateType }}
         </td>
       </tr>
       <tr>
         <th>Rate Per Unit Amount</th>
-        <td [ngClass]="{'added':diffArr[SESS.PERUNITAMOUNT][DIFF.NEW], 'deleted':diffArr[SESS.PERUNITAMOUNT][DIFF.DELETED], 'changed':diffArr[SESS.PERUNITAMOUNT][DIFF.CHANGED] }">
+        <td [ngClass]="{'added': diffArr[SESS.PERUNITAMOUNT][DIFF.NEW], 'deleted': diffArr[SESS.PERUNITAMOUNT][DIFF.DELETED], 'changed': diffArr[SESS.PERUNITAMOUNT][DIFF.CHANGED] }">
           {{ currSess.ratePerUnitAmount }}
         </td>
         <td [ngClass]="{'added':false, 'deleted':false, 'changed':false }" *ngIf="showPrevious">
@@ -218,7 +218,7 @@
               <th>Start Date</th>
               <th>End Date</th>
             </tr>
-            <tr *ngFor="let eachLoc of currSess.classLocations" [ngClass]="{'added':false, 'deleted':false, 'changed':true }">
+            <tr *ngFor="let eachLoc of currSess.classLocations" [ngClass]="{'added':diffArr[SESS.CLASSLOCATION][DIFF.NEW], 'deleted':diffArr[SESS.CLASSLOCATION][DIFF.DELETED], 'changed':diffArr[SESS.CLASSLOCATION][DIFF.CHANGED] }">
               <td>{{ eachLoc.location }}</td>
               <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
               <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
@@ -265,7 +265,7 @@
               <th>Amount</th>
               <th>Assessed To</th>
             </tr>
-            <tr *ngFor="let eachFee of prevSess.specialFees" [ngClass]="{'added':false, 'deleted':true, 'changed':false }">
+            <tr *ngFor="let eachFee of prevSess.specialFees" [ngClass]="{'added':diffArr[SESS.SPECIALFEES][DIFF.NEW], 'deleted':diffArr[SESS.SPECIALFEES][DIFF.DELETED], 'changed':diffArr[SESS.SPECIALFEES][DIFF.CHANGED]}" >
               <td>{{ eachFee.feeCode }}</td>
               <td>{{ eachFee.amount }}</td>
               <td>{{ eachFee.assessedTo }}</td>
@@ -283,7 +283,7 @@
               <th>Begin Date</th>
               <th>End Date</th>
             </tr>
-            <tr *ngFor="let eachBreak of currSess.sessionBreaks" [ngClass]="{'added':true, 'deleted':false, 'changed':false }">
+            <tr *ngFor="let eachBreak of currSess.sessionBreaks" [ngClass]="{'added':diffArr[SESS.SESSIONBREAKS][DIFF.NEW], 'deleted':diffArr[SESS.SESSIONBREAKS][DIFF.DELETED], 'changed':diffArr[SESS.SESSIONBREAKS][DIFF.CHANGED]}" >
               <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
               <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
             </tr>
