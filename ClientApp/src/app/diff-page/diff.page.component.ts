@@ -1,84 +1,5 @@
 import { Component } from '@angular/core';
 
-let shallowArray = function (a, b, compare) {
-  var l = a.length
-  if (l !== b.length) return false
-
-  if (compare) {
-    for (var i = 0; i < l; i++)
-      if (!compare(a[i], b[i])) return false
-  } else {
-    for (var i = 0; i < l; i++) {
-      if (a[i] !== b[i]) return false
-    }
-  }
-
-  return true
-}
-
-let shallowObject = function (a, b, compare) {
-
-  var ka = 0
-  var kb = 0
-
-  if (compare) {
-    for (var key in a) {
-      if (
-        a.hasOwnProperty(key) &&
-        !compare(a[key], b[key])
-      ) return false
-
-      ka++
-    }
-  } else {
-    for (var key in a) {
-      if (
-        a.hasOwnProperty(key) &&
-        a[key] !== b[key]
-      ) return false
-
-      ka++
-    }
-  }
-
-  for (var key in b) {
-    if (b.hasOwnProperty(key)) kb++
-  }
-
-  return ka === kb
-}
-
-let flat = function (type) {
-  return (
-    type !== 'function' &&
-    type !== 'object'
-  )
-}
-
-let shallow = function (a, b, compare) {
-  var aIsNull = a === null
-  var bIsNull = b === null
-
-  if (aIsNull !== bIsNull) return false
-
-  var aIsArray = Array.isArray(a)
-  var bIsArray = Array.isArray(b)
-
-  if (aIsArray !== bIsArray) return false
-
-  var aTypeof = typeof a
-  var bTypeof = typeof b
-
-  if (aTypeof !== bTypeof) return false
-  if (flat(aTypeof)) return compare
-    ? compare(a, b)
-    : a === b
-
-  return aIsArray
-    ? shallowArray(a, b, compare)
-    : shallowObject(a, b, compare)
-}
-
 enum SESS {
   ACADTERM      = 0,
   SESSCODE      = 1,
@@ -155,56 +76,46 @@ export class DiffPageComponent {
   DIFF = DIFF;    // to export the DIFF enum to the HTML
   SESS = SESS;    // to export the SESS enum to the HTML
 
-  public CompareHiLite(newVal: string, oldVal: string, sessVal: number)       // compare the new and previous value of the field
+  public CompareHiLite(newVal, oldVal, sessVal: number)       // compare the new and previous value of the field
   {
     switch (true) {
 
-      case ((newVal.length > 0) && (oldVal.length == 0)):
+      case ((newVal.length > 0) && (oldVal.length == 0)) :   // New Value
         this.diffArr[sessVal][DIFF.NEW] = true;
         break;
 
-      case ((newVal.length == 0) && (oldVal.length > 0)):
+      case ((newVal.length == 0) && (oldVal.length > 0)) :   // Deleted Value
         this.diffArr[sessVal][DIFF.DELETED] = true;
         break;
 
-      case (newVal != oldVal):
+      case (JSON.stringify(newVal) != JSON.stringify(oldVal)) :                              // Changed Value
         this.diffArr[sessVal][DIFF.CHANGED] = true;
         break;
 
-      default:
+      default:                                              // No change
+        this.diffArr[sessVal][DIFF.NEW] = false;
+        this.diffArr[sessVal][DIFF.DELETED] = false;
+        this.diffArr[sessVal][DIFF.CHANGED] = false;
         break;
     }
     return;
   } // CompareHiLite(string, string...)
 
 
-  public CompArrHiLite(newVal, oldVal, sessVal) {
-
-
-    return;
-  }
-
-
-
   public markDifferences() {   // will mark the fields that changed in current and previous revisions
     console.log('clicked');
 
-    this.CompareHiLite(this.currSess.rateType, this.prevSess.rateType, SESS.RATETYPE);
-    //if ( != ) {
-    //  this.diffArr[SESS.RATETYPE][DIFF.CHANGED] = true;
-    //}
+    var newVal = this.currSess;
+    var oldVal = this.prevSess;
 
-    if (this.currSess.classLocations != this.prevSess.classLocations) {
-      this.diffArr[SESS.CLASSLOCATION][DIFF.CHANGED] = true;
-    }
+    this.CompareHiLite(newVal.rateType, oldVal.rateType, SESS.RATETYPE);
 
-    if ((this.prevSess.specialFees.length > 0) && (this.currSess.specialFees.length == 0)) {
-      this.diffArr[SESS.SPECIALFEES][DIFF.DELETED] = true;
-    }
+    this.CompareHiLite(newVal.specialFees, oldVal.specialFees, SESS.SPECIALFEES);
 
-    if ((this.currSess.sessionBreaks.length > 0) && (this.prevSess.sessionBreaks.length == 0)) {
-      this.diffArr[SESS.SESSIONBREAKS][DIFF.NEW] = true;
-    }
+    this.CompareHiLite(newVal.sessionBreaks, oldVal.sessionBreaks, SESS.SESSIONBREAKS);
+
+    this.CompareHiLite(newVal.classLocations, oldVal.classLocations, SESS.CLASSLOCATION);
+
   }
   
   public currSess = {
@@ -322,11 +233,6 @@ export class DiffPageComponent {
       },
       {
         location: "Health Science Campus",
-        startDate: "2018-04-01T00:00:00",
-        endDate: "2018-04-10T00:00:00"
-      },
-      {
-        location: "Marina del Rey",
         startDate: "2018-04-01T00:00:00",
         endDate: "2018-04-10T00:00:00"
       }
