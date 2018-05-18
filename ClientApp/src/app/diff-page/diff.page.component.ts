@@ -93,11 +93,13 @@ export class DiffPageComponent {
   {
     switch (true) {
 
-      case ((newVal.length > 0) && (oldVal.length == 0)) :   // New Value
+      case ((newVal > '') && (oldVal == '')):
+      case ((newVal.length > 0) && (oldVal.length == 0)):   // New Value
         this.diffArr[sessVal][DIFF.NEW] = true;
         break;
 
-      case ((newVal.length == 0) && (oldVal.length > 0)) :   // Deleted Value
+      case ((newVal == '') && (oldVal > '')):
+      case ((newVal.length == 0) && (oldVal.length > 0)):   // Deleted Value
         this.diffArr[sessVal][DIFF.DELETED] = true;
         break;
 
@@ -293,7 +295,7 @@ export class DiffPageComponent {
       }
     ],
     rateType: "BKNPT2",
-    ratePerUnitAmount: 1863,
+    ratePerUnitAmount: "",
     flatRateAmount: 33695,
     flatRateUnitsMin: 1,
     flatRateUnitsMax: 2,
