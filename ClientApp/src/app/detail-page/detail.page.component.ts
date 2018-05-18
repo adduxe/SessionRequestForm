@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
 
+enum SECT {
+  GENINFO = 0,
+  DATES = 1,
+  RATES = 2,
+  SPECFEES = 3,
+  CLASSLOCS = 4,
+  COMMENTS = 5
+}
+
 @Component({
   selector: 'detail-page',
   templateUrl: './detail.page.component.html',
@@ -8,7 +17,33 @@ import { Component } from '@angular/core';
 
 export class DetailPageComponent {
 
-  session = {
+  public SECT = SECT;
+  public showThisSection: boolean[] = [false, false, false, false, false, false];
+
+  public showAllValues: boolean = false;
+
+  public showHideButton: string = "Show All";
+
+  public ShowHideAll() {
+
+    this.showAllValues = !this.showAllValues;
+
+    if (this.showAllValues) {
+      this.showHideButton = "Hide All";
+      for (var i = SECT.GENINFO; i <= SECT.COMMENTS; ++i) {
+        this.showThisSection[i] = true;
+      }
+    } else {
+      this.showHideButton = "Show All";
+      for (var i = SECT.GENINFO; i <= SECT.COMMENTS; ++i) {
+        this.showThisSection[i] = false;
+      }
+    }
+
+    return;
+  }
+
+  public session = {
     sessionBreakStart_1: "2018-04-1T15:20:52.657",
     sessionBreakEnd_1: "2018-04-5T15:20:52.657",
     sessionBreakStart_2: "2018-04-20T15:20:52.657",

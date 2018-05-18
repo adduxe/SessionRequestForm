@@ -11,16 +11,19 @@
   </div>
   <table width="100%">
     <tr>
-      <td align="center">
+      <td align="center" width="20%">
         <button class="btn btn-success"><b>Approve</b></button>
       </td>
-      <td align="center">
+      <td align="center" width="20%">
         <button class="btn btn-danger">Reject</button>
       </td>
-      <td align="center">
+      <td align="center" width="20%">
+        <button class="btn btn-primary" (click)="ShowHideAll()">{{ showHideButton }}</button>
+      </td>
+      <td align="center" width="20%">
         <button class="btn btn-warning">Cancel</button>
       </td>
-      <td align="center">
+      <td align="center" width="20%">
         <button class="btn btn-info" onclick="window.open('diff-page');">Compare</button>
       </td>
     </tr>
@@ -29,14 +32,14 @@
   <br />
 
   <table class="table table-hover contactSection">
-    <thead (click)="showGenInfo = !showGenInfo">
+    <thead (click)="showThisSection[SECT.GENINFO] = !showThisSection[SECT.GENINFO]">
       <tr>
           <td align="center"colspan="7">
             <a style="color: red;"><h4><b>GENERAL INFO</b></h4></a>
           </td>
       </tr>
     </thead>
-    <tbody *ngIf="showGenInfo">
+    <tbody *ngIf="showThisSection[SECT.GENINFO]">
       <tr style="color: red;">
         <th>
           <b>Semester</b>
@@ -82,13 +85,13 @@
 
   <table class="table table-hover table-bordered datesSection">
     <thead>
-      <tr (click)="showDates = !showDates">
+      <tr (click)="showThisSection[SECT.DATES] = !showThisSection[SECT.DATES]">
         <td colspan="6" align="center">
           <a><h4 style="color: red;"><b>DATES</b></h4></a>
         </td>
       </tr>
     </thead>
-    <tbody *ngIf="showDates">
+    <tbody *ngIf="showThisSection[SECT.DATES]">
       <tr>
         <td colspan="2" align="center">
           <b style="color: red;">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
@@ -161,13 +164,13 @@
 
   <table class="table table-bordered table-hover" id="ratesSection">
     <thead>
-      <tr (click)="showRates = !showRates">
+      <tr (click)="showThisSection[SECT.RATES] = !showThisSection[SECT.RATES]">
         <td colspan="7" align="center">
           <a><h4 style="color: red;"><b>RATES</b></h4></a>
         </td>
       </tr>
     </thead>
-    <tbody *ngIf="showRates">
+    <tbody *ngIf="showThisSection[SECT.RATES]">
       <tr style="color: red;">
         <td rowspan="2" align="center">
           <b>Rate Type</b>
@@ -205,13 +208,13 @@
 
   <table class="table table-hover specialFeeSection">
     <thead>
-      <tr (click)="showFees = !showFees">
+      <tr (click)="showThisSection[SECT.SPECFEES] = !showThisSection[SECT.SPECFEES]">
         <td colspan="4" align="center">
           <a><h4 style="color:red;"><b>SPECIAL FEES</b></h4></a>
         </td>
       </tr>
     </thead>
-    <tbody *ngIf="showFees">
+    <tbody *ngIf="showThisSection[SECT.SPECFEES]">
       <tr>
         <th>Fee Code</th>
         <th>Description</th>
@@ -237,11 +240,11 @@
 
   <table class="table table-hover classSection">
     <tr>
-      <td colspan="3" align="center" (click)="showLocations = !showLocations">
+      <td colspan="3" align="center" (click)="showThisSection[SECT.CLASSLOCS] = !showThisSection[SECT.CLASSLOCS]">
         <a><h4 style="color: red;"><b>CLASS LOCATIONS</b></h4></a>
       </td>
     </tr>
-    <tbody *ngIf="showLocations">
+    <tbody *ngIf="showThisSection[SECT.CLASSLOCS]">
     <tr style="color: red;">
       <th>Campus</th>
       <th>Start Date</th>
@@ -261,12 +264,12 @@
   </table>
 
   <table class="table" id="commentsSection">
-    <tr (click)="showComments = !showComments">
+    <tr (click)="showThisSection[SECT.COMMENTS] = !showThisSection[SECT.COMMENTS]">
       <td align="center">
         <h4><b style="color:red;">COMMENTS</b></h4>
       </td>
     </tr>
-    <tr *ngIf="showComments">
+    <tr *ngIf="showThisSection[SECT.COMMENTS]">
       <td>{{ session.comments }}</td>
     </tr>
   </table>
