@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './detail.page.component.html',
 })
 
+
 export class DetailPageComponent {
 
   session = {

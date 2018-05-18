@@ -41,7 +41,6 @@ enum DIFF {
   templateUrl: './diff.page.component.html',
 })
 
-
 export class DiffPageComponent {
 
   public diffArr: boolean[][] = [    // Need to initialize the array or else the HTML will error out.
@@ -75,8 +74,8 @@ export class DiffPageComponent {
 
   public hideShowPrev: string = "<<<<";
 
-  DIFF = DIFF;    // to export the DIFF enum to the HTML
-  SESS = SESS;    // to export the SESS enum to the HTML
+  DIFF = DIFF;        // to expose the DIFF enum to the HTML
+  SESS = SESS;        // to expose the SESS enum to the HTML
 
   public HideShowPrevVersion() {
 

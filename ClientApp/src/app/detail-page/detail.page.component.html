@@ -29,44 +29,66 @@
   <br />
 
   <table class="table table-hover contactSection">
-    <tr style="color: red;">
+    <thead (click)="showGenInfo = !showGenInfo">
+      <tr>
+          <td align="center"colspan="7">
+            <a style="color: red;"><h4><b>GENERAL INFO</b></h4></a>
+          </td>
+      </tr>
+    </thead>
+    <tbody *ngIf="showGenInfo">
+      <tr style="color: red;">
+        <th>
+          <b>Semester</b>
+        </th>
+        <th>
+          <b>Session</b>
+        </th>
+        <th>
+          <b>School</b>
+        </th>
+        <th>
+          <b>Department</b>
+        </th>
+        <th>
+          <b>Contact</b>
+        </th>
+        <th>
+          <b>Phone</b>
+        </th>
+        <th>
+          <b>Email</b>
+        </th>
+      </tr>
+      <tr>
 
-      <th><h4>Semester</h4></th>
+        <td>{{ session.academicTerm }}</td>
 
-      <th><h4>Session</h4></th>
+        <td>{{ session.sessionCode }}</td>
 
-      <th><h4>School</h4></th>
+        <td>{{ session.owningSchool }}</td>
 
-      <th><h4>Department</h4></th>
+        <td>{{ session.owningDepartment }}</td>
 
-      <th><h4>Contact</h4></th>
+        <td>{{ session.userContact }}</td>
 
-      <th><h4>Phone</h4></th>
+        <td>{{ session.userPhone }}</td>
 
-      <th><h4>Email</h4></th>
+        <td>{{ session.userEmail }}</td>
 
-    </tr>
-    <tr>
-
-      <td>{{ session.academicTerm }}</td>
-
-      <td>{{ session.sessionCode }}</td>
-
-      <td>{{ session.owningSchool }}</td>
-
-      <td>{{ session.owningDepartment }}</td>
-
-      <td>{{ session.userContact }}</td>
-
-      <td>{{ session.userPhone }}</td>
-
-      <td>{{ session.userEmail }}</td>
-
-    </tr>
+      </tr>
+    </tbody>
   </table>
 
   <table class="table table-hover table-bordered datesSection">
     <thead>
+      <tr (click)="showDates = !showDates">
+        <td colspan="6" align="center">
+          <a><h4 style="color: red;"><b>DATES</b></h4></a>
+        </td>
+      </tr>
+    </thead>
+    <tbody *ngIf="showDates">
       <tr>
         <td colspan="2" align="center">
           <b style="color: red;">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
@@ -94,8 +116,6 @@
         <td><b>Final Grades</b></td>
 
       </tr>
-    </thead>
-    <tbody>
       <tr>
         <th>
           <b>Start</b>
@@ -139,31 +159,16 @@
     </tbody>
   </table>
 
-  <table class="table table-hover classSection">
-
-    <tr style="color: red;">
-      <th>Campus</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-    </tr>
-
-    <tr *ngFor="let eachLocation of session.classLocations">
-      <td>
-        {{ eachLocation.location }}
-      </td>
-      <td>
-        {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
-      </td>
-    </tr>
-  </table>
-
-
-  <table class="table table-bordered table-hover ratesSection">
-    <thead style="color: red;">
-      <tr>
+  <table class="table table-bordered table-hover" id="ratesSection">
+    <thead>
+      <tr (click)="showRates = !showRates">
+        <td colspan="7" align="center">
+          <a><h4 style="color: red;"><b>RATES</b></h4></a>
+        </td>
+      </tr>
+    </thead>
+    <tbody *ngIf="showRates">
+      <tr style="color: red;">
         <td rowspan="2" align="center">
           <b>Rate Type</b>
         </td>
@@ -174,20 +179,18 @@
           <b>Flat Rate</b>
         </td>
         <td colspan="2" align="center">
-          <b>Undergraduate</b>
+          <b>Undergraduate Flat Rate Unit Range</b>
         </td>
         <td colspan="2" align="center">
-          <b>Graduate</b>
+          <b>Graduate Flat Rate Unit Range</b>
         </td>
       </tr>
       <tr class="red">
-        <td align="center"><b>Flat Rate<br>Min. Units</b></td>
-        <td align="center"><b>Flat Rate<br>Max. Units</b></td>
-        <td align="center"><b>Flat Rate<br>Min. Units</b></td>
-        <td align="center"><b>Flat Rate<br>Max. Units</b></td>
+        <td align="center"><b>Minimum</b></td>
+        <td align="center"><b>Maximum</b></td>
+        <td align="center"><b>Minimum</b></td>
+        <td align="center"><b>Maximum</b></td>
       </tr>
-    </thead>
-    <tbody>
       <tr class="black">
         <td align="center">{{ rateName }}</td>
         <td align="center">{{ session.ratePerUnitAmount }}</td>
@@ -201,37 +204,72 @@
   </table>
 
   <table class="table table-hover specialFeeSection">
-    <thead style="color:red;">
-      <tr>
-        <td class="red" colspan="4" align="center"><h4>Special Fees</h4></td>
+    <thead>
+      <tr (click)="showFees = !showFees">
+        <td colspan="4" align="center">
+          <a><h4 style="color:red;"><b>SPECIAL FEES</b></h4></a>
+        </td>
       </tr>
+    </thead>
+    <tbody *ngIf="showFees">
       <tr>
         <th>Fee Code</th>
         <th>Description</th>
         <th>Amount</th>
         <th>Assessed To</th>
       </tr>
-    </thead>
-    <tr *ngFor="let eachFee of session.specialFees">
+      <tr *ngFor="let eachFee of session.specialFees">
+        <td>
+          {{ eachFee.feeCode }}
+        </td>
+        <td>
+          {{ eachFee.feeCode }}
+        </td>
+        <td>
+          {{ eachFee.amount }}
+        </td>
+        <td>
+          {{ eachFee.assessedTo }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-hover classSection">
+    <tr>
+      <td colspan="3" align="center" (click)="showLocations = !showLocations">
+        <a><h4 style="color: red;"><b>CLASS LOCATIONS</b></h4></a>
+      </td>
+    </tr>
+    <tbody *ngIf="showLocations">
+    <tr style="color: red;">
+      <th>Campus</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+    <tr *ngFor="let eachLocation of session.classLocations">
       <td>
-        {{ eachFee.feeCode }}
+        {{ eachLocation.location }}
       </td>
       <td>
-        {{ eachFee.feeCode }}
+        {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
       </td>
       <td>
-        {{ eachFee.amount }}
-      </td>
-      <td>
-        {{ eachFee.assessedTo }}
+        {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
       </td>
     </tr>
   </table>
 
-  <article class="commentsSection">
-    <h4 style="color:red;">Comments:</h4>
-    <p>{{ session.comments }}</p>
-  </article>
+  <table class="table" id="commentsSection">
+    <tr (click)="showComments = !showComments">
+      <td align="center">
+        <h4><b style="color:red;">COMMENTS</b></h4>
+      </td>
+    </tr>
+    <tr *ngIf="showComments">
+      <td>{{ session.comments }}</td>
+    </tr>
+  </table>
 
 </body>
 </html>
