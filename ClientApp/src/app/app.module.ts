@@ -25,7 +25,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FetchDataComponent,
     SessionRequestListComponent,
     DetailPageComponent,
-    DiffPageComponent
+    DiffPageComponent,
+    DashboardComponent,
+    RevisionListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

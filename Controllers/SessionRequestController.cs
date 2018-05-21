@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SessionRequest.Models;
 
+
+
 namespace SessionRequest.Controllers
 {
     [Produces("application/json")]
@@ -37,6 +39,39 @@ namespace SessionRequest.Controllers
 
             return filtedSR;
         }
+
+
+
+        //[HttpGet("[action]")]
+        //public async Task<IHttpActionResult> GetSessionByID(int requestId)
+        //{
+        //    try
+        //    {
+        //        using (var client = new RNRSessionRequestAPI(_dataApiUri))
+        //        {
+        //            var sessionRequest = await client.SessionRequest.GetByRequestIdAsync(requestId);
+        //            var json = JsonConvert.SerializeObject(sessionRequest, new JsonSerializerSettings
+        //            {
+        //                NullValueHandling = NullValueHandling.Ignore,
+        //                PreserveReferencesHandling = PreserveReferencesHandling.All
+        //            });
+        //            return ResponseMessage(new HttpResponseMessage
+        //            {
+        //                Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json")
+        //            });
+        //        }
+        //    }
+        //    catch (HttpOperationException apiEx)
+        //    {
+        //        Log.Logger.Error("Failed to GET session! Error: {Error}", apiEx.Message);
+        //        return InternalServerError(apiEx);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Logger.Error("Failed to GET session! Error: {Error}", ex.Message);
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
         private List<MSessionRequest> GetMockSessionRequests()
         {

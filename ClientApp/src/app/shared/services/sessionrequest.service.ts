@@ -29,6 +29,13 @@ export class SessionRequestService {
     this.srSource.next(sessionRequestState);
   }
 
+  getSessionByID(requestID: number): Observable<any> {
+    console.log(this.url + 'api/SessionRequest/GetSessionByID');
+    return this.http.get(this.url + 'api/SessionRequest/GetSessionByID')
+      .catch(this.handleError);
+  }
+
+
   getAllSessionRequest(): Observable<SessionRequest[]> {
     console.log(this.url + 'api/SessionRequest/GetSessionRequests');
     return this.http.get(this.url + 'api/SessionRequest/GetSessionRequests')
