@@ -1,32 +1,38 @@
-<kendo-grid [data]="gridData"
-            [pageSize]="state.take"
-            [skip]="state.skip"
-            [sort]="state.sort"
-            [filter]="state.filter"
-            [sortable]="true"
-            [filterable]="true"
-            [selectable]="true"
-            [kendoGridSelectBy]="'sessionRequestID'"
-            [selectedKeys]="mySelection"            
-            [pageable]="{buttonCount: 5}"
-            (selectionChange)="dataSelectionChange($event)"
-            (dataStateChange)="dataStateChange($event)">
-  <kendo-grid-column field="term" title="Term"></kendo-grid-column>
-  <kendo-grid-column field="sessionCode" title="Session Code"></kendo-grid-column>
-  <kendo-grid-column field="status" title="Status"></kendo-grid-column>
-  <kendo-grid-column field="owner" title="Owner"></kendo-grid-column>
-  <kendo-grid-column field="lateChange" title="Late Change" filter="boolean">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      <input type="checkbox" [checked]="dataItem.lateChange" disabled />
-    </ng-template>
-  </kendo-grid-column>
-  <kendo-grid-column field="ownerChanged" title="Owner Changed" filter="boolean">
-    <ng-template kendoGridCellTemplate let-dataItem>
-      <input type="checkbox" [checked]="dataItem.ownerChanged" disabled />
-    </ng-template>
-  </kendo-grid-column>
-  <div *kendoGridDetailTemplate="let dataItem">
-    <sr-revision-list [sr]="dataItem"></sr-revision-list>
+<div class="row">
+  <div class="col-sm">
+    <h4>{{title}}</h4>
   </div>
-</kendo-grid>
-
+  <div class="col-sm">
+    <kendo-grid [data]="gridData"
+                [pageSize]="state.take"
+                [skip]="state.skip"
+                [sort]="state.sort"
+                [filter]="state.filter"
+                [sortable]="true"
+                [filterable]="true"
+                [selectable]="true"
+                [kendoGridSelectBy]="'sessionRequestID'"
+                [selectedKeys]="mySelection"
+                [pageable]="{buttonCount: 5}"
+                (selectionChange)="dataSelectionChange($event)"
+                (dataStateChange)="dataStateChange($event)">
+        <kendo-grid-column field="term" title="Term"></kendo-grid-column>
+        <kendo-grid-column field="sessionCode" title="Session Code"></kendo-grid-column>
+        <kendo-grid-column field="status" title="Status"></kendo-grid-column>
+        <kendo-grid-column field="owner" title="Owner"></kendo-grid-column>
+        <kendo-grid-column field="lateChange" title="Late Change" filter="boolean">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.lateChange" disabled />
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="ownerChanged" title="Owner Changed" filter="boolean">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.ownerChanged" disabled />
+          </ng-template>
+        </kendo-grid-column>
+        <div *kendoGridDetailTemplate="let dataItem">
+          <sr-revision-list [sr]="dataItem"></sr-revision-list>
+        </div>
+      </kendo-grid>
+  </div>
+</div>

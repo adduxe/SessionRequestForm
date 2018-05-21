@@ -1,10 +1,8 @@
 <kendo-grid [data]="gridData"
-            [pageSize]="state.take"
-            [skip]="state.skip"
             [sort]="state.sort"
             [filter]="state.filter"
             [sortable]="true"
-            [pageable]="true"
+            [pageable]="false"
             [selectable]="true"
             (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="versionNumber" title="Version Number"></kendo-grid-column>

@@ -17,6 +17,7 @@ export class SessionRequestListComponent implements OnInit {
   private sub: any;
   private operation: string;
 
+  public title: string;
   public gridData: GridDataResult;
   public sessionRequestList: SessionRequest[];
   public currentSessionRequest: SessionRequestState;
@@ -45,6 +46,13 @@ export class SessionRequestListComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.operation = params['operation'];
+      if (this.operation == 'all') {
+        this.title = "All Session Requests";
+      }
+      else {
+        this.title = "Pending Session Requests";
+      }
+
       //this.sessionRequestList = mockSessionRequests;
       this.sessionRequestService.currentSessionRequest.subscribe(sr => this.currentSessionRequest = sr);
       if (this.currentSessionRequest != null)
