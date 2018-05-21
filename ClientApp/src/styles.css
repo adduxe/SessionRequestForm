@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+/** Start of styles for Detail page  */
+.contactSection {
+  background-color: #f1f1f1;
+}
+
+.datesSection {
+  background-color: antiquewhite;
+}
+
+#ratesSection {
+  background-color: #f1f1f1;
+}
+
+.specialFeeSection {
+  background-color: antiquewhite;
+}
+
+.classSection {
+  background-color: #f1f1f1;
+}
+
+#commentsSection {
+  background-color: antiquewhite;
+}
+
+/** End of styles for Detail page  */
+
+
+
+
+/** Start of styles for Diff page  */
+
+.added {
+  background-color: lightgreen;
+}
+
+.changed {
+  background-color: yellow;
+}
+
+.deleted {
+  background-color: rgb(252, 216, 217);
+/*  text-decoration: line-through; */
+}
+
+/** End of styles for Diff page  */
