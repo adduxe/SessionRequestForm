@@ -32,6 +32,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\detail-page\detail.page.component.ts" />
     <None Remove="ClientApp\src\app\diff-page\diff.page.component.ts" />
+    <None Remove="ClientApp\src\app\request-form\request.form.component.ts" />
     <None Remove="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <None Remove="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <None Remove="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\detail-page\detail.page.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\diff-page\diff.page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\request-form\request.form.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />

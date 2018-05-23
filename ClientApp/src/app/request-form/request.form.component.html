@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Session Request Form</title>
+</head>
+<body>
+  <div class="row">
+
+    <!-- Start of Second column -->
+    <div class="col-md-4" id="firstColumn" style="margin-top:10px;">
+
+      <div class="form-group" id="semesterBox">
+        <label for="semester" class="col-md-6 control-label">
+          <abbr title="Session semester being applied for">For Semester</abbr>
+        </label>
+        <div class="col-md-6" style="vertical-align: bottom;">
+          <select class="form-control" id="semester" name="semester">
+            <option *ngFor="let eachSem of semesters" value="{{ eachSem.semCode }}">
+              {{ eachSem.semName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" id="rateTypeBox">
+        <label for="rateType" class="col-md-4 control-label">
+          <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
+        </label>
+        <div class="col-md-8">
+          <select class="form-control" id="rateType" name="rateType">
+            <option *ngFor="let eachRate of termRates" value="{{ eachRate.rateTypeCode }}">{{ eachRate.rateTypeDesc }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" id="classLocationBox">
+        <label for="classLocation" class="col-md-4 control-label">
+          <abbr title="Location where class will be held">Class Location</abbr>
+        </label>
+        <div class="col-md-8">
+          <select class="form-control" id="classLocation" name="classLocation">
+            <option *ngFor="let eachCampus of uscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <!-- End of Third column -->
+    <!-- Start of Second column -->
+    <div class="col-md-4" id="secondColumn" style="margin-top:10px;">
+
+      <div class="form-group" id="firstDayClassBox">
+        <label for="classesStartDate" class="col-md-6 control-label">
+          <abbr title="Session Start Date">First Day of Classes</abbr>
+        </label>
+        <div class="col-md-6">
+          <input id="classStartDate" name="classStartDate" maxlength="10" />
+        </div>
+      </div>
+
+      <div class="form-group" id="tuitionPerUnitBox">
+        <label for="tuitionUnitRate" class="col-md-6 control-label">
+          <abbr title="Tuition per unit rate in dollars">Tuition per Unit</abbr>
+        </label>
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="tuitionUnitRate" name="tuitionUnitRate" />
+        </div>
+      </div>
+    </div>
+    <!-- End of Second column -->
+    <!-- Start of Third column -->
+    <div class="col-md-4" id="thirdColumn" style="margin-top:10px;">
+
+      <div class="form-group" id="lastDayClassBox">
+        <label for="classesEndDate" class="col-md-6 control-label">
+          <abbr title="Session End Date">Last Day of Classes</abbr>
+        </label>
+        <div class="col-md-6">
+          <input id="classEndDate" name="classEndDate" maxlength="10" />
+        </div>
+      </div>
+
+      <div class="form-group" id="tuitionFlatRateBox">
+        <label for="tuitionFlatRate" class="col-md-6 control-label">
+          <abbr title="Tuition flat rate in dollars">Tuition Flat Rate</abbr>
+        </label>
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="tuitionFlatRate" name="tuitionFlatRate"/>
+        </div>
+      </div>
+
+    </div>
+    <!-- End of Third column -->
+
+  </div>
+</body>
+</html>

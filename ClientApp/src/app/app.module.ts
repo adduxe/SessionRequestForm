@@ -12,6 +12,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DetailPageComponent } from './detail-page/detail.page.component';
 import { DiffPageComponent } from './diff-page/diff.page.component';
+import { RequestFormComponent } from './request-form/request.form.component';
 
 import { SessionRequestService } from './shared/services/sessionrequest.service';
 import { SessionRequestListComponent } from './session-request-list/session-request-list.component'
@@ -27,7 +28,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DetailPageComponent,
     DiffPageComponent,
     DashboardComponent,
-    RevisionListComponent
+    RevisionListComponent,
+    RequestFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,7 +43,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
       { path: 'dashboard', component: DashboardComponent },
       { path: 'srlist/:operation', component: SessionRequestListComponent },
       { path: 'diff-page', component: DiffPageComponent },
-      { path: 'detail-page', component: DetailPageComponent }
+      { path: 'detail-page', component: DetailPageComponent },
+      { path: 'request-form', component: RequestFormComponent }
     ])
   ],
   providers: [
