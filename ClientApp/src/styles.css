@@ -1,4 +1,124 @@
-/* You can add global styles to this file, and also import other style files */
+header {
+  background-color: #990000;
+  padding-bottom: 25px;
+}
+
+footer {
+  background-color: #d3d2cc;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+body .main {
+  position: relative;
+  background-color: #efeeea;
+}
+
+body .mainContent {
+  position: relative;
+  top: -21px;
+  padding: 21px;
+  background-color: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+  margin-bottom: 45px;
+}
+
+
+body #top-banner .container,
+body div#header .container {
+  padding: 0;
+}
+
+body #top-banner {
+  width: 100%;
+  background-color: #790202;
+  font-family: 'Gudea', sans-serif;
+  font-size: 15px;
+  line-height: 12px;
+  min-height: 30px;
+  padding: 7px;
+  color: white;
+}
+
+  body #top-banner strong {
+    color: #ffcc00;
+  }
+
+.navbar-header {
+  position: relative;
+  width: 60px;
+  float: right;
+  top: -10px;
+}
+
+body #top-banner .navbar-nav li {
+  line-height: 18px;
+  height: 24px;
+}
+
+  body #top-banner .navbar-nav li a,
+  body #top-banner .navbar-nav li a:link,
+  body #top-banner .navbar-nav li a:visited {
+    line-height: 18px;
+    height: 24px;
+    color: white;
+    text-decoration: none;
+    padding: 0;
+    margin-right: 15px;
+  }
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+body #top-banner .navbar-nav li {
+  margin-right: 15px;
+}
+
+  body #top-banner .navbar-nav li::after {
+    content: '|';
+    text-decoration: none;
+    float: right;
+    position: relative;
+    top: -25px;
+  }
+
+  body #top-banner .navbar-nav li:first-child::after,
+  body #top-banner .navbar-nav li:last-child::after {
+    content: '';
+    position: static;
+  }
+
+  body #top-banner .navbar-nav li a:hover {
+    background: transparent;
+    text-decoration: underline;
+  }
+
+  body #top-banner .navbar-nav li:first-child {
+    padding-right: 15px;
+  }
+
+  body #top-banner .navbar-nav li:last-child a {
+    padding-right: 0px;
+  }
+
+    body #top-banner .navbar-nav li:last-child a::after {
+      content: '';
+      padding-left: 0;
+    }
+
+body #top-banner .navbar-right {
+  margin-right: 0 !important;
+}
+
+body #top-banner .navbar-left {
+  margin-left: 0 !important;
+}
+
+body #top-banner #access-nav ul {
+  text-align: right;
+}
 
 /** Start of styles for Detail page  */
 .contactSection {
@@ -28,8 +148,6 @@
 /** End of styles for Detail page  */
 
 
-
-
 /** Start of styles for Diff page  */
 
 .added {
@@ -46,3 +164,4 @@
 }
 
 /** End of styles for Diff page  */
+

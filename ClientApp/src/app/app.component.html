@@ -1,6 +1,58 @@
-
-    <app-nav-menu></app-nav-menu>
-
-    <div class='container'>
-      <router-outlet></router-outlet>
+{{ pageTitle }}
+<!--<app-nav-menu></app-nav-menu>-->
+<header>
+  <div id="top-banner" class="hidden-xs">
+    <div class="container">
+      <div class="row">
+        <div id="access-nav" class="col-md-4">
+          <table>
+            <tr>
+              <td align="left"><br /><strong>{{ shibInfo.userName }}</strong></td>
+            </tr>
+            <tr>
+              <td align="left"><br />{{ shibInfo.collegeName }}</td>
+            </tr>
+            <tr>
+              <td align="left"><br />{{ shibInfo.departmentName }}</td>
+            </tr>
+          </table>
+        </div>
+        <div id="information-nav" class="col-md-4" style="align-self:center;">
+          <ul class="nav navbar-nav">
+            <li>{{ shibInfo.phoneNumber }}</li>
+          </ul>
+          <ul class="nav navbar-nav">
+            <li>{{ shibInfo.emailAddress }}</li>
+          </ul>
+        </div>
+        <div class="col-md-4 pull-right">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="http://usc.edu">
+                <img src="./assets/images/usc_230.png" class="img-responsive" alt="University of Southern California" />
+              </a>
+            </li>
+            <li>
+              <a href="#" style="color:white;">
+                <span class="glyphicon glyphicon-log-out pull-right"><b>Logout</b></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
+</header>
+<div class="main">
+  <div class='container'>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<footer class="text-center">
+  <div class="container">
+    <div>
+      ©2018 The University of Southern California
+    </div>
+  </div>
+</footer>

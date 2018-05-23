@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+
+  public title = 'app';
+
+  public shibInfo = {
+    userName: 'Requester Name',
+    collegeName: 'Requesting College',
+    departmentName: 'Requesting Department',
+    phoneNumber: '',
+    emailAddress: ''
+  }
+
 }
