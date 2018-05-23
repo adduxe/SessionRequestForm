@@ -6,6 +6,7 @@ import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { SessionRequest } from '../models/sessionrequest';
+import { SessionRequestRevision } from '../models/sessionrequestrevision';
 import { SessionRequestState } from '../models/sessionrequeststate';
 
 @Injectable()
@@ -38,6 +39,11 @@ export class SessionRequestService {
   getPendingSessionRequest(): Observable<SessionRequest[]> {
     console.log(this.url + 'GetPendingSessionRequests');
     return this.http.get(this.url + 'GetPendingSessionRequests')
+      .catch(this.handleError);
+  }
+
+  getSessionRequestRevisions(srId: number): Observable<SessionRequestRevision[]> {
+    return this.http.get(this.url + 'GetSessionRequestRevisions?srId=' + srId)
       .catch(this.handleError);
   }
 

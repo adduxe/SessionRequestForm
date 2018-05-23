@@ -41,6 +41,10 @@ var SessionRequestService = /** @class */ (function () {
         return this.http.get(this.url + 'GetPendingSessionRequests')
             .catch(this.handleError);
     };
+    SessionRequestService.prototype.getSessionRequestRevisions = function (srId) {
+        return this.http.get(this.url + 'GetSessionRequestRevisions?srId=' + srId)
+            .catch(this.handleError);
+    };
     SessionRequestService.prototype.handleError = function (error) {
         var errMsg;
         if (error instanceof http_1.Response) {

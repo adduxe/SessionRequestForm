@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SessionRequest } from '../shared/models/sessionrequest';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { process, State } from '@progress/kendo-data-query';
-
+import { SessionRequest } from '../shared/models/sessionrequest';
+import { SessionRequestService } from '../shared/services/sessionrequest.service';
 @Component({
   selector: 'sr-revision-list',
   templateUrl: './revision-list.component.html',
@@ -19,11 +19,15 @@ export class RevisionListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.gridData = process(this.sr.revisions, this.state);
+    if (this.sr.revisions != null && this.sr.revisions.length > 0) {
+      this.gridData = process(this.sr.revisions, this.state);
+    }
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
-    this.gridData = process(this.sr.revisions, this.state);
+    if (this.sr.revisions != null && this.sr.revisions.length > 0) {
+      this.gridData = process(this.sr.revisions, this.state);
+    }
   }
 }

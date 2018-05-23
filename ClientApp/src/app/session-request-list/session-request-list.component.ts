@@ -69,6 +69,13 @@ export class SessionRequestListComponent implements OnInit {
     //this.grid.expandRow(0);
   }
 
+  public loadRevisions(detail) {
+    console.log(detail);
+    this.sessionRequestService.getSessionRequestRevisions(detail.dataItem.sessionRequestID).subscribe(srr => {
+      detail.dataItem.revisions = srr;
+    });
+  }
+
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
     this.gridData = process(this.sessionRequestList, this.state);
