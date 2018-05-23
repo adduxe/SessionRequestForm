@@ -14,7 +14,6 @@
                 [kendoGridSelectBy]="'sessionRequestID'"
                 [selectedKeys]="mySelection"
                 [pageable]="{buttonCount: 5}"
-                (detailExpand)="loadRevisions($event)"
                 (selectionChange)="dataSelectionChange($event)"
                 (dataStateChange)="dataStateChange($event)">
         <kendo-grid-column field="term" title="Term"></kendo-grid-column>

@@ -16,12 +16,10 @@ export class RevisionListComponent implements OnInit {
     skip: 0,
     take: 20
   };
-  constructor() { }
+  constructor(private sessionRequestService: SessionRequestService) { }
 
   ngOnInit() {
-    if (this.sr.revisions != null && this.sr.revisions.length > 0) {
-      this.gridData = process(this.sr.revisions, this.state);
-    }
+    this.loadRevisions(); 
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
@@ -29,5 +27,15 @@ export class RevisionListComponent implements OnInit {
     if (this.sr.revisions != null && this.sr.revisions.length > 0) {
       this.gridData = process(this.sr.revisions, this.state);
     }
+  }
+
+  private loadRevisions() {
+    console.log(this.sr.sessionRequestID);
+    this.sessionRequestService.getSessionRequestRevisions(this.sr.sessionRequestID).subscribe(srr => {
+      this.sr.revisions = srr;
+      if (this.sr.revisions != null && this.sr.revisions.length > 0) {
+        this.gridData = process(this.sr.revisions, this.state);
+      }
+    });
   }
 }
