@@ -395,8 +395,35 @@ export class RequestFormComponent{
       //  startDate: "2018-05-20T15:20:52.657",
       //  endDate: "2018-05-25T15:20:52.657"
       //}
+    ],
+
+    specialFees: [
+      //{
+      //  feeCode: "M22520001",
+      //  assessedTo: "U",
+      //  amount: 777
+      //}
     ]
   }
+
+  public SpecialFeeList = [
+    "M46720182 Global Ed.D Program Fee Su2018",
+    "T18920182 LSOA Student Fee Su2018",
+    "T27120182 IPPAM Program Fee Su2018",
+    "T30220182 ENGR Computing Access Fee - Su2018",
+    "T30320182 CNTV Resource Access Fee - Su2018",
+    "T31320182 MSM Program Fee Su2018",
+    "T33320182 MS-Fin Program Fee Su2018",
+    "T45420182 PM MBA Text Book Fee Su2018",
+    "T46020182 OT Lab Fee Su2018",
+    "T50920182 Dental Gown Usage Fee-Su2018",
+    "T51320182 Malpractice Insurance Fee Su2018",
+    "T51820182 Instrument Mngt System Fee Su2018",
+    "T60520182 Summer Seminar Fee Su2018",
+    "T60620182 Summer Seminar Lab Fee Su2018",
+    "T61120182 OMBA Program Fee Su2018",
+    "T61220182 OMBA Course Materials Fee Su2018"
+  ];
 
   public AddSessionBreak() {
     var newBreak = { startDate: "", endDate: "" };
@@ -404,5 +431,25 @@ export class RequestFormComponent{
     return;
   }
 
+  public AddSpecialFee() {
+
+    var newFee = {
+      feeCode: "",
+      assessedTo: "",
+      amount: 0
+    };
+
+    this.session.specialFees.push(newFee);
+    return;
+  } //
+
+
+  public DeleteThisFee(feeIndex, feeCode) {
+
+    this.session.specialFees.splice(feeIndex, 1);
+//    var i = usedFees.indexOf(feeCode);        // deletes the special fee from used fees array 
+//    usedFees.splice(i, 1);                    // so that it can be re-used later.
+    return;
+  }   // deletes a Special Fee entry
 
 }
