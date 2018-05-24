@@ -343,7 +343,7 @@ export class RequestFormComponent{
 
   public termRates = this.rates[0].termRates;
 
-  public uscCampuses = [
+  public UscCampuses = [
     {
       campusCode: "ATT",
       campusName: "ATT Center"
@@ -403,8 +403,18 @@ export class RequestFormComponent{
       //  assessedTo: "U",
       //  amount: 777
       //}
+    ],
+
+    classLocations: [
+//      {
+        //campusCode: "ATT",
+        //startDate: "2018-05-20T15:20:52.657",
+        //endDate: "2018-05-25T15:20:52.657"
+//      }
     ]
+
   }
+
 
   public SpecialFeeList = [
     "M46720182 Global Ed.D Program Fee Su2018",
@@ -425,13 +435,29 @@ export class RequestFormComponent{
     "T61220182 OMBA Course Materials Fee Su2018"
   ];
 
-  public AddSessionBreak() {
+
+  public AddClassLocation() {
+
+    var newLocation = {
+      campusCode: "",
+      startDate: "",
+      endDate: ""
+    }
+
+    this.session.classLocations.push(newLocation);
+    return;
+
+  } // AddClassLocation()
+
+
+  public AddSessionBreak(){
     var newBreak = { startDate: "", endDate: "" };
     this.session.sessionBreaks.push(newBreak)
     return;
-  }
+  } // AddSessionBreak()
 
-  public AddSpecialFee() {
+
+  public AddSpecialFee(){
 
     var newFee = {
       feeCode: "",
@@ -441,7 +467,7 @@ export class RequestFormComponent{
 
     this.session.specialFees.push(newFee);
     return;
-  } //
+  } // AddSpecialFee()
 
 
   public DeleteThisFee(feeIndex, feeCode) {
