@@ -4,6 +4,9 @@
             [sortable]="true"
             [pageable]="false"
             [selectable]="true"
+            [kendoGridSelectBy]="'versionNumber'"
+            [selectedKeys]="mySelection"
+            (selectionChange)="dataSelectionChange($event)"
             (dataStateChange)="dataStateChange($event)">
   <kendo-grid-column field="versionNumber" title="Version Number"></kendo-grid-column>
   <kendo-grid-column field="action" title="Action"></kendo-grid-column>

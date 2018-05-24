@@ -16,6 +16,7 @@ import { SessionRequestService } from '../shared/services/sessionrequest.service
 export class SessionRequestListComponent implements OnInit {
   private sub: any;
   private operation: string;
+  private rowIndex: number;
 
   public title: string;
   public gridData: GridDataResult;
@@ -23,20 +24,11 @@ export class SessionRequestListComponent implements OnInit {
   public currentSessionRequest: SessionRequestState;
 
   @ViewChild(GridComponent) grid: GridComponent;
-
+  public items: any[];
   public mySelection: number[] = [];
   public state: State = {
     skip: 0,
-    take: 3,
-
-    // Initial filter descriptor
-    /*filter: {
-      logic: 'or',
-      filters: [
-        { field: 'status', operator: 'contains', value: 'Waiting for Approval' },
-        { field: 'status', operator: 'contains', value: 'Waiting for Fee' }
-      ]
-    }*/
+    take: 3
   };
 
   constructor(private route: ActivatedRoute,
@@ -65,8 +57,10 @@ export class SessionRequestListComponent implements OnInit {
   }
 
   public ngAfterViewInit(): void {
-    // Expand the first row initially
-    //this.grid.expandRow(0);
+    console.log('ngAfterViewInit ' + this.rowIndex);
+    if (this.currentSessionRequest && this.currentSessionRequest.sessionRequest) {
+      this.grid.expandRow(this.rowIndex);
+    }
   }
 
   /*(detailExpand) = "loadRevisions($event)"
@@ -80,6 +74,23 @@ export class SessionRequestListComponent implements OnInit {
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
     this.gridData = process(this.sessionRequestList, this.state);
+
+    let stateData = {
+      sessionRequest: null,
+      sessionRequestRevision: null,
+      state: this.state,
+      srrState: null
+    };
+
+    if (this.currentSessionRequest) {
+      stateData = {
+        sessionRequest: this.currentSessionRequest.sessionRequest,
+        sessionRequestRevision: null,
+        state: this.state,
+        srrState: null
+      };
+    }
+    this.sessionRequestService.changeSessionRequest(stateData);
   }
 
   private getSessionRequest() {
@@ -104,13 +115,23 @@ export class SessionRequestListComponent implements OnInit {
         data: this.sessionRequestList.slice(this.state.skip, this.state.skip + this.state.take),
         total: this.sessionRequestList.length
       };*/
+      if (this.currentSessionRequest) {
+        this.rowIndex = this.gridData.data.indexOf(this.currentSessionRequest.sessionRequest);
+        console.log('getSR ' + this.rowIndex);
+      }
     }
   }
 
   public dataSelectionChange(selection) {
-    const selectedData = { sessionRequest: selection.selectedRows[0].dataItem, state: this.state };
+    const selectedData = {
+      sessionRequest: selection.selectedRows[0].dataItem,
+      sessionRequestRevision: null,
+      state: this.state,
+      srrState: null
+    };
+
     this.sessionRequestService.changeSessionRequest(selectedData);
-    console.log(selectedData);
+    //console.log(JSON.stringify(selectedData));
     this.router.navigate(['/fetch-data']);
   }
 }
