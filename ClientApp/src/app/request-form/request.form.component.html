@@ -21,7 +21,7 @@
 </head>
 <body>
 
-  <br/>
+  <br />
   <div class="row">
 
     <div class="form-group col-md-6" id="semesterBox">
@@ -144,29 +144,31 @@
 
   </div>
 
-    <!--
-    <div class="form-group" id="classLocationBox">
+  <!--
+  <div class="form-group" id="classLocationBox">
 
-      <table align="left" width="100%">
-        <tr>
-          <td align="center">
-            <label for="classLocation">
-              <abbr title="Location where class will be held">Class Location</abbr>
-            </label>
-          </td>
-          <td align="center">
-            <select class="form-control" id="classLocation" name="classLocation" style="width:150px;">
-              <option *ngFor="let eachCampus of uscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
-            </select>
-          </td>
-        </tr>
-      </table>
+    <table align="left" width="100%">
+      <tr>
+        <td align="center">
+          <label for="classLocation">
+            <abbr title="Location where class will be held">Class Location</abbr>
+          </label>
+        </td>
+        <td align="center">
+          <select class="form-control" id="classLocation" name="classLocation" style="width:150px;">
+            <option *ngFor="let eachCampus of uscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
+          </select>
+        </td>
+      </tr>
+    </table>
 
-    </div>-->
- 
+  </div>-->
+
   <div class="row" style="margin-left: auto; margin-right: auto;">
     <div class="col-md-4">
-      <button class="form-control uscGoldButton" value="Add Session Breaks">Add Session Breaks</button>
+      <button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
+        Add Session Breaks
+      </button>
     </div>
     <div class="col-md-4">
       <button class="form-control uscGoldButton" value="Add Special Fees">Add Special Fees</button>
@@ -175,6 +177,43 @@
       <button class="form-control uscGoldButton" value="Add Class Locations">Add Class Locations</button>
     </div>
   </div>
+
+  <!--  Session Breaks section -->
+  <div *ngIf="session.sessionBreaks.length" class="Breaks">
+
+    <div class="row" style="align-self:center;color:#ffcc00;">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-4" style="text-align:center;">
+        <h4>Break Start</h4>
+      </div>
+      <div class="col-md-4" style="text-align:center;">
+        <h4>Break End</h4>
+      </div>
+      <div class="col-md-3">
+        &nbsp;
+      </div>
+    </div>
+
+    <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachBreak of session.sessionBreaks">
+
+      <div class="col-md-1" style="text-align:right;">
+      </div>
+      <div class="col-md-4" style="align-self:center;">
+        <input class="form-control" type="text" value='{{ eachBreak.startDate | date:"MMM dd, yyyy" }}'/>
+      </div>
+      <div class="col-md-4" style="align-self:center;">
+        <input class="form-control" type="text" value='{{ eachBreak.endDate | date:"MMM dd, yyyy" }}'/>
+      </div>
+      <div class="col-md-3" style="align-self:center;">
+        <a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="session.sessionBreaks.splice(index,1);">
+          [X] Remove this Break
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- End of Session Breaks Section -->
 
   <br />
   <div class="row" style="align-content:center;">

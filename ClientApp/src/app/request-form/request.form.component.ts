@@ -388,5 +388,21 @@ export class RequestFormComponent{
       campusName: "Washington D.C."
     }];
 
+  public session = {
+
+    sessionBreaks: [
+      //{
+      //  startDate: "2018-05-20T15:20:52.657",
+      //  endDate: "2018-05-25T15:20:52.657"
+      //}
+    ]
+  }
+
+  public AddSessionBreak() {
+    var newBreak = { startDate: "", endDate: "" };
+    this.session.sessionBreaks.push(newBreak)
+    return;
+  }
+
 
 }
