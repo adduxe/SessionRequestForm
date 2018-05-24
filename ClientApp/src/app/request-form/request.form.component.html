@@ -3,96 +3,190 @@
 <head>
     <meta charset="utf-8" />
     <title>Session Request Form</title>
+
+    <style>
+      .uscRedButton {
+        background-color: #a94442;
+        color: white;
+      }
+
+      .uscGoldButton {
+        background-color: #fc0;
+        color: #900;
+        width: 80%;
+      }
+
+    </style>
+
 </head>
 <body>
+
+  <br/>
   <div class="row">
 
-    <!-- Start of Second column -->
-    <div class="col-md-4" id="firstColumn" style="margin-top:10px;">
+    <div class="form-group col-md-6" id="semesterBox">
 
-      <div class="form-group" id="semesterBox">
-        <label for="semester" class="col-md-6 control-label">
-          <abbr title="Session semester being applied for">For Semester</abbr>
-        </label>
-        <div class="col-md-6" style="vertical-align: bottom;">
-          <select class="form-control" id="semester" name="semester">
-            <option *ngFor="let eachSem of semesters" value="{{ eachSem.semCode }}">
-              {{ eachSem.semName }}
-            </option>
-          </select>
-        </div>
-      </div>
+      <label for="semester" class="col-md-6 control-label">
+        <abbr title="Session semester being applied for">For Semester</abbr>
+      </label>
 
-      <div class="form-group" id="rateTypeBox">
-        <label for="rateType" class="col-md-4 control-label">
-          <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
-        </label>
-        <div class="col-md-8">
-          <select class="form-control" id="rateType" name="rateType">
-            <option *ngFor="let eachRate of termRates" value="{{ eachRate.rateTypeCode }}">{{ eachRate.rateTypeDesc }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group" id="classLocationBox">
-        <label for="classLocation" class="col-md-4 control-label">
-          <abbr title="Location where class will be held">Class Location</abbr>
-        </label>
-        <div class="col-md-8">
-          <select class="form-control" id="classLocation" name="classLocation">
-            <option *ngFor="let eachCampus of uscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
-          </select>
-        </div>
+      <div class="col-md-6" style="vertical-align: bottom;">
+        <select class="form-control" id="semester" name="semester">
+          <option *ngFor="let eachSem of semesters" value="{{ eachSem.semCode }}">
+            {{ eachSem.semName }}
+          </option>
+        </select>
       </div>
 
     </div>
-    <!-- End of Third column -->
-    <!-- Start of Second column -->
-    <div class="col-md-4" id="secondColumn" style="margin-top:10px;">
 
-      <div class="form-group" id="firstDayClassBox">
-        <label for="classesStartDate" class="col-md-6 control-label">
-          <abbr title="Session Start Date">First Day of Classes</abbr>
-        </label>
-        <div class="col-md-6">
-          <input id="classStartDate" name="classStartDate" maxlength="10" />
-        </div>
-      </div>
+    <div class="form-group col-md-6" id="sessionCodeBox">
 
-      <div class="form-group" id="tuitionPerUnitBox">
-        <label for="tuitionUnitRate" class="col-md-6 control-label">
-          <abbr title="Tuition per unit rate in dollars">Tuition per Unit</abbr>
-        </label>
-        <div class="col-md-6">
-          <input type="text" class="form-control" id="tuitionUnitRate" name="tuitionUnitRate" />
-        </div>
+      <label for="sessCode" class="col-md-6 control-label">
+        <abbr title="Enter the 3-digit code that was used for this session previously. If you do not know the Session Code assigned to this academic program, or if the special program is new, please leave this field blank">
+          Session Code
+        </abbr>
+      </label>
+
+      <div class="col-md-6">
+        <input class="form-control" id="sessionCode" name="sessionCode" maxlength="4" style="width:150px;" />
       </div>
     </div>
-    <!-- End of Second column -->
-    <!-- Start of Third column -->
-    <div class="col-md-4" id="thirdColumn" style="margin-top:10px;">
-
-      <div class="form-group" id="lastDayClassBox">
-        <label for="classesEndDate" class="col-md-6 control-label">
-          <abbr title="Session End Date">Last Day of Classes</abbr>
-        </label>
-        <div class="col-md-6">
-          <input id="classEndDate" name="classEndDate" maxlength="10" />
-        </div>
-      </div>
-
-      <div class="form-group" id="tuitionFlatRateBox">
-        <label for="tuitionFlatRate" class="col-md-6 control-label">
-          <abbr title="Tuition flat rate in dollars">Tuition Flat Rate</abbr>
-        </label>
-        <div class="col-md-6">
-          <input type="text" class="form-control" id="tuitionFlatRate" name="tuitionFlatRate"/>
-        </div>
-      </div>
-
-    </div>
-    <!-- End of Third column -->
 
   </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="firstDayClassBox">
+      <label for="classesStartDate" class="col-md-6 control-label">
+        <abbr title="Session Start Date">First Day of Classes</abbr>
+      </label>
+      <div class="col-md-3">
+        <input id="classStartDate" name="classStartDate" maxlength="10" />
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="lastDayClassBox">
+      <label for="classesEndDate" class="col-md-6 control-label">
+        <abbr title="Session End Date">Last Day of Classes</abbr>
+      </label>
+      <div class="col-md-6">
+        <input id="classEndDate" name="classEndDate" maxlength="10" />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="rateTypeBox">
+      <label for="rateType" class="col-md-6 control-label">
+        <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
+      </label>
+      <div class="col-md-6">
+        <select class="form-control" id="rateType" name="rateType">
+          <option *ngFor="let eachRate of termRates" value="{{ eachRate.rateTypeCode }}">{{ eachRate.rateTypeDesc }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="blankBox">
+      &nbsp;
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="tuitionFlatRateBox">
+      <label for="tuitionFlatRate" class="col-md-6 control-label">
+        <abbr title="Tuition flat rate in dollars">Tuition Flat Rate</abbr>
+      </label>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="tuitionFlatRate" name="tuitionFlatRate" />
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
+      <label for="flatUnitsMin" class="col-md-6 control-label">
+        <abbr title="Tuition flat rate in dollars">Undergrad Flat<br />Rate Range (units)</abbr>
+      </label>
+      <div class="col-md-6" style="align-items:center;">
+        <input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />
+        &nbsp;to&nbsp;
+        <input id="flatUnitsMax" name="flatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="tuitionPerUnitBox">
+      <label for="tuitionUnitRate" class="col-md-6 control-label">
+        <abbr title="Tuition per unit rate in dollars">Tuition per Unit</abbr>
+      </label>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="tuitionUnitRate" name="tuitionUnitRate" />
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="gradFlatRateRangeBox">
+      <label for="gradFlatUnitsMin" class="col-md-6 control-label">
+        <abbr title="Tuition flat rate in dollars">Grad Flat<br /> Rate Range (units)</abbr>
+      </label>
+      <div class="col-md-6" style="align-items:center;">
+        <input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />
+        &nbsp;to&nbsp;
+        <input id="gradFlatUnitsMax" name="gradFlatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />
+      </div>
+    </div>
+
+  </div>
+
+    <!--
+    <div class="form-group" id="classLocationBox">
+
+      <table align="left" width="100%">
+        <tr>
+          <td align="center">
+            <label for="classLocation">
+              <abbr title="Location where class will be held">Class Location</abbr>
+            </label>
+          </td>
+          <td align="center">
+            <select class="form-control" id="classLocation" name="classLocation" style="width:150px;">
+              <option *ngFor="let eachCampus of uscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+
+    </div>-->
+ 
+  <div class="row" style="margin-left: auto; margin-right: auto;">
+    <div class="col-md-4">
+      <button class="form-control uscGoldButton" value="Add Session Breaks">Add Session Breaks</button>
+    </div>
+    <div class="col-md-4">
+      <button class="form-control uscGoldButton" value="Add Special Fees">Add Special Fees</button>
+    </div>
+    <div class="col-md-4">
+      <button class="form-control uscGoldButton" value="Add Class Locations">Add Class Locations</button>
+    </div>
+  </div>
+
+  <br />
+  <div class="row" style="align-content:center;">
+    <div class="col-md-5 red" style="text-align: center;">
+      <h4><b>{{ formError }}</b></h4>
+    </div>
+    <div class="col-md-2">
+      <input type="submit" class="form-control uscRedButton" (click)="SubmitForm();" value="Submit" />
+    </div>
+    <div class="col-md-5">
+    </div>
+  </div>
+  <br />
 </body>
 </html>

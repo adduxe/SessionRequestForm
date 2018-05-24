@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 
 export class RequestFormComponent{
 
+  public MAXUNITS: number = 100;
+
   public semesters = [
     { semCode: 20182, semName: "2018 Summer"},
     { semCode: 20183, semName: "2018 Fall"},
