@@ -30,8 +30,8 @@
             <input type="checkbox" [checked]="dataItem.ownerChanged" disabled />
           </ng-template>
         </kendo-grid-column>
-        <div *kendoGridDetailTemplate="let dataItem">
-          <sr-revision-list [sr]="dataItem"></sr-revision-list>
+        <div *kendoGridDetailTemplate="let dataItem, let rowIndex=rowIndex;">
+          <sr-revision-list [sr]="dataItem" [srIndex]="rowIndex"></sr-revision-list>
         </div>
       </kendo-grid>
   </div>

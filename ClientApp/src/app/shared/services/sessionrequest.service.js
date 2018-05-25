@@ -31,6 +31,9 @@ var SessionRequestService = /** @class */ (function () {
     SessionRequestService.prototype.changeSessionRequest = function (sessionRequestState) {
         this.srSource.next(sessionRequestState);
     };
+    SessionRequestService.prototype.resetSessionRequest = function () {
+        this.srSource.next(null);
+    };
     SessionRequestService.prototype.getAllSessionRequest = function () {
         console.log(this.url + 'GetSessionRequests');
         return this.http.get(this.url + 'GetSessionRequests')

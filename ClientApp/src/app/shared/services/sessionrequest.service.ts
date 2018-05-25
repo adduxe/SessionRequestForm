@@ -30,6 +30,9 @@ export class SessionRequestService {
     this.srSource.next(sessionRequestState);
   }
 
+  resetSessionRequest() {
+    this.srSource.next(null);
+  }
   getAllSessionRequest(): Observable<SessionRequest[]> {
     console.log(this.url + 'GetSessionRequests');
     return this.http.get(this.url + 'GetSessionRequests')

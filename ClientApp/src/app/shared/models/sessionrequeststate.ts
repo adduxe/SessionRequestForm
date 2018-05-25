@@ -8,4 +8,5 @@ export interface SessionRequestState {
   sessionRequestRevision: SessionRequestRevision;
   state: State;
   srrState: State;
+  rowIndex: number;
 }

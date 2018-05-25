@@ -51,13 +51,13 @@ export class SessionRequestListComponent implements OnInit {
       {
         this.mySelection = [this.currentSessionRequest.sessionRequest.sessionRequestID];
         this.state = this.currentSessionRequest.state;
+        this.rowIndex = this.currentSessionRequest.rowIndex;
       }
       this.getSessionRequest();
     });
   }
 
   public ngAfterViewInit(): void {
-    console.log('ngAfterViewInit ' + this.rowIndex);
     if (this.currentSessionRequest && this.currentSessionRequest.sessionRequest) {
       this.grid.expandRow(this.rowIndex);
     }
@@ -79,7 +79,8 @@ export class SessionRequestListComponent implements OnInit {
       sessionRequest: null,
       sessionRequestRevision: null,
       state: this.state,
-      srrState: null
+      srrState: null,
+      rowIndex: 0
     };
 
     if (this.currentSessionRequest) {
@@ -87,7 +88,8 @@ export class SessionRequestListComponent implements OnInit {
         sessionRequest: this.currentSessionRequest.sessionRequest,
         sessionRequestRevision: null,
         state: this.state,
-        srrState: null
+        srrState: null,
+        rowIndex: this.currentSessionRequest.rowIndex
       };
     }
     this.sessionRequestService.changeSessionRequest(stateData);
@@ -115,10 +117,6 @@ export class SessionRequestListComponent implements OnInit {
         data: this.sessionRequestList.slice(this.state.skip, this.state.skip + this.state.take),
         total: this.sessionRequestList.length
       };*/
-      if (this.currentSessionRequest) {
-        this.rowIndex = this.gridData.data.indexOf(this.currentSessionRequest.sessionRequest);
-        console.log('getSR ' + this.rowIndex);
-      }
     }
   }
 
@@ -127,7 +125,8 @@ export class SessionRequestListComponent implements OnInit {
       sessionRequest: selection.selectedRows[0].dataItem,
       sessionRequestRevision: null,
       state: this.state,
-      srrState: null
+      srrState: null,
+      rowIndex: selection.index
     };
 
     this.sessionRequestService.changeSessionRequest(selectedData);

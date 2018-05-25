@@ -15,6 +15,7 @@ import { SessionRequestService } from '../shared/services/sessionrequest.service
 })
 export class RevisionListComponent implements OnInit {
   @Input() public sr: SessionRequest;
+  @Input() public srIndex: number;
 
   public gridData: GridDataResult;
   public mySelection: number[] = [];
@@ -48,7 +49,8 @@ export class RevisionListComponent implements OnInit {
       sessionRequest: this.sr,
       sessionRequestRevision: selection.selectedRows[0].dataItem,
       state: this.isSRSame() ? this.currentSessionRequest.state : {skip: 0,take: 3},
-      srrState: this.state
+      srrState: this.state,
+      rowIndex: this.srIndex
     };
 
     this.sessionRequestService.changeSessionRequest(selectedData);
