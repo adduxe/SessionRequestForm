@@ -6,6 +6,7 @@ import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { SessionRequest } from '../models/sessionrequest';
+import { SessionRequestRevision } from '../models/sessionrequestrevision';
 import { SessionRequestState } from '../models/sessionrequeststate';
 
 @Injectable()
@@ -22,13 +23,16 @@ export class SessionRequestService {
       'Content-Type': 'application/json'
     });
     this.options = new RequestOptions({ headers: this.headers });
-    this.url = baseUrl;
+    this.url = baseUrl + 'api/SessionRequest/';
   }
 
   changeSessionRequest(sessionRequestState: SessionRequestState) {
     this.srSource.next(sessionRequestState);
   }
 
+  resetSessionRequest() {
+    this.srSource.next(null);
+  }
   getSessionByID(requestID: number): Observable<any> {
     console.log(this.url + 'api/SessionRequest/GetSessionByID');
     return this.http.get(this.url + 'api/SessionRequest/GetSessionByID')
@@ -37,14 +41,19 @@ export class SessionRequestService {
 
 
   getAllSessionRequest(): Observable<SessionRequest[]> {
-    console.log(this.url + 'api/SessionRequest/GetSessionRequests');
-    return this.http.get(this.url + 'api/SessionRequest/GetSessionRequests')
+    console.log(this.url + 'GetSessionRequests');
+    return this.http.get(this.url + 'GetSessionRequests')
       .catch(this.handleError);
   }
 
   getPendingSessionRequest(): Observable<SessionRequest[]> {
-    console.log(this.url + 'api/SessionRequest/GetPendingSessionRequests');
-    return this.http.get(this.url + 'api/SessionRequest/GetPendingSessionRequests')
+    console.log(this.url + 'GetPendingSessionRequests');
+    return this.http.get(this.url + 'GetPendingSessionRequests')
+      .catch(this.handleError);
+  }
+
+  getSessionRequestRevisions(srId: number): Observable<SessionRequestRevision[]> {
+    return this.http.get(this.url + 'GetSessionRequestRevisions?srId=' + srId)
       .catch(this.handleError);
   }
 

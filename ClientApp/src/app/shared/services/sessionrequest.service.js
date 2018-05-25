@@ -26,19 +26,26 @@ var SessionRequestService = /** @class */ (function () {
             'Content-Type': 'application/json'
         });
         this.options = new http_1.RequestOptions({ headers: this.headers });
-        this.url = baseUrl;
+        this.url = baseUrl + 'api/SessionRequest/';
     }
     SessionRequestService.prototype.changeSessionRequest = function (sessionRequestState) {
         this.srSource.next(sessionRequestState);
     };
+    SessionRequestService.prototype.resetSessionRequest = function () {
+        this.srSource.next(null);
+    };
     SessionRequestService.prototype.getAllSessionRequest = function () {
-        console.log(this.url + 'api/SessionRequest/GetSessionRequests');
-        return this.http.get(this.url + 'api/SessionRequest/GetSessionRequests')
+        console.log(this.url + 'GetSessionRequests');
+        return this.http.get(this.url + 'GetSessionRequests')
             .catch(this.handleError);
     };
     SessionRequestService.prototype.getPendingSessionRequest = function () {
-        console.log(this.url + 'api/SessionRequest/GetPendingSessionRequests');
-        return this.http.get(this.url + 'api/SessionRequest/GetPendingSessionRequests')
+        console.log(this.url + 'GetPendingSessionRequests');
+        return this.http.get(this.url + 'GetPendingSessionRequests')
+            .catch(this.handleError);
+    };
+    SessionRequestService.prototype.getSessionRequestRevisions = function (srId) {
+        return this.http.get(this.url + 'GetSessionRequestRevisions?srId=' + srId)
             .catch(this.handleError);
     };
     SessionRequestService.prototype.handleError = function (error) {
