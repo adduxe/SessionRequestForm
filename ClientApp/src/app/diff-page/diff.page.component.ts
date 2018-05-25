@@ -35,13 +35,14 @@ enum DIFF {
   DELETED = 3,
 }
 
-
 @Component({
   selector: 'diff-page',
   templateUrl: './diff.page.component.html',
 })
 
 export class DiffPageComponent {
+
+  public pageTitle: string = "Diff Page";
 
   public diffArr: boolean[][] = [    // Need to initialize the array or else the HTML will error out.
     [false, false, false],   // Acad term

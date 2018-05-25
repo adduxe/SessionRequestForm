@@ -150,7 +150,7 @@
         <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit ($)</abbr>
       </label>
       <div class="col-md-6">
-        <input type="text" class="form-control" [(ngModel)]="session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />
+        <input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />
       </div>
     </div>
 

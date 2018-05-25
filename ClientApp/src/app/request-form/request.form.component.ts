@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'request-form',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
 })
 
 export class RequestFormComponent{
+
+  pageTitle: string = "Emily";
 
   public MAXUNITS: number = 100;
 
@@ -485,14 +487,19 @@ export class RequestFormComponent{
     console.log("In AllowNumbersOnly: " + n);
 
 //    isNumeric(value: any): boolean {
-    if (!isNaN(n - parseInt(n))) {
-      console.log(n + " is numeric.");
-    } else {
-      console.log(n + " is not numeric.");
-      n = n.substring(0, n.length - 1);
-      this.session.ratePerUnitAmount = parseInt(n).toString();
+    if (isNaN(n - parseInt(n))) {
+
+      console.log(n + " is not numeric. (length = " + n.length + ")");
+
+      if (n.length == 1) {
+        this.session.ratePerUnitAmount = '';
+      } else {
+        console.log("jumped here");
+        n = n.substring(0, n.length - 1);
+        this.session.ratePerUnitAmount = parseInt(n).toString();
+      }
+      console.log("n = " + n);
     }
-      ;
 //    }
     //var specKeys = [46, 8, 9, 27, 13];
 
