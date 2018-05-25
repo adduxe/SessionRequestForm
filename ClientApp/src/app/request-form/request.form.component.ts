@@ -389,7 +389,8 @@ export class RequestFormComponent{
     }];
 
   public session = {
-
+    academicTerm: "",
+    ratePerUnitAmount: "",
     sessionBreaks: [
       //{
       //  startDate: "2018-05-20T15:20:52.657",
@@ -477,5 +478,40 @@ export class RequestFormComponent{
 //    usedFees.splice(i, 1);                    // so that it can be re-used later.
     return;
   }   // deletes a Special Fee entry
+
+
+  public AllowNumbersOnly(n: any) {
+    var txtLen = n.length;
+    console.log("In AllowNumbersOnly: " + n);
+
+//    isNumeric(value: any): boolean {
+    if (!isNaN(n - parseInt(n))) {
+      console.log(n + " is numeric.");
+    } else {
+      console.log(n + " is not numeric.");
+      n = n.substring(0, n.length - 1);
+      this.session.ratePerUnitAmount = parseInt(n).toString();
+    }
+      ;
+//    }
+    //var specKeys = [46, 8, 9, 27, 13];
+
+    //// Allow: backspace, delete, tab, escape, and enter
+    ////    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+    //if (!specKeys.indexOf(e.keyCode) ||
+    //  // Allow: Ctrl+A, Command+A
+    //  (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+    //  // Allow: home, end, left, right, down, up
+    //  (e.keyCode >= 35 && e.keyCode <= 40)) {
+    //  // let it happen, don't do anything
+    //  return;
+    //}
+
+    //// Ensure that it is a number and stop the keypress
+    //if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+    //  e.preventDefault();
+    //}
+  }   // AllowNumbersOnly
+
 
 }

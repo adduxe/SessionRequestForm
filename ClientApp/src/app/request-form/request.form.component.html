@@ -31,7 +31,7 @@
       </label>
 
       <div class="col-md-6" style="vertical-align: bottom;">
-        <select class="form-control" id="semester" name="semester">
+        <select class="form-control" [(ngModel)]="session.academicTerm">
           <option *ngFor="let eachSem of semesters" value="{{ eachSem.semCode }}">
             {{ eachSem.semName }}
           </option>
@@ -61,7 +61,7 @@
       <label for="classesStartDate" class="col-md-6 control-label">
         <abbr title="Session Start Date">First Day of Classes</abbr>
       </label>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <input id="classStartDate" name="classStartDate" maxlength="10" />
       </div>
     </div>
@@ -72,6 +72,28 @@
       </label>
       <div class="col-md-6">
         <input id="classEndDate" name="classEndDate" maxlength="10" />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="firstDayFinalsBox">
+      <label for="finalsStartDate" class="col-md-6 control-label">
+        <abbr title="Finals Start Date">First Day of Finals</abbr>
+      </label>
+      <div class="col-md-6">
+        <input id="finalsStartDate" name="finalsStartDate" maxlength="10" />
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="lastDayFinalsBox">
+      <label for="finalsEndDate" class="col-md-6 control-label">
+        <abbr title="Session End Date">Last Day of Finals</abbr>
+      </label>
+      <div class="col-md-6">
+        <input id="finalsEndDate" name="finalsEndDate" maxlength="10" />
       </div>
     </div>
 
@@ -100,7 +122,7 @@
 
     <div class="form-group col-md-6" id="tuitionFlatRateBox">
       <label for="tuitionFlatRate" class="col-md-6 control-label">
-        <abbr title="Tuition flat rate in dollars">Tuition Flat Rate</abbr>
+        <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate ($)</abbr>
       </label>
       <div class="col-md-6">
         <input type="text" class="form-control" id="tuitionFlatRate" name="tuitionFlatRate" />
@@ -109,7 +131,7 @@
 
     <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
       <label for="flatUnitsMin" class="col-md-6 control-label">
-        <abbr title="Tuition flat rate in dollars">Undergrad Flat<br />Rate Range (units)</abbr>
+        <abbr title="Tuition flat rate in dollars">Undergrad Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
         <input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />
@@ -123,17 +145,18 @@
   <div class="row">
 
     <div class="form-group col-md-6" id="tuitionPerUnitBox">
+
       <label for="tuitionUnitRate" class="col-md-6 control-label">
-        <abbr title="Tuition per unit rate in dollars">Tuition per Unit</abbr>
+        <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit ($)</abbr>
       </label>
       <div class="col-md-6">
-        <input type="text" class="form-control" id="tuitionUnitRate" name="tuitionUnitRate" />
+        <input type="text" class="form-control" [(ngModel)]="session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />
       </div>
     </div>
 
     <div class="form-group col-md-6" id="gradFlatRateRangeBox">
       <label for="gradFlatUnitsMin" class="col-md-6 control-label">
-        <abbr title="Tuition flat rate in dollars">Grad Flat<br /> Rate Range (units)</abbr>
+        <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
         <input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />
@@ -144,27 +167,7 @@
 
   </div>
 
-  <!--
-  <div class="form-group" id="classLocationBox">
-
-    <table align="left" width="100%">
-      <tr>
-        <td align="center">
-          <label for="classLocation">
-            <abbr title="Location where class will be held">Class Location</abbr>
-          </label>
-        </td>
-        <td align="center">
-          <select class="form-control" id="classLocation" name="classLocation" style="width:150px;">
-            <option *ngFor="let eachCampus of uscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-
-  </div>-->
-
-  <div class="row" style="margin-left: auto; margin-right: auto;">
+  <div class="row" style="margin-left: auto; margin-right: auto;" id="addButtonsSection">
     <div class="col-md-4">
       <button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
         Add Session Break
@@ -248,13 +251,12 @@
       </div>
       <div class="col-md-2">
         <a href="javascript:;" class="uscRedButton" title="Delete this Special Fee" (click)="DeleteThisFee(index, eachFee.feeCode);">
-          [X] Remove
+          [X] Remove this Fee
         </a>
       </div>
     </div>
   </div>
   <!-- End of Special Fees Section -->
-
   <!-- Start of Class Locations Section -->
   <div *ngIf="session.classLocations.length" class="Locations">
 
@@ -295,17 +297,17 @@
   <!-- End of Class Locations Section -->
 
 
-    <br />
-    <div class="row" style="align-content:center;">
-      <div class="col-md-5 red" style="text-align: center;">
-        <h4><b>{{ formError }}</b></h4>
-      </div>
-      <div class="col-md-2">
-        <input type="submit" class="form-control uscRedButton" (click)="SubmitForm();" value="Submit" />
-      </div>
-      <div class="col-md-5">
-      </div>
+  <br />
+  <div class="row" style="align-content:center;">
+    <div class="col-md-5 red" style="text-align: center;">
+      <h4><b>{{ formError }}</b></h4>
     </div>
-    <br />
+    <div class="col-md-2">
+      <input type="submit" class="form-control uscRedButton" (click)="SubmitForm();" value="Submit" />
+    </div>
+    <div class="col-md-5">
+    </div>
+  </div>
+  <br />
 </body>
 </html>
