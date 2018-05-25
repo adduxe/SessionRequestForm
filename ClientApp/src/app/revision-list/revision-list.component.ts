@@ -63,6 +63,9 @@ export class RevisionListComponent implements OnInit {
       if (this.currentSessionRequest.sessionRequest) {
         return this.currentSessionRequest.sessionRequest.sessionRequestID == this.sr.sessionRequestID;
       }
+      else {
+        return true;
+      }
     }
 
     return false;
