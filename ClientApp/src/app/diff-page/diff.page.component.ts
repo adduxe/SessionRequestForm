@@ -38,6 +38,7 @@ enum DIFF {
 @Component({
   selector: 'diff-page',
   templateUrl: './diff.page.component.html',
+  styleUrls: ['./diff.page.component.css']
 })
 
 export class DiffPageComponent {

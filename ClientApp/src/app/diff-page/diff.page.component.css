@@ -1,0 +1,16 @@
+/** Start of styles for Diff page  */
+
+.added {
+  background-color: lightgreen;
+}
+
+.changed {
+  background-color: yellow;
+}
+
+.deleted {
+  background-color: rgb(252, 216, 217);
+  /*  text-decoration: line-through; */
+}
+
+/** End of styles for Diff page  */

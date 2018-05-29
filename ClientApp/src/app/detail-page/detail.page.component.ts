@@ -17,12 +17,12 @@ enum SECT {
 @Component({
   selector: 'detail-page',
   templateUrl: './detail.page.component.html',
+  styleUrls: ['./detail.page.component.css']
 })
 
 export class DetailPageComponent {
 
   @Output() pageTitle: string = "Detail Page";
-
   
   //public sessionRequestState: SessionRequestState;
   //public sessionRequest: SessionRequest;

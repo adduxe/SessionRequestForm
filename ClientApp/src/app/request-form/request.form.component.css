@@ -1,0 +1,38 @@
+/* Request form styles */
+
+.uscRedButton {
+  background-color: #a94442;
+  color: white;
+}
+
+.uscGoldButton {
+  background-color: #fc0;
+  color: #900;
+  width: 80%;
+}
+
+.Breaks {
+  background-color: rgba(153,0,0,.7);
+  border: solid;
+  border-color: white;
+  color: #ffcc00;
+}
+
+.Fees {
+  background-color: #999;
+  border-color: black;
+  color: #ffcc00;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border: solid;
+  border-color: white;
+}
+
+.Locations {
+  background-color: #ffcc00;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  border: solid;
+  border-color: white;
+  color: white;
+}

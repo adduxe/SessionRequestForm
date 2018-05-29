@@ -2,7 +2,8 @@ import { Component, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'request-form',
-  templateUrl: './request.form.component.html'
+  templateUrl: './request.form.component.html',
+  styleUrls: ['./request.form.component.css']
 })
 
 export class RequestFormComponent{
@@ -389,7 +390,7 @@ export class RequestFormComponent{
       campusCode: "DC",
       campusName: "Washington D.C."
     }];
-
+  
   public session = {
     academicTerm: "",
     ratePerUnitAmount: "",
@@ -417,8 +418,7 @@ export class RequestFormComponent{
     ]
 
   }
-
-
+  
   public SpecialFeeList = [
     "M46720182 Global Ed.D Program Fee Su2018",
     "T18920182 LSOA Student Fee Su2018",
@@ -437,8 +437,7 @@ export class RequestFormComponent{
     "T61120182 OMBA Program Fee Su2018",
     "T61220182 OMBA Course Materials Fee Su2018"
   ];
-
-
+  
   public AddClassLocation() {
 
     var newLocation = {
@@ -451,14 +450,12 @@ export class RequestFormComponent{
     return;
 
   } // AddClassLocation()
-
-
+  
   public AddSessionBreak(){
     var newBreak = { startDate: "", endDate: "" };
     this.session.sessionBreaks.push(newBreak)
     return;
   } // AddSessionBreak()
-
 
   public AddSpecialFee(){
 
@@ -472,7 +469,6 @@ export class RequestFormComponent{
     return;
   } // AddSpecialFee()
 
-
   public DeleteThisFee(feeIndex, feeCode) {
 
     this.session.specialFees.splice(feeIndex, 1);
@@ -480,8 +476,7 @@ export class RequestFormComponent{
 //    usedFees.splice(i, 1);                    // so that it can be re-used later.
     return;
   }   // deletes a Special Fee entry
-
-
+  
   public AllowNumbersOnly(n: any) {
     var txtLen = n.length;
     console.log("In AllowNumbersOnly: " + n);
@@ -519,6 +514,5 @@ export class RequestFormComponent{
     //  e.preventDefault();
     //}
   }   // AllowNumbersOnly
-
 
 }
