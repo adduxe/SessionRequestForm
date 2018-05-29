@@ -1,40 +1,5 @@
 import { Component } from '@angular/core';
 
-enum SESS {
-  ACADTERM      = 0,
-  SESSCODE      = 1,
-  OWNSCHOOL     = 2,
-  OWNDEPT       = 3,
-  USERCONTACT   = 4,
-  USEREMAIL     = 5,
-  USERPHONE     = 6,
-  CLASSFIRSTDAY = 7,
-  CLASSLASTDAY  = 8,
-  DROPLASTDAY   = 9,
-  WITHDRAWLASTDAY = 10,
-  FINALSFIRSTDAY  = 11,
-  FINALSLASTDAY = 12,
-  GRADESFIRSTDAY  = 13,
-  GRADESLASTDAY = 14,
-  RATETYPE      = 15,
-  PERUNITAMOUNT = 16,
-  FLATRATEAMOUNT = 17,
-  UGRADUNITSMIN = 18,
-  UGRADUNITSMAX = 19,
-  GRADUNITSMIN  = 20,
-  GRADUNITSMAX  = 21,
-  CLASSLOCATION = 22,
-  SPECIALFEES   = 23,
-  SESSIONBREAKS = 24,
-  COMMENTS      = 25
-}
-
-enum DIFF {
-  NEW     = 1,
-  CHANGED = 2,
-  DELETED = 3,
-}
-
 @Component({
   selector: 'diff-page',
   templateUrl: './diff.page.component.html',
@@ -45,39 +10,7 @@ export class DiffPageComponent {
 
   public pageTitle: string = "Diff Page";
 
-  public diffArr: boolean[][] = [    // Need to initialize the array or else the HTML will error out.
-    [false, false, false],   // Acad term
-    [false, false, false],   // Session Code
-    [false, false, false],   // Owning School
-    [false, false, false],   // Owning Department
-    [false, false, false],   // User Contact
-    [false, false, false],   // User Email
-    [false, false, false],   // User Phone
-    [false, false, false],   // First Day of Classes
-    [false, false, false],   // Last Day of Classes
-    [false, false, false],   // Last Day to Add/Drop Classes
-    [false, false, false],   // Last Day to Withdraw Classes
-    [false, false, false],   // First Day of Finals
-    [false, false, false],   // Last Day of Finals
-    [false, false, false],   // First Day for Grading
-    [false, false, false],   // Last Day for Grading
-    [false, false, false],   // Rate Type
-    [false, false, false],   // Rate per Unit Amount
-    [false, false, false],   // Flate rate Amount
-    [false, false, false],   // Undergrad Units Min
-    [false, false, false],   // Undergrad Units Max
-    [false, false, false],   // Grad Units Min
-    [false, false, false],   // Grad Units Max
-    [false, false, false],   // Class Location
-    [false, false, false],   // Session Breaks
-    [false, false, false],   // Special Fees
-    [false, false, false]    // Comments
-  ];
-
   public hideShowPrev: string = "<<<<";
-
-  DIFF = DIFF;        // to expose the DIFF enum to the HTML
-  SESS = SESS;        // to expose the SESS enum to the HTML
 
   public HideShowPrevVersion() {
 
@@ -90,92 +23,6 @@ export class DiffPageComponent {
     return;
   }   // HideShowPrevVersion()
 
-  public CompareHiLite(newVal, oldVal, sessVal: number)       // compare the new and previous value of the field
-  {
-    switch (true) {
-
-      case ((newVal > '') && (oldVal == '')):
-      case ((newVal.length > 0) && (oldVal.length == 0)):   // New Value
-        this.diffArr[sessVal][DIFF.NEW] = true;
-        break;
-
-      case ((newVal == '') && (oldVal > '')):
-      case ((newVal.length == 0) && (oldVal.length > 0)):   // Deleted Value
-        this.diffArr[sessVal][DIFF.DELETED] = true;
-        break;
-
-      case (JSON.stringify(newVal) != JSON.stringify(oldVal)) : // Changed Value
-        this.diffArr[sessVal][DIFF.CHANGED] = true;
-        break;
-
-      default:                                              // No change
-        this.diffArr[sessVal][DIFF.NEW] = false;
-        this.diffArr[sessVal][DIFF.DELETED] = false;
-        this.diffArr[sessVal][DIFF.CHANGED] = false;
-        break;
-    }
-    return;
-  } // CompareHiLite(string, string...)
-
-  public markDifferences() {   // will mark the fields that changed in current and previous revisions
-
-    var newVal = this.currSess, oldVal = this.prevSess;
-
-    this.CompareHiLite(newVal.academicTerm, oldVal.academicTerm, SESS.ACADTERM);
-
-    this.CompareHiLite(newVal.sessionCode, oldVal.sessionCode, SESS.SESSCODE);
-
-    this.CompareHiLite(newVal.owningSchool, oldVal.owningSchool, SESS.OWNSCHOOL);
-
-    this.CompareHiLite(newVal.owningDepartment, oldVal.owningDepartment, SESS.OWNDEPT);
-
-    this.CompareHiLite(newVal.userContact, oldVal.userContact, SESS.USERCONTACT);
-
-    this.CompareHiLite(newVal.userEmail, oldVal.userEmail, SESS.USEREMAIL);
-
-    this.CompareHiLite(newVal.userPhone, oldVal.userPhone, SESS.USERPHONE);
-
-    this.CompareHiLite(newVal.firstDayOfClass, oldVal.firstDayOfClass, SESS.CLASSFIRSTDAY);
-
-    this.CompareHiLite(newVal.lastDayOfClass, oldVal.lastDayOfClass, SESS.CLASSLASTDAY);
-
-    this.CompareHiLite(newVal.lastDayForAddDrop, oldVal.lastDayForAddDrop, SESS.DROPLASTDAY);
-
-    this.CompareHiLite(newVal.lastDayForWithdrawal, oldVal.lastDayForWithdrawal, SESS.WITHDRAWLASTDAY);
-
-    this.CompareHiLite(newVal.firstDayOfFinals, oldVal.firstDayOfFinals, SESS.FINALSFIRSTDAY);
-
-    this.CompareHiLite(newVal.lastDayOfFinals, oldVal.lastDayOfFinals, SESS.FINALSLASTDAY);
-
-    this.CompareHiLite(newVal.firstDayForFinalGrading, oldVal.firstDayForFinalGrading, SESS.GRADESFIRSTDAY);
-
-    this.CompareHiLite(newVal.lastDayForFinalGrading, oldVal.lastDayForFinalGrading, SESS.GRADESLASTDAY);
-
-    this.CompareHiLite(newVal.rateType, oldVal.rateType, SESS.RATETYPE);
-
-    this.CompareHiLite(newVal.ratePerUnitAmount, oldVal.ratePerUnitAmount, SESS.PERUNITAMOUNT);
-
-    this.CompareHiLite(newVal.flatRateAmount, oldVal.flatRateAmount, SESS.FLATRATEAMOUNT);
-
-    this.CompareHiLite(newVal.flatRateUnitsMin, oldVal.flatRateUnitsMin, SESS.UGRADUNITSMIN);
-
-    this.CompareHiLite(newVal.flatRateUnitsMax, oldVal.flatRateUnitsMax, SESS.UGRADUNITSMAX);
-
-    this.CompareHiLite(newVal.gradFlatRateUnitsMin, oldVal.gradFlatRateUnitsMin, SESS.GRADUNITSMIN);
-
-    this.CompareHiLite(newVal.gradFlatRateUnitsMax, oldVal.gradFlatRateUnitsMax, SESS.GRADUNITSMAX);
-
-    this.CompareHiLite(newVal.specialFees, oldVal.specialFees, SESS.SPECIALFEES);
-
-    this.CompareHiLite(newVal.sessionBreaks, oldVal.sessionBreaks, SESS.SESSIONBREAKS);
-
-    this.CompareHiLite(newVal.classLocations, oldVal.classLocations, SESS.CLASSLOCATION);
-
-    this.CompareHiLite(newVal.comments, oldVal.comments, SESS.COMMENTS);
-
-    return;
-  }
-  
   public currSess = {
     sessionBreaks: [
       {
@@ -307,5 +154,31 @@ export class DiffPageComponent {
   };
 
   showPrevious: boolean = true;
+
+  public HiLiteDiff(newVal, oldVal) {
+
+    var cssClass = [];
+
+    switch (true) {
+
+      case ((newVal > '') && (oldVal == '')):
+      case ((newVal.length > 0) && (oldVal.length == 0)):   // New Value
+        cssClass = ['added'];
+        break;
+
+      case ((newVal == '') && (oldVal > '')):
+      case ((newVal.length == 0) && (oldVal.length > 0)):   // Deleted Value
+        cssClass = ['deleted'];
+        break;
+
+      case (JSON.stringify(newVal) != JSON.stringify(oldVal)): // Changed Value
+        cssClass = ['changed'];
+        break;
+
+      default:                                              // No change
+        break;
+    }
+    return cssClass;
+  } // HiLiteDiff()
 
 }
