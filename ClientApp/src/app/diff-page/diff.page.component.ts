@@ -153,7 +153,7 @@ export class DiffPageComponent {
     comments: "Catalina\nM22520001\nM225\nM19920063"
   };
 
-  showPrevious: boolean = true;
+  showPrevious: boolean = true;   // Hides or shows the previous version of the request
 
   public HiLiteDiff(newVal, oldVal) {
 

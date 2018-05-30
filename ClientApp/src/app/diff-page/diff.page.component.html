@@ -9,10 +9,9 @@
   <div>
     <table class="table table-hover table-striped">
       <tr>
-        <td class="col-md-3" align="left"><button class="btn-warning" (click)="markDifferences()">Mark Differences</button></td>
-        <th class="col-md-4 diffrow">
-          CURRENT VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a (click)="HideShowPrevVersion()" >{{ hideShowPrev }}</a>
+        <td class="col-md-3" align="left"></td>
+        <th class="col-md-4 diffrow pointer">
+          <a (click)="showPrevious = true">CURRENT VALUE</a>
         </th>
         <th (click)="showPrevious = false" *ngIf="showPrevious" class="col-md-4">PREVIOUS VALUE</th>
       </tr>

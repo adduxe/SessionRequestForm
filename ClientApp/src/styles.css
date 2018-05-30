@@ -119,3 +119,7 @@ body #top-banner .navbar-left {
 body #top-banner #access-nav ul {
   text-align: right;
 }
+
+.pointer {
+  cursor: pointer;
+}
