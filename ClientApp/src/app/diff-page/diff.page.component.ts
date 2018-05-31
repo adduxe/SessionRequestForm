@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'diff-page',
-  templateUrl: './diff.page.component.html',
+//  templateUrl: './diff.page.component.html',
+  templateUrl: './diffpage.html',
   styleUrls: ['./diff.page.component.css']
 })
 
