@@ -19,6 +19,8 @@ import { SessionRequestListComponent } from './session-request-list/session-requ
 import { RevisionListComponent } from './revision-list/revision-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { PEDataService } from './shared/services/pedata.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ])
   ],
   providers: [
-    SessionRequestService
+    SessionRequestService,
+    PEDataService
   ],
   bootstrap: [AppComponent]
 })
