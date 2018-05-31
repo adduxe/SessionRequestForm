@@ -20,6 +20,7 @@ import { RevisionListComponent } from './revision-list/revision-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { PEDataService } from './shared/services/pedata.service';
+import { SQLDataService } from './shared/services/sqldata.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PEDataService } from './shared/services/pedata.service';
   ],
   providers: [
     SessionRequestService,
-    PEDataService
+    PEDataService,
+    SQLDataService
   ],
   bootstrap: [AppComponent]
 })

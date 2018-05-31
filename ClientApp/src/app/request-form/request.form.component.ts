@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { PEDataService } from '../shared/services/pedata.service'
 
 @Component({
@@ -7,7 +7,7 @@ import { PEDataService } from '../shared/services/pedata.service'
   styleUrls: ['./request.form.component.css']
 })
 
-export class RequestFormComponent{
+export class RequestFormComponent implements OnInit{
 
   public UscCampuses: any[];
   public SpecialFeeList: any[];
@@ -15,6 +15,10 @@ export class RequestFormComponent{
   public termRates: any[];
 
   constructor(private peDataService: PEDataService) {
+      // still need the constructor because this is where the PEDataService is injected
+  }
+
+  ngOnInit() {
     this.UscCampuses = this.peDataService.getCampusLocations();
     this.SpecialFeeList = this.peDataService.getSpecialFeeList();
     this.TuitionRates = this.peDataService.getTuitionRates();
