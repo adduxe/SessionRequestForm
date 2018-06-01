@@ -1,4 +1,5 @@
 import { Component, Output } from '@angular/core';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 @Component({
   selector: 'diff-page',
@@ -13,15 +14,16 @@ export class DiffPageComponent {
 
 //  public pageTitle: string = "Diff Page";
 
-  public hideShowPrev: string = "<<<<";
+  public hideShowPrev: string = "Hide Previous";
+  public showSection: boolean = true;
 
   public HideShowPrevVersion() {
 
     this.showPrevious = !(this.showPrevious);
     if (this.showPrevious) {
-      this.hideShowPrev = "<<<<";
+      this.hideShowPrev = "Hide Previous";
     } else {
-      this.hideShowPrev = ">>>>";
+      this.hideShowPrev = "Show Previous";
     }
     return;
   }   // HideShowPrevVersion()

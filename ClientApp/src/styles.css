@@ -1,6 +1,6 @@
 header {
   background-color: #990000;
-  padding-bottom: 25px;
+  padding-bottom: 0px;
 }
 
 footer {
@@ -31,7 +31,7 @@ body div#header .container {
 
 body #top-banner {
   width: 100%;
-  background-color: #790202;
+/*  background-color: #790202; */
   font-family: 'Gudea', sans-serif;
   font-size: 15px;
   line-height: 12px;

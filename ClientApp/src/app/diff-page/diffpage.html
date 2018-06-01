@@ -1,17 +1,46 @@
-
+<div class="row">
+  <div class="col-md-3">
+    Term: <b>20183</b>
+</div>
+  <div class="col-md-3">
+    Session: <b>111 (Dental Hygiene)</b>
+  </div>
+  <div class="col-md-3">
+    Status: <b>Pending Approval</b>
+  </div>
+  <div class="col-md-3">
+    Owner: <b>Herman Ostrow School of Dentistry</b>
+  </div>
+</div>
+<div class="row">
+  <kendo-buttongroup>
+    <button kendoButton><b>Approve</b></button>
+    <button kendoButton><b>Deny</b></button>
+    <button kendoButton><b>Cancel</b></button>
+    <button kendoButton><b>Reset Workflow</b></button>
+  </kendo-buttongroup>
+  <button (click)="showSection = !showSection">Hide/Show Sections</button>
+  <button kendoButton (click)="HideShowPrevVersion()" value="Hide Previous" class="pull-right">{{ hideShowPrev }}</button>
+</div>
 <table class="table">
   <tr>
     <td class="col-md-3" align="left"></td>
     <th class="col-md-4">
-      <a (click)="showPrevious = !showPrevious" class="pointer">CURRENT</a>
+      Version 5 (CURRENT)
     </th>
     <th *ngIf="showPrevious" class="col-md-4">
-      <a (click)="showPrevious = false" class="pointer">PREVIOUS</a>
+      <!--<a (click)="showPrevious = false" class="pointer">-->
+      <select>
+        <option>Version 4</option>
+        <option>Version 3</option>
+        <option>Version 2</option>
+        <option>Version 1</option>
+      </select>
     </th>
   </tr>
 </table>
 
-<details open>
+<details [open]="showSection">
   <summary class="pointer"><b>General Info</b></summary>
   <table class="table table-hover table-striped">
     <tr>
@@ -104,7 +133,7 @@
     </tr>
   </table>
 </details>
-<details open>
+<details [open]="showSection">
   <summary class="pointer"><b>Dates</b></summary>
   <table class="table table-hover table-striped" id="dates">
     <tr>
@@ -197,7 +226,7 @@
     </tr>
   </table>
 </details>
-<details open>
+<details [open]="showSection">
   <summary class="pointer">Rates</summary>
   <table class="table table-hover table-striped">
     <tr>
@@ -279,7 +308,7 @@
     </tr>
   </table>
 </details>
-<details open>
+<details [open]="showSection">
   <summary>Class Location</summary>
   <table class="table table-hover table-striped">
     <tr>
@@ -317,7 +346,7 @@
     </tr>
   </table>
 </details>
-<details open>
+<details [open]="showSection">
   <summary>Special Fees</summary>
   <table class="table table-hover table-striped">
     <tr>
@@ -355,11 +384,11 @@
     </tr>
   </table>
 </details>
-<details open>
+<details [open]="showSection">
   <summary>Session Breaks</summary>
   <table class="table table-hover table-striped">
     <tr>
-      <td align="left" style="vertical-align: middle;"class="col-md-3" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+      <td align="left" style="vertical-align: middle;" class="col-md-3" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
         &nbsp;
       </td>
       <td [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4">
