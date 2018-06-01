@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'diff-page',
@@ -9,7 +9,9 @@ import { Component } from '@angular/core';
 
 export class DiffPageComponent {
 
-  public pageTitle: string = "Diff Page";
+  @Output() pageTitle: string = "Diff Page";
+
+//  public pageTitle: string = "Diff Page";
 
   public hideShowPrev: string = "<<<<";
 

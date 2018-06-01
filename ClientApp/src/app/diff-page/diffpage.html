@@ -2,11 +2,11 @@
 <table class="table">
   <tr>
     <td class="col-md-3" align="left"></td>
-    <th class="col-md-4 diffrow">
-      <a (click)="showPrevious = !showPrevious" class="pointer">Current</a>
+    <th class="col-md-4">
+      <a (click)="showPrevious = !showPrevious" class="pointer">CURRENT</a>
     </th>
     <th *ngIf="showPrevious" class="col-md-4">
-      <a (click)="showPrevious = false" class="pointer">Previous</a>
+      <a (click)="showPrevious = false" class="pointer">PREVIOUS</a>
     </th>
   </tr>
 </table>
@@ -207,7 +207,7 @@
       <td [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)" class="col-md-4">
         {{ currSess.rateType }}
       </td>
-      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)" class="col-md-4">
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)" class="col-md-4 leftborder">
         {{ prevSess.rateType }}
       </td>
     </tr>
