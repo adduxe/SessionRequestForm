@@ -19,7 +19,6 @@ details {
   details[open] {
     background: #E1E1E1;
   }
-
 summary {
   background: -webkit-linear-gradient(top, #FAFAFA 50%, #E1E1E1 50%);
   border-radius: 5px;
@@ -54,10 +53,12 @@ summary {
     width: 20px;
   }
 
+/*
 details[open] summary:before {
   content: "-";
   margin-top: -4px;
 }
+*/
 
 p {
   font-size: .8em;

@@ -4,11 +4,16 @@ import { Injectable } from '@angular/core'
 
 export class SQLDataService {
 
-  public getSessionByRequestID() {
+  public getSessionByRevisionID(revID: number) {      // Just one revision's data by Revision ID
     return SESSIONREQUEST;
   }
 
+  public getAllRevsStatusByRequestID(reqID: string) {    // All revisions associated to a request by Request ID (i.e. Term + Sess Code)
+    return ALLREVSBYREQUESTID.revisions;
+  }
+
 }
+
 
 const SESSIONREQUEST = {
 
@@ -84,3 +89,34 @@ const SESSIONREQUEST = {
   requestDate: "2018-04-18T15:20:52.643",
   comments: "Catalina\nM22520001\nM225\nM19920063"
 };
+
+// All revisions associated to a request
+const ALLREVSBYREQUESTID =
+  {
+    sessionRequestID: 2135,
+    term: "20173",
+    sessionCode: "321",
+    status: "Waiting for Fee",
+    owner: "lipan",
+    lateChange: false,
+    ownerChanged: true,
+    revisions: [
+      {
+        versionNumber: 0,
+        actionBy: "emily",
+        action: "create",
+        actionDate: new Date(2016, 10, 10)
+      },
+      {
+        versionNumber: 1,
+        actionBy: "anthony",
+        action: "modify",
+        actionDate: new Date(2016, 10, 14)
+      },
+      {
+        versionNumber: 2,
+        actionBy: "greg",
+        action: "denied",
+        actionDate: new Date(2016, 10, 18)
+      }]
+  };

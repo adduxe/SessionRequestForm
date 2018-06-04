@@ -5,7 +5,7 @@ import { Component, Inject, Output, OnInit } from '@angular/core';
 //import { SessionRequest } from '../shared/models/sessionrequest';
 //import { SessionRequestState } from '../shared/models/sessionrequeststate';
 
-import { SQLDataService } from '../shared/services/sqldata.service'
+import { SQLDataService } from '../shared/services/sqldata.service';
 
 enum SECT {
   GENINFO = 0,
@@ -49,13 +49,15 @@ export class DetailPageComponent implements OnInit{
 
   public session: any;
   public showAllValues: boolean = false;
+  private revisionID: number = 1003;
 
   constructor(private sqlDataService: SQLDataService) {
     // need this to inject the SQLDataService into the component
   }
 
   ngOnInit() {
-    this.session = this.sqlDataService.getSessionByRequestID();
+
+    this.session = this.sqlDataService.getSessionByRevisionID(this.revisionID);
     this.ShowHideAll();
   }
 

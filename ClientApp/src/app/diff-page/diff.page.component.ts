@@ -1,5 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { RequestHistoryComponent } from '../request-history/request.history.component';
+import { GridComponent } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'diff-page',
