@@ -1,7 +1,6 @@
 import { Component, Output } from '@angular/core';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { RequestHistoryComponent } from '../request-history/request.history.component';
-import { GridComponent } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'diff-page',
@@ -48,7 +47,7 @@ export class DiffPageComponent {
       }
     ],
     specialFees: [],
-    requestId: 10421,
+    requestId: "20183888",
     lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
     academicTerm: "20183",
     sessionCode: "888",

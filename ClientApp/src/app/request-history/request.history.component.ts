@@ -9,13 +9,19 @@ import { SQLDataService } from '../shared/services/sqldata.service';
 export class RequestHistoryComponent implements OnInit{
 
   public sessRevs: any[];
-  private reqID: string = "20181555";
+  public allRevsData: any[];
+  private reqID: string = "20183888";
 
   constructor(private sqlDataService: SQLDataService) {
     // need this to inject the SQL Data Service into the component
   }
 
   ngOnInit() {
-      this.sessRevs = this.sqlDataService.getAllRevsStatusByRequestID(this.reqID);
+    this.sessRevs = this.sqlDataService.getAllRevsStatusByRequestID(this.reqID);
+    this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
+  }
+
+  public ViewVersion(versionNum: number) {
+    console.log(versionNum);
   }
 }

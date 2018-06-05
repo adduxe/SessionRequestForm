@@ -1,6 +1,20 @@
-<kendo-grid [data]="sessRevs">
+<!--<kendo-grid [data]="sessRevs">
   <kendo-grid-column field="versionNumber" title="Version"></kendo-grid-column>
   <kendo-grid-column field="actionBy" title="By"></kendo-grid-column>
   <kendo-grid-column field="action" title="Action"></kendo-grid-column>
   <kendo-grid-column field="actionDate" title="Date" format="{0: dd MMM yyyy}"></kendo-grid-column>
-</kendo-grid>
+</kendo-grid>-->
+<table class="table table-hover table-striped">
+  <tr class="row">
+    <th>VERSION</th>
+    <th>ACTION</th>
+    <th>BY</th>
+    <th>DATE</th>
+  </tr>
+  <tr *ngFor="let eachRev of sessRevs" (click)="ViewVersion(eachRev.versionNumber);" class="row">
+    <td>{{ eachRev.versionNumber }} </td>
+    <td>{{ eachRev.action }} </td>
+    <td>{{ eachRev.actionBy }} </td>
+    <td>{{ eachRev.actionDate | date:"MMM dd, yyyy" }} </td>
+  </tr>
+</table>
