@@ -12,6 +12,7 @@ export class RequestHistoryComponent implements OnInit{
 
   public sessRevs: any[];
   public allRevsData: any[];
+
   private reqID: string = "20183888";
 
   constructor(private sqlDataService: SQLDataService) {

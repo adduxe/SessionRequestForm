@@ -17,10 +17,12 @@ export class DiffPageComponent{
 
   public currSess: any;
   public prevSess: any;
+  public allRevsData: any[];
 
   constructor(private sqlDataService: SQLDataService) {
     this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.reqID);
     this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.reqID);
+    this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
   }
 
   @Output() pageTitle: string = "Diff Page";
@@ -70,9 +72,11 @@ export class DiffPageComponent{
     return cssClass;
   } // HiLiteDiff()
 
-  public DisplayClickedRevision(data) {
+  public DisplayClickedRevision(revNum) {
 
-    console.log('received:', data);
+    console.log('received:', revNum);
+
+    this.prevSess = this.sqlDataService.getRequestByRevisionID(this.reqID, revNum);
   }
 
 }

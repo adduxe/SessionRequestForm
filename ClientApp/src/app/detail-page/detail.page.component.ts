@@ -20,12 +20,14 @@ export class DetailPageComponent implements OnInit{
 
   @Output() pageTitle: string = "Detail Page";
   
+  private revNumber: number = 4;
+  private reqID: string = "20183888";
+
   public session: any;
   public showAllValues: boolean = false;
-  private revisionID: number = 1003;
 
   constructor(private sqlDataService: SQLDataService) {
-    this.session = this.sqlDataService.getRequestByRevisionID(this.revisionID);
+    this.session = this.sqlDataService.getRequestByRevisionID(this.reqID, this.revNumber);
   }
 
   ngOnInit() {

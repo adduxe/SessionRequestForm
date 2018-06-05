@@ -8,8 +8,10 @@ export class SQLDataService {
     return ALLVERSIONSPERREQUEST[0];
   }
 
-  public getRequestByRevisionID(revID: number) {          // Just one revision's data by Revision ID
-    return SESSIONREQUEST;
+  public getRequestByRevisionID(reqID: string, revNum: number) {          // Just one revision's data by Revision ID
+
+    return ALLVERSIONSPERREQUEST.find(val => val.version === revNum);
+
   }
 
   public getAllRevsStatusByRequestID(reqID: string) {     // All revisions' status associated to a request by Request ID (i.e. Term + Sess Code)
@@ -308,6 +310,7 @@ const ALLVERSIONSPERREQUEST = [
         endDate: "2018-04-10T00:00:00"
       }
     ],
+    sessionBreaks: [],
     rateType: "BKNPT1",
     ratePerUnitAmount: 1863,
     flatRateAmount: 33695,
@@ -316,7 +319,7 @@ const ALLVERSIONSPERREQUEST = [
     gradFlatRateUnitsMin: 1,
     gradFlatRateUnitsMax: 2,
     requestDate: "2018-04-18T15:20:52.643",
-    comments: "Catalina\nM22520001\nM225\nM19920063"
+    comments: "Revision 3"
   },
   {
     requestId: "20183888",
@@ -342,6 +345,7 @@ const ALLVERSIONSPERREQUEST = [
     sessionBreakEnd_1: "2018-04-5T15:20:52.657",
     sessionBreakStart_2: "2018-04-20T15:20:52.657",
     sessionBreakEnd_2: "2018-04-25T15:20:52.657",
+    sessionBreaks: [],
     specialFees: [
       {
         feeId: 28,
@@ -390,7 +394,7 @@ const ALLVERSIONSPERREQUEST = [
     gradFlatRateUnitsMin: 1,
     gradFlatRateUnitsMax: 2,
     requestDate: "2018-04-18T15:20:52.643",
-    comments: "Catalina\nM22520001\nM225\nM19920063"
+    comments: "Revision 2"
   },
   {
     requestId: "20183888",
@@ -439,6 +443,7 @@ const ALLVERSIONSPERREQUEST = [
         amount: 666
       }
     ],
+    sessionBreaks: [],
     classLocations: [
       {
         location: "Catalina Island",
@@ -464,7 +469,7 @@ const ALLVERSIONSPERREQUEST = [
     gradFlatRateUnitsMin: 1,
     gradFlatRateUnitsMax: 2,
     requestDate: "2018-04-18T15:20:52.643",
-    comments: "Catalina\nM22520001\nM225\nM19920063"
+    comments: "Version 1"
   }
 ];
 
