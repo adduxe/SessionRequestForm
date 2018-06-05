@@ -15,18 +15,17 @@ export class RequestHistoryComponent implements OnInit{
   private reqID: string = "20183888";
 
   constructor(private sqlDataService: SQLDataService) {
-    // need this to inject the SQL Data Service into the component
+    this.sessRevs = this.sqlDataService.getAllRevsStatusByRequestID(this.reqID);
+    this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
   }
 
   ngOnInit() {
-    this.sessRevs = this.sqlDataService.getAllRevsStatusByRequestID(this.reqID);
-    this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
   }
 
   public ViewVersion(versionNum: number) {
 
     this.revisionClicked.emit(versionNum);
     console.log(versionNum);
-  } // ViewVersion()
+  }
 
 }

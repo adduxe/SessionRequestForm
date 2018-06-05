@@ -25,12 +25,10 @@ export class DetailPageComponent implements OnInit{
   private revisionID: number = 1003;
 
   constructor(private sqlDataService: SQLDataService) {
-    // need this to inject the SQLDataService into the component
+    this.session = this.sqlDataService.getRequestByRevisionID(this.revisionID);
   }
 
   ngOnInit() {
-
-    this.session = this.sqlDataService.getSessionByRevisionID(this.revisionID);
     this.ShowHideAll();
   }
 

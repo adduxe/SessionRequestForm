@@ -4,20 +4,24 @@ import { Injectable } from '@angular/core'
 
 export class SQLDataService {
 
-  public getLatestRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
+  public getCurrentRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
     return ALLVERSIONSPERREQUEST[0];
   }
 
-  public getSessionByRevisionID(revID: number) {      // Just one revision's data by Revision ID
+  public getRequestByRevisionID(revID: number) {          // Just one revision's data by Revision ID
     return SESSIONREQUEST;
   }
 
-  public getAllRevsStatusByRequestID(reqID: string) { // All revisions' status associated to a request by Request ID (i.e. Term + Sess Code)
+  public getAllRevsStatusByRequestID(reqID: string) {     // All revisions' status associated to a request by Request ID (i.e. Term + Sess Code)
     return ALLREVSBYREQUESTID.revisions;
   }
 
-  public getAllRevsDataByRequestID(reqID: string) {// All revisions' data associated to a request by Request ID (i.e. Term + Sess Code)
+  public getAllRevsDataByRequestID(reqID: string) {       // All revisions' data associated to a request by Request ID (i.e. Term + Sess Code)
     return ALLVERSIONSPERREQUEST;
+  }
+
+  public getPreviousRevisionByRequestID(reqID: string) {               // Get the most recent revision with a status
+    return PREVIOUSREQUEST;
   }
 
 }
@@ -113,8 +117,7 @@ const SESSIONREQUEST = {
   comments: "Changed the rate type, Class Locations, and Special Fee Fields."
 };
 
-// All revisions associated to a request
-const ALLREVSBYREQUESTID =
+const ALLREVSBYREQUESTID =      // All revisions associated to a request
   {
     requestID: "20183888",
     term: 20183,
@@ -125,22 +128,28 @@ const ALLREVSBYREQUESTID =
     ownerChanged: true,
     revisions: [
       {
-        versionNumber: 0,
+        versionNumber: 1,
         actionBy: "emily",
         action: "create",
         actionDate: new Date(2016, 10, 10)
       },
       {
-        versionNumber: 1,
+        versionNumber: 2,
         actionBy: "anthony",
         action: "modify",
         actionDate: new Date(2016, 10, 14)
       },
       {
-        versionNumber: 2,
+        versionNumber: 3,
         actionBy: "greg",
         action: "denied",
         actionDate: new Date(2016, 10, 18)
+      },
+      {
+        versionNumber: 4,
+        actionBy: "sebastian",
+        action: "modified",
+        actionDate: new Date(2016, 10, 22)
       }]
   };
 
@@ -458,3 +467,70 @@ const ALLVERSIONSPERREQUEST = [
     comments: "Catalina\nM22520001\nM225\nM19920063"
   }
 ];
+
+const PREVIOUSREQUEST = {
+
+    sessionBreaks: [],
+    specialFees: [
+      {
+        feeId: 28,
+        requestId: 10421,
+        feeCode: "T22520001",
+        assessedTo: "U",
+        amount: 777
+      },
+      {
+        feeId: 29,
+        requestId: 10421,
+        feeCode: "D225",
+        assessedTo: "G",
+        amount: 888
+      },
+      {
+        feeId: 30,
+        requestId: 10421,
+        feeCode: "C19920063",
+        assessedTo: "B",
+        amount: 666
+      }
+    ],
+    requestId: 10421,
+    lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
+    academicTerm: 20183,
+    sessionCode: "888",
+    owningSchool: "Bursar Office",
+    owningDepartment: "Department of Testing",
+    userContact: "BUR Admin Tester",
+    userEmail: "anthondd@usc.edu",
+    userPhone: "+1 213 111 1111",
+    firstDayOfClass: "2018-03-25T00:00:00",
+    lastDayOfClass: "2018-05-05T00:00:00",
+    lastDayForAddDrop: "2018-04-02T00:00:00",
+    lastDayForWithdrawal: "2018-04-27T00:00:00",
+    firstDayOfFinals: "2018-05-20T00:00:00",
+    lastDayOfFinals: "2018-05-26T00:00:00",
+    firstDayForFinalGrading: "2018-05-20T00:00:00",
+    lastDayForFinalGrading: "2018-06-01T00:00:00",
+    lastDayForEnrollmentOptionChange: "2018-04-10T00:00:00",
+    classLocations: [
+      {
+        location: "Catalina Island",
+        startDate: "2018-04-01T00:00:00",
+        endDate: "2018-04-10T00:00:00"
+      },
+      {
+        location: "Health Science Campus",
+        startDate: "2018-04-01T00:00:00",
+        endDate: "2018-04-10T00:00:00"
+      }
+    ],
+    rateType: "BKNPT2",
+    ratePerUnitAmount: "",
+    flatRateAmount: 33695,
+    flatRateUnitsMin: 1,
+    flatRateUnitsMax: 2,
+    gradFlatRateUnitsMin: 1,
+    gradFlatRateUnitsMax: 2,
+    requestDate: "2018-04-18T15:20:52.643",
+    comments: "Catalina\nM22520001\nM225\nM19920063"
+  };
