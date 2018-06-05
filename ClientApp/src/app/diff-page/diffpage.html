@@ -29,14 +29,11 @@
   <tr>
     <td class="col-md-3" align="left"></td>
     <th class="col-md-4">
-      Version 5 (CURRENT)
+      Version {{ allRevsData[0].version }} (CURRENT)
     </th>
     <th *ngIf="showPrevious" class="col-md-4">
       <select>
-        <option>Version 4</option>
-        <option>Version 3</option>
-        <option>Version 2</option>
-        <option>Version 1</option>
+        <option *ngFor="let eachRev of allRevsData" value="eachRev.version">Version {{ eachRev.version }}</option>
       </select>
     </th>
   </tr>
@@ -135,6 +132,7 @@
     </tr>
   </table>
 </details>
+
 <details [open]="showSection">
   <summary class="pointer"><b>Dates</b></summary>
   <table class="table table-hover table-striped" id="dates">
@@ -228,6 +226,7 @@
     </tr>
   </table>
 </details>
+
 <details [open]="showSection">
   <summary class="pointer">Rates</summary>
   <table class="table table-hover table-striped">
@@ -310,6 +309,7 @@
     </tr>
   </table>
 </details>
+
 <details [open]="showSection">
   <summary>Class Location</summary>
   <table class="table table-hover table-striped">
@@ -348,6 +348,7 @@
     </tr>
   </table>
 </details>
+
 <details [open]="showSection">
   <summary>Special Fees</summary>
   <table class="table table-hover table-striped">
@@ -386,6 +387,7 @@
     </tr>
   </table>
 </details>
+
 <details [open]="showSection">
   <summary>Session Breaks</summary>
   <table class="table table-hover table-striped">

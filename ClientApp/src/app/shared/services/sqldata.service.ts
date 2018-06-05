@@ -9,9 +9,7 @@ export class SQLDataService {
   }
 
   public getRequestByRevisionID(reqID: string, revNum: number) {          // Just one revision's data by Revision ID
-
     return ALLVERSIONSPERREQUEST.find(val => val.version === revNum);
-
   }
 
   public getAllRevsStatusByRequestID(reqID: string) {     // All revisions' status associated to a request by Request ID (i.e. Term + Sess Code)
@@ -130,28 +128,104 @@ const ALLREVSBYREQUESTID =      // All revisions associated to a request
     ownerChanged: true,
     revisions: [
       {
-        versionNumber: 1,
-        actionBy: "emily",
-        action: "create",
-        actionDate: new Date(2016, 10, 10)
-      },
-      {
-        versionNumber: 2,
-        actionBy: "anthony",
-        action: "modify",
-        actionDate: new Date(2016, 10, 14)
+        versionNumber: 4,
+        actions: [{
+            actionBy: "emily",
+            action: "create",
+            actionDate: new Date(2016, 10, 10),
+          comment: "Every good boy does fine."
+          },{
+            actionBy: "anthony",
+            action: "modify",
+            actionDate: new Date(2016, 10, 14),
+            comment: "The lazy dog jumped over the crazy hen."
+          },{
+            actionBy: "greg",
+            action: "denied",
+            actionDate: new Date(2016, 10, 18),
+            comments: "Why does the chicken cross the street?"
+          },
+          {
+            actionBy: "sebastian",
+            action: "modified",
+            actionDate: new Date(2016, 10, 22),
+            comment: "Because it's too close to use Uber."
+          }]
       },
       {
         versionNumber: 3,
-        actionBy: "greg",
-        action: "denied",
-        actionDate: new Date(2016, 10, 18)
+        actions: [{
+            actionBy: "emily",
+            action: "create",
+          actionDate: new Date(2016, 10, 10),
+          comment: "The lazy dog jumped over the crazy hen."
+          }, {
+            actionBy: "anthony",
+            action: "modify",
+            actionDate: new Date(2016, 10, 14),
+            comment: "The lazy dog jumped over the crazy hen."
+          }, {
+            actionBy: "greg",
+            action: "denied",
+            actionDate: new Date(2016, 10, 18),
+            comment: "The lazy dog jumped over the crazy hen."
+          },
+          {
+            actionBy: "sebastian",
+            action: "modified",
+            actionDate: new Date(2016, 10, 22),
+            comment: "The lazy dog jumped over the crazy hen."
+          }]
       },
       {
-        versionNumber: 4,
-        actionBy: "sebastian",
-        action: "modified",
-        actionDate: new Date(2016, 10, 22)
+        versionNumber: 2,
+        actions: [{
+          actionBy: "emily",
+          action: "create",
+          actionDate: new Date(2016, 10, 10),
+          comment: "The lazy dog jumped over the crazy hen."
+        }, {
+          actionBy: "anthony",
+          action: "modify",
+            actionDate: new Date(2016, 10, 14),
+            comment: "The lazy dog jumped over the crazy hen."
+        }, {
+          actionBy: "greg",
+          action: "denied",
+            actionDate: new Date(2016, 10, 18),
+            comments: "The lazy dog jumped over the crazy hen."
+        },
+        {
+          actionBy: "sebastian",
+          action: "modified",
+          actionDate: new Date(2016, 10, 22),
+          comment: "The lazy dog jumped over the crazy hen."
+        }]
+      },
+      {
+        versionNumber: 1,
+        actions: [{
+          actionBy: "emily",
+          action: "create",
+          actionDate: new Date(2016, 10, 10),
+          comment: "The lazy dog jumped over the crazy hen."
+        }, {
+          actionBy: "anthony",
+          action: "modify",
+          actionDate: new Date(2016, 10, 14),
+          comment: "The lazy dog jumped over the crazy hen."
+        }, {
+          actionBy: "greg",
+          action: "denied",
+            actionDate: new Date(2016, 10, 18),
+            comment: "The lazy dog jumped over the crazy hen."
+        },
+        {
+          actionBy: "sebastian",
+          action: "modified",
+          actionDate: new Date(2016, 10, 22),
+          comment: "The lazy dog jumped over the crazy hen."
+        }]
       }]
   };
 

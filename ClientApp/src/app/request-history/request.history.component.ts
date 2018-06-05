@@ -10,13 +10,13 @@ export class RequestHistoryComponent implements OnInit{
 
   @Output() revisionClicked = new EventEmitter();
 
-  public sessRevs: any[];
+  public revHistory: any[];
   public allRevsData: any[];
 
   private reqID: string = "20183888";
 
   constructor(private sqlDataService: SQLDataService) {
-    this.sessRevs = this.sqlDataService.getAllRevsStatusByRequestID(this.reqID);
+    this.revHistory = this.sqlDataService.getAllRevsStatusByRequestID(this.reqID);
     this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
   }
 

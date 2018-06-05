@@ -18,7 +18,7 @@ export class DiffPageComponent{
   public currSess: any;
   public prevSess: any;
   public allRevsData: any[];
-
+ 
   constructor(private sqlDataService: SQLDataService) {
     this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.reqID);
     this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.reqID);
@@ -77,6 +77,10 @@ export class DiffPageComponent{
     console.log('received:', revNum);
 
     this.prevSess = this.sqlDataService.getRequestByRevisionID(this.reqID, revNum);
+
+  }
+
+  ngOnInit() {
   }
 
 }
