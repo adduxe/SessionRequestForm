@@ -32,7 +32,6 @@
       Version 5 (CURRENT)
     </th>
     <th *ngIf="showPrevious" class="col-md-4">
-      <!--<a (click)="showPrevious = false" class="pointer">-->
       <select>
         <option>Version 4</option>
         <option>Version 3</option>
@@ -422,4 +421,4 @@
   </table>
 </details>
 
-<request-history #reqHist></request-history>
+<request-history #reqHist (revisionClicked)="DisplayClickedRevision($event)"></request-history>

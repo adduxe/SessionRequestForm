@@ -1,10 +1,4 @@
 import { Component, Inject, Output, OnInit } from '@angular/core';
-//import { HttpClient } from '@angular/common/http';
-
-//import { SessionRequestService } from '../shared/services/sessionrequest.service';
-//import { SessionRequest } from '../shared/models/sessionrequest';
-//import { SessionRequestState } from '../shared/models/sessionrequeststate';
-
 import { SQLDataService } from '../shared/services/sqldata.service';
 
 enum SECT {
@@ -26,27 +20,6 @@ export class DetailPageComponent implements OnInit{
 
   @Output() pageTitle: string = "Detail Page";
   
-  //public sessionRequestState: SessionRequestState;
-  //public sessionRequest: SessionRequest;
-  //public session: any;
-
-  //constructor( @Inject('BASE_URL') baseUrl: string,
-  //  private location: Location,
-  //  private sessionRequestService: SessionRequestService) {
-
-  //  this.sessionRequestService.currentSessionRequest.subscribe(srs => {
-  //    this.sessionRequestState = srs;
-  //    this.sessionRequestService.getSessionByID(srs.sessionRequest.sessionRequestID).subscribe(s => {
-  //      this.session = s;
-  //    });
-
-  //    if (this.sessionRequestState) {
-  //      this.sessionRequest = this.sessionRequestState.sessionRequest;
-  //    }
-  //  });
-  //  console.log(this.sessionRequest);
-  //}
-
   public session: any;
   public showAllValues: boolean = false;
   private revisionID: number = 1003;

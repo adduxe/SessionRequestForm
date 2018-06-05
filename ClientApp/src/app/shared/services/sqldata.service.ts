@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core'
 
 export class SQLDataService {
 
+  public getLatestRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
+    return ALLVERSIONSPERREQUEST[0];
+  }
+
   public getSessionByRevisionID(revID: number) {      // Just one revision's data by Revision ID
     return SESSIONREQUEST;
   }
@@ -20,8 +24,8 @@ export class SQLDataService {
 
 const SESSIONREQUEST = {
 
-  requestId: 10421,
-  academicTerm: "20183",
+  requestId: "20183888",
+  academicTerm: 20183,
   sessionCode: "888",
   lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
   owningSchool: "Bursar Office",
@@ -42,6 +46,22 @@ const SESSIONREQUEST = {
   sessionBreakEnd_1: "2018-04-5T15:20:52.657",
   sessionBreakStart_2: "2018-04-20T15:20:52.657",
   sessionBreakEnd_2: "2018-04-25T15:20:52.657",
+  sessionBreaks: [
+    {
+      id: 1022,
+      lastUpdateTimeStamp: "2017-05-16T10:31:02.033",
+      startDate: "2017-05-15T00:00:00",
+      endDate: "2017-05-16T00:00:00",
+      requestId: 1092
+    },
+    {
+      id: 1023,
+      lastUpdateTimeStamp: "2017-05-16T10:31:02.033",
+      startDate: "2017-05-08T00:00:00",
+      endDate: "2017-05-09T00:00:00",
+      requestId: 1092
+    }
+  ],
   specialFees: [
     {
       feeId: 28,
@@ -90,15 +110,15 @@ const SESSIONREQUEST = {
   gradFlatRateUnitsMin: 1,
   gradFlatRateUnitsMax: 2,
   requestDate: "2018-04-18T15:20:52.643",
-  comments: "Catalina\nM22520001\nM225\nM19920063"
+  comments: "Changed the rate type, Class Locations, and Special Fee Fields."
 };
 
 // All revisions associated to a request
 const ALLREVSBYREQUESTID =
   {
-    sessionRequestID: 2135,
-    term: "20173",
-    sessionCode: "321",
+    requestID: "20183888",
+    term: 20183,
+    sessionCode: "888",
     status: "Waiting for Fee",
     owner: "lipan",
     lateChange: false,
@@ -127,7 +147,7 @@ const ALLREVSBYREQUESTID =
 const ALLVERSIONSPERREQUEST = [
   {
     requestId: "20183888",
-    version: 0,
+    version: 4,
     academicTerm: 20183,
     sessionCode: "888",
     lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
@@ -149,6 +169,22 @@ const ALLVERSIONSPERREQUEST = [
     sessionBreakEnd_1: "2018-04-5T15:20:52.657",
     sessionBreakStart_2: "2018-04-20T15:20:52.657",
     sessionBreakEnd_2: "2018-04-25T15:20:52.657",
+    sessionBreaks: [
+      {
+        id: 1022,
+        lastUpdateTimeStamp: "2017-05-16T10:31:02.033",
+        startDate: "2017-05-15T00:00:00",
+        endDate: "2017-05-16T00:00:00",
+        requestId: 1092
+      },
+      {
+        id: 1023,
+        lastUpdateTimeStamp: "2017-05-16T10:31:02.033",
+        startDate: "2017-05-08T00:00:00",
+        endDate: "2017-05-09T00:00:00",
+        requestId: 1092
+      }
+    ],
     specialFees: [
       {
         feeId: 28,
@@ -201,7 +237,7 @@ const ALLVERSIONSPERREQUEST = [
   },
   {
     requestId: "20183888",
-    version: 1,
+    version: 3,
     academicTerm: 20183,
     sessionCode: "888",
     lastUpdateTimeStamp: "2018-04-18T15:20:52.657",
@@ -349,7 +385,7 @@ const ALLVERSIONSPERREQUEST = [
   },
   {
     requestId: "20183888",
-    version: 3,
+    version: 1,
     academicTerm: 20183,
     sessionCode: "888",
     lastUpdateTimeStamp: "2018-04-18T15:20:52.657",

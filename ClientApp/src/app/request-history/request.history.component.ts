@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SQLDataService } from '../shared/services/sqldata.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { SQLDataService } from '../shared/services/sqldata.service';
 })
 
 export class RequestHistoryComponent implements OnInit{
+
+  @Output() revisionClicked = new EventEmitter();
 
   public sessRevs: any[];
   public allRevsData: any[];
@@ -22,6 +24,9 @@ export class RequestHistoryComponent implements OnInit{
   }
 
   public ViewVersion(versionNum: number) {
+
+    this.revisionClicked.emit(versionNum);
     console.log(versionNum);
-  }
+  } // ViewVersion()
+
 }
