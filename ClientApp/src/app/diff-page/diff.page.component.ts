@@ -5,8 +5,7 @@ import { SQLDataService } from '../shared/services/sqldata.service';
 
 @Component({
   selector: 'diff-page',
-//  templateUrl: './diff.page.component.html',
-  templateUrl: './diffpage.html',
+  templateUrl: './diff.page.component.html',
   styleUrls: ['./diff.page.component.css']
 })
 
@@ -19,16 +18,19 @@ export class DiffPageComponent{
   public prevSess: any;
   public allRevsData: any[];
  
+  public hideShowPrev: string = "Hide Previous";
+  public showSection: boolean = true;
+
   constructor(private sqlDataService: SQLDataService) {
+
     this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.reqID);
     this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.reqID);
     this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
+
   }
 
   @Output() pageTitle: string = "Diff Page";
 
-  public hideShowPrev: string = "Hide Previous";
-  public showSection: boolean = true;
 
   public HideShowPrevVersion() {
 
@@ -75,12 +77,11 @@ export class DiffPageComponent{
   public DisplayClickedRevision(revNum) {
 
     console.log('received:', revNum);
-
-    this.prevSess = this.sqlDataService.getRequestByRevisionID(this.reqID, revNum);
+    this.prevSess = this.allRevsData.find(sess => sess.version == revNum);
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

@@ -1,371 +1,430 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Diff Page</title>
-</head>
 
-<body>
-  <div>
-    <table class="table table-hover table-striped">
-      <tr class="well">
-        <td class="col-md-3" align="left"></td>
-        <th class="col-md-4">
-          <a (click)="showPrevious = true" class="pointer">CURRENT VALUE</a>
-        </th>
-        <th *ngIf="showPrevious" class="col-md-4">
-          <a (click)="showPrevious = false" class="pointer">PREVIOUS VALUE</a>
-        </th>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.academicTerm, prevSess.academicTerm)">
-          Academic Term
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.academicTerm, prevSess.academicTerm)">
-          {{ currSess.academicTerm }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.academicTerm, prevSess.academicTerm)">
-          {{ prevSess.academicTerm }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.sessionCode, prevSess.sessionCode)">
-          Session Code
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.sessionCode, prevSess.sessionCode)">
-          {{ currSess.sessionCode }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.sessionCode, prevSess.sessionCode)">
-          {{ prevSess.sessionCode }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.owningSchool, prevSess.owningSchool)">
-          Owning School
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.owningSchool, prevSess.owningSchool)">
-          {{ currSess.owningSchool }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.owningSchool, prevSess.owningSchool)">
-          {{ prevSess.owningSchool }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.owningDepartment, prevSess.owningDepartment)">
-          Owning Department
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.owningDepartment, prevSess.owningDepartment)">
-          {{ currSess.owningDepartment }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.owningDepartment, prevSess.owningDepartment)">
-          {{ prevSess.owningDepartment }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.userContact, prevSess.userContact)">
-          User Contact
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.userContact, prevSess.userContact)">
-          {{ currSess.userContact }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.userContact, prevSess.userContact)">
-          {{ prevSess.userContact }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.userEmail, prevSess.userEmail)">
-          User Email
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.userEmail, prevSess.userEmail)">
-          {{ currSess.userEmail }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.userEmail, prevSess.userEmail)">
-          {{ prevSess.userEmail }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.userPhone, prevSess.userPhone)">
-          User Phone
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.userPhone, prevSess.userPhone)">
-          {{ currSess.userPhone }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.userPhone, prevSess.userPhone)">
-          {{ prevSess.userPhone }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.firstDayOfClass, prevSess.firstDayOfClass)">
-          First Day of Class
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.firstDayOfClass, prevSess.firstDayOfClass)">
-          {{ currSess.firstDayOfClass | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayOfClass, prevSess.firstDayOfClass)">
-          {{ prevSess.firstDayOfClass | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.lastDayOfClass, prevSess.lastDayOfClass)">
-          Last Day of Class
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.lastDayOfClass, prevSess.lastDayOfClass)">
-          {{ currSess.lastDayOfClass | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayOfClass, prevSess.lastDayOfClass)">
-          {{ prevSess.lastDayOfClass | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.lastDayForAddDrop, prevSess.lastDayForAddDrop)">
-          Last Day for Adding/Dropping Classes
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.lastDayForAddDrop, prevSess.lastDayForAddDrop)">
-          {{ currSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayForAddDrop, prevSess.lastDayForAddDrop)">
-          {{ prevSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.lastDayForWithdrawal, prevSess.lastDayForWithdrawal)">
-          Last Day for Class Withdrawal
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.lastDayForWithdrawal, prevSess.lastDayForWithdrawal)">
-          {{ currSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayForWithdrawal, prevSess.lastDayForWithdrawal)">
-          {{ prevSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
-          First Day of Finals
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
-          {{ currSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}
-        </td>
-        <td  *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
-          {{ prevSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
-          Last Day of Finals
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
-          {{ currSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
-          {{ prevSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.firstDayForFinalGrading, prevSess.firstDayForFinalGrading)">
-          First Day for Final Grading
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.firstDayForFinalGrading, prevSess.firstDayForFinalGrading)">
-          {{ currSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayForFinalGrading, prevSess.firstDayForFinalGrading)">
-          {{ prevSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.lastDayForFinalGrading, prevSess.lastDayForFinalGrading)">
-          Last Day for Final Grading
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.lastDayForFinalGrading, prevSess.lastDayForFinalGrading)">
-          {{ currSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayForFinalGrading, prevSess.lastDayForFinalGrading)">
-          {{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)">
-          Rate Type
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)">
-          {{ currSess.rateType }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)">
-          {{ prevSess.rateType }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.ratePerUnitAmount, prevSess.ratePerUnitAmount)">
-          Rate Per Unit Amount
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.ratePerUnitAmount, prevSess.ratePerUnitAmount)">
-          {{ currSess.ratePerUnitAmount }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.ratePerUnitAmount, prevSess.ratePerUnitAmount)">
-          {{ prevSess.ratePerUnitAmount }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.flatRateAmount, prevSess.flatRateAmount)">
-          Flat Rate Amount
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.flatRateAmount, prevSess.flatRateAmount)">
-          {{ currSess.flatRateAmount }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.flatRateAmount, prevSess.flatRateAmount)">
-          {{ prevSess.flatRateAmount }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.flatRateUnitsMin, prevSess.flatRateUnitsMin)">
-          Undergraduate Flat Rate Units (Min.)
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.flatRateUnitsMin, prevSess.flatRateUnitsMin)">
-          {{ currSess.flatRateUnitsMin }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.flatRateUnitsMin, prevSess.flatRateUnitsMin)">
-          {{ prevSess.flatRateUnitsMin }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.flatRateUnitsMax, prevSess.flatRateUnitsMax)">
-          Undergraduate Flat Rate Units (Max.)
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.flatRateUnitsMax, prevSess.flatRateUnitsMax)">
-          {{ currSess.flatRateUnitsMax }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.flatRateUnitsMax, prevSess.flatRateUnitsMax)">
-          {{ prevSess.flatRateUnitsMax }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMin, prevSess.gradFlatRateUnitsMin)">
-          Graduate Flat Rate Units (Min.)
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMin, prevSess.gradFlatRateUnitsMin)">
-          {{ currSess.gradFlatRateUnitsMin }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMin, prevSess.gradFlatRateUnitsMin)">
-          {{ prevSess.gradFlatRateUnitsMin }}
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMax, prevSess.gradFlatRateUnitsMax)">
-          Graduate Flat Rate Units (Max.)
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMax, prevSess.gradFlatRateUnitsMax)">
-          {{ currSess.gradFlatRateUnitsMax }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMax, prevSess.gradFlatRateUnitsMax)">
-          {{ prevSess.gradFlatRateUnitsMax }}
-        </td>
-      </tr>
-      <tr>
-        <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-          <h4><b>Class Locations</b></h4>
-        </td>
-        <td [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-          <table class="table table-hover" *ngIf="currSess.classLocations?.length > 0">
-            <tr>
-              <th>Class Location</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-            </tr>
-            <tr *ngFor="let eachLoc of currSess.classLocations" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-              <td>{{ eachLoc.location }}</td>
-              <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
-              <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
-            </tr>
-          </table>
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-          <table class="table table-hover" *ngIf="prevSess.classLocations?.length > 0">
-            <tr>
-              <th>Class Location</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-            </tr>
-            <tr *ngFor="let eachLoc of prevSess.classLocations" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-              <td>{{ eachLoc.location }}</td>
-              <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
-              <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
-          <h4><b>Special Fees</b></h4>
-        </td>
-        <td [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
-          <table class="table table-hover" *ngIf="currSess.specialFees?.length > 0">
-            <tr>
-              <th>Fee Code</th>
-              <th>Amount</th>
-              <th>Assessed To</th>
-            </tr>
-            <tr *ngFor="let eachFee of currSess.specialFees" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
-              <td>{{ eachFee.feeCode }}</td>
-              <td>{{ eachFee.amount }}</td>
-              <td>{{ eachFee.assessedTo }}</td>
-            </tr>
-          </table>
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
-          <table class="table table-hover" *ngIf="prevSess.specialFees?.length > 0">
-            <tr>
-              <th>Fee Code</th>
-              <th>Amount</th>
-              <th>Assessed To</th>
-            </tr>
-            <tr *ngFor="let eachFee of prevSess.specialFees" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
-              <td>{{ eachFee.feeCode }}</td>
-              <td>{{ eachFee.amount }}</td>
-              <td>{{ eachFee.assessedTo }}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-          <h4><b>Session Breaks</b></h4>
-        </td>
-        <td [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-          <table class="table table-hover" *ngIf="currSess.sessionBreaks?.length > 0">
-            <tr>
-              <th>Begin Date</th>
-              <th>End Date</th>
-            </tr>
-            <tr *ngFor="let eachBreak of currSess.sessionBreaks" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-              <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
-              <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
-            </tr>
-          </table>
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-          <table class="table table-hover" *ngIf="prevSess.sessionBreaks?.length > 0">
-            <tr>
-              <th>Begin Date</th>
-              <th>End Date</th>
-            </tr>
-            <tr *ngFor="let eachBreak of prevSess.sessionBreaks" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-              <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
-              <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <th [ngClass]="HiLiteDiff(currSess.comments, prevSess.comments)">
-          Comments
-        </th>
-        <td [ngClass]="HiLiteDiff(currSess.comments, prevSess.comments)">
-          {{ currSess.comments }}
-        </td>
-        <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.comments, prevSess.comments)">
-          {{ prevSess.comments }}
-        </td>
-      </tr>
-    </table>
+<div class="row">
+  <div class="col-md-3">
+    Term: <b>20183</b>
   </div>
-</body>
-</html>
+  <div class="col-md-3">
+    Session: <b>111 (Dental Hygiene)</b>
+  </div>
+  <div class="col-md-3">
+    Status: <b>Pending Approval</b>
+  </div>
+  <div class="col-md-3">
+    Owner: <b>Herman Ostrow School of Dentistry</b>
+  </div>
+</div>
+
+<div class="row">
+  <kendo-buttongroup>
+    <button kendoButton><b>Approve</b></button>
+    <button kendoButton><b>Deny</b></button>
+    <button kendoButton><b>Cancel</b></button>
+    <button kendoButton><b>Create Request</b></button>
+  </kendo-buttongroup>
+  <button (click)="showSection = !showSection">Hide/Show Sections</button>
+  <button kendoButton (click)="HideShowPrevVersion()" value="Hide Previous" class="pull-right">{{ hideShowPrev }}</button>
+</div>
+
+<table class="table">
+  <tr>
+    <td class="col-md-3" align="left"></td>
+    <th class="col-md-4">
+      Version {{ allRevsData[0].version }} (CURRENT)
+    </th>
+    <th *ngIf="showPrevious" class="col-md-4">
+      <select (change)="DisplayClickedRevision($event.target.value)">
+        <option *ngFor="let eachRev of allRevsData" [ngValue]="eachRev" [value]="eachRev.version">Version {{ eachRev.version }}</option>
+      </select>
+    </th>
+  </tr>
+</table>
+
+<details [open]="showSection">
+  <summary class="pointer">General Info</summary>
+  <table class="table table-hover table-striped">
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.academicTerm, prevSess.academicTerm)" class="col-md-3">
+        Academic Term
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.academicTerm, prevSess.academicTerm)" class="col-md-4">
+        {{ currSess.academicTerm }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.academicTerm, prevSess.academicTerm)" class="col-md-4 leftborder">
+        {{ prevSess.academicTerm }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.sessionCode, prevSess.sessionCode)">
+        Session Code
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.sessionCode, prevSess.sessionCode)">
+        {{ currSess.sessionCode }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.sessionCode, prevSess.sessionCode)" class="leftborder">
+        {{ prevSess.sessionCode }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.owningSchool, prevSess.owningSchool)">
+        Owning School
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.owningSchool, prevSess.owningSchool)">
+        {{ currSess.owningSchool }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.owningSchool, prevSess.owningSchool)" class="leftborder">
+        {{ prevSess.owningSchool }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.owningDepartment, prevSess.owningDepartment)">
+        Owning Department
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.owningDepartment, prevSess.owningDepartment)">
+        {{ currSess.owningDepartment }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.owningDepartment, prevSess.owningDepartment)" class="leftborder">
+        {{ prevSess.owningDepartment }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.userContact, prevSess.userContact)">
+        User Contact
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.userContact, prevSess.userContact)">
+        {{ currSess.userContact }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.userContact, prevSess.userContact)" class="leftborder">
+        {{ prevSess.userContact }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.userEmail, prevSess.userEmail)">
+        User Email
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.userEmail, prevSess.userEmail)">
+        {{ currSess.userEmail }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.userEmail, prevSess.userEmail)" class="leftborder">
+        {{ prevSess.userEmail }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.userPhone, prevSess.userPhone)">
+        User Phone
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.userPhone, prevSess.userPhone)">
+        {{ currSess.userPhone }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.userPhone, prevSess.userPhone)" class="leftborder">
+        {{ prevSess.userPhone }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.comments, prevSess.comments)">
+        Comments
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.comments, prevSess.comments)">
+        {{ currSess.comments }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.comments, prevSess.comments)" class="leftborder">
+        {{ prevSess.comments }}
+      </td>
+    </tr>
+  </table>
+</details>
+
+<details [open]="showSection">
+  <summary class="pointer"><b>Dates</b></summary>
+  <table class="table table-hover table-striped" id="dates">
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.firstDayOfClass, prevSess.firstDayOfClass)" class="col-md-3">
+        First Day of Class
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.firstDayOfClass, prevSess.firstDayOfClass)" class="col-md-4">
+        {{ currSess.firstDayOfClass | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayOfClass, prevSess.firstDayOfClass)" class="col-md-4 leftborder">
+        {{ prevSess.firstDayOfClass | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.lastDayOfClass, prevSess.lastDayOfClass)">
+        Last Day of Class
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.lastDayOfClass, prevSess.lastDayOfClass)">
+        {{ currSess.lastDayOfClass | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayOfClass, prevSess.lastDayOfClass)" class="leftborder">
+        {{ prevSess.lastDayOfClass | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.lastDayForAddDrop, prevSess.lastDayForAddDrop)">
+        Last Day for Adding/Dropping Classes
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.lastDayForAddDrop, prevSess.lastDayForAddDrop)">
+        {{ currSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayForAddDrop, prevSess.lastDayForAddDrop)" class="leftborder">
+        {{ prevSess.lastDayForAddDrop | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.lastDayForWithdrawal, prevSess.lastDayForWithdrawal)">
+        Last Day for Class Withdrawal
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.lastDayForWithdrawal, prevSess.lastDayForWithdrawal)">
+        {{ currSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayForWithdrawal, prevSess.lastDayForWithdrawal)" class="leftborder">
+        {{ prevSess.lastDayForWithdrawal | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
+        First Day of Finals
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
+        {{ currSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)" class="leftborder">
+        {{ prevSess.firstDayOfFinals | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
+        Last Day of Finals
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)">
+        {{ currSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayOfFinals, prevSess.firstDayOfFinals)" class="leftborder">
+        {{ prevSess.lastDayOfFinals | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.firstDayForFinalGrading, prevSess.firstDayForFinalGrading)">
+        First Day for Final Grading
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.firstDayForFinalGrading, prevSess.firstDayForFinalGrading)">
+        {{ currSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.firstDayForFinalGrading, prevSess.firstDayForFinalGrading)" class="leftborder">
+        {{ prevSess.firstDayForFinalGrading | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.lastDayForFinalGrading, prevSess.lastDayForFinalGrading)">
+        Last Day for Final Grading
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.lastDayForFinalGrading, prevSess.lastDayForFinalGrading)">
+        {{ currSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.lastDayForFinalGrading, prevSess.lastDayForFinalGrading)" class="leftborder">
+        {{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
+      </td>
+    </tr>
+  </table>
+</details>
+
+<details [open]="showSection">
+  <summary class="pointer">Rates</summary>
+  <table class="table table-hover table-striped">
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)" class="col-md-3">
+        Rate Type
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)" class="col-md-4">
+        {{ currSess.rateType }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.rateType, prevSess.rateType)" class="col-md-4 leftborder">
+        {{ prevSess.rateType }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.ratePerUnitAmount, prevSess.ratePerUnitAmount)">
+        Rate Per Unit Amount
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.ratePerUnitAmount, prevSess.ratePerUnitAmount)">
+        {{ currSess.ratePerUnitAmount }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.ratePerUnitAmount, prevSess.ratePerUnitAmount)" class="leftborder">
+        {{ prevSess.ratePerUnitAmount }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.flatRateAmount, prevSess.flatRateAmount)">
+        Flat Rate Amount
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.flatRateAmount, prevSess.flatRateAmount)">
+        {{ currSess.flatRateAmount }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.flatRateAmount, prevSess.flatRateAmount)" class="leftborder">
+        {{ prevSess.flatRateAmount }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.flatRateUnitsMin, prevSess.flatRateUnitsMin)">
+        Undergraduate Flat Rate Units (Min.)
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.flatRateUnitsMin, prevSess.flatRateUnitsMin)">
+        {{ currSess.flatRateUnitsMin }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.flatRateUnitsMin, prevSess.flatRateUnitsMin)" class="leftborder">
+        {{ prevSess.flatRateUnitsMin }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.flatRateUnitsMax, prevSess.flatRateUnitsMax)">
+        Undergraduate Flat Rate Units (Max.)
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.flatRateUnitsMax, prevSess.flatRateUnitsMax)">
+        {{ currSess.flatRateUnitsMax }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.flatRateUnitsMax, prevSess.flatRateUnitsMax)" class="leftborder">
+        {{ prevSess.flatRateUnitsMax }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMin, prevSess.gradFlatRateUnitsMin)">
+        Graduate Flat Rate Units (Min.)
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMin, prevSess.gradFlatRateUnitsMin)">
+        {{ currSess.gradFlatRateUnitsMin }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMin, prevSess.gradFlatRateUnitsMin)" class="leftborder">
+        {{ prevSess.gradFlatRateUnitsMin }}
+      </td>
+    </tr>
+    <tr>
+      <th [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMax, prevSess.gradFlatRateUnitsMax)">
+        Graduate Flat Rate Units (Max.)
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMax, prevSess.gradFlatRateUnitsMax)">
+        {{ currSess.gradFlatRateUnitsMax }}
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.gradFlatRateUnitsMax, prevSess.gradFlatRateUnitsMax)" class="leftborder">
+        {{ prevSess.gradFlatRateUnitsMax }}
+      </td>
+    </tr>
+  </table>
+</details>
+
+<details [open]="showSection">
+  <summary>Class Location</summary>
+  <table class="table table-hover table-striped">
+    <tr>
+      <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-3">
+        &nbsp;
+      </td>
+      <td [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-4">
+        <table class="table table-hover" *ngIf="currSess.classLocations?.length > 0" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
+          <tr>
+            <th>Campus</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachLoc of currSess.classLocations">
+            <td>{{ eachLoc.location }}</td>
+            <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
+            <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
+          </tr>
+        </table>
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-4 leftborder">
+        <table class="table table-hover" *ngIf="prevSess.classLocations?.length > 0" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
+          <tr>
+            <th>Campus</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachLoc of prevSess.classLocations">
+            <td>{{ eachLoc.location }}</td>
+            <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
+            <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</details>
+
+<details [open]="showSection">
+  <summary>Special Fees</summary>
+  <table class="table table-hover table-striped">
+    <tr>
+      <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)" class="col-md-3">
+        &nbsp;
+      </td>
+      <td [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)" class="col-md-4">
+        <table class="table table-hover" *ngIf="currSess.specialFees?.length > 0" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
+          <tr>
+            <th>Fee Code</th>
+            <th>Amount</th>
+            <th>Assessed To</th>
+          </tr>
+          <tr *ngFor="let eachFee of currSess.specialFees">
+            <td>{{ eachFee.feeCode }}</td>
+            <td>{{ eachFee.amount }}</td>
+            <td>{{ eachFee.assessedTo }}</td>
+          </tr>
+        </table>
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)" class="col-md-4 leftborder">
+        <table class="table table-hover" *ngIf="prevSess.specialFees?.length > 0" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)">
+          <tr>
+            <th>Fee Code</th>
+            <th>Amount</th>
+            <th>Assessed To</th>
+          </tr>
+          <tr *ngFor="let eachFee of prevSess.specialFees">
+            <td>{{ eachFee.feeCode }}</td>
+            <td>{{ eachFee.amount }}</td>
+            <td>{{ eachFee.assessedTo }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</details>
+
+<details [open]="showSection">
+  <summary>Session Breaks</summary>
+  <table class="table table-hover table-striped">
+    <tr>
+      <td align="left" style="vertical-align: middle;" class="col-md-3" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+        &nbsp;
+      </td>
+      <td [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4">
+        <table class="table table-hover" *ngIf="currSess.sessionBreaks?.length > 0" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+          <tr>
+            <th>Begin Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachBreak of currSess.sessionBreaks">
+            <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
+            <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
+          </tr>
+        </table>
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4 leftborder">
+        <table class="table table-hover" *ngIf="prevSess.sessionBreaks?.length > 0" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+          <tr>
+            <th>Begin Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachBreak of prevSess.sessionBreaks">
+            <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
+            <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</details>
+
+<!--<details [open]="showSection">
+  <summary>Request History</summary>
+  <request-history #reqHist (revisionClicked)="DisplayClickedRevision($event)"></request-history>
+</details>-->
+<br/>

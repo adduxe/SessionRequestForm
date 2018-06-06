@@ -24,7 +24,6 @@ export class RequestHistoryComponent implements OnInit{
   }
 
   public ViewVersion(versionNum: number) {
-
     this.revisionClicked.emit(versionNum);
     console.log(versionNum);
   }
