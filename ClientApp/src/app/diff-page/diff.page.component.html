@@ -36,14 +36,25 @@
 <table class="table">
   <tr>
     <td class="col-md-3" align="left"></td>
-    <th class="col-md-4">
-      Version {{ allRevsData[0].version }} (CURRENT)
+    <th class="col-md-4" style="border-bottom: solid 3px #990000;
+    font-size:  20px;
+    padding: 0px;
+    border-top: 0px;">
+      Version 4 <span class="currentBox">Current</span>
     </th>
-    <th *ngIf="showPrevious" class="col-md-4">
+    <th class="col-md-4 prevVerHeader">
+      <select class="prevVerDropDown" style="border:  none;
+    background-color:  transparent;
+    font-size:  20px">
+        <option value="4" selected="selected"><b>Version 3</b></option>
+        <option value="2"><b>Version 2</b></option>
+        <option value="1"><b>Version 1</b></option>
+      </select>
+    </th>    <!--<th *ngIf="showPrevious" class="col-md-4">
       <select (change)="DisplayClickedRevision($event.target.value)">
         <option *ngFor="let eachRev of allRevsData" [ngValue]="eachRev" [value]="eachRev.version">Version {{ eachRev.version }}</option>
       </select>
-    </th>
+    </th>-->
   </tr>
 </table>
 
