@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-2 pointer">
+    <a><h4>Needs my Action</h4></a>
+    <a><h4>My Department's Requests</h4></a>
+    <a><h4>All Requests</h4></a>
+  </div>
+  <div class="col-md-10">
+    <kendo-grid [sortable]="true"
+                [filterable]="true">
+      <kendo-grid-column title="Term"></kendo-grid-column>
+      <kendo-grid-column title="Session"></kendo-grid-column>
+      <kendo-grid-column title="Status"></kendo-grid-column>
+      <kendo-grid-column title="Owner"></kendo-grid-column>
+      <kendo-grid-column title="Late Change"></kendo-grid-column>
+      <kendo-grid-column title="Owner Changed"></kendo-grid-column>
+    </kendo-grid>
+  </div>
+</div>

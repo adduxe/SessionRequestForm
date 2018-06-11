@@ -4,6 +4,15 @@ import { Injectable } from '@angular/core'
 
 export class SQLDataService {
 
+  public getNeedsMyActionRequests(userID: string) {
+    return ALLREQUESTSSTATUS;
+  }
+
+  public getMyDepartmentsRequests(deptID: string) {
+    return ALLREQUESTSSTATUS;
+  }
+
+
   public getCurrentRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
     return ALLVERSIONSPERREQUEST[0];
   }
@@ -613,3 +622,33 @@ const PREVIOUSREQUEST = {
     requestDate: "2018-04-18T15:20:52.643",
     comments: "Catalina\nM22520001\nM225\nM19920063"
   };
+
+const ALLREQUESTSSTATUS = [
+  {
+    sessionRequestID: 2134,
+    sessionCode: "136",
+    term: 20172,
+    status: "Waiting for Approval",
+    owner: "lipan",
+    lateChange: false,
+    ownerChanged: true
+  },
+  {
+    sessionRequestID: 2135,
+    sessionCode: "321",
+    term: 20173,
+    status: "Waiting for Fee",
+    owner: "lipan",
+    lateChange: false,
+    ownerChanged: true
+  },
+  {
+    sessionRequestID: 2136,
+    sessionCode: "321",
+    term: 20174,
+    status: "Approved",
+    owner: "Sebastian",
+    lateChange: true,
+    ownerChanged: true,
+  }
+];

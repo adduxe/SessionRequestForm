@@ -14,6 +14,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DetailPageComponent } from './detail-page/detail.page.component';
 import { DiffPageComponent } from './diff-page/diff.page.component';
 import { RequestFormComponent } from './request-form/request.form.component';
+import { AdminPageComponent } from './admin-page/admin.page.component';
 
 import { SessionRequestService } from './shared/services/sessionrequest.service';
 import { SessionRequestListComponent } from './session-request-list/session-request-list.component'
@@ -35,7 +36,8 @@ import { SQLDataService } from './shared/services/sqldata.service';
     DashboardComponent,
     RevisionListComponent,
     RequestFormComponent,
-    RequestHistoryComponent
+    RequestHistoryComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +54,8 @@ import { SQLDataService } from './shared/services/sqldata.service';
       { path: 'diff-page', component: DiffPageComponent },
       { path: 'detail-page', component: DetailPageComponent },
       { path: 'request-form', component: RequestFormComponent },
-      { path: 'request-history', component: RequestHistoryComponent }
+      { path: 'request-history', component: RequestHistoryComponent },
+      { path: 'admin-page', component: AdminPageComponent }
     ])
   ],
   providers: [
