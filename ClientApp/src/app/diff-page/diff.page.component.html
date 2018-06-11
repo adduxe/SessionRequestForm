@@ -1,28 +1,36 @@
-
-<div class="row">
-  <div class="col-md-3">
-    Term: <b>20183</b>
+<div class="col-md-4" style="padding-left: 0;">
+  <div class="info-line">
+    <span class="info-label">
+      Term:
+    </span><b>20183</b>
   </div>
-  <div class="col-md-3">
-    Session: <b>111 (Dental Hygiene)</b>
-  </div>
-  <div class="col-md-3">
-    Status: <b>Pending Approval</b>
-  </div>
-  <div class="col-md-3">
-    Owner: <b>Herman Ostrow School of Dentistry</b>
-  </div>
+  <div class="info-line">
+    <span class="info-label">
+      Session:
+    </span><b>111 (Dental Hygiene)</b>
 </div>
+  <div class="info-line">
+    <span class="info-label">
+      Status:
+    </span><b>Pending Approval</b>
+</div>
+  <div class="info-line">
+    <span class="info-label">
+      Owner:
+    </span><b>Herman Ostrow School of Dentistry</b>
+</div>
+</div>
+<div class="col-md-8" style="padding-right: 0px;">
+  <div class="pull-right">
+    <kendo-buttongroup>
+      <button kendoButton><b>Approve</b></button>
+      <button kendoButton><b>Deny</b></button>
+      <button kendoButton><b>Cancel</b></button>
+      <button kendoButton><b>Create Request</b></button>
+    </kendo-buttongroup>
 
-<div class="row">
-  <kendo-buttongroup>
-    <button kendoButton><b>Approve</b></button>
-    <button kendoButton><b>Deny</b></button>
-    <button kendoButton><b>Cancel</b></button>
-    <button kendoButton><b>Create Request</b></button>
-  </kendo-buttongroup>
-  <button (click)="showSection = !showSection">Hide/Show Sections</button>
-  <button kendoButton (click)="HideShowPrevVersion()" value="Hide Previous" class="pull-right">{{ hideShowPrev }}</button>
+    <button class="pull-right k-button" kendobutton="" style="margin-left: 15px;" value="Hide Previous" dir="ltr">Hide Previous</button>
+  </div>
 </div>
 
 <table class="table">
