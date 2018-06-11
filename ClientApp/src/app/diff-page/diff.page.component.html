@@ -1,25 +1,29 @@
+<h1 style="margin-left: -15px; color: #990000;">Request Details</h1>
+
 <div class="col-md-4" style="padding-left: 0;">
-  <div class="info-line">
-    <span class="info-label">
-      Term:
-    </span><b>20183</b>
+  <div>
+      <h4>
+        <b>Term:</b> 20183
+      </h4>
   </div>
-  <div class="info-line">
-    <span class="info-label">
-      Session:
-    </span><b>111 (Dental Hygiene)</b>
+  <div>
+    <h4>
+      <b>Session</b>: 111 (Dental Hygiene)
+    </h4>
+  </div>
+  <div>
+    <h4>
+      <b>Status</b>:Pending Approval
+    </h4>
+  </div>
+  <div>
+    <h4>
+      <b>Owner:</b>
+        Herman Ostrow School of Dentistry
+    </h4>
+  </div>
 </div>
-  <div class="info-line">
-    <span class="info-label">
-      Status:
-    </span><b>Pending Approval</b>
-</div>
-  <div class="info-line">
-    <span class="info-label">
-      Owner:
-    </span><b>Herman Ostrow School of Dentistry</b>
-</div>
-</div>
+
 <div class="col-md-8" style="padding-right: 0px;">
   <div class="pull-right">
     <kendo-buttongroup>
@@ -42,19 +46,12 @@
     border-top: 0px;">
       Version 4 <span class="currentBox">Current</span>
     </th>
-    <th class="col-md-4 prevVerHeader">
-      <select class="prevVerDropDown" style="border:  none;
-    background-color:  transparent;
-    font-size:  20px">
-        <option value="4" selected="selected"><b>Version 3</b></option>
-        <option value="2"><b>Version 2</b></option>
-        <option value="1"><b>Version 1</b></option>
-      </select>
-    </th>    <!--<th *ngIf="showPrevious" class="col-md-4">
-      <select (change)="DisplayClickedRevision($event.target.value)">
+    <th class="col-md-4 prevVerHeader" *ngIf="showPrevious">
+      <select (change)="DisplayClickedRevision($event.target.value)"
+              class="prevVerDropDown" style="border:none;background-color:transparent;font-size:20px">
         <option *ngFor="let eachRev of allRevsData" [ngValue]="eachRev" [value]="eachRev.version">Version {{ eachRev.version }}</option>
       </select>
-    </th>-->
+    </th>
   </tr>
 </table>
 
@@ -243,6 +240,74 @@
         {{ prevSess.lastDayForFinalGrading | date:"MMM dd, yyyy"  }}
       </td>
     </tr>
+    <tr>
+      <th align="left" style="vertical-align: middle;" class="col-md-3" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+        Session Breaks
+      </th>
+      <td [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4">
+        <table class="table table-hover" *ngIf="currSess.sessionBreaks?.length > 0" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+          <tr>
+            <th>Begin Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachBreak of currSess.sessionBreaks">
+            <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
+            <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
+          </tr>
+        </table>
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4 leftborder">
+        <table class="table table-hover" *ngIf="prevSess.sessionBreaks?.length > 0" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
+          <tr>
+            <th>Begin Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachBreak of prevSess.sessionBreaks">
+            <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
+            <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</details>
+
+<details [open]="showSection">
+  <summary>Class Location</summary>
+  <table class="table table-hover table-striped">
+    <tr>
+      <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-3">
+        &nbsp;
+      </td>
+      <td [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-4">
+        <table class="table table-hover" *ngIf="currSess.classLocations?.length > 0" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
+          <tr>
+            <th>Campus</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachLoc of currSess.classLocations">
+            <td>{{ eachLoc.location }}</td>
+            <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
+            <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
+          </tr>
+        </table>
+      </td>
+      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-4 leftborder">
+        <table class="table table-hover" *ngIf="prevSess.classLocations?.length > 0" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
+          <tr>
+            <th>Campus</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let eachLoc of prevSess.classLocations">
+            <td>{{ eachLoc.location }}</td>
+            <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
+            <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
   </table>
 </details>
 
@@ -330,46 +395,7 @@
 </details>
 
 <details [open]="showSection">
-  <summary>Class Location</summary>
-  <table class="table table-hover table-striped">
-    <tr>
-      <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-3">
-        &nbsp;
-      </td>
-      <td [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-4">
-        <table class="table table-hover" *ngIf="currSess.classLocations?.length > 0" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-          <tr>
-            <th>Campus</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-          </tr>
-          <tr *ngFor="let eachLoc of currSess.classLocations">
-            <td>{{ eachLoc.location }}</td>
-            <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
-            <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
-          </tr>
-        </table>
-      </td>
-      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)" class="col-md-4 leftborder">
-        <table class="table table-hover" *ngIf="prevSess.classLocations?.length > 0" [ngClass]="HiLiteDiff(currSess.classLocations, prevSess.classLocations)">
-          <tr>
-            <th>Campus</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-          </tr>
-          <tr *ngFor="let eachLoc of prevSess.classLocations">
-            <td>{{ eachLoc.location }}</td>
-            <td>{{ eachLoc.startDate | date:"MMM dd, yyyy" }}</td>
-            <td>{{ eachLoc.endDate | date:"MMM dd, yyyy" }}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</details>
-
-<details [open]="showSection">
-  <summary>Special Fees</summary>
+  <summary>Fees</summary>
   <table class="table table-hover table-striped">
     <tr>
       <td align="left" style="vertical-align: middle;" [ngClass]="HiLiteDiff(currSess.specialFees, prevSess.specialFees)" class="col-md-3">
@@ -400,41 +426,6 @@
             <td>{{ eachFee.feeCode }}</td>
             <td>{{ eachFee.amount }}</td>
             <td>{{ eachFee.assessedTo }}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</details>
-
-<details [open]="showSection">
-  <summary>Session Breaks</summary>
-  <table class="table table-hover table-striped">
-    <tr>
-      <td align="left" style="vertical-align: middle;" class="col-md-3" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-        &nbsp;
-      </td>
-      <td [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4">
-        <table class="table table-hover" *ngIf="currSess.sessionBreaks?.length > 0" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-          <tr>
-            <th>Begin Date</th>
-            <th>End Date</th>
-          </tr>
-          <tr *ngFor="let eachBreak of currSess.sessionBreaks">
-            <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
-            <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
-          </tr>
-        </table>
-      </td>
-      <td *ngIf="showPrevious" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)" class="col-md-4 leftborder">
-        <table class="table table-hover" *ngIf="prevSess.sessionBreaks?.length > 0" [ngClass]="HiLiteDiff(currSess.sessionBreaks, prevSess.sessionBreaks)">
-          <tr>
-            <th>Begin Date</th>
-            <th>End Date</th>
-          </tr>
-          <tr *ngFor="let eachBreak of prevSess.sessionBreaks">
-            <td>{{ eachBreak.startDate | date:"MMM dd, yyyy"  }}</td>
-            <td>{{ eachBreak.endDate | date:"MMM dd, yyyy"  }}</td>
           </tr>
         </table>
       </td>

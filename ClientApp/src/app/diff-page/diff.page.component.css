@@ -12,10 +12,6 @@ footer {
   padding-bottom: 15px;
 }
 
-.info-label {
-  font-weight: bold;
-}
-
 h1 {
   margin-left: -15px;
 }
@@ -169,11 +165,11 @@ p {
 
 
 .added {
-  background-color: lightgreen;
+  background-color: #ddffdd;
 }
 
 .changed {
-  background-color: #f9e79f;
+  background-color: #fffae4;
 }
 
 .deleted {
