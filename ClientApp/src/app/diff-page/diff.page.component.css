@@ -15,6 +15,11 @@ footer {
 h1 {
   margin-left: -15px;
 }
+h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 
 body #top-banner .container,
 body div#header .container {
@@ -135,18 +140,25 @@ details {
     background: #E1E1E1;
   }*/
 summary {
+  content: '\23f7';
   font-size: 20px;
   font-weight: 700;
   color: #990000;
 }
 
-
+  
   summary::-webkit-details-marker {
     display: none
   }
+  summary::after {
+    content: '\23f7';
+  }
+
+details[open] summary:after {
+  content: '\23f4';
+}
 
   summary:after {
-    content: '\23f7';
     color: #000;
     font-size: .8em;
     font-weight: bold;

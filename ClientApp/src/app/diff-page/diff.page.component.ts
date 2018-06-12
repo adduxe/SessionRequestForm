@@ -55,12 +55,15 @@ export class DiffPageComponent{
 
         case ((newVal > '') && (oldVal == '')):
         case ((newVal.length > 0) && (oldVal.length == 0)):   // New Value
-          cssClass = ['added'];
+          //cssClass ['added'];
+          cssClass = ['changed'];
           break;
 
         case ((newVal == '') && (oldVal > '')):
         case ((newVal.length == 0) && (oldVal.length > 0)):   // Deleted Value
-          cssClass = ['deleted'];
+          //cssClass = ['deleted'];
+          cssClass = ['changed'];
+
           break;
 
         case (JSON.stringify(newVal) != JSON.stringify(oldVal)): // Changed Value
