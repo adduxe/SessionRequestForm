@@ -1,14 +1,19 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
+import { SessionRequest } from '../models/sessionrequest';
 
 @Injectable()
 
 export class SQLDataService {
 
-  public getNeedsMyActionRequests(userID: string) {
-    return ALLREQUESTSSTATUS;
+  public getNeedsMyActionRequests(ownerName: string) {
+    return ALLREQUESTSSTATUS.filter(queueList => queueList.owner === ownerName);
   }
 
-  public getMyDepartmentsRequests(deptID: string) {
+  public getMyDepartmentsRequests(deptName: string) {
+    return ALLREQUESTSSTATUS.filter(queueList => queueList.department === deptName);
+  }
+
+  public getAllPendingRequests() {
     return ALLREQUESTSSTATUS;
   }
   
@@ -628,26 +633,119 @@ const ALLREQUESTSSTATUS = [
     sessionCode: "136",
     term: 20172,
     status: "Waiting for Approval",
-    owner: "lipan",
+    owner: "Emily",
     lateChange: false,
-    ownerChanged: true
+    ownerChanged: true,
+    department: "MED"
   },
   {
     sessionRequestID: 2135,
     sessionCode: "321",
     term: 20173,
     status: "Waiting for Fee",
-    owner: "lipan",
+    owner: "Anthony",
     lateChange: false,
-    ownerChanged: true
+    ownerChanged: true,
+    department: "MED"
   },
   {
     sessionRequestID: 2136,
-    sessionCode: "321",
+    sessionCode: "123",
     term: 20174,
     status: "Approved",
     owner: "Sebastian",
     lateChange: true,
     ownerChanged: true,
+    department: "MED"
+  },
+  {
+    sessionRequestID: 2137,
+    sessionCode: "545",
+    term: 20174,
+    status: "Approved",
+    owner: "Gregory",
+    lateChange: true,
+    ownerChanged: true,
+    department: "MED"
+  },
+  {
+    sessionRequestID: 2134,
+    sessionCode: "111",
+    term: 20172,
+    owner: "Sebastian",
+    status: "Waiting for Approval",
+    lateChange: false,
+    ownerChanged: true,
+    department: "DENT"
+  },
+  {
+    sessionRequestID: 2135,
+    sessionCode: "222",
+    term: 20173,
+    status: "Waiting for Fee",
+    owner: "Anthony",
+    lateChange: false,
+    ownerChanged: true,
+    department: "DENT"
+  },
+  {
+    sessionRequestID: 2136,
+    sessionCode: "333",
+    term: 20174,
+    status: "Approved",
+    owner: "Gregory",
+    lateChange: true,
+    ownerChanged: true,
+    department: "DENT"
+  },
+  {
+    sessionRequestID: 2137,
+    sessionCode: "444",
+    term: 20174,
+    status: "Approved",
+    owner: "Emily",
+    lateChange: true,
+    ownerChanged: true,
+    department: "DENT"
+  },
+  {
+    sessionRequestID: 2134,
+    sessionCode: "777",
+    term: 20172,
+    owner: "Sebastian",
+    status: "Waiting for Approval",
+    lateChange: false,
+    ownerChanged: true,
+    department: "LAW"
+  },
+  {
+    sessionRequestID: 2135,
+    sessionCode: "561",
+    term: 20173,
+    status: "Waiting for Fee",
+    owner: "Anthony",
+    lateChange: false,
+    ownerChanged: true,
+    department: "LAW"
+  },
+  {
+    sessionRequestID: 2136,
+    sessionCode: "897",
+    term: 20174,
+    status: "Approved",
+    owner: "Gregory",
+    lateChange: true,
+    ownerChanged: true,
+    department: "LAW"
+  },
+  {
+    sessionRequestID: 2137,
+    sessionCode: "765",
+    term: 20174,
+    status: "Approved",
+    owner: "Emily",
+    lateChange: true,
+    ownerChanged: true,
+    department: "LAW"
   }
 ];
