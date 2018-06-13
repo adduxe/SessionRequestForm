@@ -11,8 +11,7 @@ export class SQLDataService {
   public getMyDepartmentsRequests(deptID: string) {
     return ALLREQUESTSSTATUS;
   }
-
-
+  
   public getCurrentRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
     return ALLVERSIONSPERREQUEST[0];
   }

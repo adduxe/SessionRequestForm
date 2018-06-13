@@ -1,18 +1,19 @@
 <div class="row">
-  <div class="col-md-2 pointer">
-    <a><h4>Needs my Action</h4></a>
-    <a><h4>My Department's Requests</h4></a>
-    <a><h4>All Requests</h4></a>
+  <div class="col-md-3 pointer">
+    <a><h5>- <b>Needs my Attention</b></h5></a>
+    <a><h5>- <b>My Department's Requests</b></h5></a>
+    <a><h5>- <b>All Pending Requests</b></h5></a>
   </div>
-  <div class="col-md-10">
-    <kendo-grid [sortable]="true"
+  <div class="col-md-9">
+    <kendo-grid [data]="displayQueue"
+                [sortable]="true"
                 [filterable]="true">
-      <kendo-grid-column title="Term"></kendo-grid-column>
-      <kendo-grid-column title="Session"></kendo-grid-column>
-      <kendo-grid-column title="Status"></kendo-grid-column>
-      <kendo-grid-column title="Owner"></kendo-grid-column>
-      <kendo-grid-column title="Late Change"></kendo-grid-column>
-      <kendo-grid-column title="Owner Changed"></kendo-grid-column>
+      <kendo-grid-column title="Term" field="term"></kendo-grid-column>
+      <kendo-grid-column title="Session" field="sessionCode"></kendo-grid-column>
+      <kendo-grid-column title="Status" field="status"></kendo-grid-column>
+      <kendo-grid-column title="Owner" field="owner"></kendo-grid-column>
+      <kendo-grid-column title="Late Change" field="lateChange"></kendo-grid-column>
+      <kendo-grid-column title="Owner Changed" field="owner"></kendo-grid-column>
     </kendo-grid>
   </div>
 </div>

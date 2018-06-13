@@ -1,4 +1,4 @@
-import { Component, Inject, Output, OnInit } from '@angular/core';
+import { Component, Output, OnInit } from '@angular/core';
 import { SQLDataService } from '../shared/services/sqldata.service';
 
 enum SECT {
@@ -21,13 +21,13 @@ export class DetailPageComponent implements OnInit{
   @Output() pageTitle: string = "Detail Page";
   
   private revNumber: number = 4;
-  private reqID: string = "20183888";
+  private requestID: string = "20183888";
 
   public session: any;
   public showAllValues: boolean = false;
 
   constructor(private sqlDataService: SQLDataService) {
-    this.session = this.sqlDataService.getRequestByRevisionID(this.reqID, this.revNumber);
+    this.session = sqlDataService.getRequestByRevisionID(this.requestID, this.revNumber);
   }
 
   ngOnInit() {
