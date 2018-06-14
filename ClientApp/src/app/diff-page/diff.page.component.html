@@ -33,10 +33,9 @@
       <button kendoButton><b>Reset Workflow</b></button>
     </kendo-buttongroup>
 
-    <button class="pull-right k-button" kendobutton="" style="margin-left: 15px;" value="Hide Previous" dir="ltr">Hide Previous</button>
+    <button class="pull-right k-button" kendobutton="" style="margin-left: 15px;" value="Hide Previous" (click)="HideShowPrevVersion()">{{ hideShowPrev }}</button>
   </div>
 </div>
-
 <table class="table">
   <tr>
     <td class="col-md-3" align="left"></td>
