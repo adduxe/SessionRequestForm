@@ -1,7 +1,10 @@
 import { Component, Output, OnInit } from '@angular/core';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import { RequestHistoryComponent } from '../request-history/request.history.component';
 import { SQLDataService } from '../shared/services/sqldata.service';
+
 
 @Component({
   selector: 'diff-page',
@@ -21,7 +24,7 @@ export class DiffPageComponent{
   public hideShowPrev: string = "Hide Previous";
   public showSection: boolean = true;
 
-  constructor(private sqlDataService: SQLDataService) {
+  constructor(private sqlDataService: SQLDataService, private activatedRoute: ActivatedRoute) {
 
     this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.reqID);
     this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.reqID);
@@ -85,6 +88,11 @@ export class DiffPageComponent{
   }
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.reqID = params['reqID'];
+    });
+
   }
 
 }

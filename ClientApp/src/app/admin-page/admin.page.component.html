@@ -7,7 +7,9 @@
   <div class="col-md-9">
     <kendo-grid [data]="displayQueue"
                 [sortable]="true"
-                [filterable]="true">
+                [filterable]="true"
+                [selectable]="true"
+                (selectionChange)="RowClicked($event)">
       <kendo-grid-column title="Term" field="term"></kendo-grid-column>
       <kendo-grid-column title="Session" field="sessionCode"></kendo-grid-column>
       <kendo-grid-column title="Status" field="status"></kendo-grid-column>

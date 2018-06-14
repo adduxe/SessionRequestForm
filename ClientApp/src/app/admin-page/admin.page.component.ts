@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { SQLDataService } from '../shared/services/sqldata.service';
 
@@ -17,7 +18,8 @@ export class AdminPageComponent {
   public displayQueue: any[];
   public QUEUE = QUEUE;         // to expose the enum to HTML
 
-  constructor(private sqlDataService: SQLDataService) {
+  constructor(private sqlDataService: SQLDataService, private router: Router)
+  {
     this.ChangeDisplayedList();     // get the default queue
   }
 
@@ -45,6 +47,11 @@ export class AdminPageComponent {
     return this.displayQueue;
   }
 
+  public RowClicked(rowEvent): void {
+    console.log(rowEvent.index);
+    this.router.navigate(['/diff-page?reqID=']);
+    return;
+  }
 
 }
 
