@@ -43,6 +43,7 @@
     <None Remove="ClientApp\src\app\shared\services\pedata.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\sessionrequest.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\sqldata.service.ts" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +60,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\pedata.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\sessionrequest.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\sqldata.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

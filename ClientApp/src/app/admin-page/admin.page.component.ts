@@ -48,8 +48,11 @@ export class AdminPageComponent {
   }
 
   public RowClicked(rowEvent): void {
-    console.log(rowEvent.index);
-    this.router.navigate(['/diff-page?reqID=']);
+    //    console.log(rowEvent.index);
+    var dataItem = rowEvent.selectedRows[0].dataItem;
+    var requestID = dataItem.term + dataItem.sessionCode;
+    console.log("Request ID: " + requestID);
+    this.router.navigate(['/diff-page/' + requestID]);
     return;
   }
 

@@ -51,7 +51,7 @@ import { SQLDataService } from './shared/services/sqldata.service';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'srlist/:operation', component: SessionRequestListComponent },
-      { path: 'diff-page', component: DiffPageComponent },
+      { path: 'diff-page/:requestid', component: DiffPageComponent },
       { path: 'detail-page', component: DetailPageComponent },
       { path: 'request-form', component: RequestFormComponent },
       { path: 'request-history', component: RequestHistoryComponent },
