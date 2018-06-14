@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Rx';
 import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { SessionRequest } from '../models/sessionrequest';
-import { SessionRequestRevision } from '../models/sessionrequestrevision';
-import { SessionRequestState } from '../models/sessionrequeststate';
+import { SessionRequest } from '../models/sessionRequest';
+import { SessionRequestRevision } from '../models/sessionRequestRevision';
+import { SessionRequestState } from '../models/sessionRequestState';
 
 @Injectable()
 export class SessionRequestService {
