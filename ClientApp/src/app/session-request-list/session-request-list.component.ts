@@ -4,8 +4,8 @@ import { process, State } from '@progress/kendo-data-query';
 import { GridComponent, GridDataResult, DataStateChangeEvent, PageChangeEvent } from '@progress/kendo-angular-grid';
 
 import { mockSessionRequests } from '../shared/data/sessionrequests';
-import { SessionRequest } from '../shared/models/sessionrequest';
-import { SessionRequestState } from '../shared/models/sessionrequeststate';
+import { SessionRequest } from '../shared/models/sessionRequest';
+import { SessionRequestState } from '../shared/models/sessionRequestState';
 import { SessionRequestService } from '../shared/services/sessionrequest.service';
 
 @Component({

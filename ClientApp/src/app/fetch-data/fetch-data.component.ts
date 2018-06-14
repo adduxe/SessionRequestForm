@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { SessionRequestService } from '../shared/services/sessionrequest.service';
-import { SessionRequest } from '../shared/models/sessionrequest';
-import { SessionRequestState } from '../shared/models/sessionrequeststate';
+import { SessionRequest } from '../shared/models/sessionRequest';
+import { SessionRequestState } from '../shared/models/sessionRequestState';
 
 @Component({
   selector: 'app-fetch-data',

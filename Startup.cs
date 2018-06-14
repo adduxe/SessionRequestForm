@@ -18,6 +18,11 @@ namespace SessionRequest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
+
             services.AddMvc();
 
             // In production, the Angular files will be served from this directory
