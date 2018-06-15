@@ -146,7 +146,7 @@ const ALLREVSBYREQUESTID =      // All revisions associated to a request
             actionBy: "emily",
             action: "create",
             actionDate: new Date(2016, 10, 10),
-          comment: "Every good boy does fine."
+            comment: "Every good boy does fine."
           },{
             actionBy: "anthony",
             action: "modify",

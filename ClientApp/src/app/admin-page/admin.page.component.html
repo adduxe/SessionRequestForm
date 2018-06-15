@@ -6,16 +6,27 @@
   </div>
   <div class="col-md-9">
     <kendo-grid [data]="displayQueue"
-                [sortable]="true"
                 [filterable]="true"
+                [pageable]="{buttonCount: 5, info:false}"
+                [reorderable]="true"
+                [resizable]="true"
+                [sortable]="true"
                 [selectable]="true"
                 (selectionChange)="RowClicked($event)">
       <kendo-grid-column title="Term" field="term"></kendo-grid-column>
       <kendo-grid-column title="Session" field="sessionCode"></kendo-grid-column>
       <kendo-grid-column title="Status" field="status"></kendo-grid-column>
       <kendo-grid-column title="Owner" field="owner"></kendo-grid-column>
-      <kendo-grid-column title="Late Change" field="lateChange"></kendo-grid-column>
-      <kendo-grid-column title="Owner Changed" field="ownerChanged"></kendo-grid-column>
+      <kendo-grid-column title="Late Change" field="lateChange">
+        <!--<ng-template kendoGridCellTemplate let-dataItem>
+          <input type="checkbox" [checked]="dataItem.lateChange" disabled />
+        </ng-template>-->
+      </kendo-grid-column>
+      <kendo-grid-column title="Owner Changed" field="ownerChanged">
+        <!--<ng-template kendoGridCellTemplate let-dataItem>
+          <input type="checkbox" [checked]="dataItem.ownerChanged" disabled />
+        </ng-template>-->
+      </kendo-grid-column>
     </kendo-grid>
   </div>
 </div>
