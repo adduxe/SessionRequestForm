@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { GridComponent } from '@progress/kendo-angular-grid';
 import { SQLDataService } from '../shared/services/sqldata.service';
 
 enum QUEUE { MYATTENTION, DEPTREQUESTS, ALLPENDING }
