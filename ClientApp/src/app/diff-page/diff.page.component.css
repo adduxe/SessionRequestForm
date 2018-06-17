@@ -15,6 +15,7 @@ footer {
 h1 {
   margin-left: -15px;
 }
+
 h4 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -37,9 +38,9 @@ body #top-banner {
   color: white;
 }
 
-body #top-banner strong {
+  body #top-banner strong {
     color: #ffcc00;
-}
+  }
 
 .navbar-header {
   position: relative;
@@ -52,6 +53,7 @@ body #top-banner .navbar-nav li {
   line-height: 18px;
   height: 24px;
 }
+
   body #top-banner .navbar-nav li a,
   body #top-banner .navbar-nav li a:link,
   body #top-banner .navbar-nav li a:visited {
@@ -136,7 +138,7 @@ details {
   margin-top: 15px;
 }
 
-  /*details[open] {
+/*details[open] {
     background: #E1E1E1;
   }*/
 summary {
@@ -146,10 +148,11 @@ summary {
   color: #990000;
 }
 
-  
+
   summary::-webkit-details-marker {
     display: none
   }
+
   summary::after {
     content: '\23f7';
   }
@@ -158,14 +161,14 @@ details[open] summary:after {
   content: '\23f4';
 }
 
-  summary:after {
-    color: #000;
-    font-size: .8em;
-    font-weight: bold;
-    padding: 0;
-    margin-left: 5px;
-    vertical-align: text-bottom;
-  }
+summary:after {
+  color: #000;
+  font-size: .8em;
+  font-weight: bold;
+  padding: 0;
+  margin-left: 5px;
+  vertical-align: text-bottom;
+}
 
 p {
   font-size: .8em;
@@ -194,17 +197,17 @@ p {
 .currentBox {
   border: 1px green solid;
   color: green;
-  border-radius:3px;
+  border-radius: 3px;
   padding: 0px 5px 0px 4px;
-  font-size:10px;
-  vertical-align:middle;
+  font-size: 10px;
+  vertical-align: middle;
 }
 
 .prevVerHeader {
   border: 0;
-  border-bottom:3px #990000 solid;
-  padding:0px;
-  border-left:15px white solid;
+  border-bottom: 3px #990000 solid;
+  padding: 0px;
+  border-left: 15px white solid;
 }
 
 .preVerDropDown {
