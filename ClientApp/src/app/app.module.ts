@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 import { GridModule } from '@progress/kendo-angular-grid';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
@@ -46,12 +47,13 @@ import { SQLDataService } from './shared/services/sqldata.service';
     FormsModule,
     GridModule,
     ButtonsModule,
+    DateInputsModule,
     RouterModule.forRoot([
       { path: '', component: DashboardComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'srlist/:operation', component: SessionRequestListComponent },
-      { path: 'diff-page', component: DiffPageComponent },
+      { path: 'diff-page/:requestid', component: DiffPageComponent },
       { path: 'detail-page', component: DetailPageComponent },
       { path: 'request-form', component: RequestFormComponent },
       { path: 'request-history', component: RequestHistoryComponent },

@@ -33,10 +33,9 @@
       <button kendoButton><b>Reset Workflow</b></button>
     </kendo-buttongroup>
 
-    <button class="pull-right k-button" kendobutton="" style="margin-left: 15px;" value="Hide Previous" dir="ltr">Hide Previous</button>
+    <button class="pull-right k-button" kendobutton="" style="margin-left: 15px;" value="Hide Previous" (click)="HideShowPrevVersion()">{{ hideShowPrev }}</button>
   </div>
 </div>
-
 <table class="table">
   <tr>
     <td class="col-md-3" align="left"></td>
@@ -47,7 +46,7 @@
       Version 4 <span class="currentBox">Current</span>
     </th>
     <th class="col-md-4 prevVerHeader" *ngIf="showPrevious">
-      <select (change)="DisplayClickedRevision($event.target.value)"
+      <select (change)="ChangePreviousVersion($event.target.value)"
               class="prevVerDropDown" style="border:none;background-color:transparent;font-size:20px">
         <option *ngFor="let eachRev of allRevsData" [ngValue]="eachRev" [value]="eachRev.version">Version {{ eachRev.version }}</option>
       </select>
@@ -435,6 +434,6 @@
 
 <details [open]="showSection">
   <summary>Request History</summary>
-  <request-history #reqHist (revisionClicked)="DisplayClickedRevision($event)"></request-history>
+  <request-history #reqHist (revisionClicked)="ChangePreviousVersion($event)"></request-history>
 </details>
 <br/>

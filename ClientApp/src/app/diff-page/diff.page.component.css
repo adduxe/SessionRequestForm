@@ -219,3 +219,11 @@ p {
 .grayText {
   color: gray;
 }
+
+.table td {
+  border-top: none;
+}
+
+.table th {
+  border-top: none;
+}

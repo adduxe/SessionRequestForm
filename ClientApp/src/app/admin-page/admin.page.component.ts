@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { GridComponent } from '@progress/kendo-angular-grid';
+import { Router } from '@angular/router';
+import { SQLDataService } from '../shared/services/sqldata.service';
+
+enum QUEUE { MYATTENTION, DEPTREQUESTS, ALLPENDING }
 
 @Component({
   selector: 'admin-page',
@@ -8,8 +11,49 @@ import { GridComponent } from '@progress/kendo-angular-grid';
 
 export class AdminPageComponent {
 
-  public displayQueue: any[];
+  public userId: string = "Gregory";
+  public deptId: string = "MED";
 
+  public displayQueue: any[];
+  public QUEUE = QUEUE;         // to expose the enum to HTML
+
+  constructor(private sqlDataService: SQLDataService, private router: Router)
+  {
+    this.ChangeDisplayedList();     // get the default queue
+  }
+
+  public ChangeDisplayedList(listName?: number): any[] {
+
+    switch (listName) {
+
+      case QUEUE.MYATTENTION:
+        this.displayQueue = this.sqlDataService.getNeedsMyActionRequests(this.userId);
+        break;
+
+      case QUEUE.DEPTREQUESTS:
+        this.displayQueue = this.sqlDataService.getMyDepartmentsRequests(this.deptId);
+        break;
+
+      case QUEUE.ALLPENDING:
+        this.displayQueue = this.sqlDataService.getAllPendingRequests();
+        break;
+
+      default:     // the default queue is Needs my Attention Queue
+        this.displayQueue = this.sqlDataService.getNeedsMyActionRequests(this.userId);
+        break;
+    }
+
+    return this.displayQueue;
+  }
+
+  public RowClicked(rowEvent): void {
+    //    console.log(rowEvent.index);
+    var dataItem = rowEvent.selectedRows[0].dataItem;
+    var requestID = dataItem.term + dataItem.sessionCode;
+    console.log("Request ID: " + requestID);
+    this.router.navigate(['/diff-page/' + requestID]);
+    return;
+  }
 
 }
 

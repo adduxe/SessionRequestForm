@@ -1,7 +1,10 @@
-import { Component, Output, OnInit } from '@angular/core';
+import { Component, Output, OnInit, OnDestroy } from '@angular/core';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import { RequestHistoryComponent } from '../request-history/request.history.component';
 import { SQLDataService } from '../shared/services/sqldata.service';
+
 
 @Component({
   selector: 'diff-page',
@@ -13,15 +16,17 @@ export class DiffPageComponent{
 
   private reqID: string = "20183888";
   private revID: number = 4;
+  private subScribe: any;
 
   public currSess: any;
   public prevSess: any;
   public allRevsData: any[];
  
   public hideShowPrev: string = "Hide Previous";
-  public showSection: boolean = true;
+  public showSection: boolean = true;     // a variable that Hides/shows the sections
+  public showPrevious: boolean = true;   // Hides or shows the previous version of the request
 
-  constructor(private sqlDataService: SQLDataService) {
+  constructor(private sqlDataService: SQLDataService, private route: ActivatedRoute) {
 
     this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.reqID);
     this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.reqID);
@@ -30,8 +35,7 @@ export class DiffPageComponent{
   }
 
   @Output() pageTitle: string = "Diff Page";
-
-
+  
   public HideShowPrevVersion() {
 
     this.showPrevious = !(this.showPrevious);
@@ -43,8 +47,7 @@ export class DiffPageComponent{
     return;
   }   // HideShowPrevVersion()
 
-  showPrevious: boolean = true;   // Hides or shows the previous version of the request
-
+  
   public HiLiteDiff(newVal, oldVal?) {
 
     var cssClass = [];
@@ -77,14 +80,23 @@ export class DiffPageComponent{
     return cssClass;
   } // HiLiteDiff()
 
-  public DisplayClickedRevision(revNum) {
-
+  public ChangePreviousVersion(revNum) {
     console.log('received:', revNum);
     this.prevSess = this.allRevsData.find(sess => sess.version == revNum);
-
   }
 
   ngOnInit(): void {
+
+    this.subScribe = this.route.params.subscribe(params => {
+      this.reqID = params['requestid'];
+    });
+
+    console.log("Request ID: " + this.reqID);
+
+  }
+
+  ngOnDestroy() {
+    this.subScribe.unsubscribe();
   }
 
 }

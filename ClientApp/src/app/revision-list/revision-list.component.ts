@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { GridDataResult, DataStateChangeEvent, GridComponent } from '@progress/kendo-angular-grid';
 import { process, State } from '@progress/kendo-data-query';
 
-import { SessionRequest } from '../shared/models/sessionrequest';
-import { SessionRequestState } from '../shared/models/sessionrequeststate';
+import { SessionRequest } from '../shared/models/sessionRequest';
+import { SessionRequestState } from '../shared/models/sessionRequestState';
 import { SessionRequestService } from '../shared/services/sessionrequest.service';
 
 @Component({

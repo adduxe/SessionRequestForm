@@ -1,4 +1,4 @@
-import { SessionRequestRevision } from './SessionRequestRevision';
+import { SessionRequestRevision } from './sessionRequestRevision';
 
 export interface SessionRequest {
   sessionRequestID: number

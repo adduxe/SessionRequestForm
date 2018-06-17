@@ -13,6 +13,7 @@ export class RequestFormComponent implements OnInit{
   public SpecialFeeList: any[];
   public TuitionRates: any[];
   public termRates: any[];
+  public newDate: Date = new Date("2008/9/21");
 
   constructor(private peDataService: PEDataService) {
       // still need the constructor because this is where the PEDataService is injected
