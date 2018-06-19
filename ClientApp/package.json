@@ -4,12 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    /*    "start": "ng serve --proxy-config proxy.config.json",*/
     "start": "ng serve",
     "build": "ng build",
     "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "sqlServer": "node node_modules/ngf-server/server.js"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +41,7 @@
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "ngf-server": "^1.0.2",
     "npm": "^6.1.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

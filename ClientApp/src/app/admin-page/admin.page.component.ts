@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component }  from '@angular/core';
+import { Router }     from '@angular/router';
+
 import { SQLDataService } from '../shared/services/sqldata.service';
 
 enum QUEUE { MYATTENTION, DEPTREQUESTS, ALLPENDING }

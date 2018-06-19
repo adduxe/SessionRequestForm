@@ -43,6 +43,7 @@
     <None Remove="ClientApp\src\app\shared\services\pedata.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\sessionrequest.service.ts" />
     <None Remove="ClientApp\src\app\shared\services\sqldata.service.ts" />
+    <None Remove="ClientApp\src\app\test-page\test.page.component.ts" />
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
 
@@ -60,6 +61,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\pedata.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\sessionrequest.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\sqldata.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\test-page\test.page.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

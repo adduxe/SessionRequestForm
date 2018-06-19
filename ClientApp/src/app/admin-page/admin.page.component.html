@@ -6,14 +6,15 @@
     <a href="request-form"><h5>- <b>Create New Requests</b></h5></a>
   </div>
   <div class="col-md-9">
-    <kendo-grid [data]="displayQueue"
-                [filterable]="true"
-                [pageable]="{buttonCount: 5, info:false}"
-                [reorderable]="true"
-                [resizable]="true"
-                [sortable]="true"
-                [selectable]="true"
-                (selectionChange)="RowClicked($event)">
+    <kendo-grid
+        [data]="displayQueue"
+        [filterable]="true"
+        [pageable]="{buttonCount: 5, info:false}"
+        [reorderable]="true"
+        [resizable]="true"
+        [sortable]="true"
+        [selectable]="true"
+        (selectionChange)="RowClicked($event)">
       <kendo-grid-column title="Term" field="term"></kendo-grid-column>
       <kendo-grid-column title="Session" field="sessionCode"></kendo-grid-column>
       <kendo-grid-column title="Status" field="status"></kendo-grid-column>

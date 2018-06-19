@@ -1,0 +1,11 @@
+{
+  "/DataApi":
+  {
+    "target": "http://localhost:8808",
+    "secure": false
+  },
+  "/PeApi": {
+    "target": "http://oweb7-vm.usc.edu/PeApi",
+    "secure": false
+  } 
+}

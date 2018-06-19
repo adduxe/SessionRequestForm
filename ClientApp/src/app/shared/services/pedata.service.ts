@@ -1,22 +1,50 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/RX';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 
 export class PEDataService {
 
-  public getCampusLocations() {
+  private peURL = "http://oweb7-vm.usc.edu/peapi";
+
+  constructor(private http: HttpClient){ }
+
+  //public getCampusLocations(): Observable<any[]>{
+
+  //  return this.http.get<any[]>(this.peURL + '/common/usclocations')
+  //    .pipe(catchError(this.handleError<any[]>('getCampusLocations', [{campusCode: "XXX", campusName:"Failed fetching USC Locations"}])));
+  //}
+
+
+  //public getSpecialFeeList(): Observable<any[]> {
+
+  //  return this.http.get<any[]>('/PeApi/common/usclocations')
+  //    .pipe(catchError(this.handleError<any[]>('getCampusLocations', [])));
+  //}
+
+  public getCampusLocations(): any[]{
     return CAMPUSLOCS;
   }
 
-  public getSpecialFeeList() {
+  public getSpecialFeeList(){
     return SPECIALFEES;
   }
 
-  public getTuitionRates() {
+  public getTuitionRates(){
     return TUITIONRATES;
   }
 
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return Observable.of(result as T);
+    }
+  }
+
 }
+
 
 const CAMPUSLOCS = [
   {

@@ -1,22 +1,56 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/RX';
+import { catchError } from 'rxjs/operators';
+
 import { SessionRequest } from '../models/sessionRequest';
 
 @Injectable()
 
 export class SQLDataService {
 
-  public getNeedsMyActionRequests(ownerName: string) {
+  constructor(private http: HttpClient) {
+  }
+
+//  public getNeedsMyActionRequests(ownerName: string): Observable<any[]> {
+//    return this.http.get<any[]>('/DataApi/requests/:' + ownerName)
+//      .pipe(catchError(this.handleError<any[]>('getNeedsMyActionRequests', [])));
+//  }
+
+//  public getMyDepartmentsRequests(deptName: string): Observable<any[]> {
+//    return this.http.get<any[]>('/DatApi/request/:' + deptName)
+//      .pipe(catchError(this.handleError<any[]>('getMyDepartmentsRequests', [])))
+//  }
+
+//  public getAllPendingRequests(): Observable<any[]> {
+//  return this.http.get<any[]>('/DataApi/requests/all')
+//    .pipe(catchError(this.handleError<any[]>('getAllPendingRequests', [])));
+//  }
+
+
+  public getNeedsMyActionRequests(ownerName: string): any[] {
     return ALLREQUESTSSTATUS.filter(queueList => queueList.owner === ownerName);
   }
 
-  public getMyDepartmentsRequests(deptName: string) {
+
+  public getMyDepartmentsRequests(deptName: string): any[] {
     return ALLREQUESTSSTATUS.filter(queueList => queueList.department === deptName);
   }
 
-  public getAllPendingRequests() {
+
+  public getAllPendingRequests(): any[] {
     return ALLREQUESTSSTATUS;
   }
-  
+
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return Observable.of(result as T);
+    }
+  }
+
+
   public getCurrentRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
     return ALLVERSIONSPERREQUEST[0];
   }

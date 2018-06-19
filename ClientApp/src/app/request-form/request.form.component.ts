@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core'
-import { PEDataService } from '../shared/services/pedata.service'
+import { Component, OnInit } from '@angular/core';
+import { PEDataService } from '../shared/services/pedata.service';
+import { Observable, Subscriber } from 'rxjs/RX';
 
 @Component({
   selector: 'request-form',
@@ -13,17 +14,25 @@ export class RequestFormComponent implements OnInit{
   public SpecialFeeList: any[];
   public TuitionRates: any[];
   public termRates: any[];
-  public newDate: Date = new Date("2008/9/21");
+  
+  public rangeStart: Date = new Date();
+  public rangeEnd: Date = new Date();
 
   constructor(private peDataService: PEDataService) {
-      // still need the constructor because this is where the PEDataService is injected
+    var newDate: Date = new Date(2008, 9, 21);
   }
 
   ngOnInit() {
+
+    //this.peDataService.getCampusLocations().subscribe(locations => {
+    //  this.UscCampuses = locations;
+    //});
+
     this.UscCampuses = this.peDataService.getCampusLocations();
     this.SpecialFeeList = this.peDataService.getSpecialFeeList();
     this.TuitionRates = this.peDataService.getTuitionRates();
     this.termRates = this.TuitionRates[0].termRates;
+
   }
 
   pageTitle: string = "Emily";
@@ -74,7 +83,7 @@ export class RequestFormComponent implements OnInit{
     }
 
     this.session.classLocations.push(newLocation);
-    return;
+    //return;
 
   } // AddClassLocation()
   
