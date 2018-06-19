@@ -273,19 +273,17 @@
     </div>
   </div>
   <!-- End of Class Locations Section -->
-  <!--<kendo-daterange>-->
-    <!--<label>
-      <span class="label">Start</span>-->
-      <!--<kendo-dateinput [(value)]="newDate"></kendo-dateinput>-->
-    <!--</label>-->
-    <!--<label>
-      <span class="label">End</span>-->
-      <!--<kendo-dateinput kendoDateRangeEndInput [(value)]="rangeEnd"></kendo-dateinput>-->
-    <!--</label>-->
-  <!--</kendo-daterange>-->
+    <label>
+      <span class="label">Start</span>
+      <kendo-dateinput [value]="newDate"></kendo-dateinput>
+    </label>
+    <label>
+      <span class="label">End</span>
+      <kendo-dateinput [value]="rangeEnd"></kendo-dateinput>
+    </label>
 
-  <br />
-  <!--<div class="row" style="align-content:center;">
+      <br />
+      <!--<div class="row" style="align-content:center;">
     <div class="col-md-5 red" style="text-align: center;">
       <h4><b>{{ formError }}</b></h4>
     </div>
