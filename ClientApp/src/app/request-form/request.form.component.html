@@ -40,7 +40,7 @@
         <abbr title="Session Start Date">First Day of Classes</abbr>
       </label>
       <div class="col-md-6">
-        <input id="classStartDate" name="classStartDate" maxlength="10" />
+        <kendo-dateinput id="classStartDate" name="classStartDate"></kendo-dateinput>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
         <abbr title="Session End Date">Last Day of Classes</abbr>
       </label>
       <div class="col-md-6">
-        <input id="classEndDate" name="classEndDate" maxlength="10" />
+        <kendo-dateinput id="classEndDate" name="classEndDate"></kendo-dateinput>
       </div>
     </div>
 
@@ -71,10 +71,9 @@
         <abbr title="Session End Date">Last Day of Finals</abbr>
       </label>
       <div class="col-md-6">
-        <input id="finalsEndDate" name="finalsEndDate" maxlength="10" />
+        <kendo-dateinput id="finalsEndDate" name="finalsEndDate"></kendo-dateinput>
       </div>
     </div>
-
   </div>
 
   <div class="row">
@@ -169,10 +168,10 @@
     <div class="row" style="align-self:center;color:#ffcc00;">
       <div class="col-md-1">
       </div>
-      <div class="col-md-4" style="text-align:center;">
+      <div class="col-md-4" style="text-align:left;">
         <h4>Break Start</h4>
       </div>
-      <div class="col-md-4" style="text-align:center;">
+      <div class="col-md-4" style="text-align:left;">
         <h4>Break End</h4>
       </div>
       <div class="col-md-3">
@@ -185,10 +184,10 @@
       <div class="col-md-1" style="text-align:right;">
       </div>
       <div class="col-md-4" style="align-self:center;">
-        <input class="form-control" type="text" value='{{ eachBreak.startDate | date:"MMM dd, yyyy" }}' />
+        <kendo-dateinput value='{{ eachBreak.startDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
       </div>
       <div class="col-md-4" style="align-self:center;">
-        <input class="form-control" type="text" value='{{ eachBreak.endDate | date:"MMM dd, yyyy" }}' />
+        <kendo-dateinput value='{{ eachBreak.endDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
       </div>
       <div class="col-md-3" style="align-self:center;">
         <a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="session.sessionBreaks.splice(index,1);">
@@ -260,10 +259,10 @@
         </select>
       </div>
       <div class="col-md-3" style="align-self:center;">
-        <input class="form-control" type="text" value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}' />
+        <kendo-dateinput value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
       </div>
       <div class="col-md-3" style="align-self:center;">
-        <input class="form-control" type="text" value='{{ eachLocation.endDate | date:"MMM dd, yyyy" }}' />
+        <kendo-dateinput  value='{{ eachLocation.endDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
       </div>
       <div class="col-md-2" style="align-self:center;">
         <a href="javascript:;" class="uscRedButton" title="Delete this Class Location" (click)="session.classLocations.splice(index,1);">
@@ -273,17 +272,9 @@
     </div>
   </div>
   <!-- End of Class Locations Section -->
-    <label>
-      <span class="label">Start</span>
-      <kendo-dateinput [value]="newDate"></kendo-dateinput>
-    </label>
-    <label>
-      <span class="label">End</span>
-      <kendo-dateinput [value]="rangeEnd"></kendo-dateinput>
-    </label>
 
-      <br />
-      <!--<div class="row" style="align-content:center;">
+<br />
+<!--<div class="row" style="align-content:center;">
     <div class="col-md-5 red" style="text-align: center;">
       <h4><b>{{ formError }}</b></h4>
     </div>
@@ -292,4 +283,4 @@
     </div>
     <div class="col-md-5">
     </div>
-  </div>-->
+</div>-->
