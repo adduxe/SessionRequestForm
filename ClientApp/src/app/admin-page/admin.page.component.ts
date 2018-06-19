@@ -18,9 +18,18 @@ export class AdminPageComponent {
   public displayQueue: any[];
   public QUEUE = QUEUE;         // to expose the enum to HTML
 
+  public recordCount = {
+    needsMyAction: 0,
+    deptRequests: 0,
+    allPending: 0
+  }
+
   constructor(private sqlDataService: SQLDataService, private router: Router)
   {
     this.ChangeDisplayedList();     // get the default queue
+    this.recordCount.needsMyAction = this.sqlDataService.getNeedsMyActionRequests(this.userId).length;
+    this.recordCount.deptRequests = this.sqlDataService.getMyDepartmentsRequests(this.deptId).length;
+    this.recordCount.allPending = this.sqlDataService.getAllPendingRequests().length;
   }
 
   public ChangeDisplayedList(listName?: number): any[] {
@@ -48,7 +57,7 @@ export class AdminPageComponent {
   }
 
   public RowClicked(rowEvent): void {
-    //    console.log(rowEvent.index);
+
     var dataItem = rowEvent.selectedRows[0].dataItem;
     var requestID = dataItem.term + dataItem.sessionCode;
     console.log("Request ID: " + requestID);

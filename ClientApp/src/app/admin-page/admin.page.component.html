@@ -1,19 +1,21 @@
 <div class="row">
   <div class="col-md-3 pointer">
-    <a (click)="ChangeDisplayedList(QUEUE.MYATTENTION)"><h5>- <b>Needs my Attention</b></h5></a>
-    <a (click)="ChangeDisplayedList(QUEUE.DEPTREQUESTS)"><h5>- <b>My Department's Requests</b></h5></a>
-    <a (click)="ChangeDisplayedList(QUEUE.ALLPENDING)"><h5>- <b>All Pending Requests</b></h5></a>
+    <a (click)="ChangeDisplayedList(QUEUE.MYATTENTION)"><h5>- <b>Needs my Attention ({{ recordCount.needsMyAction }})</b></h5></a>
+    <a (click)="ChangeDisplayedList(QUEUE.DEPTREQUESTS)"><h5>- <b>My Department's Requests ({{ recordCount.deptRequests }})</b></h5></a>
+    <a (click)="ChangeDisplayedList(QUEUE.ALLPENDING)"><h5>- <b>All Pending Requests ({{ recordCount.allPending }})</b></h5></a>
     <a href="request-form"><h5>- <b>Create New Requests</b></h5></a>
   </div>
   <div class="col-md-9">
     <kendo-grid
         [data]="displayQueue"
         [filterable]="true"
-        [pageable]="{buttonCount: 5, info:false}"
+        [pageable]="{buttonCount: 5, info:false, previousNext: true}"
+        [pageSize]="10"
         [reorderable]="true"
         [resizable]="true"
         [sortable]="true"
         [selectable]="true"
+        [scrollable]="none"
         (selectionChange)="RowClicked($event)">
       <kendo-grid-column title="Term" field="term"></kendo-grid-column>
       <kendo-grid-column title="Session" field="sessionCode"></kendo-grid-column>
