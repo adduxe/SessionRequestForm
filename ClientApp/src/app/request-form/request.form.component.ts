@@ -14,6 +14,7 @@ export class RequestFormComponent implements OnInit{
   public UscCampuses: any[];
   public SpecialFeeList: any[];
   public termRates: any[];
+  public SessionCodes: any[];
   
   public rangeStart: Date = new Date();
   public rangeEnd: Date = new Date();
@@ -34,6 +35,7 @@ export class RequestFormComponent implements OnInit{
     this.SpecialFeeList = this.peDataService.getSpecialFeeList();
     this.TuitionRates = this.peDataService.getTuitionRates();
     this.termRates = this.TuitionRates[0].termRates;
+    this.SessionCodes = this.peDataService.getSessionCodes();
 
   }
 
@@ -112,5 +114,10 @@ export class RequestFormComponent implements OnInit{
 //    usedFees.splice(i, 1);                    // so that it can be re-used later.
     return;
   }   // deletes a Special Fee entry
-  
+
+  public filterCodes(codes) {
+    this.SessionCodes = this.peDataService.getSessionCodes()
+      .filter((sCodes) => sCodes.sessionDesc.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
+  }
+
 }

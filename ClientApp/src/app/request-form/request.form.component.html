@@ -34,7 +34,16 @@
     </label>
 
     <div class="col-md-6">
-      <input class="form-control" id="sessionCode" name="sessionCode" [(ngModel)]="session.code" maxlength="4" style="width:150px;" />
+      <kendo-dropdownlist
+            id="sessionCode"
+            [data]="SessionCodes"
+            [textField]="'sessionDesc'"
+            [valueField]="'sessionCode'"
+            [filterable]="true"
+            (filterChange)="filterCodes($event)"
+            [(ngModel)]="session.code">
+      </kendo-dropdownlist>
+      <!--<input class="form-control"  maxlength="4" style="width:150px;" />-->
     </div>
   </div>
 
@@ -273,8 +282,6 @@
   </div>
 
 </div>
-
-
 
 <div id="SpecialFeesSection">
 
