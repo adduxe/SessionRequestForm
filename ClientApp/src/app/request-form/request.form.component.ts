@@ -10,6 +10,7 @@ import { Observable, Subscriber } from 'rxjs/RX';
 
 export class RequestFormComponent implements OnInit{
 
+  public MAXUNITS: number = 100;
   public UscCampuses: any[];
   public SpecialFeeList: any[];
   public TuitionRates: any[];
@@ -37,8 +38,7 @@ export class RequestFormComponent implements OnInit{
 
   pageTitle: string = "Emily";
 
-  public MAXUNITS: number = 100;
-
+  
   public semesters = [
     { semCode: 20182, semName: "2018 Summer"},
     { semCode: 20183, semName: "2018 Fall"},
@@ -47,6 +47,7 @@ export class RequestFormComponent implements OnInit{
   ];
 
   public session = {
+
     academicTerm: "",
     ratePerUnitAmount: "",
     sessionBreaks: [
@@ -72,7 +73,7 @@ export class RequestFormComponent implements OnInit{
 //      }
     ]
 
-  }
+  } // session
   
   public AddClassLocation() {
 
@@ -83,7 +84,6 @@ export class RequestFormComponent implements OnInit{
     }
 
     this.session.classLocations.push(newLocation);
-    //return;
 
   } // AddClassLocation()
   

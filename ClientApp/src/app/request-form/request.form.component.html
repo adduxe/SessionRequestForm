@@ -99,10 +99,14 @@
 
     <div class="form-group col-md-6" id="tuitionFlatRateBox">
       <label for="tuitionFlatRate" class="col-md-6 control-label">
-        <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate ($)</abbr>
+        <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate</abbr>
       </label>
       <div class="col-md-6">
-        <input type="text" class="form-control" id="tuitionFlatRate" name="tuitionFlatRate" />
+        <kendo-numerictextbox id="tuitionFlatRate" name="tuitionFlatRate"
+             [format]="'a0'"
+             [min]="0"
+             [spinners]="true">
+        </kendo-numerictextbox>
       </div>
     </div>
 
@@ -111,9 +115,21 @@
         <abbr title="Tuition flat rate in dollars">Undergrad Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
-        <input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />
+        <!--<input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" />-->
+        <kendo-numerictextbox
+             [format]="'n0'"
+             [min]="1"
+              [max]="MAXUNITS - 1">
+        </kendo-numerictextbox>
+
         &nbsp;to&nbsp;
-        <input id="flatUnitsMax" name="flatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />
+        <kendo-numerictextbox
+              [format]="'n0'"
+              [min]="1"
+              [max]="MAXUNITS - 1">
+
+        </kendo-numerictextbox>
+        <!--<input id="flatUnitsMax" name="flatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
       </div>
     </div>
 
@@ -124,10 +140,11 @@
     <div class="form-group col-md-6" id="tuitionPerUnitBox">
 
       <label for="tuitionUnitRate" class="col-md-6 control-label">
-        <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit ($)</abbr>
+        <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit</abbr>
       </label>
       <div class="col-md-6">
-        <input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />
+        <!--<input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />-->
+        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
       </div>
     </div>
 
@@ -136,9 +153,11 @@
         <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
-        <input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />
+        <!--<input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />-->
+        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
         &nbsp;to&nbsp;
-        <input id="gradFlatUnitsMax" name="gradFlatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />
+        <!--<input id="gradFlatUnitsMax" name="gradFlatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
+        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
       </div>
     </div>
 
