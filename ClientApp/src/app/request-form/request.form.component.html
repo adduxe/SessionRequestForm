@@ -40,7 +40,7 @@
         <abbr title="Session Start Date">First Day of Classes</abbr>
       </label>
       <div class="col-md-6">
-        <kendo-dateinput id="classStartDate" name="classStartDate"></kendo-dateinput>
+        <kendo-datepicker id="classStartDate" name="classStartDate"></kendo-datepicker>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
         <abbr title="Session End Date">Last Day of Classes</abbr>
       </label>
       <div class="col-md-6">
-        <kendo-dateinput id="classEndDate" name="classEndDate"></kendo-dateinput>
+        <kendo-datepicker id="classEndDate" name="classEndDate"></kendo-datepicker>
       </div>
     </div>
 
@@ -62,7 +62,7 @@
         <abbr title="Finals Start Date">First Day of Finals</abbr>
       </label>
       <div class="col-md-6">
-        <kendo-dateinput id="finalsStartDate" name="finalsStartDate"></kendo-dateinput>
+        <kendo-datepicker id="finalsStartDate" name="finalsStartDate"></kendo-datepicker>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
         <abbr title="Session End Date">Last Day of Finals</abbr>
       </label>
       <div class="col-md-6">
-        <kendo-dateinput id="finalsEndDate" name="finalsEndDate"></kendo-dateinput>
+        <kendo-datepicker id="finalsEndDate" name="finalsEndDate"></kendo-datepicker>
       </div>
     </div>
   </div>
@@ -203,10 +203,10 @@
       <div class="col-md-1" style="text-align:right;">
       </div>
       <div class="col-md-4" style="align-self:center;">
-        <kendo-dateinput value='{{ eachBreak.startDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
+        <kendo-datepicker value='{{ eachBreak.startDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
       </div>
       <div class="col-md-4" style="align-self:center;">
-        <kendo-dateinput value='{{ eachBreak.endDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
+        <kendo-datepicker value='{{ eachBreak.endDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
       </div>
       <div class="col-md-3" style="align-self:center;">
         <a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="session.sessionBreaks.splice(index,1);">
@@ -278,10 +278,10 @@
         </select>
       </div>
       <div class="col-md-3" style="align-self:center;">
-        <kendo-dateinput value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
+        <kendo-datepicker value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
       </div>
       <div class="col-md-3" style="align-self:center;">
-        <kendo-dateinput  value='{{ eachLocation.endDate | date:"MMM dd, yyyy" }}'></kendo-dateinput>
+        <kendo-datepicker  value='{{ eachLocation.endDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
       </div>
       <div class="col-md-2" style="align-self:center;">
         <a href="javascript:;" class="uscRedButton" title="Delete this Class Location" (click)="session.classLocations.splice(index,1);">
