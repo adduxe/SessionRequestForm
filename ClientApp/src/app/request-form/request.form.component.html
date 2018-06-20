@@ -1,8 +1,3 @@
-<style>
-  p {
-    padding-top: 0px;
-  }
-</style>
 
 <h3 style="color:darkred">New Session Request</h3>
 <div class="col-md-pull-5" style="padding: 0px;">
@@ -39,7 +34,7 @@
     </label>
 
     <div class="col-md-6">
-      <input class="form-control" id="sessionCode" name="sessionCode" maxlength="4" style="width:150px;" />
+      <input class="form-control" id="sessionCode" name="sessionCode" [(ngModel)]="session.code" maxlength="4" style="width:150px;" />
     </div>
   </div>
 
@@ -89,110 +84,20 @@
       <kendo-datepicker id="finalsEndDate" name="finalsEndDate"></kendo-datepicker>
     </div>
   </div>
+
 </div>
 
-<h4 style="color:darkred;padding:0px;">Rates</h4>
-<hr style="border-color:darkred" />
-
 <div class="row">
-
-  <div class="form-group col-md-6" id="rateTypeBox">
-    <label for="rateType" class="col-md-6 control-label">
-      <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
-    </label>
-    <div class="col-md-6">
-      <select class="form-control" id="rateType" name="rateType">
-        <option *ngFor="let eachRate of termRates" value="{{ eachRate.rateTypeCode }}">{{ eachRate.rateTypeDesc }}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-group col-md-6" id="blankBox">
+  <div class="col-md-4">
     &nbsp;
   </div>
-
-</div>
-
-<div class="row">
-
-  <div class="form-group col-md-6" id="tuitionFlatRateBox">
-    <label for="tuitionFlatRate" class="col-md-6 control-label">
-      <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate</abbr>
-    </label>
-    <div class="col-md-6">
-      <kendo-numerictextbox id="tuitionFlatRate" name="tuitionFlatRate"
-                            [format]="'a0'"
-                            [min]="0"
-                            [spinners]="true">
-      </kendo-numerictextbox>
-    </div>
-  </div>
-
-  <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
-    <label for="flatUnitsMin" class="col-md-6 control-label">
-      <abbr title="Tuition flat rate in dollars">Undergrad Flat Rate Range (units)</abbr>
-    </label>
-    <div class="col-md-6" style="align-items:center;">
-      <!--<input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" />-->
-      <kendo-numerictextbox [format]="'n0'"
-                            [min]="1"
-                            [max]="MAXUNITS - 1">
-      </kendo-numerictextbox>
-      &nbsp;to&nbsp;
-      <kendo-numerictextbox [format]="'n0'"
-                            [min]="1"
-                            [max]="MAXUNITS - 1">
-
-      </kendo-numerictextbox>
-      <!--<input id="flatUnitsMax" name="flatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
-    </div>
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="form-group col-md-6" id="tuitionPerUnitBox">
-
-    <label for="tuitionUnitRate" class="col-md-6 control-label">
-      <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit</abbr>
-    </label>
-    <div class="col-md-6">
-      <!--<input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />-->
-      <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
-    </div>
-  </div>
-
-  <div class="form-group col-md-6" id="gradFlatRateRangeBox">
-    <label for="gradFlatUnitsMin" class="col-md-6 control-label">
-      <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
-    </label>
-    <div class="col-md-6" style="align-items:center;">
-      <!--<input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />-->
-      <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
-      &nbsp;to&nbsp;
-      <!--<input id="gradFlatUnitsMax" name="gradFlatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
-      <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
-    </div>
-  </div>
-
-</div>
-
-<div class="row" style="margin-left: auto; margin-right: auto;" id="addButtonsSection">
   <div class="col-md-4">
     <button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
       Add Session Break
     </button>
   </div>
   <div class="col-md-4">
-    <button class="form-control uscGoldButton" value="Add Special Fees" (click)="AddSpecialFee();">
-      Add Special Fee
-    </button>
-  </div>
-  <div class="col-md-4">
-    <button class="form-control uscGoldButton" value="Add Class Locations" (click)="AddClassLocation();">
-      Add Class Location
-    </button>
+    &nbsp;
   </div>
 </div>
 
@@ -232,6 +137,112 @@
 
 </div>
 <!-- End of Session Breaks Section -->
+
+<div id="locationFields">
+
+  <h4 style="color:darkred;padding:0px;">Locations</h4>
+  <hr style="border-color:darkred" />
+
+  <div class="col-md-4">
+    <button class="form-control uscGoldButton" value="Add Class Locations" (click)="AddClassLocation();">
+      Add Class Location
+    </button>
+  </div>
+
+</div>
+
+
+<div id="rateFields" *ngIf="termRates && session.code && session.academicTerm">
+
+  <h4 style="color:darkred;padding:0px;">Rates</h4>
+  <hr style="border-color:darkred" />
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="rateTypeBox">
+      <label for="rateType" class="col-md-6 control-label">
+        <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
+      </label>
+      <div class="col-md-6">
+        <select class="form-control" id="rateType" name="rateType">
+          <option *ngFor="let eachRate of termRates" value="{{ eachRate.rateTypeCode }}">{{ eachRate.rateTypeDesc }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="blankBox">
+      &nbsp;
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="tuitionFlatRateBox">
+      <label for="tuitionFlatRate" class="col-md-6 control-label">
+        <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate</abbr>
+      </label>
+      <div class="col-md-6">
+        <kendo-numerictextbox id="tuitionFlatRate" [format]="'a0'" [min]="0" [spinners]="true"></kendo-numerictextbox>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
+      <label for="flatUnitsMin" class="col-md-6 control-label">
+        <abbr title="Tuition flat rate in dollars">Undergrad Flat Rate Range (units)</abbr>
+      </label>
+      <div class="col-md-6" style="align-items:center;">
+        <!--<input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" />-->
+        <kendo-numerictextbox [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
+        &nbsp;to&nbsp;
+        <kendo-numerictextbox [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
+        <!--<input id="flatUnitsMax" name="flatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-md-6" id="tuitionPerUnitBox">
+
+      <label for="tuitionUnitRate" class="col-md-6 control-label">
+        <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit<</abbr>
+      </label>
+      <div class="col-md-6">
+        <!--<input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />-->
+        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6" id="gradFlatRateRangeBox">
+      <label for="gradFlatUnitsMin" class="col-md-6 control-label">
+        <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
+      </label>
+      <div class="col-md-6" style="align-items:center;">
+        <!--<input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />-->
+        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
+        &nbsp;to&nbsp;
+        <!--<input id="gradFlatUnitsMax" name="gradFlatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
+        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="row" style="margin-left: auto; margin-right: auto;" id="addButtonsSection">
+  <div class="col-md-4">
+    <button class="form-control uscGoldButton" value="Add Special Fees" (click)="AddSpecialFee();">
+      Add Special Fee
+    </button>
+  </div>
+</div>
+
 <!-- Start of Special Fees Section -->
 <div class="Fees" *ngIf="session.specialFees.length">
 
