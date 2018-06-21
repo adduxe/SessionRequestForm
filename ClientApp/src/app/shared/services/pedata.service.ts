@@ -28,7 +28,7 @@ export class PEDataService {
     return CAMPUSLOCS;
   }
 
-  public getSpecialFeeList(){
+  public getSpecialFeeList(acadTerm: string): any[]{
     return SPECIALFEES;
   }
 

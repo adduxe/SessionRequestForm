@@ -32,7 +32,6 @@ export class RequestFormComponent implements OnInit{
     //});
 
     this.UscCampuses = this.peDataService.getCampusLocations();
-    this.SpecialFeeList = this.peDataService.getSpecialFeeList();
     this.TuitionRates = this.peDataService.getTuitionRates();
     this.termRates = this.TuitionRates[0].termRates;
     this.SessionCodes = this.peDataService.getSessionCodes();
@@ -49,32 +48,11 @@ export class RequestFormComponent implements OnInit{
   ];
 
   public session = {
-
     academicTerm: "",
     ratePerUnitAmount: "",
-    sessionBreaks: [
-      //{
-      //  startDate: "2018-05-20T15:20:52.657",
-      //  endDate: "2018-05-25T15:20:52.657"
-      //}
-    ],
-
-    specialFees: [
-      //{
-      //  feeCode: "M22520001",
-      //  assessedTo: "U",
-      //  amount: 777
-      //}
-    ],
-
-    classLocations: [
-//      {
-        //campusCode: "ATT",
-        //startDate: "2018-05-20T15:20:52.657",
-        //endDate: "2018-05-25T15:20:52.657"
-//      }
-    ]
-
+    sessionBreaks: [],
+    specialFees: [],
+    classLocations: []
   } // session
   
   public AddClassLocation() {
@@ -86,7 +64,6 @@ export class RequestFormComponent implements OnInit{
     }
 
     this.session.classLocations.push(newLocation);
-
   } // AddClassLocation()
   
   public AddSessionBreak(){
@@ -95,14 +72,15 @@ export class RequestFormComponent implements OnInit{
     return;
   } // AddSessionBreak()
 
-  public AddSpecialFee(){
+  public AddSpecialFee(acadTerm: string) {
 
     var newFee = {
       feeCode: "",
       assessedTo: "",
       amount: 0
     };
-
+    alert("acadTerm: " + acadTerm);
+    this.SpecialFeeList = this.formSpecialFeeArray(this.peDataService.getSpecialFeeList(acadTerm));
     this.session.specialFees.push(newFee);
     return;
   } // AddSpecialFee()
@@ -115,9 +93,53 @@ export class RequestFormComponent implements OnInit{
     return;
   }   // deletes a Special Fee entry
 
-  public filterCodes(codes) {
+  public filterSessionCodes(codes) {
     this.SessionCodes = this.peDataService.getSessionCodes()
       .filter((sCodes) => sCodes.sessionDesc.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
   }
+
+  public filterCampusLocation(campuses) {
+    this.UscCampuses = this.peDataService.getCampusLocations()
+      .filter((locations) => locations.campusName.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
+  }
+
+  private formSpecialFeeArray(feeList: any[]): any[] {
+
+    var acadTerm = this.session.academicTerm;
+    var acadYear = acadTerm.substring(0,3);
+    var termPrefix = acadTerm[acadTerm.length - 1]; // get the last digit (e.g. 20183 = '3')
+    var termAbbrev = "";
+
+    switch (termPrefix) {
+      case '1':
+        termAbbrev = "Sp" + acadYear;
+        break;
+      case '2':
+        termAbbrev = "Su" + acadYear;
+        break;
+      case '3':
+        termAbbrev = "Fa" + acadYear;
+        break;
+      default:
+        break;
+    }
+
+    var specFeeArray: any[] = [];
+    var feeName: string = "";
+    var feeCode: string = "";
+
+    for (var i = 0; i < feeList.length; ++i) {
+      feeName = feeList[i];
+      feeCode = feeName.substring(0, feeName.indexOf(' '))
+      specFeeArray.push({ "feeCode": feeCode, "feeName": feeName });
+    }
+
+    return specFeeArray;
+  }
+
+  //public filterSpecialFees(feeList) {
+  //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
+  //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
+  //}
 
 }

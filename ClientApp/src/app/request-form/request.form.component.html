@@ -16,11 +16,13 @@
     </label>
 
     <div class="col-md-6" style="vertical-align: bottom;">
-      <select class="form-control" [(ngModel)]="session.academicTerm">
-        <option *ngFor="let eachSem of semesters" value="{{ eachSem.semCode }}">
-          {{ eachSem.semName }}
-        </option>
-      </select>
+      <kendo-dropdownlist
+          id="semester"
+            [data]="semesters"
+            [textField]="'semName'"
+            [valueField]="'semCode'"
+            [(ngModel)]="session.academicTerm">
+      </kendo-dropdownlist>
     </div>
 
   </div>
@@ -35,15 +37,15 @@
 
     <div class="col-md-6">
       <kendo-dropdownlist
-            id="sessionCode"
+            id="sessCode"
             [data]="SessionCodes"
             [textField]="'sessionDesc'"
             [valueField]="'sessionCode'"
             [filterable]="true"
-            (filterChange)="filterCodes($event)"
-            [(ngModel)]="session.code">
+            (filterChange)="filterSessionCodes($event)"
+            [(ngModel)]="session.code"
+            style="width:250px;">
       </kendo-dropdownlist>
-      <!--<input class="form-control"  maxlength="4" style="width:150px;" />-->
     </div>
   </div>
 
@@ -182,9 +184,17 @@
     <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachLocation of session.classLocations">
 
       <div class="col-md-4">
-        <select class="form-control" id="campusCode" name="campusCode" *ngIf="(UscCampuses.length)" style="width: 250px; margin-left:50px;">
+        <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
+            *ngIf="(UscCampuses.length)"
+            [data]="UscCampuses"
+            [textField]="'campusName'"
+            [valueField]="'campusCode'"
+            [filterable]="true"
+            (filterChange)="filterCampusLocation($event)">
+        </kendo-dropdownlist>
+        <!--<select class="form-control" id="campusCode" name="campusCode" *ngIf="(UscCampuses.length)" style="width: 250px; margin-left:50px;">
           <option *ngFor="let eachCampus of UscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
-        </select>
+        </select>-->
       </div>
       <div class="col-md-3" style="align-self:center;">
         <kendo-datepicker value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
@@ -203,7 +213,7 @@
 </div>
 
 
-<div id="rateFields" *ngIf="termRates && session.code && session.academicTerm">
+<div id="rateFields" *ngIf="termRates && session.academicTerm">
 
   <h4 style="color:darkred;padding:0px;">Rates</h4>
   <hr style="border-color:darkred" />
@@ -234,20 +244,18 @@
         <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate</abbr>
       </label>
       <div class="col-md-6">
-        <kendo-numerictextbox id="tuitionFlatRate" [format]="'a0'" [min]="0" [spinners]="true"></kendo-numerictextbox>
+        <kendo-numerictextbox id="tuitionFlatRate" [format]="'a0'" [min]="0" [spinners]="false"></kendo-numerictextbox>
       </div>
     </div>
 
     <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
       <label for="flatUnitsMin" class="col-md-6 control-label">
-        <abbr title="Tuition flat rate in dollars">Undergrad Flat Rate Range (units)</abbr>
+        <abbr title="Tuition flat rate range in units">Undergrad Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
-        <!--<input id="flatUnitsMin" name="flatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" />-->
-        <kendo-numerictextbox [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
+        <kendo-numerictextbox id="flatUnitsMin" [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
         &nbsp;to&nbsp;
-        <kendo-numerictextbox [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
-        <!--<input id="flatUnitsMax" name="flatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
+        <kendo-numerictextbox id="flatUnitsMax" [format]="'n0'" [min]="2" [max]="MAXUNITS - 1"></kendo-numerictextbox>
       </div>
     </div>
 
@@ -262,7 +270,7 @@
       </label>
       <div class="col-md-6">
         <!--<input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />-->
-        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
+        <kendo-numerictextbox [format]="'a0'" [min]="0" [spinners]="false"></kendo-numerictextbox>
       </div>
     </div>
 
@@ -271,11 +279,9 @@
         <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
-        <!--<input id="gradFlatUnitsMin" name="gradFlatUnitsMin" type="number" min="1" max="{{ MAXUNITS - 1 }}" class="form-control" style="width:60px;display:inline;" />-->
-        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
+        <kendo-numerictextbox id="gradFlatUnitsMin" [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
         &nbsp;to&nbsp;
-        <!--<input id="gradFlatUnitsMax" name="gradFlatUnitsMax" type="number" min="2" max="{{ MAXUNITS }}" class="form-control" style="width:60px;display:inline;" />-->
-        <kendo-numerictextbox [format]="'a0'" [min]="0"></kendo-numerictextbox>
+        <kendo-numerictextbox id="gradFlatUnitsMax" [format]="'n0'" [min]="2"  [max]="MAXUNITS - 1"></kendo-numerictextbox>
       </div>
     </div>
 
@@ -291,7 +297,7 @@
   <div class="row" style="margin-left: auto; margin-right: auto;">
     <div class="col-md-4">&nbsp;</div>
     <div class="col-md-4">
-      <button class="form-control uscGoldButton" value="Add Special Fees" (click)="AddSpecialFee();">
+      <button class="form-control uscGoldButton" value="Add Special Fees" (click)="AddSpecialFee(session.academicTerm);">
         Add Special Fee
       </button>
     </div>
@@ -311,9 +317,15 @@
       <div class="row" *ngFor="let eachFee of session.specialFees">
         <div class="col-md-1"></div>
         <div class="col-md-5">
-          <select class="form-control" id="sFeeCode" name="sFeeCode" *ngIf="(SpecialFeeList.length)">
-            <option *ngFor="let eachFee of SpecialFeeList" value="{{ eachFee.substring(0, eachFee.indexOf(' ')) }}">{{ eachFee }}</option>
-          </select>
+        <kendo-dropdownlist
+            [data]="SpecialFeeList"
+            [textField]="'feeName'"
+            [valueField]="feeCode"
+            style="width:350px;">
+        </kendo-dropdownlist>
+        <!--<select class="form-control" id="sFeeCode" name="sFeeCode" *ngIf="(SpecialFeeList.length)">
+          <option *ngFor="let eachFee of SpecialFeeList" value="{{ eachFee.substring(0, eachFee.indexOf(' ')) }}">{{ eachFee }}</option>
+        </select>-->
         </div>
         <div class="col-md-2">
           <input type="text" maxlength="4" numbers-only class="form-control" />
