@@ -15,6 +15,7 @@ export class RequestFormComponent implements OnInit{
   public SpecialFeeList: any[];
   public termRates: any[];
   public SessionCodes: any[];
+  public FeeList: any[];
   
   public rangeStart: Date = new Date();
   public rangeEnd: Date = new Date();
@@ -30,10 +31,7 @@ export class RequestFormComponent implements OnInit{
     //this.peDataService.getCampusLocations().subscribe(locations => {
     //  this.UscCampuses = locations;
     //});
-
     this.UscCampuses = this.peDataService.getCampusLocations();
-    this.TuitionRates = this.peDataService.getTuitionRates();
-    this.termRates = this.TuitionRates[0].termRates;
     this.SessionCodes = this.peDataService.getSessionCodes();
 
   }
@@ -82,10 +80,11 @@ export class RequestFormComponent implements OnInit{
 
     var term : string = acadTerm.value.semCode;
 //    var term: string = this.session.academicTerm.semCode;   // this will work too!
+
     alert("acadTerm: " + term);
     this.SpecialFeeList = this.formSpecialFeeArray(term);
     this.session.specialFees.push(newFee);
-    return;
+
   } // AddSpecialFee()
 
   public DeleteThisFee(feeIndex, feeCode) {
@@ -132,10 +131,8 @@ export class RequestFormComponent implements OnInit{
         break;
     }
 
-    var feeList = this.peDataService.getSpecialFeeList(acadTerm);
-
-    for (var i = 0; i < feeList.length; ++i) {
-      feeName = this.CleanupFeeName(termAbbrev, feeList[i]);
+    for (var i = 0; i < this.FeeList.length; ++i) {
+      feeName = this.CleanupFeeName(termAbbrev, this.FeeList[i]);
       feeCode = feeName.substring(0, feeName.indexOf(' '))
       specFeeArray.push({ "feeCode": feeCode, "feeName": feeName });
     }
@@ -152,6 +149,20 @@ export class RequestFormComponent implements OnInit{
     
     return cleanStr;
   }
+
+
+  public TermSelected(selectedTerm: any) {
+
+    var term = selectedTerm.semCode;
+
+    this.TuitionRates = this.peDataService.getTermTuitionRates(term);
+    this.termRates = this.TuitionRates[0].termRates;
+    this.FeeList = this.peDataService.getSpecialFeeList(term);
+    this.SpecialFeeList = this.formSpecialFeeArray(term);
+
+  }
+
+
   //public filterSpecialFees(feeList) {
   //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);

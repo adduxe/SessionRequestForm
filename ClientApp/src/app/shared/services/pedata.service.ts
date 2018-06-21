@@ -32,7 +32,7 @@ export class PEDataService {
     return SPECIALFEES;
   }
 
-  public getTuitionRates(){
+  public getTermTuitionRates(acadTerm: string){
     return TUITIONRATES;
   }
 
