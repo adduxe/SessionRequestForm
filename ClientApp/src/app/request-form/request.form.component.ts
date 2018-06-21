@@ -48,7 +48,7 @@ export class RequestFormComponent implements OnInit{
   ];
 
   public session = {
-    academicTerm: "",
+    academicTerm: { semCode: "", semName: "" },
     ratePerUnitAmount: "",
     sessionBreaks: [],
     specialFees: [],
@@ -72,15 +72,18 @@ export class RequestFormComponent implements OnInit{
     return;
   } // AddSessionBreak()
 
-  public AddSpecialFee(acadTerm: string) {
+  public AddSpecialFee(acadTerm: any) {
 
     var newFee = {
       feeCode: "",
       assessedTo: "",
       amount: 0
     };
-    alert("acadTerm: " + acadTerm);
-    this.SpecialFeeList = this.formSpecialFeeArray(this.peDataService.getSpecialFeeList(acadTerm));
+
+    var term : string = acadTerm.value.semCode;
+//    var term: string = this.session.academicTerm.semCode;   // this will work too!
+    alert("acadTerm: " + term);
+    this.SpecialFeeList = this.formSpecialFeeArray(term);
     this.session.specialFees.push(newFee);
     return;
   } // AddSpecialFee()
@@ -103,11 +106,16 @@ export class RequestFormComponent implements OnInit{
       .filter((locations) => locations.campusName.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
   }
 
-  private formSpecialFeeArray(feeList: any[]): any[] {
+  private formSpecialFeeArray(acadTerm: string): any[] {
 
-    var acadTerm = this.session.academicTerm;
-    var acadYear = acadTerm.substring(0,3);
-    var termPrefix = acadTerm[acadTerm.length - 1]; // get the last digit (e.g. 20183 = '3')
+    var specFeeArray: any[] = [];
+    var feeName: string = "";
+    var feeCode: string = "";
+
+    var term = acadTerm.toString();   // because it will error out without this
+
+    var acadYear = term.slice(0, 4); // acadTerm.slice(0, 4);
+    var termPrefix = term[term.length - 1]; // get the last digit (e.g. 20183 = '3')
     var termAbbrev = "";
 
     switch (termPrefix) {
@@ -124,12 +132,10 @@ export class RequestFormComponent implements OnInit{
         break;
     }
 
-    var specFeeArray: any[] = [];
-    var feeName: string = "";
-    var feeCode: string = "";
+    var feeList = this.peDataService.getSpecialFeeList(acadTerm);
 
     for (var i = 0; i < feeList.length; ++i) {
-      feeName = feeList[i];
+      feeName = this.CleanupFeeName(termAbbrev, feeList[i]);
       feeCode = feeName.substring(0, feeName.indexOf(' '))
       specFeeArray.push({ "feeCode": feeCode, "feeName": feeName });
     }
@@ -137,6 +143,15 @@ export class RequestFormComponent implements OnInit{
     return specFeeArray;
   }
 
+
+  private CleanupFeeName(termYear: string, feeDesc: string): string {
+
+    var cleanStr: string = feeDesc.replace('- ' + termYear , '');
+
+    cleanStr = cleanStr.replace(termYear, '');
+    
+    return cleanStr;
+  }
   //public filterSpecialFees(feeList) {
   //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);

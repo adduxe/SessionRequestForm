@@ -16,12 +16,12 @@
     </label>
 
     <div class="col-md-6" style="vertical-align: bottom;">
-      <kendo-dropdownlist
-          id="semester"
+      <kendo-dropdownlist #semester
+            id="semester"
+            [(ngModel)]="session.academicTerm"
             [data]="semesters"
             [textField]="'semName'"
-            [valueField]="'semCode'"
-            [(ngModel)]="session.academicTerm">
+            [valueField]="'semCode'">
       </kendo-dropdownlist>
     </div>
 
@@ -36,7 +36,7 @@
     </label>
 
     <div class="col-md-6">
-      <kendo-dropdownlist
+      <!--<kendo-dropdownlist
             id="sessCode"
             [data]="SessionCodes"
             [textField]="'sessionDesc'"
@@ -45,7 +45,7 @@
             (filterChange)="filterSessionCodes($event)"
             [(ngModel)]="session.code"
             style="width:250px;">
-      </kendo-dropdownlist>
+      </kendo-dropdownlist>-->
     </div>
   </div>
 
@@ -184,14 +184,14 @@
     <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachLocation of session.classLocations">
 
       <div class="col-md-4">
-        <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
+        <!--<kendo-dropdownlist  style="width: 250px; margin-left:50px;"
             *ngIf="(UscCampuses.length)"
             [data]="UscCampuses"
             [textField]="'campusName'"
             [valueField]="'campusCode'"
             [filterable]="true"
             (filterChange)="filterCampusLocation($event)">
-        </kendo-dropdownlist>
+        </kendo-dropdownlist>-->
         <!--<select class="form-control" id="campusCode" name="campusCode" *ngIf="(UscCampuses.length)" style="width: 250px; margin-left:50px;">
           <option *ngFor="let eachCampus of UscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
         </select>-->
@@ -297,7 +297,7 @@
   <div class="row" style="margin-left: auto; margin-right: auto;">
     <div class="col-md-4">&nbsp;</div>
     <div class="col-md-4">
-      <button class="form-control uscGoldButton" value="Add Special Fees" (click)="AddSpecialFee(session.academicTerm);">
+      <button class="form-control uscGoldButton" value="Add Special Fees" (click)="AddSpecialFee(semester);">
         Add Special Fee
       </button>
     </div>
