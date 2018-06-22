@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { PEDataService } from '../shared/services/pedata.service';
 import { Observable, Subscriber } from 'rxjs/RX';
 
+const ASSESSEDTO = [
+  { gradeCode: "", gradeName: "" },
+  { gradeCode: "G", gradeName: "Graduate" },
+  { gradeCode: "U", gradeName: "Undergraduate" },
+  { gradeCode: "B", gradeName: "All" }
+];
+
 @Component({
   selector: 'request-form',
   templateUrl: './request.form.component.html',
@@ -10,20 +17,21 @@ import { Observable, Subscriber } from 'rxjs/RX';
 
 export class RequestFormComponent implements OnInit{
 
+  pageTitle: string = "Session Request Form";
+
   public MAXUNITS: number = 100;
   public UscCampuses: any[];
   public SpecialFeeList: any[];
   public termRates: any[];
   public SessionCodes: any[];
   public FeeList: any[];
-  
-  public rangeStart: Date = new Date();
-  public rangeEnd: Date = new Date();
+  public semesters: any[];
+  public AssessedTo: any[];
 
   private TuitionRates: any[];
 
   constructor(private peDataService: PEDataService) {
-    var newDate: Date = new Date(2008, 9, 21);
+      // 
   }
 
   ngOnInit() {
@@ -33,17 +41,10 @@ export class RequestFormComponent implements OnInit{
     //});
     this.UscCampuses = this.peDataService.getCampusLocations();
     this.SessionCodes = this.peDataService.getSessionCodes();
-
+    this.semesters = this.peDataService.getActiveTerms();
+    this.AssessedTo = ASSESSEDTO;
   }
 
-    pageTitle: string = "Emily";
-    
-  public semesters = [
-    { semCode: 20182, semName: "2018 Summer"},
-    { semCode: 20183, semName: "2018 Fall"},
-    { semCode: 20191, semName: "2019 Spring"},
-    { semCode: 20192, semName: "2019 Summer"}
-  ];
 
   public session = {
     academicTerm: { semCode: "", semName: "" },
@@ -139,7 +140,6 @@ export class RequestFormComponent implements OnInit{
     return specFeeArray;
   }
 
-
   private CleanupFeeName(termYear: string, feeDesc: string): string {
 
     var cleanStr: string = feeDesc.replace('- ' + termYear , '');
@@ -148,7 +148,6 @@ export class RequestFormComponent implements OnInit{
     
     return cleanStr;
   }
-
 
   public TermSelected(selectedTerm: any) {
 
@@ -160,8 +159,7 @@ export class RequestFormComponent implements OnInit{
     this.SpecialFeeList = this.formSpecialFeeArray(term);
 
   }
-
-
+  
   //public filterSpecialFees(feeList) {
   //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);

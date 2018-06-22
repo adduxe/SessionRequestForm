@@ -20,8 +20,8 @@
             id="semester"
             [(ngModel)]="session.academicTerm"
             [data]="semesters"
-            [textField]="'semName'"
             [valueField]="'semCode'"
+            [textField]="'semName'"
             (selectionChange)="TermSelected($event)"              >
       </kendo-dropdownlist>
     </div>
@@ -40,8 +40,8 @@
       <kendo-dropdownlist
             id="sessCode"
             [data]="SessionCodes"
-            [textField]="'sessionDesc'"
             [valueField]="'sessionCode'"
+            [textField]="'sessionDesc'"
             [filterable]="true"
             (filterChange)="filterSessionCodes($event)"
             [(ngModel)]="session.code"
@@ -93,7 +93,7 @@
       <abbr title="Session End Date">Last Day of Finals</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker id="finalsEndDate" name="finalsEndDate"></kendo-datepicker>
+      <kendo-datepicker id="finalsEndDate"></kendo-datepicker>
     </div>
   </div>
 
@@ -188,8 +188,8 @@
         <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
             *ngIf="(UscCampuses.length)"
             [data]="UscCampuses"
-            [textField]="'campusName'"
             [valueField]="'campusCode'"
+            [textField]="'campusName'"
             [filterable]="true"
             (filterChange)="filterCampusLocation($event)">
         </kendo-dropdownlist>
@@ -223,9 +223,14 @@
         <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
       </label>
       <div class="col-md-6">
-        <select class="form-control" id="rateType" name="rateType">
-          <option *ngFor="let eachRate of termRates" value="{{ eachRate.rateTypeCode }}">{{ eachRate.rateTypeDesc }}</option>
-        </select>
+        <kendo-dropdownlist
+          *ngIf="(termRates.length > 0)"
+            [data]="termRates"
+            [valueField]="'rateTypeCode'"
+            [textField]="'rateTypeDesc'"
+            [filterable]="true"
+            (filterChange)="filterRates($event)">
+        </kendo-dropdownlist>
       </div>
     </div>
 
@@ -242,7 +247,12 @@
         <abbr title="Tuition flat rate in dollars">Tuition Amount Flat Rate</abbr>
       </label>
       <div class="col-md-6">
-        <kendo-numerictextbox id="tuitionFlatRate" [format]="'a0'" [min]="0" [spinners]="false"></kendo-numerictextbox>
+        <kendo-numerictextbox
+            id="tuitionFlatRate"
+            [format]="'a0'"
+            [min]="0"
+            [spinners]="false">
+        </kendo-numerictextbox>
       </div>
     </div>
 
@@ -251,9 +261,22 @@
         <abbr title="Tuition flat rate range in units">Undergrad Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
-        <kendo-numerictextbox id="flatUnitsMin" [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
+
+        <kendo-numerictextbox
+            id="flatUnitsMin"
+            [format]="'n0'"
+            [min]="1"
+            [max]="MAXUNITS - 1">
+        </kendo-numerictextbox>
+
         &nbsp;to&nbsp;
-        <kendo-numerictextbox id="flatUnitsMax" [format]="'n0'" [min]="2" [max]="MAXUNITS - 1"></kendo-numerictextbox>
+
+        <kendo-numerictextbox
+            id="flatUnitsMax"
+            [format]="'n0'"
+            [min]="2"
+            [max]="MAXUNITS - 1">
+        </kendo-numerictextbox>
       </div>
     </div>
 
@@ -267,8 +290,14 @@
         <abbr title="Tuition per unit rate in dollars">Tuition Amount per Unit<</abbr>
       </label>
       <div class="col-md-6">
-        <!--<input type="text" class="form-control" [(ngModel)]="this.session.ratePerUnitAmount" (input)="AllowNumbersOnly($event.target.value);" />-->
-        <kendo-numerictextbox [format]="'a0'" [min]="0" [spinners]="false"></kendo-numerictextbox>
+
+        <kendo-numerictextbox
+            [(ngModel)]="this.session.ratePerUnitAmount"
+            [format]="'a0'"
+            [min]="0"
+            [spinners]="false">
+        </kendo-numerictextbox>
+
       </div>
     </div>
 
@@ -277,14 +306,26 @@
         <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
       </label>
       <div class="col-md-6" style="align-items:center;">
-        <kendo-numerictextbox id="gradFlatUnitsMin" [format]="'n0'" [min]="1" [max]="MAXUNITS - 1"></kendo-numerictextbox>
+
+        <kendo-numerictextbox
+            id="gradFlatUnitsMin"
+            [format]="'n0'"
+            [min]="1"
+            [max]="MAXUNITS - 1">
+        </kendo-numerictextbox>
+
         &nbsp;to&nbsp;
-        <kendo-numerictextbox id="gradFlatUnitsMax" [format]="'n0'" [min]="2"  [max]="MAXUNITS - 1"></kendo-numerictextbox>
+
+        <kendo-numerictextbox
+            id="gradFlatUnitsMax"
+            [format]="'n0'"
+            [min]="2"
+            [max]="MAXUNITS - 1">
+        </kendo-numerictextbox>
+
       </div>
     </div>
-
   </div>
-
 </div>
 
 <div id="SpecialFeesSection" *ngIf="SpecialFeeList && session.academicTerm.semCode">
@@ -315,27 +356,33 @@
       <div class="row" *ngFor="let eachFee of session.specialFees">
         <div class="col-md-1"></div>
         <div class="col-md-5">
-        <kendo-dropdownlist
-            *ngIf="(SpecialFeeList.length)"
-            [data]="SpecialFeeList"
-            [textField]="'feeName'"
-            [valueField]="feeCode"
-            style="width:350px;">
-        </kendo-dropdownlist>
-        <!--<select class="form-control" id="sFeeCode" name="sFeeCode" *ngIf="(SpecialFeeList.length)">
-          <option *ngFor="let eachFee of SpecialFeeList" value="{{ eachFee.substring(0, eachFee.indexOf(' ')) }}">{{ eachFee }}</option>
-        </select>-->
+
+          <kendo-dropdownlist
+              *ngIf="(SpecialFeeList.length > 0)"
+              [data]="SpecialFeeList"
+              [textField]="'feeName'"
+              [valueField]="feeCode"
+              style="width:350px;">
+          </kendo-dropdownlist>
+
         </div>
+
         <div class="col-md-2">
-          <input type="text" maxlength="4" numbers-only class="form-control" />
+          <kendo-numerictextbox
+              [format]="'a0'"
+              [min]="0"
+              [spinners]="false">
+          </kendo-numerictextbox>
         </div>
+
         <div class="col-md-2">
-          <select class="form-control">
-            <option value=""></option>
-            <option value="G">Graduate</option>
-            <option value="U">Undergraduate</option>
-            <option value="B">All</option>
-          </select>
+
+          <kendo-dropdownlist
+            [data]="AssessedTo"
+            [valueField]="'gradeCode'"
+            [textField]="'gradeName'">
+          </kendo-dropdownlist>
+
         </div>
         <div class="col-md-2">
           <a href="javascript:;" class="uscRedButton" title="Delete this Special Fee" (click)="DeleteThisFee(index, eachFee.feeCode);">
@@ -345,7 +392,6 @@
       </div>
     </div>
     <!-- End of Special Fees Section -->
-
   </div>
 
 <br />

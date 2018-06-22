@@ -24,6 +24,10 @@ export class PEDataService {
   //    .pipe(catchError(this.handleError<any[]>('getCampusLocations', [])));
   //}
 
+  public getActiveTerms() {
+    return ACTIVETERMS;
+  }
+
   public getCampusLocations(): any[]{
     return CAMPUSLOCS;
   }
@@ -5480,5 +5484,12 @@ const SESSIONCODES = [
     sessionDesc: "TEST999",
     ugUnitFeeFlag: "N"
   }
+];
+
+const ACTIVETERMS = [
+  { semCode: 20182, semName: "2018 Summer" },
+  { semCode: 20183, semName: "2018 Fall" },
+  { semCode: 20191, semName: "2019 Spring" },
+  { semCode: 20192, semName: "2019 Summer" }
 ];
 
