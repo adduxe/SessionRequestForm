@@ -39,12 +39,12 @@
     <div class="col-md-6">
       <kendo-dropdownlist
             id="sessCode"
+            [(ngModel)]="session.code"
             [data]="SessionCodes"
             [valueField]="'sessionCode'"
             [textField]="'sessionDesc'"
             [filterable]="true"
             (filterChange)="filterSessionCodes($event)"
-            [(ngModel)]="session.code"
             style="width:250px;">
       </kendo-dropdownlist>
     </div>
@@ -62,7 +62,10 @@
       <abbr title="Session Start Date">First Day of Classes</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker id="classStartDate" name="classStartDate"></kendo-datepicker>
+      <kendo-datepicker
+          id="classStartDate"
+          [(ngModel)]="session.firstDayOfClasses">
+      </kendo-datepicker>
     </div>
   </div>
 
@@ -71,7 +74,10 @@
       <abbr title="Session End Date">Last Day of Classes</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker id="classEndDate" name="classEndDate"></kendo-datepicker>
+      <kendo-datepicker
+          id="classEndDate"
+          [(ngModel)]="session.lastDayOfClasses">
+      </kendo-datepicker>
     </div>
   </div>
 
@@ -84,7 +90,10 @@
       <abbr title="Finals Start Date">First Day of Finals</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker id="finalsStartDate" name="finalsStartDate"></kendo-datepicker>
+      <kendo-datepicker
+          id="finalsStartDate"
+          [(ngModel)]="session.firstDayOfFinals">
+      </kendo-datepicker>
     </div>
   </div>
 
@@ -93,7 +102,10 @@
       <abbr title="Session End Date">Last Day of Finals</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker id="finalsEndDate"></kendo-datepicker>
+      <kendo-datepicker
+          id="finalsEndDate"
+          [(ngModel)]="session.lastDayOfFinals">
+      </kendo-datepicker>
     </div>
   </div>
 

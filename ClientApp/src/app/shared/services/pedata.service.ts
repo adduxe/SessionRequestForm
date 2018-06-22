@@ -5487,6 +5487,7 @@ const SESSIONCODES = [
 ];
 
 const ACTIVETERMS = [
+  { semCode: "", semName: "" },
   { semCode: 20182, semName: "2018 Summer" },
   { semCode: 20183, semName: "2018 Fall" },
   { semCode: 20191, semName: "2019 Spring" },

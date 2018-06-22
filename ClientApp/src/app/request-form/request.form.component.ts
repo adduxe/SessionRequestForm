@@ -44,11 +44,37 @@ export class RequestFormComponent implements OnInit{
     this.semesters = this.peDataService.getActiveTerms();
     this.AssessedTo = ASSESSEDTO;
   }
-
-
+  
   public session = {
+
+//    academicTerm: { semCode: 20182, semName: "2018 Summer" },
     academicTerm: { semCode: "", semName: "" },
+
+//    code: {
+//      sessionCode: "004",
+//      sessionDesc: "PHAR",
+//      ugUnitFeeFlag: "N"
+//    },
+    code: {
+      sessionCode: "",
+      sessionDesc: "",
+      ugUnitFeeFlag: ""
+    },
+
+//    firstDayOfClasses: new Date("10/01/1996"),
+    firstDayOfClasses: "",
+
+//    lastDayOfClasses: new Date("10/31/2006"),
+    lastDayOfClasses: "",
+
+//    firstDayOfFinals: new Date("02/25/1995"),
+    firstDayOfFinals: "",
+
+//    lastDayOfFinals: new Date("03/01/1995"),
+    lastDayOfFinals: "",
+
     ratePerUnitAmount: "",
+
     sessionBreaks: [],
     specialFees: [],
     classLocations: []
