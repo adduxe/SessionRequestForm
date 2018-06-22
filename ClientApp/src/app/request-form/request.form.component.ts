@@ -88,9 +88,14 @@ export class RequestFormComponent implements OnInit{
     //],
     classLocations: [],
 
+    //sessionBreaks: [
+    //  { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
+    //  { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+    //],
+    sessionBreaks: [],
+    rateType: { rateTypeCode: "DENSP", rateTypeDesc: "Special Dentistry International" },
     ratePerUnitAmount: "",
 
-    sessionBreaks: [],
     specialFees: []
   } // session
   

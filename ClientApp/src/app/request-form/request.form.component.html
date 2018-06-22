@@ -147,10 +147,18 @@
     <div class="col-md-1" style="text-align:right;">
     </div>
     <div class="col-md-4" style="align-self:center;">
-      <kendo-datepicker value='{{ eachBreak.startDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
+
+      <kendo-datepicker
+          [(ngModel)]="eachBreak.startDate">
+      </kendo-datepicker>
+
     </div>
     <div class="col-md-4" style="align-self:center;">
-      <kendo-datepicker value='{{ eachBreak.endDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
+
+      <kendo-datepicker
+          [(ngModel)]="eachBreak.endDate">
+      </kendo-datepicker>
+
     </div>
     <div class="col-md-3" style="align-self:center;">
       <a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="session.sessionBreaks.splice(index,1);">
@@ -242,23 +250,30 @@
   <div class="row">
 
     <div class="form-group col-md-6" id="rateTypeBox">
+
       <label for="rateType" class="col-md-6 control-label">
         <abbr title="Indicate the appropriate tuition rate type for this Session">Tuition Rate Type</abbr>
       </label>
       <div class="col-md-6">
         <kendo-dropdownlist
-          *ngIf="(termRates.length > 0)"
+            *ngIf="(termRates.length > 0)"
+            [(ngModel)]="session.rateType"
             [data]="termRates"
             [valueField]="'rateTypeCode'"
             [textField]="'rateTypeDesc'"
             [filterable]="true"
-            (filterChange)="filterRates($event)">
+            (filterChange)="filterRates($event)"
+            style="width:250px;">
         </kendo-dropdownlist>
       </div>
     </div>
 
     <div class="form-group col-md-6" id="blankBox">
-      &nbsp;
+      <div class="col-md-6">&nbsp;</div>
+      <div class="col-md-6">
+        <div class="col-md-6"><b>Min</b></div>
+        <div class="col-md-6"><b>Max</b></div>
+      </div>
     </div>
 
   </div>
@@ -280,16 +295,19 @@
     </div>
 
     <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
+
       <label for="flatUnitsMin" class="col-md-6 control-label">
         <abbr title="Tuition flat rate range in units">Undergrad Flat Rate Range (units)</abbr>
       </label>
+
       <div class="col-md-6" style="align-items:center;">
 
         <kendo-numerictextbox
             id="flatUnitsMin"
             [format]="'n0'"
             [min]="1"
-            [max]="MAXUNITS - 1">
+            [max]="MAXUNITS - 1"
+            style="width:75px;">
         </kendo-numerictextbox>
 
         &nbsp;to&nbsp;
@@ -298,7 +316,8 @@
             id="flatUnitsMax"
             [format]="'n0'"
             [min]="2"
-            [max]="MAXUNITS - 1">
+            [max]="MAXUNITS - 1"
+            style="width:75px;">
         </kendo-numerictextbox>
       </div>
     </div>
@@ -334,7 +353,8 @@
             id="gradFlatUnitsMin"
             [format]="'n0'"
             [min]="1"
-            [max]="MAXUNITS - 1">
+            [max]="MAXUNITS - 1"
+            style="width:75px;">
         </kendo-numerictextbox>
 
         &nbsp;to&nbsp;
@@ -343,7 +363,8 @@
             id="gradFlatUnitsMax"
             [format]="'n0'"
             [min]="2"
-            [max]="MAXUNITS - 1">
+            [max]="MAXUNITS - 1"
+            style="width:75px;">
         </kendo-numerictextbox>
 
       </div>
