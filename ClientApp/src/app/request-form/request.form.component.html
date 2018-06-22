@@ -412,9 +412,10 @@
 
           <kendo-dropdownlist
               *ngIf="(SpecialFeeList.length > 0)"
+              [(ngModel)]="eachFee.fee"
               [data]="SpecialFeeList"
-              [textField]="'feeName'"
-              [valueField]="feeCode"
+              [valueField]="'code'"
+              [textField]="'name'"
               style="width:350px;">
           </kendo-dropdownlist>
 
@@ -422,6 +423,7 @@
 
         <div class="col-md-2">
           <kendo-numerictextbox
+              [(ngModel)]="eachFee.amount"
               [format]="'a0'"
               [min]="0"
               [spinners]="false">
@@ -431,6 +433,7 @@
         <div class="col-md-2">
 
           <kendo-dropdownlist
+            [(ngModel)]="eachFee.appliedTo"
             [data]="AssessedTo"
             [valueField]="'gradeCode'"
             [textField]="'gradeName'">

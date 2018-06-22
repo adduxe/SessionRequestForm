@@ -87,6 +87,23 @@ export class RequestFormComponent implements OnInit{
     //    maximum: 10
     //  }
     //},
+    //specialFees: [
+    //  {
+    //    fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
+    //    amount: 300,
+    //    appliedTo: { gradeCode: "U", gradeName: "Undergraduate" }
+    //  },
+    //  {
+    //    fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
+    //    amount: 500,
+    //    appliedTo: { gradeCode: "G", gradeName: "Graduate" }
+    //  },
+    //  {
+    //    fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
+    //    amount: 100,
+    //    appliedTo: { gradeCode: "B", gradeName: "All" }
+    //  }
+    //]
 //  };
   
   public session = {
@@ -120,9 +137,18 @@ export class RequestFormComponent implements OnInit{
       rateTypeFlatRate: ""
     },
 
-    flatRateUnitRange: "",
+    flatRateUnitRange: {
+      graduate: {
+        minimum: '',
+        maximum: ''
+      },
+      undergraduate: {
+        minimum: '',
+        maximum: ''
+      }
+    },
 
-    specialFees: []
+    specialFees: [],
   } // session
   
   public AddClassLocation() {
@@ -205,7 +231,7 @@ export class RequestFormComponent implements OnInit{
     for (var i = 0; i < this.FeeList.length; ++i) {
       feeName = this.CleanupFeeName(termAbbrev, this.FeeList[i]);
       feeCode = feeName.substring(0, feeName.indexOf(' '))
-      specFeeArray.push({ "feeCode": feeCode, "feeName": feeName });
+      specFeeArray.push({ "code": feeCode, "name": feeName });
     }
 
     return specFeeArray;
