@@ -44,36 +44,17 @@ export class RequestFormComponent implements OnInit{
     this.semesters = this.peDataService.getActiveTerms();
     this.AssessedTo = ASSESSEDTO;
   }
-  
-  public session = {
 
+//  public session = {
 //    academicTerm: { semCode: 20182, semName: "2018 Summer" },
-    academicTerm: {
-      semCode: "",
-      semName: ""
-    },
-
 //    code: {
 //      sessionCode: "004",
 //      sessionDesc: "PHAR",
 //    },
-    code: {
-      sessionCode: "",
-      sessionDesc: "",
-    },
-
 //    firstDayOfClasses: new Date("10/01/1996"),
-    firstDayOfClasses: "",
-
 //    lastDayOfClasses: new Date("10/31/2006"),
-    lastDayOfClasses: "",
-
 //    firstDayOfFinals: new Date("02/25/1995"),
-    firstDayOfFinals: "",
-
 //    lastDayOfFinals: new Date("03/01/1995"),
-    lastDayOfFinals: "",
-
     //classLocations: [
     //  {
     //    code: { campusCode: "CAT", campusName: "Catalina" },
@@ -86,15 +67,60 @@ export class RequestFormComponent implements OnInit{
     //    endDate: new Date("11/31/1997")
     //  }
     //],
-    classLocations: [],
-
     //sessionBreaks: [
     //  { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
     //  { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
     //],
+    //rateType: {
+    //rateTypeCode: "DENSP",
+    //rateTypeDesc: "Special Dentistry International",
+    //rateTypeUnitRate: 1800,
+    //rateTypeFlatRate: 30409
+    //},
+    //flatRateUnitRange: {
+    //  graduate: {
+    //    minimum: 1,
+    //    maximum: 5
+    //  },
+    //  undergraduate: {
+    //    minimum: 6,
+    //    maximum: 10
+    //  }
+    //},
+//  };
+  
+  public session = {
+
+    academicTerm: {
+      semCode: "",
+      semName: ""
+    },
+
+    code: {
+      sessionCode: "",
+      sessionDesc: "",
+    },
+
+    firstDayOfClasses: "",
+
+    lastDayOfClasses: "",
+
+    firstDayOfFinals: "",
+
+    lastDayOfFinals: "",
+
+    classLocations: [],
+
     sessionBreaks: [],
-    rateType: { rateTypeCode: "DENSP", rateTypeDesc: "Special Dentistry International" },
-    ratePerUnitAmount: "",
+
+    rateType: {
+      rateTypeCode: "",
+      rateTypeDesc: "",
+      rateTypeUnitRate: "",
+      rateTypeFlatRate: ""
+    },
+
+    flatRateUnitRange: "",
 
     specialFees: []
   } // session
