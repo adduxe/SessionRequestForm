@@ -197,20 +197,31 @@
     <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachLocation of session.classLocations">
 
       <div class="col-md-4">
+
         <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
             *ngIf="(UscCampuses.length)"
+            [(ngModel)]="eachLocation.code"
             [data]="UscCampuses"
             [valueField]="'campusCode'"
             [textField]="'campusName'"
             [filterable]="true"
             (filterChange)="filterCampusLocation($event)">
         </kendo-dropdownlist>
+
       </div>
       <div class="col-md-3" style="align-self:center;">
-        <kendo-datepicker value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
+
+        <kendo-datepicker
+            [(ngModel)]="eachLocation.startDate">
+        </kendo-datepicker>
+
       </div>
       <div class="col-md-3" style="align-self:center;">
-        <kendo-datepicker value='{{ eachLocation.endDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
+
+        <kendo-datepicker
+            [(ngModel)]="eachLocation.endDate">
+        </kendo-datepicker>
+
       </div>
       <div class="col-md-2" style="align-self:center;">
         <a href="javascript:;" class="uscRedButton" title="Delete this Class Location" (click)="session.classLocations.splice(index,1);">

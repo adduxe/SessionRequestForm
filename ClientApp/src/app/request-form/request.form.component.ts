@@ -48,17 +48,18 @@ export class RequestFormComponent implements OnInit{
   public session = {
 
 //    academicTerm: { semCode: 20182, semName: "2018 Summer" },
-    academicTerm: { semCode: "", semName: "" },
+    academicTerm: {
+      semCode: "",
+      semName: ""
+    },
 
 //    code: {
 //      sessionCode: "004",
 //      sessionDesc: "PHAR",
-//      ugUnitFeeFlag: "N"
 //    },
     code: {
       sessionCode: "",
       sessionDesc: "",
-      ugUnitFeeFlag: ""
     },
 
 //    firstDayOfClasses: new Date("10/01/1996"),
@@ -73,11 +74,24 @@ export class RequestFormComponent implements OnInit{
 //    lastDayOfFinals: new Date("03/01/1995"),
     lastDayOfFinals: "",
 
+    //classLocations: [
+    //  {
+    //    code: { campusCode: "CAT", campusName: "Catalina" },
+    //    startDate: new Date("01/01/1996"),
+    //    endDate: new Date("12/31/1996")
+    //  },
+    //  {
+    //    code: { campusCode: "ATT", campusName: "ATT Center" },
+    //    startDate: new Date("02/01/1997"),
+    //    endDate: new Date("11/31/1997")
+    //  }
+    //],
+    classLocations: [],
+
     ratePerUnitAmount: "",
 
     sessionBreaks: [],
-    specialFees: [],
-    classLocations: []
+    specialFees: []
   } // session
   
   public AddClassLocation() {
