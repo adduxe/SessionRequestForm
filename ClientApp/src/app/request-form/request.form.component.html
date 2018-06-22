@@ -37,7 +37,7 @@
     </label>
 
     <div class="col-md-6">
-      <!--<kendo-dropdownlist
+      <kendo-dropdownlist
             id="sessCode"
             [data]="SessionCodes"
             [textField]="'sessionDesc'"
@@ -46,7 +46,7 @@
             (filterChange)="filterSessionCodes($event)"
             [(ngModel)]="session.code"
             style="width:250px;">
-      </kendo-dropdownlist>-->
+      </kendo-dropdownlist>
     </div>
   </div>
 
@@ -116,7 +116,7 @@
 <!--  Session Breaks section -->
 <div *ngIf="session.sessionBreaks.length" class="Breaks">
 
-  <div class="row" style="align-self:center;color:#ffcc00;">
+  <div class="row" style="align-self:center;">
     <div class="col-md-1">
     </div>
     <div class="col-md-4" style="text-align:left;">
@@ -185,17 +185,14 @@
     <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachLocation of session.classLocations">
 
       <div class="col-md-4">
-        <!--<kendo-dropdownlist  style="width: 250px; margin-left:50px;"
+        <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
             *ngIf="(UscCampuses.length)"
             [data]="UscCampuses"
             [textField]="'campusName'"
             [valueField]="'campusCode'"
             [filterable]="true"
             (filterChange)="filterCampusLocation($event)">
-        </kendo-dropdownlist>-->
-        <!--<select class="form-control" id="campusCode" name="campusCode" *ngIf="(UscCampuses.length)" style="width: 250px; margin-left:50px;">
-          <option *ngFor="let eachCampus of UscCampuses" value="{{ eachCampus.campusCode }}">{{ eachCampus.campusName }}</option>
-        </select>-->
+        </kendo-dropdownlist>
       </div>
       <div class="col-md-3" style="align-self:center;">
         <kendo-datepicker value='{{ eachLocation.startDate | date:"MMM dd, yyyy" }}'></kendo-datepicker>
@@ -319,6 +316,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-5">
         <kendo-dropdownlist
+            *ngIf="(SpecialFeeList.length)"
             [data]="SpecialFeeList"
             [textField]="'feeName'"
             [valueField]="feeCode"

@@ -81,7 +81,6 @@ export class RequestFormComponent implements OnInit{
     var term : string = acadTerm.value.semCode;
 //    var term: string = this.session.academicTerm.semCode;   // this will work too!
 
-    alert("acadTerm: " + term);
     this.SpecialFeeList = this.formSpecialFeeArray(term);
     this.session.specialFees.push(newFee);
 

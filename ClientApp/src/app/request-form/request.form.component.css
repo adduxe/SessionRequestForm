@@ -12,16 +12,16 @@
 }
 
 .Breaks {
-  background-color: rgba(153,0,0,.7);
+  /*background-color: rgba(153,0,0,.7);*/
   border: solid;
   border-color: white;
-  color: #ffcc00;
+  color: black;
 }
 
 .Fees {
-  background-color: #999;
+  /*  background-color: #999; */
   border-color: black;
-  color: #ffcc00;
+  color: black;
   padding-bottom: 10px;
   padding-left: 10px;
   border: solid;
@@ -29,10 +29,10 @@
 }
 
 .Locations {
-  background-color: #ffcc00;
+  /*background-color: #ffcc00;*/
   padding-bottom: 10px;
   padding-right: 10px;
   border: solid;
   border-color: white;
-  color: white;
+  color: black;
 }
