@@ -159,18 +159,38 @@ export class RequestFormComponent implements OnInit{
     }
 
     this.session.classLocations.push(newLocation);
-  } // AddClassLocation()
+
+    if (this.session.classLocations.length == 1) {
+      this.session.classLocations[0].startDate = this.session.firstDayOfClasses;
+      this.session.classLocations[0].endDate = this.session.lastDayOfClasses;
+    } else {
+      if ((this.session.classLocations[0].startDate == this.session.firstDayOfClasses) &&
+        (this.session.classLocations[0].endDate == this.session.lastDayOfClasses))
+        this.session.classLocations[0].startDate = '';
+      this.session.classLocations[0].endDate = '';
+    }
+
+  }                   // AddClassLocation()
+
+  public DeleteClassLocation(idx) {               // Delete a Class Location Entry
+    this.session.classLocations.splice(idx, 1);
+  }
   
   public AddSessionBreak(haveSessionBreaks) {
 
     if (haveSessionBreaks) {
       var newBreak = { startDate: "", endDate: "" };
-      this.session.sessionBreaks.push(newBreak)
+      this.session.sessionBreaks.push(newBreak);
+      this.session.sessionBreaks.push(newBreak);
     } else {
       this.session.sessionBreaks = [];
     }
 
-  } // AddSessionBreak()
+  }     // AddSessionBreak()
+
+  public DeleteSessionBreak(idx) {
+    this.session.sessionBreaks.splice(idx, 1);
+  }
 
   public AddSpecialFee(acadTerm: any) {
 
@@ -188,9 +208,12 @@ export class RequestFormComponent implements OnInit{
 
   } // AddSpecialFee()
 
-  public DeleteThisFee(feeIndex, feeCode) {
+  public DeleteThisFee(feeIndex) {
 
+    var feeCode = this.session.specialFees[feeIndex].fee.code;
     this.session.specialFees.splice(feeIndex, 1);
+
+//    alert("Fee code: " + feeCode);
 //    var i = usedFees.indexOf(feeCode);        // deletes the special fee from used fees array 
 //    usedFees.splice(i, 1);                    // so that it can be re-used later.
     return;

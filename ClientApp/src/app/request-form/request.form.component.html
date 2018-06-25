@@ -62,28 +62,11 @@
       <abbr title="Session Start Date">First Day of Classes</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker
-          id="classStartDate"
-          [(ngModel)]="session.firstDayOfClasses">
+      <kendo-datepicker id="classStartDate"
+                        [(ngModel)]="session.firstDayOfClasses">
       </kendo-datepicker>
     </div>
   </div>
-
-  <div class="form-group col-md-6" id="lastDayClassBox">
-    <label for="classesEndDate" class="col-md-6 control-label">
-      <abbr title="Session End Date">Last Day of Classes</abbr>
-    </label>
-    <div class="col-md-6">
-      <kendo-datepicker
-          id="classEndDate"
-          [(ngModel)]="session.lastDayOfClasses">
-      </kendo-datepicker>
-    </div>
-  </div>
-
-</div>
-
-<div class="row">
 
   <div class="form-group col-md-6" id="firstDayFinalsBox">
 
@@ -92,9 +75,25 @@
     </label>
 
     <div class="col-md-6">
-      <kendo-datepicker
-          id="finalsStartDate"
-          [(ngModel)]="session.firstDayOfFinals">
+      <kendo-datepicker id="finalsStartDate"
+                        [(ngModel)]="session.firstDayOfFinals">
+      </kendo-datepicker>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="form-group col-md-6" id="lastDayClassBox">
+
+    <label for="classesEndDate" class="col-md-6 control-label">
+      <abbr title="Session End Date">Last Day of Classes</abbr>
+    </label>
+    <div class="col-md-6">
+      <kendo-datepicker id="classEndDate"
+                        [(ngModel)]="session.lastDayOfClasses">
       </kendo-datepicker>
     </div>
 
@@ -106,25 +105,25 @@
       <abbr title="Session End Date">Last Day of Finals</abbr>
     </label>
     <div class="col-md-6">
-      <kendo-datepicker
-          id="finalsEndDate"
-          [(ngModel)]="session.lastDayOfFinals">
+      <kendo-datepicker id="finalsEndDate"
+                        [(ngModel)]="session.lastDayOfFinals">
       </kendo-datepicker>
     </div>
+
   </div>
 
 </div>
 
 <div class="row">
   <div class="col-md-6">
-    &nbsp;&nbsp;&nbsp;<b>Does this session have any breaks?</b>&nbsp;&nbsp;
-    <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;
-    <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>
-    <br/><br/>
-  </div>
     <!--<button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
     Add Session Break
   </button>-->
+    &nbsp;&nbsp;&nbsp;<b>Does this session have any breaks?</b>&nbsp;&nbsp;
+  <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;
+  <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>
+  <br/><br/>
+  </div>
   <div class="col-md-6">
     &nbsp;
   </div>
@@ -147,7 +146,7 @@
     </div>
   </div>
 
-  <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachBreak of session.sessionBreaks">
+  <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachBreak of session.sessionBreaks; let x = index" [attr.data.index]="x">
 
     <div class="col-md-1" style="text-align:right;">
     </div>
@@ -166,16 +165,17 @@
 
     </div>
     <div class="col-md-3" style="align-self:center;">
-      <a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="session.sessionBreaks.splice(index,1);">
+      (Optional)
+      <!--<a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="DeleteSessionBreak(x)">
         [X] Remove this Break
-      </a>
+      </a>-->
     </div>
   </div>
 
 </div>
 <!-- End of Session Breaks Section -->
 
-<div id="locationFields">
+<div id="locationFields" *ngIf="session.firstDayOfClasses  &&  session.lastDayOfClasses">
 
   <h4 style="color:darkred;padding:0px;">Locations</h4>
   <hr style="border-color:darkred" />
@@ -191,26 +191,26 @@
   </div>
 
   <!-- Start of Class Locations Section -->
-  <div *ngIf="session.classLocations.length" class="Locations">
+  <div *ngIf="(session.classLocations.length)" class="Locations">
 
     <div class="row" style="align-self:center;">
       <div class="col-md-4" style="text-align:center;">
         <h4>Campus</h4>
       </div>
       <div class="col-md-3">
-        <h4>Start Date</h4>
+        <h4 *ngIf="(session.classLocations.length > 1)">Start Date</h4>
       </div>
       <div class="col-md-3">
-        <h4>End Date</h4>
+        <h4 *ngIf="(session.classLocations.length > 1)">End Date</h4>
       </div>
       <div class="col-md-2">
         &nbsp;
       </div>
     </div>
-    <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachLocation of session.classLocations">
+    <div class="row" style="align-items:center;padding-bottom:5px;"
+         *ngFor="let eachLocation of session.classLocations; let i = index" [attr.data-index]="i">
 
       <div class="col-md-4">
-
         <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
             *ngIf="(UscCampuses.length)"
             [(ngModel)]="eachLocation.code"
@@ -222,22 +222,24 @@
         </kendo-dropdownlist>
 
       </div>
-      <div class="col-md-3" style="align-self:center;">
 
+      <div class="col-md-3" style="align-self:center;">
         <kendo-datepicker
+            *ngIf="(session.classLocations.length > 1)"
             [(ngModel)]="eachLocation.startDate">
         </kendo-datepicker>
-
       </div>
+
       <div class="col-md-3" style="align-self:center;">
 
         <kendo-datepicker
+            *ngIf="(session.classLocations.length > 1)"
             [(ngModel)]="eachLocation.endDate">
         </kendo-datepicker>
 
       </div>
       <div class="col-md-2" style="align-self:center;">
-        <a href="javascript:;" class="uscRedButton" title="Delete this Class Location" (click)="session.classLocations.splice(index,1);">
+        <a href="javascript:;" class="uscRedButton" title="Delete this Class Location" (click)="DeleteClassLocation(i)">
           [X] Remove this Location
         </a>
       </div>
@@ -411,7 +413,7 @@
         <h4 class="col-md-2">Assessed to</h4>
         <h4 class="col-md-2"></h4>
       </div>
-      <div class="row" *ngFor="let eachFee of session.specialFees">
+      <div class="row" *ngFor="let eachFee of session.specialFees; let n = index" [attr.data-index]="n">
         <div class="col-md-1"></div>
         <div class="col-md-5">
 
@@ -446,7 +448,7 @@
 
         </div>
         <div class="col-md-2">
-          <a href="javascript:;" class="uscRedButton" title="Delete this Special Fee" (click)="DeleteThisFee(index, eachFee.feeCode);">
+          <a href="javascript:;" class="uscRedButton" title="Delete this Special Fee" (click)="DeleteThisFee(n);">
             [X] Remove this Fee
           </a>
         </div>
