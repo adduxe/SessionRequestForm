@@ -161,10 +161,15 @@ export class RequestFormComponent implements OnInit{
     this.session.classLocations.push(newLocation);
   } // AddClassLocation()
   
-  public AddSessionBreak(){
-    var newBreak = { startDate: "", endDate: "" };
-    this.session.sessionBreaks.push(newBreak)
-    return;
+  public AddSessionBreak(haveSessionBreaks) {
+
+    if (haveSessionBreaks) {
+      var newBreak = { startDate: "", endDate: "" };
+      this.session.sessionBreaks.push(newBreak)
+    } else {
+      this.session.sessionBreaks = [];
+    }
+
   } // AddSessionBreak()
 
   public AddSpecialFee(acadTerm: any) {
