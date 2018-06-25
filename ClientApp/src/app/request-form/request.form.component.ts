@@ -22,8 +22,7 @@ export class RequestFormComponent implements OnInit{
   public MAXUNITS: number = 100;
   public UscCampuses: any[];
   public SpecialFeeList: any[];
-  public termRates: any[];
-  public SessionCodes: any[];
+  public termRates: any[];public SessionCodes: any[];
   public FeeList: any[];
   public semesters: any[];
   public AssessedTo: any[];
@@ -45,66 +44,66 @@ export class RequestFormComponent implements OnInit{
     this.AssessedTo = ASSESSEDTO;
   }
 
-//  public session = {
-//    academicTerm: { semCode: 20182, semName: "2018 Summer" },
-//    code: {
-//      sessionCode: "004",
-//      sessionDesc: "PHAR",
-//    },
-//    firstDayOfClasses: new Date("10/01/1996"),
-//    lastDayOfClasses: new Date("10/31/2006"),
-//    firstDayOfFinals: new Date("02/25/1995"),
-//    lastDayOfFinals: new Date("03/01/1995"),
-    //classLocations: [
-    //  {
-    //    code: { campusCode: "CAT", campusName: "Catalina" },
-    //    startDate: new Date("01/01/1996"),
-    //    endDate: new Date("12/31/1996")
-    //  },
-    //  {
-    //    code: { campusCode: "ATT", campusName: "ATT Center" },
-    //    startDate: new Date("02/01/1997"),
-    //    endDate: new Date("11/31/1997")
-    //  }
-    //],
-    //sessionBreaks: [
-    //  { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
-    //  { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
-    //],
-    //rateType: {
-    //rateTypeCode: "DENSP",
-    //rateTypeDesc: "Special Dentistry International",
-    //rateTypeUnitRate: 1800,
-    //rateTypeFlatRate: 30409
-    //},
-    //flatRateUnitRange: {
-    //  graduate: {
-    //    minimum: 1,
-    //    maximum: 5
-    //  },
-    //  undergraduate: {
-    //    minimum: 6,
-    //    maximum: 10
-    //  }
-    //},
-    //specialFees: [
-    //  {
-    //    fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
-    //    amount: 300,
-    //    appliedTo: { gradeCode: "U", gradeName: "Undergraduate" }
-    //  },
-    //  {
-    //    fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
-    //    amount: 500,
-    //    appliedTo: { gradeCode: "G", gradeName: "Graduate" }
-    //  },
-    //  {
-    //    fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
-    //    amount: 100,
-    //    appliedTo: { gradeCode: "B", gradeName: "All" }
-    //  }
-    //]
-//  };
+  //public session = {
+  //  academicTerm: { semCode: 20182, semName: "2018 Summer" },
+  //  code: {
+  //    sessionCode: "004",
+  //    sessionDesc: "PHAR",
+  //  },
+  //  firstDayOfClasses: new Date("10/01/1996"),
+  //  lastDayOfClasses: new Date("10/31/2006"),
+  //  firstDayOfFinals: new Date("02/25/1995"),
+  //  lastDayOfFinals: new Date("03/01/1995"),
+  //  classLocations: [
+  //    {
+  //      code: { campusCode: "CAT", campusName: "Catalina" },
+  //      startDate: new Date("01/01/1996"),
+  //      endDate: new Date("12/31/1996")
+  //    },
+  //    {
+  //      code: { campusCode: "ATT", campusName: "ATT Center" },
+  //      startDate: new Date("02/01/1997"),
+  //      endDate: new Date("11/31/1997")
+  //    }
+  //  ],
+  //  sessionBreaks: [
+  //    { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
+  //    { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+  //  ],
+  //  rateType: {
+  //  rateTypeCode: "DENSP",
+  //  rateTypeDesc: "Special Dentistry International",
+  //  rateTypeUnitRate: 1800,
+  //  rateTypeFlatRate: 30409
+  //  },
+  //  flatRateUnitRange: {
+  //    graduate: {
+  //      minimum: 1,
+  //      maximum: 5
+  //    },
+  //    undergraduate: {
+  //      minimum: 6,
+  //      maximum: 10
+  //    }
+  //  },
+  //  specialFees: [
+  //    {
+  //      fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
+  //      amount: 300,
+  //      appliedTo: { gradeCode: "U", gradeName: "Undergraduate" }
+  //    },
+  //    {
+  //      fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
+  //      amount: 500,
+  //      appliedTo: { gradeCode: "G", gradeName: "Graduate" }
+  //    },
+  //    {
+  //      fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
+  //      amount: 100,
+  //      appliedTo: { gradeCode: "B", gradeName: "All" }
+  //    }
+  //  ]
+  //};
   
   public session = {
 
