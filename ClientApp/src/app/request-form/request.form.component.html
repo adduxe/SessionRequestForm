@@ -22,7 +22,7 @@
             [data]="semesters"
             [valueField]="'semCode'"
             [textField]="'semName'"
-            (selectionChange)="TermSelected($event)"              >
+            (selectionChange)="TermSelected($event)">
       </kendo-dropdownlist>
     </div>
 
@@ -186,6 +186,14 @@
       <button class="form-control uscGoldButton" value="Add Class Locations" (click)="AddClassLocation();">
         Add Class Location
       </button>
+      <kendo-autocomplete
+          required
+          [suggest]="true"
+          [placeholder]="'Type the Campus Name'"
+          (valueChange)="AddClassLocation($event)"
+          [data]="CampusNameArray"
+          style="width:400px;">
+      </kendo-autocomplete>
     </div>
     <div class="col-md-4">&nbsp;</div>
   </div>
@@ -211,7 +219,7 @@
          *ngFor="let eachLocation of session.classLocations; let i = index" [attr.data-index]="i">
 
       <div class="col-md-4">
-        <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
+        <!--<kendo-dropdownlist  style="width: 250px; margin-left:50px;"
             *ngIf="(UscCampuses.length)"
             [(ngModel)]="eachLocation.code"
             [data]="UscCampuses"
@@ -219,8 +227,8 @@
             [textField]="'campusName'"
             [filterable]="true"
             (filterChange)="filterCampusLocation($event)">
-        </kendo-dropdownlist>
-
+        </kendo-dropdownlist>-->
+        <input type="text" [(ngModel)]="eachLocation.code.campusName">
       </div>
 
       <div class="col-md-3" style="align-self:center;">

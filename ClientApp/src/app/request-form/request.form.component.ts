@@ -26,6 +26,7 @@ export class RequestFormComponent implements OnInit{
   public FeeList: any[];
   public semesters: any[];
   public AssessedTo: any[];
+  public CampusNameArray: string[] = [];
 
   private TuitionRates: any[];
 
@@ -38,10 +39,16 @@ export class RequestFormComponent implements OnInit{
     //this.peDataService.getCampusLocations().subscribe(locations => {
     //  this.UscCampuses = locations;
     //});
+
     this.UscCampuses = this.peDataService.getCampusLocations();
+
     this.SessionCodes = this.peDataService.getSessionCodes();
     this.semesters = this.peDataService.getActiveTerms();
     this.AssessedTo = ASSESSEDTO;
+
+    for (var i = 0; i < this.UscCampuses.length; ++i){
+      this.CampusNameArray[i] = this.UscCampuses[i].campusName;
+    }
   }
 
   //public session = {
@@ -150,10 +157,12 @@ export class RequestFormComponent implements OnInit{
     specialFees: [],
   } // session
   
-  public AddClassLocation() {
+  public AddClassLocation(selectedCampus: string) {
+
+    var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
 
     var newLocation = {
-      campusCode: "",
+      campusCode: campus[0],
       startDate: "",
       endDate: ""
     }
@@ -170,7 +179,7 @@ export class RequestFormComponent implements OnInit{
       this.session.classLocations[0].endDate = '';
     }
 
-  }                   // AddClassLocation()
+  }   // AddClassLocation()
 
   public DeleteClassLocation(idx) {               // Delete a Class Location Entry
     this.session.classLocations.splice(idx, 1);
@@ -224,7 +233,7 @@ export class RequestFormComponent implements OnInit{
       .filter((sCodes) => sCodes.sessionDesc.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
   }
 
-  public filterCampusLocation(campuses) {
+  public filterCampusLocation(campuses) {   // limit the list as the user types
     this.UscCampuses = this.peDataService.getCampusLocations()
       .filter((locations) => locations.campusName.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
   }
@@ -288,5 +297,9 @@ export class RequestFormComponent implements OnInit{
   //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
   //}
+
+  public CampusEntered(event: any) {
+    alert('valueChange: ' + event);
+  }
 
 }

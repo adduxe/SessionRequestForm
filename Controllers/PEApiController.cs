@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SessionRequest.Controllers
 {
-    [RoutePrefix("PeApi")]
+//    [RoutePrefix("PeApi")]
     [Route("api/[controller]")]
     public class PEApiController : Controller
     {
