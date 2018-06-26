@@ -44,12 +44,18 @@ export class PEDataService {
     return SESSIONCODES;
   }
 
+  public GetSession001(term: string) {
+    return SESSION001DATES;
+  }
+
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return Observable.of(result as T);
     }
   }
+
 
 }
 
@@ -5494,3 +5500,38 @@ const ACTIVETERMS = [
   { semCode: 20192, semName: "2019 Summer" }
 ];
 
+const SESSION001DATES = {
+  sessionId: "20173-001",
+  lastApplyDate: null,
+  preRegBeginDate: null,
+  preRegEndDate: null,
+  earlyRegBeginDate: null,
+  earlyRegEndDate: null,
+  regBeginDate: null,
+  regEndDate: null,
+  classBeginDate: "2017-08-21T00:00:00",
+  classEndDate: "2017-12-01T00:00:00",
+  lateRegBeginDate: null,
+  lateRegEndDate: null,
+  lastAddDropDate: "2017-09-08T00:00:00",
+  healthInsuranceDueDate: null,
+  withdrawWithoutWDate: null,
+  withdrawWithWDate: "2017-11-10T00:00:00",
+  gradePostDate: null,
+  finalExamBeginDate: "2017-12-05T00:00:00",
+  finalExamEndDate: "2017-12-13T00:00:00",
+  stopDate: "2017-12-02T00:00:00",
+  week2BeginDate: null,
+  week2EndDate: null,
+  week3BeginDate: null,
+  week3EndDate: "2017-09-08T00:00:00",
+  midTermGradingBeginDate: "2017-09-25T00:00:00",
+  midTermGradingEndDate: "2017-10-27T00:00:00",
+  finalGradingBeginDate: "2017-12-06T00:00:00",
+  finalGradingEndDate: "2017-12-19T00:00:00",
+  break1BeginDate: "2017-11-22T00:00:00",
+  break1EndDate: "2017-11-26T00:00:00",
+  break2BeginDate: null,
+  break2EndDate: null,
+  lastEnrollmentOptionDate: "2017-10-06T00:00:00"
+};

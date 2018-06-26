@@ -27,6 +27,7 @@ export class RequestFormComponent implements OnInit{
   public semesters: any[];
   public AssessedTo: any[];
   public CampusNameArray: string[] = [];
+  public Session001Dates: any;
 
   private TuitionRates: any[];
 
@@ -49,6 +50,7 @@ export class RequestFormComponent implements OnInit{
     for (var i = 0; i < this.UscCampuses.length; ++i){
       this.CampusNameArray[i] = this.UscCampuses[i].campusName;
     }
+
   }
 
   //public session = {
@@ -111,52 +113,54 @@ export class RequestFormComponent implements OnInit{
   //    }
   //  ]
   //};
-  
+
+
   public session = {
 
-    academicTerm: {
-      semCode: "",
-      semName: ""
-    },
-
-    code: {
-      sessionCode: "",
-      sessionDesc: "",
-    },
-
-    firstDayOfClasses: "",
-
-    lastDayOfClasses: "",
-
-    firstDayOfFinals: "",
-
-    lastDayOfFinals: "",
-
-    classLocations: [],
-
-    sessionBreaks: [],
-
-    rateType: {
-      rateTypeCode: "",
-      rateTypeDesc: "",
-      rateTypeUnitRate: "",
-      rateTypeFlatRate: ""
-    },
-
-    flatRateUnitRange: {
-      graduate: {
-        minimum: '',
-        maximum: ''
+      academicTerm: {
+        semCode: "",
+        semName: ""
       },
-      undergraduate: {
-        minimum: '',
-        maximum: ''
-      }
-    },
 
-    specialFees: [],
-  } // session
-  
+      code: {
+        sessionCode: "",
+        sessionDesc: "",
+      },
+
+      firstDayOfClasses: "",
+
+      lastDayOfClasses: "",
+
+      firstDayOfFinals: "",
+
+      lastDayOfFinals: "",
+
+      classLocations: [],
+
+      sessionBreaks: [],
+
+      rateType: {
+        rateTypeCode: "",
+        rateTypeDesc: "",
+        rateTypeUnitRate: "",
+        rateTypeFlatRate: ""
+      },
+
+      flatRateUnitRange: {
+        graduate: {
+          minimum: '',
+          maximum: ''
+        },
+        undergraduate: {
+          minimum: '',
+          maximum: ''
+        }
+      },
+
+      specialFees: [],
+    } // session
+
+
   public AddClassLocation(selectedCampus: string) {
 
     var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
@@ -181,10 +185,12 @@ export class RequestFormComponent implements OnInit{
 
   }   // AddClassLocation()
 
+
   public DeleteClassLocation(idx) {               // Delete a Class Location Entry
     this.session.classLocations.splice(idx, 1);
   }
-  
+
+
   public AddSessionBreak(haveSessionBreaks) {
 
     if (haveSessionBreaks) {
@@ -197,9 +203,11 @@ export class RequestFormComponent implements OnInit{
 
   }     // AddSessionBreak()
 
+
   public DeleteSessionBreak(idx) {
     this.session.sessionBreaks.splice(idx, 1);
   }
+
 
   public AddSpecialFee(acadTerm: any) {
 
@@ -217,26 +225,32 @@ export class RequestFormComponent implements OnInit{
 
   } // AddSpecialFee()
 
+
   public DeleteThisFee(feeIndex) {
 
-    var feeCode = this.session.specialFees[feeIndex].fee.code;
-    this.session.specialFees.splice(feeIndex, 1);
-
-//    alert("Fee code: " + feeCode);
+    if (this.session.specialFees[feeIndex].fee) {
+      var feeCode = this.session.specialFees[feeIndex].fee.code;
+      alert("Fee code: " + feeCode);
 //    var i = usedFees.indexOf(feeCode);        // deletes the special fee from used fees array 
 //    usedFees.splice(i, 1);                    // so that it can be re-used later.
+    }
+
+    this.session.specialFees.splice(feeIndex, 1);
     return;
   }   // deletes a Special Fee entry
+
 
   public filterSessionCodes(codes) {
     this.SessionCodes = this.peDataService.getSessionCodes()
       .filter((sCodes) => sCodes.sessionDesc.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
   }
 
+
   public filterCampusLocation(campuses) {   // limit the list as the user types
     this.UscCampuses = this.peDataService.getCampusLocations()
       .filter((locations) => locations.campusName.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
   }
+
 
   private formSpecialFeeArray(acadTerm: string): any[] {
 
@@ -272,6 +286,7 @@ export class RequestFormComponent implements OnInit{
 
     return specFeeArray;
   }
+
 
   private CleanupFeeName(termYear: string, feeDesc: string): string {
 
