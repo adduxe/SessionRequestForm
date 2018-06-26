@@ -1,25 +1,31 @@
 
 .contactSection {
-  background-color: #f1f1f1;
+  background-color: none;
+  /*  background-color: #f1f1f1; */
 }
 
 .datesSection {
-  background-color: antiquewhite;
+  background-color: none;
+  /*background-color: antiquewhite;*/
 }
 
 #ratesSection {
-  background-color: #f1f1f1;
+  background-color: none;
+  /*background-color: #f1f1f1;*/
 }
 
 .specialFeeSection {
-  background-color: antiquewhite;
+  background-color: none;
+  /*background-color: antiquewhite;*/
 }
 
 .classSection {
-  background-color: #f1f1f1;
+  background-color: none;
+  /*background-color: #f1f1f1;*/
 }
 
 #commentsSection {
-  background-color: antiquewhite;
+  background-color: none;
+  /*background-color: antiquewhite;*/
 }
 
