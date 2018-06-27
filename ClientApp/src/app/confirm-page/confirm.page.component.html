@@ -9,7 +9,7 @@
   <!--<div class="row" style="color:black;padding-top:10px; text-align:center;">
     <h1 style="color: #cca300;">Detail Page</h1>
   </div>-->
-  <br/>
+  <br />
   <!--<table width="100%">
     <tr>
       <td align="center" width="20%">
@@ -35,13 +35,13 @@
   <table class="table table-hover contactSection">
     <thead (click)="showThisSection[SECT.GENINFO] = !showThisSection[SECT.GENINFO]">
       <tr>
-          <td align="center"colspan="7">
-            <a><h4><b>GENERAL INFO</b></h4></a>
-          </td>
+        <td align="center" colspan="7">
+          <a><h4><b>GENERAL INFO</b></h4></a>
+        </td>
       </tr>
     </thead>
     <tbody *ngIf="showThisSection[SECT.GENINFO]">
-      <tr >
+      <tr>
         <th>
           <b>Semester</b>
         </th>
@@ -88,23 +88,23 @@
     <thead>
       <tr (click)="showThisSection[SECT.DATES] = !showThisSection[SECT.DATES]">
         <td colspan="6" align="center">
-          <a><h4 ><b>DATES</b></h4></a>
+          <a><h4><b>DATES</b></h4></a>
         </td>
       </tr>
     </thead>
     <tbody *ngIf="showThisSection[SECT.DATES]">
       <tr>
         <td colspan="2" align="center">
-          <b >Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
+          <b>Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
         </td>
         <td colspan="2" align="center">
-          <b >Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
+          <b>Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
         </td>
         <td colspan="2" align="center">
-          <b >Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
+          <b>Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
         </td>
       </tr>
-      <tr >
+      <tr>
         <td>
           &nbsp;
         </td>
@@ -163,16 +163,41 @@
     </tbody>
   </table>
 
+  <table class="table table-hover classSection">
+    <tr>
+      <td colspan="3" align="center" (click)="showThisSection[SECT.CLASSLOCS] = !showThisSection[SECT.CLASSLOCS]">
+        <a><h4><b>CLASS LOCATIONS</b></h4></a>
+      </td>
+    </tr>
+    <tbody *ngIf="showThisSection[SECT.CLASSLOCS]">
+      <tr>
+        <th>Campus</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+      <tr *ngFor="let eachLocation of session.classLocations">
+        <td>
+          {{ eachLocation.location }}
+        </td>
+        <td>
+          {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
+        </td>
+        <td>
+          {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
+        </td>
+      </tr>
+  </table>
+
   <table class="table table-bordered table-hover" id="ratesSection">
     <thead>
       <tr (click)="showThisSection[SECT.RATES] = !showThisSection[SECT.RATES]">
         <td colspan="7" align="center">
-          <a><h4 ><b>RATES</b></h4></a>
+          <a><h4><b>RATES</b></h4></a>
         </td>
       </tr>
     </thead>
     <tbody *ngIf="showThisSection[SECT.RATES]">
-      <tr >
+      <tr>
         <td rowspan="2" align="center">
           <b>Rate Type</b>
         </td>
@@ -239,30 +264,6 @@
     </tbody>
   </table>
 
-  <table class="table table-hover classSection">
-    <tr>
-      <td colspan="3" align="center" (click)="showThisSection[SECT.CLASSLOCS] = !showThisSection[SECT.CLASSLOCS]">
-        <a><h4 ><b>CLASS LOCATIONS</b></h4></a>
-      </td>
-    </tr>
-    <tbody *ngIf="showThisSection[SECT.CLASSLOCS]">
-    <tr >
-      <th>Campus</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-    </tr>
-    <tr *ngFor="let eachLocation of session.classLocations">
-      <td>
-        {{ eachLocation.location }}
-      </td>
-      <td>
-        {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
-      </td>
-      <td>
-        {{ eachLocation.endDate | date:"MMM dd, yyyy" }}
-      </td>
-    </tr>
-  </table>
 
   <table class="table" id="commentsSection">
     <tr>

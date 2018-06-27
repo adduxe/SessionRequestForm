@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PEDataService } from '../shared/services/pedata.service';
 import { Observable, Subscriber } from 'rxjs/RX';
+import { Router } from '@angular/router';
 
 const ASSESSEDTO = [
   { gradeCode: "", gradeName: "" },
@@ -31,7 +32,10 @@ export class RequestFormComponent implements OnInit{
 
   private TuitionRates: any[];
 
-  constructor(private peDataService: PEDataService) {
+  constructor(
+    private peDataService: PEDataService,
+    private router: Router
+  ) {
       // 
   }
 
@@ -315,6 +319,12 @@ export class RequestFormComponent implements OnInit{
 
   public CampusEntered(event: any) {
     alert('valueChange: ' + event);
+  }
+
+  public SubmitForm() {
+    alert('Form Submitted');
+    this.router.navigate(['/confirm-page']);
+
   }
 
 }
