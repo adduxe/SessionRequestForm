@@ -14,7 +14,7 @@ import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { DetailPageComponent } from './detail-page/detail.page.component';
+import { ConfirmPageComponent } from './confirm-page/confirm.page.component';
 import { DiffPageComponent } from './diff-page/diff.page.component';
 import { RequestFormComponent } from './request-form/request.form.component';
 import { AdminPageComponent } from './admin-page/admin.page.component';
@@ -35,7 +35,7 @@ import { SQLDataService } from './shared/services/sqldata.service';
     NavMenuComponent,
     FetchDataComponent,
     SessionRequestListComponent,
-    DetailPageComponent,
+    ConfirmPageComponent,
     DiffPageComponent,
     DashboardComponent,
     RevisionListComponent,
@@ -60,7 +60,7 @@ import { SQLDataService } from './shared/services/sqldata.service';
       { path: 'dashboard', component: DashboardComponent },
       { path: 'srlist/:operation', component: SessionRequestListComponent },
       { path: 'diff-page/:requestid', component: DiffPageComponent },
-      { path: 'detail-page', component: DetailPageComponent },
+      { path: 'confirm-page', component: ConfirmPageComponent },
       { path: 'request-form', component: RequestFormComponent },
       { path: 'request-history', component: RequestHistoryComponent },
       { path: 'admin-page', component: AdminPageComponent },

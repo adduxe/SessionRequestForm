@@ -30,13 +30,13 @@ const holidays = [
 
 @Component({
   selector: 'detail-page',
-  templateUrl: './detail.page.component.html',
-  styleUrls: ['./detail.page.component.css']
+  templateUrl: './confirm.page.component.html',
+  styleUrls: ['./confirm.page.component.css']
 })
 
-export class DetailPageComponent implements OnInit{
+export class ConfirmPageComponent implements OnInit{
 
-  @Output() pageTitle: string = "Detail Page";
+  @Output() pageTitle: string = "Confirmation Page";
   
   private revNumber: number = 4;
 

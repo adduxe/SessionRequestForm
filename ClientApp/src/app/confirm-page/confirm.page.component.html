@@ -10,7 +10,7 @@
     <h1 style="color: #cca300;">Detail Page</h1>
   </div>-->
   <br/>
-  <table width="100%">
+  <!--<table width="100%">
     <tr>
       <td align="center" width="20%">
         <button class="btn btn-success"><b>Approve</b></button>
@@ -28,7 +28,7 @@
         <button class="btn btn-info" onclick="window.open('diff-page');">Compare</button>
       </td>
     </tr>
-  </table>
+  </table>-->
 
   <br />
 
@@ -36,12 +36,12 @@
     <thead (click)="showThisSection[SECT.GENINFO] = !showThisSection[SECT.GENINFO]">
       <tr>
           <td align="center"colspan="7">
-            <a style="color: red;"><h4><b>GENERAL INFO</b></h4></a>
+            <a><h4><b>GENERAL INFO</b></h4></a>
           </td>
       </tr>
     </thead>
     <tbody *ngIf="showThisSection[SECT.GENINFO]">
-      <tr style="color: red;">
+      <tr >
         <th>
           <b>Semester</b>
         </th>
@@ -88,23 +88,23 @@
     <thead>
       <tr (click)="showThisSection[SECT.DATES] = !showThisSection[SECT.DATES]">
         <td colspan="6" align="center">
-          <a><h4 style="color: red;"><b>DATES</b></h4></a>
+          <a><h4 ><b>DATES</b></h4></a>
         </td>
       </tr>
     </thead>
     <tbody *ngIf="showThisSection[SECT.DATES]">
       <tr>
         <td colspan="2" align="center">
-          <b style="color: red;">Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
+          <b >Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.lastDayForAddDrop | date:"MMM dd, yyyy" }}
         </td>
         <td colspan="2" align="center">
-          <b style="color: red;">Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
+          <b >Last day Withdraw:</b>&nbsp;&nbsp;{{ session.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
         </td>
         <td colspan="2" align="center">
-          <b style="color: red;">Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
+          <b >Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.lastDayForEnrollmentOptionChange | date:"MMM dd, yyyy" }}
         </td>
       </tr>
-      <tr style="color: red;">
+      <tr >
         <td>
           &nbsp;
         </td>
@@ -167,12 +167,12 @@
     <thead>
       <tr (click)="showThisSection[SECT.RATES] = !showThisSection[SECT.RATES]">
         <td colspan="7" align="center">
-          <a><h4 style="color: red;"><b>RATES</b></h4></a>
+          <a><h4 ><b>RATES</b></h4></a>
         </td>
       </tr>
     </thead>
     <tbody *ngIf="showThisSection[SECT.RATES]">
-      <tr style="color: red;">
+      <tr >
         <td rowspan="2" align="center">
           <b>Rate Type</b>
         </td>
@@ -211,7 +211,7 @@
     <thead>
       <tr (click)="showThisSection[SECT.SPECFEES] = !showThisSection[SECT.SPECFEES]">
         <td colspan="4" align="center">
-          <a><h4 style="color:red;"><b>SPECIAL FEES</b></h4></a>
+          <a><h4><b>SPECIAL FEES</b></h4></a>
         </td>
       </tr>
     </thead>
@@ -242,11 +242,11 @@
   <table class="table table-hover classSection">
     <tr>
       <td colspan="3" align="center" (click)="showThisSection[SECT.CLASSLOCS] = !showThisSection[SECT.CLASSLOCS]">
-        <a><h4 style="color: red;"><b>CLASS LOCATIONS</b></h4></a>
+        <a><h4 ><b>CLASS LOCATIONS</b></h4></a>
       </td>
     </tr>
     <tbody *ngIf="showThisSection[SECT.CLASSLOCS]">
-    <tr style="color: red;">
+    <tr >
       <th>Campus</th>
       <th>Start Date</th>
       <th>End Date</th>
@@ -265,9 +265,13 @@
   </table>
 
   <table class="table" id="commentsSection">
-    <tr (click)="showThisSection[SECT.COMMENTS] = !showThisSection[SECT.COMMENTS]">
+    <tr>
       <td align="center">
-        <h4><b style="color:red;">COMMENTS</b></h4>
+        <h4>
+          <a (click)="showThisSection[SECT.COMMENTS] = !showThisSection[SECT.COMMENTS]">
+            <b>COMMENTS</b>
+          </a>
+        </h4>
       </td>
     </tr>
     <tr *ngIf="showThisSection[SECT.COMMENTS]">
