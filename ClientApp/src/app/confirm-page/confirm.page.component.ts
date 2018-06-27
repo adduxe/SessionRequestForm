@@ -11,7 +11,7 @@ enum SECT {
   COMMENTS = 5
 }
 
-enum weekDay {
+enum WEEKDAY {
   Sunday,
   Monday,
   Tuesday,
@@ -29,14 +29,14 @@ const holidays = [
 
 
 @Component({
-  selector: 'detail-page',
+  selector: 'confirm-page',
   templateUrl: './confirm.page.component.html',
   styleUrls: ['./confirm.page.component.css']
 })
 
 export class ConfirmPageComponent implements OnInit{
 
-  @Output() pageTitle: string = "Confirmation Page";
+  @Output() pageTitle: string = "Submission Confirmation Page";
   
   private revNumber: number = 4;
 
@@ -57,36 +57,15 @@ export class ConfirmPageComponent implements OnInit{
   ngOnInit() {
 
     this.ShowHideAll();
-
-    var Sess001Dates = this.Session001Dates;
-
     this.ComputeDates();
-
-
-    if ((Sess001Dates.firstDayOfClass > '') && (Sess001Dates.lastDayOfClass > '')) {
-
-      var sess001StartDate = new Date(Sess001Dates.firstDayOfClass);
-      var sess001EndDate = new Date(Sess001Dates.lastDayOfClass);
-      var sessReqStartDate = new Date(this.session.firstDayOfClass);
-      var sessReqEndDate = new Date(this.session.lastDayOfClass);
-
-      if ((sess001StartDate === sessReqStartDate) && (sess001EndDate === sessReqEndDate)) {
-        this.session.lastDayForAddDrop = Sess001Dates.lastDayForAddDrop;
-        this.session.lastDayForEnrollmentOptionChange = Sess001Dates.lastDayForEnrollmentOptionChange;
-        this.session.lastDayForWithdrawal = Sess001Dates.lastDayForWithdrawal;
-        this.session.firstDayOfFinals = Sess001Dates.firstDayOfFinals;
-        this.session.lastDayOfFinals = Sess001Dates.lastDayOfFinals;
-      }
-
-    }
   }
 
   public SECT = SECT;
 
   public showThisSection: boolean[] = [false, false, false, false, false, false];
-
+  
   public showHideButton: string = "Show All";
-
+  
   public ShowHideAll() {
 
     this.showAllValues = !this.showAllValues;
@@ -107,15 +86,78 @@ export class ConfirmPageComponent implements OnInit{
   }
 
 
+
   private ComputeDates(): void {
 
-    var classStartDate = this.session.firstDayOfClass;
-    var classEndDate = this.session.lastDayOfClass;
+    var Sess001Dates = this.Session001Dates;
 
-    this.session.lastDayForAddDrop = this.ComputeDate(classStartDate, classEndDate, 20);
-    this.session.lastDayForEnrollmentOptionChange = this.ComputeDate(classStartDate, classEndDate, 40);
-    this.session.lastDayForWithdrawal = this.ComputeDate(classStartDate, classEndDate, 80);
-  }
+    if (Sess001Dates) {        // if Session 001 data exists
+
+      if ((Sess001Dates.firstDayOfClass > '') && (Sess001Dates.lastDayOfClass > '')) {
+
+        var sess001StartDate = new Date(Sess001Dates.firstDayOfClass);
+        var sess001EndDate = new Date(Sess001Dates.lastDayOfClass);
+        var sessReqStartDate = new Date(this.session.firstDayOfClass);
+        var sessReqEndDate = new Date(this.session.lastDayOfClass);
+
+        if ((sess001StartDate === sessReqStartDate) && (sess001EndDate === sessReqEndDate)) {
+          this.session.lastDayForAddDrop = Sess001Dates.lastDayForAddDrop;
+          this.session.lastDayForEnrollmentOptionChange = Sess001Dates.lastDayForEnrollmentOptionChange;
+          this.session.lastDayForWithdrawal = Sess001Dates.lastDayForWithdrawal;
+          this.session.firstDayOfFinals = Sess001Dates.firstDayOfFinals;
+          this.session.lastDayOfFinals = Sess001Dates.lastDayOfFinals;
+        }
+      }
+
+    } else {
+
+      var classStartDate = this.session.firstDayOfClass;
+      var classEndDate = this.session.lastDayOfClass;
+
+      this.session.lastDayForAddDrop = this.ComputeDate(classStartDate, classEndDate, 20);
+      this.session.lastDayForEnrollmentOptionChange = this.ComputeDate(classStartDate, classEndDate, 40);
+      this.session.lastDayForWithdrawal = this.ComputeDate(classStartDate, classEndDate, 80);
+
+    }
+
+//    this.ComputeFinalGradingDates();
+
+  } // ComputeDates()
+
+
+
+  private ComputeFinalGradingDates() {    // Computes the First and Last Day of Final Grading
+
+    this.session.firstDayForFinalGrading = this.FormatDate(this.session.firstDayOfFinals);
+
+    var finalGradingDay = new Date(this.session.lastDayOfFinals);
+    var notaSchoolDay = false, newDateStr = '';
+
+    for (var i = 0; i < 4; ++i) { // plus 5 school days after finals
+
+      notaSchoolDay = false;
+
+      do {
+
+        finalGradingDay.setDate(finalGradingDay.getDate() + 1);
+        newDateStr = this.FormatDate(finalGradingDay.toDateString());
+
+        if ((finalGradingDay.getDay() == WEEKDAY.Sunday) ||        // not a Saturday, Sunday, or a Holiday
+          (finalGradingDay.getDay() == WEEKDAY.Saturday) ||
+          (holidays.indexOf(newDateStr) > -1)) {
+
+          notaSchoolDay = true;
+
+        } else {
+
+          notaSchoolDay = true;
+        }
+      } while (notaSchoolDay)
+
+      this.session.lastDayForFinalGrading = this.FormatDate(finalGradingDay.toDateString());
+    }
+  } // ComputeFinalGradingDates
+
 
 
   private ComputeDate(beginDate: string, endDate: string, percentAdd: number) {
@@ -131,20 +173,22 @@ export class ConfirmPageComponent implements OnInit{
 
 
     initialDate.setDate(beginDt.getDate() + daysToAdd - 1);
-    var adjustedDt = this.AdjustDate(initialDate);
+    var adjustedDt = this.AdjustDate(initialDate.toDateString());
 
     if (adjustedDt > endDt) {
       adjustedDt = endDt;
     }
 
-    return this.FormatDate(adjustedDt);
+    return this.FormatDate(adjustedDt.toDateString());
 
   } // ComputeDate()
 
 
-  private FormatDate(givenDate: Date): string {
+
+  private FormatDate(dateStr: string): string {
 
     var strDate = '';
+    var givenDate = new Date(dateStr);
 
     if (givenDate) {
       strDate = (givenDate.getMonth() + 1) + '/' + givenDate.getDate() + '/' + givenDate.getFullYear();
@@ -155,18 +199,21 @@ export class ConfirmPageComponent implements OnInit{
   } // FormatDate()
 
 
-  private AdjustDate(newDate: Date): Date {
+
+  private AdjustDate(dateString: string) {
 
     var newDtMonthDay = '';
+    var newDate = new Date(dateString);
 
     do {
+
       switch (newDate.getDay()) {                   // see which day of the week it falls on
 
-        case weekDay.Sunday:                        // if the computed day falls on a Sunday
+        case WEEKDAY.Sunday:                        // if the computed day falls on a Sunday
           newDate.setDate(newDate.getDate() + 1);   // add a day to make it a Monday
           break;
 
-        case weekDay.Saturday:                      // Saturday
+        case WEEKDAY.Saturday:                      // Saturday
           newDate.setDate(newDate.getDate() + 2);   // add 2 days to make it a Monday
           break;
 
@@ -174,18 +221,17 @@ export class ConfirmPageComponent implements OnInit{
           break;
       } // switch()
 
-      newDtMonthDay = this.FormatDate(newDate);
+      newDtMonthDay = this.FormatDate(newDate.toDateString());
 
       if (holidays.indexOf(newDtMonthDay) > -1) {
         newDate.setDate(newDate.getDate() + 1);
-        newDtMonthDay = this.FormatDate(newDate);
+        newDtMonthDay = this.FormatDate(newDate.toDateString());
       }
 
-    } while ((newDate.getDay() == 0) || (newDate.getDay() == 6) || (holidays.indexOf(newDtMonthDay) > -1));
+    } while ((newDate.getDay() == WEEKDAY.Sunday) || (newDate.getDay() == WEEKDAY.Saturday) || (holidays.indexOf(newDtMonthDay) > -1));
 
     return newDate;
 
   } // AdjustDate()
-
 
 }
