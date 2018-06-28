@@ -21,12 +21,6 @@ enum WEEKDAY {
   Saturday
 };
 
-const holidays = [
-  "1/1/2018", "1/15/2018", "2/19/2018", "5/28/2018", "7/4/2018", "9/3/2018", "11/22/2018", "11/23/2018", "12/24/2018", "12/25/2018", "12/25/2018", "12/26/2018", "12/27/2018", "12/28/2018", "12/29/2018", "12/30/2017", "12/31/2018",
-  "1/1/2019", "1/21/2019", "2/18/2019", "5/27/2019", "7/4/2019", "7/5/2019", "9/2/2019", "11/28/2019", "11/29/2019", "12/25/2019", "12/26/2019", "12/27/2019", "12/28/2019", "12/29/2019", "12/30/2019", "12/31/2019",
-  "1/1/2020", "1/20/2020", "2/17/2020", "5/25/2020", "7/3/2020", "9/7/2020", "11/26/2020", "11/27/2020", "12/25/2020", "12/28/2020", "12/29/2020", "12/30/2020", "12/31/2020"
-];
-
 const MAXDAYS_TO_GRADE = 4; 
 
 @Component({
@@ -44,15 +38,17 @@ export class ConfirmPageComponent implements OnInit{
   private term: number = 20183;
   private sessionCode: string = "888";
   private requestID: string = this.term.toString() + this.sessionCode;
-
+  private acadYear: number = +(this.term.toString().substr(0,4));
 
   public session: any;
   public showAllValues: boolean = false;
   public Session001Dates: any;
+  public USCHolidays: any[];
 
   constructor(private sqlDataService: SQLDataService, private peDataService: PEDataService) {
     this.session = sqlDataService.getRequestByRevisionID(this.requestID, this.revNumber);
     this.Session001Dates = this.peDataService.GetSession001(this.term.toString());
+    this.USCHolidays = this.peDataService.GetUSCHolidays(this.acadYear);
   }
 
   ngOnInit() {
@@ -218,12 +214,12 @@ export class ConfirmPageComponent implements OnInit{
 
       newDtMonthDay = this.FormatDate(newDate.toDateString());
 
-      if (holidays.indexOf(newDtMonthDay) > -1) {
+      if (this.USCHolidays.indexOf(newDtMonthDay) > -1) {
         newDate.setDate(newDate.getDate() + 1);
         newDtMonthDay = this.FormatDate(newDate.toDateString());
       }
 
-    } while ((newDate.getDay() == WEEKDAY.Sunday) || (newDate.getDay() == WEEKDAY.Saturday) || (holidays.indexOf(newDtMonthDay) > -1));
+    } while ((newDate.getDay() == WEEKDAY.Sunday) || (newDate.getDay() == WEEKDAY.Saturday) || (this.USCHolidays.indexOf(newDtMonthDay) > -1));
 
     return newDate;
 
