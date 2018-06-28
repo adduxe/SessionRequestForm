@@ -11,17 +11,19 @@
   <div class="form-group col-md-6" id="semesterBox">
 
     <label for="semester" class="control-label">
-      For Semester
+      FOR SEMESTER
     </label>
+
     <br/>
+
     <kendo-dropdownlist
-        #semester
-        id="semester"
-        [(ngModel)]="session.academicTerm"
-        [data]="semesters"
-        [valueField]="'semCode'"
-        [textField]="'semName'"
-        (selectionChange)="TermSelected($event)">
+          #semester
+          id="semester"
+          [(ngModel)]="session.academicTerm"
+          [data]="semesters"
+          [valueField]="'semCode'"
+          [textField]="'semName'"
+          (selectionChange)="TermSelected($event)">
     </kendo-dropdownlist>
     &nbsp;<b><abbr title="Session semester being applied for">&#9432;</abbr></b>
 
@@ -32,22 +34,23 @@
   <div class="form-group col-md-6" id="sessionCodeBox">
 
     <label for="sessCode" class="control-label">
-        Session Code
+        SESSION CODE
     </label>
+
     <br />
+
     <kendo-dropdownlist
-        id="sessCode"
-        [(ngModel)]="session.code"
-        [data]="SessionCodes"
-        [valueField]="'sessionCode'"
-        [textField]="'sessionDesc'"
-        [filterable]="true"
-        (filterChange)="filterSessionCodes($event)"
-        style="width:250px;">
+          id="sessCode"
+          [(ngModel)]="session.code"
+          [data]="SessionCodes"
+          [valueField]="'sessionCode'"
+          [textField]="'sessionDesc'"
+          [filterable]="true"
+          (filterChange)="filterSessionCodes($event)"
+          style="width:250px;">
     </kendo-dropdownlist>
-    &nbsp;<b><abbr title="Choose a code that is assigned to this session. If you do not know the Session Code assigned to this academic program, or if the special program is new, please leave this field blank">
-            &#9432;
-          </abbr></b>
+    &nbsp;<b><abbr title="Choose a code that is assigned to this session.">&#9432;</abbr></b>
+
   </div>
 </div>
 
@@ -56,58 +59,69 @@
 
 <div class="row">
 
-  <div class="form-group col-md-6" id="firstDayClassBox">
-    <label for="classesStartDate" class="col-md-6 control-label">
-      <abbr title="Session Start Date">First Day of Classes</abbr>
+  <div class="form-group col-md-3" id="firstDayClassBox">
+
+    <label for="classesStartDate" class="control-label">
+      FIRST DAY OF CLASSES
     </label>
-    <div class="col-md-6">
-      <kendo-datepicker id="classStartDate"
-                        [(ngModel)]="session.firstDayOfClasses">
-      </kendo-datepicker>
-    </div>
+
+    <br />
+
+    <kendo-datepicker
+          id="classStartDate"
+          [(ngModel)]="session.firstDayOfClasses">
+    </kendo-datepicker>
+    &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
+
   </div>
 
-  <div class="form-group col-md-6" id="firstDayFinalsBox">
+  <div class="form-group col-md-3" id="lastDayClassBox">
 
-    <label for="finalsStartDate" class="col-md-6 control-label">
-      <abbr title="Finals Start Date">First Day of Finals</abbr>
+    <label for="classesEndDate" class="control-label">
+      LAST DAY OF CLASSES
     </label>
 
-    <div class="col-md-6">
-      <kendo-datepicker id="finalsStartDate"
-                        [(ngModel)]="session.firstDayOfFinals">
-      </kendo-datepicker>
-    </div>
+    <br />
+
+    <kendo-datepicker
+          id="classEndDate"
+          [(ngModel)]="session.lastDayOfClasses">
+    </kendo-datepicker>
+    &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
 
   </div>
 
 </div>
 
+<br/>
+
 <div class="row">
 
-  <div class="form-group col-md-6" id="lastDayClassBox">
+  <div class="form-group col-md-3" id="firstDayFinalsBox">
 
-    <label for="classesEndDate" class="col-md-6 control-label">
-      <abbr title="Session End Date">Last Day of Classes</abbr>
+    <label for="finalsStartDate" class="control-label">
+      FIRST DAY OF FINALS
     </label>
-    <div class="col-md-6">
-      <kendo-datepicker id="classEndDate"
-                        [(ngModel)]="session.lastDayOfClasses">
-      </kendo-datepicker>
-    </div>
+    <br />
+    <kendo-datepicker
+          id="finalsStartDate"
+          [(ngModel)]="session.firstDayOfFinals">
+    </kendo-datepicker>
+    &nbsp;<b><abbr title="Finals Start Date">&#9432;</abbr></b>
 
   </div>
 
-  <div class="form-group col-md-6" id="lastDayFinalsBox">
+  <div class="form-group col-md-3" id="lastDayFinalsBox">
 
-    <label for="finalsEndDate" class="col-md-6 control-label">
-      <abbr title="Session End Date">Last Day of Finals</abbr>
+    <label for="finalsEndDate" class="control-label">
+      LAST DAY OF FINALS
     </label>
-    <div class="col-md-6">
-      <kendo-datepicker id="finalsEndDate"
-                        [(ngModel)]="session.lastDayOfFinals">
-      </kendo-datepicker>
-    </div>
+    <br />
+    <kendo-datepicker
+          id="finalsEndDate"
+          [(ngModel)]="session.lastDayOfFinals">
+    </kendo-datepicker>
+    &nbsp;<b><abbr title="Finals End Date">&#9432;</abbr></b>
 
   </div>
 
