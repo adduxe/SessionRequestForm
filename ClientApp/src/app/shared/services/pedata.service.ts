@@ -48,14 +48,12 @@ export class PEDataService {
     return SESSION001DATES;
   }
 
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return Observable.of(result as T);
     }
   }
-
 
 }
 

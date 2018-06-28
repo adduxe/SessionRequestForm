@@ -142,32 +142,15 @@ export class ConfirmPageComponent implements OnInit{
     this.session.firstDayForFinalGrading = this.FormatDate(this.session.firstDayOfFinals);
 
     var finalGradingDay = new Date(this.session.lastDayOfFinals);
-    var notaSchoolDay = false, newDateStr = '';
 
-    for (var i = 0; i < MAXDAYS_TO_GRADE; ++i) {
+    for (var i = 0; i < MAXDAYS_TO_GRADE; ++i) {    // allow MAXDAYS_TO_GRADE days to compute grades
 
-      notaSchoolDay = false;
-
-      do {
-
-        finalGradingDay.setDate(finalGradingDay.getDate() + 1);
-        newDateStr = this.FormatDate(finalGradingDay.toDateString());
-
-        if ((finalGradingDay.getDay() == WEEKDAY.Sunday) ||        // not a Saturday, Sunday, or a Holiday
-          (finalGradingDay.getDay() == WEEKDAY.Saturday) ||
-          (holidays.indexOf(newDateStr) > -1)) {
-
-          notaSchoolDay = true;
-
-        } else {
-
-          notaSchoolDay = false;
-        }
-
-      } while (notaSchoolDay)
-
-      this.session.lastDayForFinalGrading = this.FormatDate(finalGradingDay.toDateString());
+      finalGradingDay.setDate(finalGradingDay.getDate() + 1);
+      finalGradingDay = this.AdjustDate(finalGradingDay.toDateString());
     }
+
+    this.session.lastDayForFinalGrading = this.FormatDate(finalGradingDay.toDateString());
+
   } // ComputeFinalGradingDates
 
 

@@ -152,12 +152,12 @@ export class RequestFormComponent implements OnInit{
 
       flatRateUnitRange: {
         graduate: {
-          minimum: '',
-          maximum: ''
+          minimum: null,
+          maximum: null
         },
         undergraduate: {
-          minimum: '',
-          maximum: ''
+          minimum: null,
+          maximum: null
         }
       },
 
@@ -324,7 +324,19 @@ export class RequestFormComponent implements OnInit{
   public SubmitForm() {
     alert('Form Submitted');
     this.router.navigate(['/confirm-page']);
+  }
 
+  public RateSelected(rateSelected: any) {
+
+    if (rateSelected.rateTypeCode == 'ZERO') {
+      this.session.flatRateUnitRange.graduate.minimum = 98;
+      this.session.flatRateUnitRange.graduate.maximum = 99;
+      this.session.flatRateUnitRange.undergraduate.minimum = 98;
+      this.session.flatRateUnitRange.undergraduate.maximum = 99;
+    }
+
+
+    alert('Rate Selected: ' + rateSelected.rateTypeCode);
   }
 
 }

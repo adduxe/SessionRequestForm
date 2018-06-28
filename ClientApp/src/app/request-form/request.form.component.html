@@ -276,8 +276,7 @@
             [data]="termRates"
             [valueField]="'rateTypeCode'"
             [textField]="'rateTypeDesc'"
-            [filterable]="true"
-            (filterChange)="filterRates($event)"
+            (selectionChange)="RateSelected($event)"
             style="width:250px;">
         </kendo-dropdownlist>
       </div>
