@@ -36,7 +36,10 @@ export class RequestFormComponent implements OnInit{
     private peDataService: PEDataService,
     private router: Router
   ) {
-      // 
+    this.UscCampuses = this.peDataService.getCampusLocations();
+
+    this.SessionCodes = this.peDataService.getSessionCodes();
+    this.semesters = this.peDataService.getActiveTerms();
   }
 
   ngOnInit() {
@@ -45,10 +48,6 @@ export class RequestFormComponent implements OnInit{
     //  this.UscCampuses = locations;
     //});
 
-    this.UscCampuses = this.peDataService.getCampusLocations();
-
-    this.SessionCodes = this.peDataService.getSessionCodes();
-    this.semesters = this.peDataService.getActiveTerms();
     this.AssessedTo = ASSESSEDTO;
 
     for (var i = 0; i < this.UscCampuses.length; ++i){

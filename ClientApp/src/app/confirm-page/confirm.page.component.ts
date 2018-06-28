@@ -78,8 +78,6 @@ export class ConfirmPageComponent implements OnInit{
         this.showThisSection[i] = false;
       }
     }
-
-    return;
   }
 
 

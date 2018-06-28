@@ -8,48 +8,47 @@
 <hr style="border-color:darkred" />
 
 <div class="row">
-
   <div class="form-group col-md-6" id="semesterBox">
 
-    <label for="semester" class="col-md-6 control-label">
-      <abbr title="Session semester being applied for">For Semester</abbr>
+    <label for="semester" class="control-label">
+      For Semester
     </label>
-
-    <div class="col-md-6" style="vertical-align: bottom;">
-      <kendo-dropdownlist #semester
-            id="semester"
-            [(ngModel)]="session.academicTerm"
-            [data]="semesters"
-            [valueField]="'semCode'"
-            [textField]="'semName'"
-            (selectionChange)="TermSelected($event)">
-      </kendo-dropdownlist>
-    </div>
+    <br/>
+    <kendo-dropdownlist
+        #semester
+        id="semester"
+        [(ngModel)]="session.academicTerm"
+        [data]="semesters"
+        [valueField]="'semCode'"
+        [textField]="'semName'"
+        (selectionChange)="TermSelected($event)">
+    </kendo-dropdownlist>
+    &nbsp;<b><abbr title="Session semester being applied for">&#9432;</abbr></b>
 
   </div>
+</div>
 
+<div class="row">
   <div class="form-group col-md-6" id="sessionCodeBox">
 
-    <label for="sessCode" class="col-md-6 control-label">
-      <abbr title="Enter the 3-digit code that was used for this session previously. If you do not know the Session Code assigned to this academic program, or if the special program is new, please leave this field blank">
+    <label for="sessCode" class="control-label">
         Session Code
-      </abbr>
     </label>
-
-    <div class="col-md-6">
-      <kendo-dropdownlist
-            id="sessCode"
-            [(ngModel)]="session.code"
-            [data]="SessionCodes"
-            [valueField]="'sessionCode'"
-            [textField]="'sessionDesc'"
-            [filterable]="true"
-            (filterChange)="filterSessionCodes($event)"
-            style="width:250px;">
-      </kendo-dropdownlist>
-    </div>
+    <br />
+    <kendo-dropdownlist
+        id="sessCode"
+        [(ngModel)]="session.code"
+        [data]="SessionCodes"
+        [valueField]="'sessionCode'"
+        [textField]="'sessionDesc'"
+        [filterable]="true"
+        (filterChange)="filterSessionCodes($event)"
+        style="width:250px;">
+    </kendo-dropdownlist>
+    &nbsp;<b><abbr title="Choose a code that is assigned to this session. If you do not know the Session Code assigned to this academic program, or if the special program is new, please leave this field blank">
+            &#9432;
+          </abbr></b>
   </div>
-
 </div>
 
 <h4 style="color:darkred;padding:0px;">Dates</h4>
