@@ -10,6 +10,8 @@ const ASSESSEDTO = [
   { gradeCode: "B", gradeName: "All" }
 ];
 
+const MAX_SESSION_BREAKS = 2;
+
 @Component({
   selector: 'request-form',
   templateUrl: './request.form.component.html',
@@ -197,9 +199,13 @@ export class RequestFormComponent implements OnInit{
   public AddSessionBreak(haveSessionBreaks) {
 
     if (haveSessionBreaks) {
-      var newBreak = { startDate: "", endDate: "" };
-      this.session.sessionBreaks.push(newBreak);
-      this.session.sessionBreaks.push(newBreak);
+
+      if (this.session.sessionBreaks.length < MAX_SESSION_BREAKS) {
+        var newBreak = { startDate: "", endDate: "" };
+        for (var i = 0; i < MAX_SESSION_BREAKS; ++i) {
+          this.session.sessionBreaks.push(newBreak);
+        }
+      }
     } else {
       this.session.sessionBreaks = [];
     }

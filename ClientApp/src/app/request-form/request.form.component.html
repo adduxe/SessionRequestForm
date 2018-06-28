@@ -128,61 +128,49 @@
 </div>
 
 <div class="row">
+
   <div class="col-md-6">
     <!--<button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
     Add Session Break
   </button>-->
-    &nbsp;&nbsp;&nbsp;<b>Does this session have any breaks?</b>&nbsp;&nbsp;
-  <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;
-  <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>
-  <br/><br/>
+      Does this session have any breaks?&nbsp;&nbsp;
+      <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;&nbsp;
+      <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>
+      <br/><br/>
+
   </div>
-  <div class="col-md-6">
-    &nbsp;
-  </div>
+
 </div>
 
 <!--  Session Breaks section -->
 <div *ngIf="session.sessionBreaks.length" class="Breaks">
 
-  <div class="row" style="align-self:center;">
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-4" style="text-align:left;">
-      <h4>Break Start</h4>
-    </div>
-    <div class="col-md-4" style="text-align:left;">
-      <h4>Break End</h4>
-    </div>
+  <div class="row" *ngFor="let eachBreak of session.sessionBreaks; let x = index" [attr.data.index]="x">
+
     <div class="col-md-3">
-      &nbsp;
-    </div>
-  </div>
-
-  <div class="row" style="align-items:center;padding-bottom:5px;" *ngFor="let eachBreak of session.sessionBreaks; let x = index" [attr.data.index]="x">
-
-    <div class="col-md-1" style="text-align:right;">
-    </div>
-    <div class="col-md-4" style="align-self:center;">
-
+      <b>BREAK {{ (x + 1) }} START DATE</b>
+      <br />
       <kendo-datepicker
-          [(ngModel)]="eachBreak.startDate">
+        [(ngModel)]="eachBreak.startDate"
+        placeholder="Optional">
       </kendo-datepicker>
-
     </div>
-    <div class="col-md-4" style="align-self:center;">
 
+    <div class="col-md-3">
+      <b>BREAK {{ (x + 1) }} END DATE</b>
+      <br />
       <kendo-datepicker
-          [(ngModel)]="eachBreak.endDate">
+        [(ngModel)]="eachBreak.endDate"
+        placeholder="Optional">
       </kendo-datepicker>
+    </div>
 
-    </div>
-    <div class="col-md-3" style="align-self:center;">
-      (Optional)
-      <!--<a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="DeleteSessionBreak(x)">
-        [X] Remove this Break
-      </a>-->
-    </div>
+    <!--<div class="col-md-3" style="align-self:center;">-->
+    <!--<a href="javascript:;" class="uscRedButton" title="Delete this Semester Break" (click)="DeleteSessionBreak(x)">
+    [X] Remove this Break
+  </a>-->
+    <!--</div>-->
+    <br /><br /><br /><br />
   </div>
 
 </div>
