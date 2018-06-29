@@ -230,6 +230,7 @@ export class RequestFormComponent implements OnInit{
     var newFee = {
       feeCode: "",
       assessedTo: "",
+      enrollType: "",
       amount: 0
     };
 
