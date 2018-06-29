@@ -11,7 +11,7 @@
   <div class="form-group col-md-6" id="semesterBox">
 
     <label for="semester" class="control-label">
-      FOR SEMESTER
+      For Semester
     </label>
 
     <br/>
@@ -34,7 +34,7 @@
   <div class="form-group col-md-6" id="sessionCodeBox">
 
     <label for="sessCode" class="control-label">
-        SESSION CODE
+        Session Code
     </label>
 
     <br />
@@ -62,7 +62,7 @@
   <div class="form-group col-md-3" id="firstDayClassBox">
 
     <label for="classesStartDate" class="control-label">
-      FIRST DAY OF CLASSES
+      First Day of Classes
     </label>
 
     <br />
@@ -78,7 +78,7 @@
   <div class="form-group col-md-3" id="lastDayClassBox">
 
     <label for="classesEndDate" class="control-label">
-      LAST DAY OF CLASSES
+      Last Day of Classes
     </label>
 
     <br />
@@ -100,7 +100,7 @@
   <div class="form-group col-md-3" id="firstDayFinalsBox">
 
     <label for="finalsStartDate" class="control-label">
-      FIRST DAY OF FINALS
+      First Day of Finals 
     </label>
     <br />
     <kendo-datepicker
@@ -114,7 +114,7 @@
   <div class="form-group col-md-3" id="lastDayFinalsBox">
 
     <label for="finalsEndDate" class="control-label">
-      LAST DAY OF FINALS
+      Last Day of Finals
     </label>
     <br />
     <kendo-datepicker
@@ -133,10 +133,11 @@
     <!--<button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
     Add Session Break
   </button>-->
-      Does this session have any breaks?&nbsp;&nbsp;
-      <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;&nbsp;
-      <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>
-      <br/><br/>
+    Does this session have any breaks?&nbsp;&nbsp;
+    <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;&nbsp;
+    <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>&nbsp;&nbsp;
+    <b><abbr title="Click No ONLY IF this session will not have an interruption of instruction for five days or more. For example, click No if classes will continue for students in this session during the university's Thanksgiving holiday or during Spring Break.">&#9432;</abbr></b>
+    <br /><br />
 
   </div>
 
@@ -148,7 +149,7 @@
   <div class="row" *ngFor="let eachBreak of session.sessionBreaks; let x = index" [attr.data.index]="x">
 
     <div class="col-md-3">
-      <b>BREAK {{ (x + 1) }} START DATE</b>
+      <b>Break {{ (x + 1) }} Start Date</b>
       <br />
       <kendo-datepicker
         [(ngModel)]="eachBreak.startDate"
@@ -157,7 +158,7 @@
     </div>
 
     <div class="col-md-3">
-      <b>BREAK {{ (x + 1) }} END DATE</b>
+      <b>Break {{ (x + 1) }} End Date</b>
       <br />
       <kendo-datepicker
         [(ngModel)]="eachBreak.endDate"
@@ -181,24 +182,6 @@
   <h4 style="color:darkred;padding:0px;">Locations</h4>
   <hr style="border-color:darkred" />
 
-  <div class="row">
-    <div class="col-md-4">&nbsp;</div>
-    <div class="col-md-4">
-      <button class="form-control uscGoldButton" value="Add Class Locations" (click)="AddClassLocation();">
-        Add Class Location
-      </button>
-      <!--<kendo-autocomplete
-          required
-          [suggest]="true"
-          [placeholder]="'Type the Campus Name'"
-          (valueChange)="AddClassLocation($event)"
-          [data]="CampusNameArray"
-          style="width:400px;">
-      </kendo-autocomplete>-->
-    </div>
-    <div class="col-md-4">&nbsp;</div>
-  </div>
-
   <!-- Start of Class Locations Section -->
   <div *ngIf="(session.classLocations.length)" class="Locations">
 
@@ -220,30 +203,26 @@
          *ngFor="let eachLocation of session.classLocations; let i = index" [attr.data-index]="i">
 
       <div class="col-md-4">
-        <kendo-dropdownlist  style="width: 250px; margin-left:50px;"
-            *ngIf="(UscCampuses.length)"
-            [(ngModel)]="eachLocation.code"
-            [data]="UscCampuses"
-            [valueField]="'campusCode'"
-            [textField]="'campusName'"
-            [filterable]="true"
-            (filterChange)="filterCampusLocation($event)">
+        <kendo-dropdownlist style="width: 250px; margin-left:50px;"
+                            *ngIf="(UscCampuses.length)"
+                            [(ngModel)]="eachLocation.code"
+                            [data]="UscCampuses"
+                            [valueField]="'campusCode'"
+                            [textField]="'campusName'"
+                            [filterable]="true"
+                            (filterChange)="filterCampusLocation($event)">
         </kendo-dropdownlist>
         <!--<input type="text" [(ngModel)]="eachLocation.code.campusName">-->
       </div>
-
       <div class="col-md-3" style="align-self:center;">
-        <kendo-datepicker
-            *ngIf="(session.classLocations.length > 1)"
-            [(ngModel)]="eachLocation.startDate">
+        <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
+                          [(ngModel)]="eachLocation.startDate">
         </kendo-datepicker>
       </div>
-
       <div class="col-md-3" style="align-self:center;">
 
-        <kendo-datepicker
-            *ngIf="(session.classLocations.length > 1)"
-            [(ngModel)]="eachLocation.endDate">
+        <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
+                          [(ngModel)]="eachLocation.endDate">
         </kendo-datepicker>
 
       </div>
@@ -254,6 +233,24 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-10">
+      <!--<kendo-autocomplete
+          required
+          [suggest]="true"
+          [placeholder]="'Type the Campus Name'"
+          (valueChange)="AddClassLocation($event)"
+          [data]="CampusNameArray"
+          style="width:400px;">
+      </kendo-autocomplete>-->
+    </div>
+    <div class="col-md-2">
+      <button class="form-control btn-outline-danger" value="Add Class Locations" (click)="AddClassLocation();">
+        Add Class Location
+      </button>
+    </div>
+  </div>
+
   <!-- End of Class Locations Section -->
 </div>
 

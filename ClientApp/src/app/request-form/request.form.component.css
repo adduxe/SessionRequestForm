@@ -36,3 +36,10 @@
   border-color: white;
   color: black;
 }
+
+.btn-outline-danger {
+  color: #dc3545;
+  background-color: transparent;
+  background-image: none;
+  border-color: #dc3545;
+}

@@ -56,6 +56,7 @@ export class RequestFormComponent implements OnInit{
       this.CampusNameArray[i] = this.UscCampuses[i].campusName;
     }
 
+    this.AddClassLocation('');
   }
 
   //public session = {
