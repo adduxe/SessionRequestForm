@@ -10,6 +10,12 @@ const ASSESSEDTO = [
   { gradeCode: "B", gradeName: "All" }
 ];
 
+const ENROLLMENTTYPES = [
+  { code: "FULL", name: "Full-Load" },
+  { code: "HALF", name: "Half-Load" },
+  { code: "NONE", name: "Not Enrolled" }
+];
+
 const MAX_SESSION_BREAKS = 2;
 
 @Component({
@@ -28,8 +34,9 @@ export class RequestFormComponent implements OnInit{
   public termRates: any[];public SessionCodes: any[];
   public FeeList: any[];
   public semesters: any[];
-  public AssessedTo: any[];
+  public AssessedTo: any[] = ASSESSEDTO;
   public CampusNameArray: string[] = [];
+  public EnrollTypes: any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
 
   private TuitionRates: any[];
@@ -50,13 +57,12 @@ export class RequestFormComponent implements OnInit{
     //  this.UscCampuses = locations;
     //});
 
-    this.AssessedTo = ASSESSEDTO;
-
     for (var i = 0; i < this.UscCampuses.length; ++i){
       this.CampusNameArray[i] = this.UscCampuses[i].campusName;
     }
 
     this.AddClassLocation('');
+
   }
 
   //public session = {
