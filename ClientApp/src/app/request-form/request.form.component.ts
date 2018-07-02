@@ -310,7 +310,7 @@ export class RequestFormComponent implements OnInit{
 
   public TermSelected(selectedTerm: any) {
 
-    var term = selectedTerm.semCode;
+    var term = selectedTerm.code;
 
     var TuitionRates = this.peDataService.getTermTuitionRates(term);
     this.termRates = TuitionRates[0].termRates;
