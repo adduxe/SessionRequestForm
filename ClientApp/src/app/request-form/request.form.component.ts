@@ -3,11 +3,13 @@ import { PEDataService } from '../shared/services/pedata.service';
 import { Observable, Subscriber } from 'rxjs/RX';
 import { Router } from '@angular/router';
 
-const ASSESSEDTO = [
-  { gradeCode: "", gradeName: "" },
-  { gradeCode: "G", gradeName: "Graduate" },
-  { gradeCode: "U", gradeName: "Undergraduate" },
-  { gradeCode: "B", gradeName: "All" }
+import { SpecialFee } from '../shared/models/SpecialFee';
+
+const GRADELEVEL = [
+  { code: "", name: "" },
+  { code: "G", name: "Graduate" },
+  { code: "U", name: "Undergraduate" },
+  { code: "B", name: "All" }
 ];
 
 const ENROLLMENTTYPES = [
@@ -34,7 +36,7 @@ export class RequestFormComponent implements OnInit{
   public termRates: any[];public SessionCodes: any[];
   public FeeList: any[];
   public semesters: any[];
-  public AssessedTo: any[] = ASSESSEDTO;
+  public GradeLevel: any[] = GRADELEVEL;
   public CampusNameArray: string[] = [];
   public EnrollTypes: any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
@@ -169,7 +171,7 @@ export class RequestFormComponent implements OnInit{
         }
       },
 
-      specialFees: [],
+    specialFees: []
     } // session
 
 
@@ -208,8 +210,8 @@ export class RequestFormComponent implements OnInit{
     if (haveSessionBreaks) {
 
       if (this.session.sessionBreaks.length < MAX_SESSION_BREAKS) {
-        var newBreak = { startDate: "", endDate: "" };
         for (var i = 0; i < MAX_SESSION_BREAKS; ++i) {
+          var newBreak = { startDate: "", endDate: "" };
           this.session.sessionBreaks.push(newBreak);
         }
       }
@@ -227,12 +229,7 @@ export class RequestFormComponent implements OnInit{
 
   public AddSpecialFee(acadTerm: any) {
 
-    var newFee = {
-      feeCode: "",
-      assessedTo: "",
-      enrollType: "",
-      amount: 0
-    };
+    var newFee = new SpecialFee();
 
     var term : string = acadTerm.value.semCode;
 //    var term: string = this.session.academicTerm.semCode;   // this will work too!
@@ -334,8 +331,9 @@ export class RequestFormComponent implements OnInit{
     alert('valueChange: ' + event);
   }
 
-  public SubmitForm() {
+  public FormSubmitted() {
     alert('Form Submitted');
+    console.log(this.session);
     this.router.navigate(['/confirm-page']);
   }
 
@@ -348,8 +346,6 @@ export class RequestFormComponent implements OnInit{
       this.session.flatRateUnitRange.undergraduate.maximum = 99;
     }
 
-
-    alert('Rate Selected: ' + rateSelected.rateTypeCode);
   }
 
 }
