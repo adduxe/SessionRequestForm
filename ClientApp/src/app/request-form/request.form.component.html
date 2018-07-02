@@ -22,8 +22,8 @@
           id="semester"
           [(ngModel)]="session.academicTerm"
           [data]="semesters"
-          [valueField]="'semCode'"
-          [textField]="'semName'"
+          [valueField]="'code'"
+          [textField]="'name'"
           (selectionChange)="TermSelected($event)">
     </kendo-dropdownlist>
     &nbsp;<b><abbr title="Session semester being applied for">&#9432;</abbr></b>
@@ -261,7 +261,7 @@
 </div>
 
 
-<div id="rateFields" *ngIf="termRates && session.academicTerm.semCode">
+<div id="rateFields" *ngIf="termRates && session.academicTerm.code">
 
   <h4 style="color:darkred;padding:0px;">Rates</h4>
   <hr style="border-color:darkred" />
@@ -396,7 +396,7 @@
   </div>
 </div>
 
-<div id="SpecialFeesSection" *ngIf="SpecialFeeList && session.academicTerm.semCode">
+<div id="SpecialFeesSection" *ngIf="SpecialFeeList && session.academicTerm.code">
 
   <h4 style="color:darkred;padding:0px;">Special Fees</h4>
   <hr style="border-color:darkred" />

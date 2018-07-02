@@ -66,7 +66,7 @@ export class RequestFormComponent implements OnInit{
   }
 
   //public session = {
-  //  academicTerm: { semCode: 20182, semName: "2018 Summer" },
+  //  academicTerm: { code: 20182, name: "2018 Summer" },
   //  code: {
   //    sessionCode: "004",
   //    sessionDesc: "PHAR",
@@ -130,8 +130,8 @@ export class RequestFormComponent implements OnInit{
   public session = {
 
       academicTerm: {
-        semCode: "",
-        semName: ""
+        code: "",
+        name: ""
       },
 
       code: {
@@ -229,10 +229,9 @@ export class RequestFormComponent implements OnInit{
 
     var newFee = new SpecialFee();
 
-    var term : string = acadTerm.value.semCode;
-//    var term: string = this.session.academicTerm.semCode;   // this will work too!
+    var term : string = acadTerm.value.code;
+//    var term: string = this.session.academicTerm.code;   // this will work too!
 
-    this.SpecialFeeList = this.formSpecialFeeArray(term);
     this.session.specialFees.push(newFee);
 
   } // AddSpecialFee()

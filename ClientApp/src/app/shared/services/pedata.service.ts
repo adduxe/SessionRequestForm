@@ -5495,11 +5495,11 @@ const SESSIONCODES = [
 ];
 
 const ACTIVETERMS = [
-  { semCode: "", semName: "" },
-  { semCode: 20182, semName: "2018 Summer" },
-  { semCode: 20183, semName: "2018 Fall" },
-  { semCode: 20191, semName: "2019 Spring" },
-  { semCode: 20192, semName: "2019 Summer" }
+  { code: "", name: "" },
+  { code: 20182, name: "2018 Summer" },
+  { code: 20183, name: "2018 Fall" },
+  { code: 20191, name: "2019 Spring" },
+  { code: 20192, name: "2019 Summer" }
 ];
 
 const SESSION001DATES = {
