@@ -33,15 +33,13 @@ export class RequestFormComponent implements OnInit{
   public MAXUNITS: number = 100;
   public UscCampuses: any[];
   public SpecialFeeList: any[];
-  public termRates: any[];public SessionCodes: any[];
-  public FeeList: any[];
+  public termRates: any[];
+  public SessionCodes: any[];
   public semesters: any[];
   public GradeLevel: any[] = GRADELEVEL;
   public CampusNameArray: string[] = [];
   public EnrollTypes: any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
-
-  private TuitionRates: any[];
 
   constructor(
     private peDataService: PEDataService,
@@ -266,7 +264,7 @@ export class RequestFormComponent implements OnInit{
   }
 
 
-  private formSpecialFeeArray(acadTerm: string): any[] {
+  private formSpecialFeeArray(acadTerm: string, feeList: any): any[] {
 
     var specFeeArray: any[] = [];
     var feeName: string = "";
@@ -292,8 +290,8 @@ export class RequestFormComponent implements OnInit{
         break;
     }
 
-    for (var i = 0; i < this.FeeList.length; ++i) {
-      feeName = this.CleanupFeeName(termAbbrev, this.FeeList[i]);
+    for (var i = 0; i < feeList.length; ++i) {
+      feeName = this.CleanupFeeName(termAbbrev, feeList[i]);
       feeCode = feeName.substring(0, feeName.indexOf(' '))
       specFeeArray.push({ "code": feeCode, "name": feeName });
     }
@@ -315,10 +313,11 @@ export class RequestFormComponent implements OnInit{
 
     var term = selectedTerm.semCode;
 
-    this.TuitionRates = this.peDataService.getTermTuitionRates(term);
-    this.termRates = this.TuitionRates[0].termRates;
-    this.FeeList = this.peDataService.getSpecialFeeList(term);
-    this.SpecialFeeList = this.formSpecialFeeArray(term);
+    var TuitionRates = this.peDataService.getTermTuitionRates(term);
+    this.termRates = TuitionRates[0].termRates;
+
+    var FeeList = this.peDataService.getSpecialFeeList(term);
+    this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
   }
   
