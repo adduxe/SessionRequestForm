@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PEDataService } from '../shared/services/pedata.service';
+import { SQLDataService } from '../shared/services/sqldata.service';
 import { Observable, Subscriber } from 'rxjs/RX';
 import { Router } from '@angular/router';
 
@@ -43,16 +44,64 @@ export class RequestFormComponent implements OnInit{
   public disableUnitRange: boolean = false;
   public showPerUnitBox : boolean = false;
   public showFlatRateFields: boolean = false;
+//  public session: any;
+
+  public session : any = {
+
+    academicTerm: {
+      code: null,
+      name: null
+    },
+
+    code: {
+      sessionCode: null,
+      sessionDesc: null,
+    },
+
+    firstDayOfClasses: null,
+
+    lastDayOfClasses: null,
+
+    firstDayOfFinals: null,
+
+    lastDayOfFinals: null,
+
+    classLocations: [],
+
+    sessionBreaks: [],
+
+    rateType: {
+      rateTypeCode: null,
+      rateTypeDesc: null,
+      rateTypeUnitRate: null,
+      rateTypeFlatRate: null
+    },
+
+    flatRateUnitRange: {
+      graduate: {
+        minimum: null,
+        maximum: null
+      },
+      undergraduate: {
+        minimum: null,
+        maximum: null
+      }
+    },
+
+    specialFees: []
+  }; // session
+
 
   constructor(
     private peDataService: PEDataService,
+    private sqlDataService: SQLDataService,
     private router: Router
   ) {
 
-    this.UscCampuses = this.peDataService.getCampusLocations();
+    this.semesters = this.peDataService.getActiveTerms();       // pre-populate the Semester dropdown
+    this.UscCampuses = this.peDataService.getCampusLocations(); // pre-populate the Campus Location dropdown
+    this.SessionCodes = this.peDataService.getSessionCodes();   // pre-populate the Session Codes dropdown
 
-    this.SessionCodes = this.peDataService.getSessionCodes();
-    this.semesters = this.peDataService.getActiveTerms();
   } // constructor()
 
 
@@ -61,6 +110,8 @@ export class RequestFormComponent implements OnInit{
     //this.peDataService.getCampusLocations().subscribe(locations => {
     //  this.UscCampuses = locations;
     //});
+    this.session = this.sqlDataService.getCurrentRevByReqID(20183, "555");
+
 
     if (this.session.academicTerm.code > 0) {                           // if existing request exists,
 
@@ -84,133 +135,6 @@ export class RequestFormComponent implements OnInit{
     }
 
   }   // ngOnInit()
-
-
-  public session = {
-
-    academicTerm: { code: 20182, name: "2018 Summer" },
-
-    code: {
-      sessionCode: "004",
-      sessionDesc: "PHAR",
-    },
-
-    firstDayOfClasses: new Date("10/01/1996"),
-
-    lastDayOfClasses: new Date("10/31/2006"),
-
-    firstDayOfFinals: new Date("02/25/1995"),
-
-    lastDayOfFinals: new Date("03/01/1995"),
-
-    classLocations: [
-      {
-        code: { campusCode: "CAT", campusName: "Catalina" },
-        startDate: new Date("01/01/1996"),
-        endDate: new Date("12/31/1996")
-      },
-      {
-        code: { campusCode: "ATT", campusName: "ATT Center" },
-        startDate: new Date("02/01/1997"),
-        endDate: new Date("11/31/1997")
-      }
-    ],
-
-    sessionBreaks: [
-      { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
-      { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
-    ],
-
-    rateType: {
-
-      rateTypeCode: "OTHFLAT",
-      rateTypeDesc: "Other Flat Rate",
-      rateTypeUnitRate: 1800,
-      rateTypeFlatRate: 30409,
-
-      flatRateUnitRange: {
-          graduate: {
-            minimum: 1,
-            maximum: 5
-          },
-
-          undergraduate: {
-            minimum: 6,
-            maximum: 10
-          }
-        }
-    },
-
-    specialFees: [
-      {
-        fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
-        amount: 300,
-        gradeLevel: { code: "U", name: "Undergraduate" },
-        enrollType: { code: "NONE", name: "Not Enrolled" }
-      },
-      {
-        fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
-        amount: 500,
-        gradeLevel: { code: "G", name: "Graduate" },
-        enrollType: { code: "HALF", name: "Half Load" }
-      },
-      {
-        fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
-        amount: 100,
-        gradeLevel: { code: "B", name: "All" },
-        enrollType: { code: "FULL", name: "Full Load"}
-      }
-    ],
-
-    comment: "This is the User's comments for this request."
-
-  };
-
-
-  //public session = {
-
-  //    academicTerm: {
-  //      code: "",
-  //      name: ""
-  //    },
-
-  //    code: {
-  //      sessionCode: "",
-  //      sessionDesc: "",
-  //    },
-
-  //    firstDayOfClasses: "",
-
-  //    lastDayOfClasses: "",
-
-  //    firstDayOfFinals: "",
-
-  //    lastDayOfFinals: "",
-
-  //    classLocations: [],
-
-  //    sessionBreaks: [],
-
-  //    rateType: {
-  //      rateTypeCode: "",
-  //      rateTypeDesc: "",
-  //      rateTypeUnitRate: null,
-  //      rateTypeFlatRate: null
-  //    },
-
-  //    flatRateUnitRange: {
-  //      graduate: {
-  //        minimum: null,
-  //        maximum: null
-  //      },
-  //      undergraduate: {
-  //        minimum: null,
-  //        maximum: null
-  //      }
-  //    },
-
-  //  specialFees: []
-  //  } // session
 
 
   public AddClassLocation(selectedCampus: string) {
