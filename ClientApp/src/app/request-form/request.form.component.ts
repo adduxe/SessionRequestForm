@@ -13,8 +13,8 @@ const GRADELEVEL = [
 ];
 
 const ENROLLMENTTYPES = [
-  { code: "FULL", name: "Full-Load" },
-  { code: "HALF", name: "Half-Load" },
+  { code: "FULL", name: "Full Load" },
+  { code: "HALF", name: "Half Load" },
   { code: "NONE", name: "Not Enrolled" }
 ];
 
@@ -60,120 +60,131 @@ export class RequestFormComponent implements OnInit{
     //  this.UscCampuses = locations;
     //});
 
+    if (this.session.academicTerm.code > 0) {
+      var term: number = this.session.academicTerm.code;
+      this.termRates = this.peDataService.getTermTuitionRates(term);
+    }
+
     for (var i = 0; i < this.UscCampuses.length; ++i){
       this.CampusNameArray[i] = this.UscCampuses[i].campusName;
     }
 
-    this.AddClassLocation('');
+    if (this.session.classLocations.length == 0) {
+      this.AddClassLocation('');
+    }
 
   }
 
-  //public session = {
-  //  academicTerm: { code: 20182, name: "2018 Summer" },
-  //  code: {
-  //    sessionCode: "004",
-  //    sessionDesc: "PHAR",
-  //  },
-  //  firstDayOfClasses: new Date("10/01/1996"),
-  //  lastDayOfClasses: new Date("10/31/2006"),
-  //  firstDayOfFinals: new Date("02/25/1995"),
-  //  lastDayOfFinals: new Date("03/01/1995"),
-  //  classLocations: [
-  //    {
-  //      code: { campusCode: "CAT", campusName: "Catalina" },
-  //      startDate: new Date("01/01/1996"),
-  //      endDate: new Date("12/31/1996")
-  //    },
-  //    {
-  //      code: { campusCode: "ATT", campusName: "ATT Center" },
-  //      startDate: new Date("02/01/1997"),
-  //      endDate: new Date("11/31/1997")
-  //    }
-  //  ],
-  //  sessionBreaks: [
-  //    { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
-  //    { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
-  //  ],
-  //  rateType: {
-  //  rateTypeCode: "DENSP",
-  //  rateTypeDesc: "Special Dentistry International",
-  //  rateTypeUnitRate: 1800,
-  //  rateTypeFlatRate: 30409
-  //  },
-  //  flatRateUnitRange: {
-  //    graduate: {
-  //      minimum: 1,
-  //      maximum: 5
-  //    },
-  //    undergraduate: {
-  //      minimum: 6,
-  //      maximum: 10
-  //    }
-  //  },
-  //  specialFees: [
-  //    {
-  //      fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
-  //      amount: 300,
-  //      appliedTo: { gradeCode: "U", gradeName: "Undergraduate" }
-  //    },
-  //    {
-  //      fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
-  //      amount: 500,
-  //      appliedTo: { gradeCode: "G", gradeName: "Graduate" }
-  //    },
-  //    {
-  //      fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
-  //      amount: 100,
-  //      appliedTo: { gradeCode: "B", gradeName: "All" }
-  //    }
-  //  ]
-  //};
-
-
   public session = {
 
-      academicTerm: {
-        code: "",
-        name: ""
+    academicTerm: { code: 20182, name: "2018 Summer" },
+    code: {
+      sessionCode: "004",
+      sessionDesc: "PHAR",
+    },
+    firstDayOfClasses: new Date("10/01/1996"),
+    lastDayOfClasses: new Date("10/31/2006"),
+    firstDayOfFinals: new Date("02/25/1995"),
+    lastDayOfFinals: new Date("03/01/1995"),
+    classLocations: [
+      {
+        code: { campusCode: "CAT", campusName: "Catalina" },
+        startDate: new Date("01/01/1996"),
+        endDate: new Date("12/31/1996")
       },
-
-      code: {
-        sessionCode: "",
-        sessionDesc: "",
+      {
+        code: { campusCode: "ATT", campusName: "ATT Center" },
+        startDate: new Date("02/01/1997"),
+        endDate: new Date("11/31/1997")
+      }
+    ],
+    sessionBreaks: [
+      { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
+      { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+    ],
+    rateType: {
+    rateTypeCode: "DENSP",
+    rateTypeDesc: "Special Dentistry International",
+    rateTypeUnitRate: 1800,
+    rateTypeFlatRate: 30409
+    },
+    flatRateUnitRange: {
+      graduate: {
+        minimum: 1,
+        maximum: 5
       },
-
-      firstDayOfClasses: "",
-
-      lastDayOfClasses: "",
-
-      firstDayOfFinals: "",
-
-      lastDayOfFinals: "",
-
-      classLocations: [],
-
-      sessionBreaks: [],
-
-      rateType: {
-        rateTypeCode: "",
-        rateTypeDesc: "",
-        rateTypeUnitRate: "",
-        rateTypeFlatRate: ""
+      undergraduate: {
+        minimum: 6,
+        maximum: 10
+      }
+    },
+    specialFees: [
+      {
+        fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
+        amount: 300,
+        gradeLevel: { code: "U", name: "Undergraduate" },
+        enrollType: { code: "NONE", name: "Not Enrolled" }
       },
-
-      flatRateUnitRange: {
-        graduate: {
-          minimum: null,
-          maximum: null
-        },
-        undergraduate: {
-          minimum: null,
-          maximum: null
-        }
+      {
+        fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
+        amount: 500,
+        gradeLevel: { code: "G", name: "Graduate" },
+        enrollType: { code: "HALF", name: "Half Load" }
       },
+      {
+        fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
+        amount: 100,
+        gradeLevel: { code: "B", name: "All" },
+        enrollType: { code: "FULL", name: "Full Load"}
+      }
+    ]
+  };
 
-    specialFees: []
-    } // session
+
+  //public session = {
+
+  //    academicTerm: {
+  //      code: "",
+  //      name: ""
+  //    },
+
+  //    code: {
+  //      sessionCode: "",
+  //      sessionDesc: "",
+  //    },
+
+  //    firstDayOfClasses: "",
+
+  //    lastDayOfClasses: "",
+
+  //    firstDayOfFinals: "",
+
+  //    lastDayOfFinals: "",
+
+  //    classLocations: [],
+
+  //    sessionBreaks: [],
+
+  //    rateType: {
+  //      rateTypeCode: "",
+  //      rateTypeDesc: "",
+  //      rateTypeUnitRate: null,
+  //      rateTypeFlatRate: null
+  //    },
+
+  //    flatRateUnitRange: {
+  //      graduate: {
+  //        minimum: null,
+  //        maximum: null
+  //      },
+  //      undergraduate: {
+  //        minimum: null,
+  //        maximum: null
+  //      }
+  //    },
+
+  //  specialFees: []
+  //  } // session
 
 
   public AddClassLocation(selectedCampus: string) {
@@ -181,21 +192,29 @@ export class RequestFormComponent implements OnInit{
     var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
 
     var newLocation = {
-      campusCode: campus[0],
-      startDate: "",
-      endDate: ""
+      code: {
+        campusCode: null,
+        campusName: null
+      },
+      startDate: null,
+      endDate: null
     }
 
     this.session.classLocations.push(newLocation);
 
-    if (this.session.classLocations.length == 1) {
+    if (this.session.classLocations.length == 1) {    // if there is only 1 location, assign the start and end dates
+                                                      // to be the first and last day of classes respectively.
       this.session.classLocations[0].startDate = this.session.firstDayOfClasses;
       this.session.classLocations[0].endDate = this.session.lastDayOfClasses;
-    } else {
+
+    } else {    // require the start and end dates only when there are more than 1 location
+
       if ((this.session.classLocations[0].startDate == this.session.firstDayOfClasses) &&
-        (this.session.classLocations[0].endDate == this.session.lastDayOfClasses))
-        this.session.classLocations[0].startDate = '';
-      this.session.classLocations[0].endDate = '';
+          (this.session.classLocations[0].endDate == this.session.lastDayOfClasses)) {
+        this.session.classLocations[0].startDate = null;
+        this.session.classLocations[0].endDate = null;
+      }
+
     }
 
   }   // AddClassLocation()
@@ -212,7 +231,7 @@ export class RequestFormComponent implements OnInit{
 
       if (this.session.sessionBreaks.length < MAX_SESSION_BREAKS) {
         for (var i = 0; i < MAX_SESSION_BREAKS; ++i) {
-          var newBreak = { startDate: "", endDate: "" };
+          var newBreak = { startDate: null, endDate: null };
           this.session.sessionBreaks.push(newBreak);
         }
       }
@@ -341,10 +360,13 @@ export class RequestFormComponent implements OnInit{
   //}
 
   public FormSubmitted() {
+
     alert('Form Submitted');
     console.log(this.session);
     this.router.navigate(['/confirm-page']);
-  }
+
+  } // FormSubmitted()
+
 
   public RateSelected(rateSelected: any) {
 
@@ -366,8 +388,6 @@ export class RequestFormComponent implements OnInit{
         break;
     }
 
-
-
     if (rateSelected.rateTypeCode == 'ZERO') {
 
       this.session.flatRateUnitRange.graduate.minimum = 98;
@@ -378,10 +398,10 @@ export class RequestFormComponent implements OnInit{
 
     } else {
 
-      this.session.flatRateUnitRange.graduate.minimum = '';
-      this.session.flatRateUnitRange.graduate.maximum = '';
-      this.session.flatRateUnitRange.undergraduate.minimum = '';
-      this.session.flatRateUnitRange.undergraduate.maximum = '';
+      this.session.flatRateUnitRange.graduate.minimum = null;
+      this.session.flatRateUnitRange.graduate.maximum = null;
+      this.session.flatRateUnitRange.undergraduate.minimum = null;
+      this.session.flatRateUnitRange.undergraduate.maximum = null;
       this.disableUnitRange = false;
 
     }

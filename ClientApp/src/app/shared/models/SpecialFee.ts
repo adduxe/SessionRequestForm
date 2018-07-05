@@ -1,6 +1,20 @@
 export class SpecialFee {
-    feeCode: string;
-    amount: number;
-    gradeLevel: string;
-    enrollType: string;
+
+  fee: {
+    code: string;
+    name: string;
   }
+
+  amount: number;
+
+  gradeLevel: {
+    code: string;
+    name: string;
+  }
+
+  enrollType: {
+    code: string;
+    name: string;
+  }
+
+}

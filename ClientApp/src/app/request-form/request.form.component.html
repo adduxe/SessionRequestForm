@@ -48,6 +48,7 @@
           [textField]="'sessionDesc'"
           [filterable]="true"
           (filterChange)="filterSessionCodes($event)"
+          (selectionChange)="SessionCodeSelected($event)"
           style="width:250px;">
     </kendo-dropdownlist>
     &nbsp;<b><abbr title="Choose a code that is assigned to this session.">&#9432;</abbr></b>
@@ -471,18 +472,19 @@
         </a>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-10">&nbsp;</div>
-    <div class="col-md-2">
-      <button class="form-control btn-outline-danger" value="Add Special Fees" (click)="AddSpecialFee(semester);">
-        Add Special Fee
-      </button>
+    <div class="row">
+      <div class="col-md-10">&nbsp;</div>
+      <div class="col-md-2">
+        <button class="form-control btn-outline-danger" value="Add Special Fees" (click)="AddSpecialFee(semester);">
+          Add Special Fee
+        </button>
+      </div>
     </div>
-  </div>
 
+  </div>
   <!-- End of Special Fees Section -->
+
 </div>
 
 <br />
