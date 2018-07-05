@@ -76,7 +76,7 @@ export class SQLDataService {
   }
 
 
-  public getCurrentRevByReqID(reqID: string) {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+  public getCurrentRevByReqID(term: number, sessionCode: string) {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
     return ALLREVISIONSBYREQID[0];
   }
 
@@ -793,65 +793,147 @@ const ALLREQUESTSSTATUS = [
   }
 ];
 
-const ALLREVISIONSBYREQID = [     // new: actual json structure to be followed.  Will eventually replace ALLREVSBYREQUESTID.
-  {
-    academicTerm: { code: 20182, name: "2018 Summer" },
-    code: {
-      sessionCode: "004",
-      sessionDesc: "PHAR",
+//const ALLREVISIONSBYREQID = [     // new: actual json structure to be followed.  Will eventually replace ALLREVSBYREQUESTID.
+//  {
+//    academicTerm: { code: 20182, name: "2018 Summer" },
+//    code: {
+//      sessionCode: "004",
+//      sessionDesc: "PHAR",
+//    },
+//    firstDayOfClasses: new Date("10/01/1996"),
+//    lastDayOfClasses: new Date("10/31/2006"),
+//    firstDayOfFinals: new Date("02/25/1995"),
+//    lastDayOfFinals: new Date("03/01/1995"),
+//    classLocations: [
+//      {
+//        code: { campusCode: "CAT", campusName: "Catalina" },
+//        startDate: new Date("01/01/1996"),
+//        endDate: new Date("12/31/1996")
+//      },
+//      {
+//        code: { campusCode: "ATT", campusName: "ATT Center" },
+//        startDate: new Date("02/01/1997"),
+//        endDate: new Date("11/31/1997")
+//      }
+//    ],
+//    sessionBreaks: [
+//      { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
+//      { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+//    ],
+//    rateType: {
+//      rateTypeCode: "DENSP",
+//      rateTypeDesc: "Special Dentistry International",
+//      rateTypeUnitRate: 1800,
+//      rateTypeFlatRate: 30409
+//    },
+//    flatRateUnitRange: {
+//      graduate: {
+//        minimum: 1,
+//        maximum: 5
+//      },
+//      undergraduate: {
+//        minimum: 6,
+//        maximum: 10
+//      }
+//    },
+//    specialFees: [
+//      {
+//        fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
+//        amount: 300,
+//        appliedTo: { gradeCode: "U", gradeName: "Undergraduate" }
+//      },
+//      {
+//        fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
+//        amount: 500,
+//        appliedTo: { gradeCode: "G", gradeName: "Graduate" }
+//      },
+//      {
+//        fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
+//        amount: 100,
+//        appliedTo: { gradeCode: "B", gradeName: "All" }
+//      }
+//    ]
+//  }
+//];
+
+const ALLREVISIONSBYREQID = {        // new: actual json structure to be followed.  Will eventually replace ALLREVSBYREQUESTID.
+
+  academicTerm: { code: 20182, name: "2018 Summer" },
+
+  code: {
+    sessionCode: "004",
+    sessionDesc: "PHAR",
+  },
+
+  firstDayOfClasses: new Date("10/01/1996"),
+
+  lastDayOfClasses: new Date("10/31/2006"),
+
+  firstDayOfFinals: new Date("02/25/1995"),
+
+  lastDayOfFinals: new Date("03/01/1995"),
+
+  classLocations: [
+    {
+      code: { campusCode: "CAT", campusName: "Catalina" },
+      startDate: new Date("01/01/1996"),
+      endDate: new Date("12/31/1996")
     },
-    firstDayOfClasses: new Date("10/01/1996"),
-    lastDayOfClasses: new Date("10/31/2006"),
-    firstDayOfFinals: new Date("02/25/1995"),
-    lastDayOfFinals: new Date("03/01/1995"),
-    classLocations: [
-      {
-        code: { campusCode: "CAT", campusName: "Catalina" },
-        startDate: new Date("01/01/1996"),
-        endDate: new Date("12/31/1996")
-      },
-      {
-        code: { campusCode: "ATT", campusName: "ATT Center" },
-        startDate: new Date("02/01/1997"),
-        endDate: new Date("11/31/1997")
-      }
-    ],
-    sessionBreaks: [
-      { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
-      { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
-    ],
-    rateType: {
-    rateTypeCode: "DENSP",
-    rateTypeDesc: "Special Dentistry International",
+    {
+      code: { campusCode: "ATT", campusName: "ATT Center" },
+      startDate: new Date("02/01/1997"),
+      endDate: new Date("11/31/1997")
+    }
+  ],
+
+  sessionBreaks: [
+    { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
+    { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+  ],
+
+  rateType: {
+
+    rateTypeCode: "OTHFLAT",
+    rateTypeDesc: "Other Flat Rate",
     rateTypeUnitRate: 1800,
-    rateTypeFlatRate: 30409
-    },
+    rateTypeFlatRate: 30409,
+
     flatRateUnitRange: {
       graduate: {
         minimum: 1,
         maximum: 5
       },
+
       undergraduate: {
         minimum: 6,
         maximum: 10
       }
+    }
+  },
+
+  specialFees: [
+    {
+      fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
+      amount: 300,
+      gradeLevel: { code: "U", name: "Undergraduate" },
+      enrollType: { code: "NONE", name: "Not Enrolled" }
     },
-    specialFees: [
-      {
-        fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
-        amount: 300,
-        appliedTo: { gradeCode: "U", gradeName: "Undergraduate" }
-      },
-      {
-        fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
-        amount: 500,
-        appliedTo: { gradeCode: "G", gradeName: "Graduate" }
-      },
-      {
-        fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
-        amount: 100,
-        appliedTo: { gradeCode: "B", gradeName: "All" }
-      }
-    ]
-  };
-];
+    {
+      fee: { code: "T50920182", name: "Dental Gown Usage Fee" },
+      amount: 500,
+      gradeLevel: { code: "G", name: "Graduate" },
+      enrollType: { code: "HALF", name: "Half Load" }
+    },
+    {
+      fee: { code: "M46720182", name: "Global Ed.D Program Fee" },
+      amount: 100,
+      gradeLevel: { code: "B", name: "All" },
+      enrollType: { code: "FULL", name: "Full Load" }
+    }
+  ],
+
+  comment: "This is the User's comments for this request."
+
+};
+
+

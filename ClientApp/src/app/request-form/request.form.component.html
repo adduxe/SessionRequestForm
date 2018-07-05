@@ -9,51 +9,49 @@
 
 
 <div class="row">
-  <div class="form-group col-md-6" id="semesterBox">
+
+  <div class="form-group col-md-3" id="semesterBox">
 
     <label for="semester" class="control-label">
       For Semester
     </label>
 
-    <br/>
+    <br />
 
-    <kendo-dropdownlist
-          #semester
-          id="semester"
-          [(ngModel)]="session.academicTerm"
-          [data]="semesters"
-          [valueField]="'code'"
-          [textField]="'name'"
-          (selectionChange)="TermSelected($event)">
+    <kendo-dropdownlist #semester
+                        id="semester"
+                        [(ngModel)]="session.academicTerm"
+                        [data]="semesters"
+                        [valueField]="'code'"
+                        [textField]="'name'"
+                        (selectionChange)="TermSelected($event)">
     </kendo-dropdownlist>
     &nbsp;<b><abbr title="Session semester being applied for">&#9432;</abbr></b>
 
   </div>
-</div>
 
-<div class="row">
-  <div class="form-group col-md-6" id="sessionCodeBox">
+  <div class="form-group col-md-5" id="sessionCodeBox">
 
     <label for="sessCode" class="control-label">
-        Session Code
+      Session Code
     </label>
 
     <br />
 
-    <kendo-dropdownlist
-          id="sessCode"
-          [(ngModel)]="session.code"
-          [data]="SessionCodes"
-          [valueField]="'sessionCode'"
-          [textField]="'sessionDesc'"
-          [filterable]="true"
-          (filterChange)="filterSessionCodes($event)"
-          (selectionChange)="SessionCodeSelected($event)"
-          style="width:250px;">
+    <kendo-dropdownlist id="sessCode"
+                        [(ngModel)]="session.code"
+                        [data]="SessionCodes"
+                        [valueField]="'sessionCode'"
+                        [textField]="'sessionDesc'"
+                        [filterable]="true"
+                        (filterChange)="filterSessionCodes($event)"
+                        (selectionChange)="SessionCodeSelected($event)"
+                        style="width:250px;">
     </kendo-dropdownlist>
     &nbsp;<b><abbr title="Choose a code that is assigned to this session.">&#9432;</abbr></b>
 
   </div>
+
 </div>
 
 <h4 style="color:darkred;padding:0px;">Dates</h4>
@@ -485,6 +483,14 @@
   </div>
   <!-- End of Special Fees Section -->
 
+  <div id="userComments">
+
+    <h4 style="color:darkred;padding:0px;">Commments</h4>
+    <hr style="border-color:darkred" />
+    <div class="row" style="float:none; width:100%;">
+      <textarea style="width:100%;">{{ session.comment }}</textarea>
+    </div>
+  </div>
 </div>
 
 <br />
