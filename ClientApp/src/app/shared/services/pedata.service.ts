@@ -32,12 +32,15 @@ export class PEDataService {
     return CAMPUSLOCS;
   }
 
-  public getSpecialFeeList(acadTerm: string): any[]{
+  public getSpecialFeeList(acadTerm: number): any[]{
     return SPECIALFEES;
   }
 
-  public getTermTuitionRates(acadTerm: string){
-    return TUITIONRATES;
+  public getTermTuitionRates(acadTerm: number) {
+
+    var termRates = TUITIONRATES.filter((tRates) => tRates.term == acadTerm);
+    return termRates[0].termRates;
+
   }
 
   public getSessionCodes() {
@@ -127,7 +130,7 @@ const SPECIALFEES = [
 
 const TUITIONRATES = [
   {
-    term: "20182",
+    term: 20182,
     termRates: [{
         rateTypeCode: "BUSG",
         rateTypeDesc: "Graduate Business",
@@ -198,9 +201,20 @@ const TUITIONRATES = [
         rateTypeDesc: "Master in Physician Assistant",
         rateTypeUnitRate: 1800,
         rateTypeFlatRate: 26724
-      }]
+      }, {
+        rateTypeCode: "OTHFLAT",
+        rateTypeDesc: "Other Flat Rate",
+        rateTypeUnitRate: null,
+        rateTypeFlatRate: null
+      }, {
+        rateTypeCode: "OTHUNIT",
+        rateTypeDesc: "Other Unit Rate",
+        rateTypeUnitRate: null,
+        rateTypeFlatRate: null
+      }
+    ]
   }, {
-    term: "20183",
+    term: 20183,
     termRates: [{
         rateTypeCode: "DENSP",
         rateTypeDesc: "Special Dentistry International",
@@ -281,9 +295,20 @@ const TUITIONRATES = [
         rateTypeDesc: "Graduate Engineering",
         rateTypeUnitRate: 2005,
         rateTypeFlatRate: null
-      }]
+      }, {
+        rateTypeCode: "OTHFLAT",
+        rateTypeDesc: "Other Flat Rate",
+        rateTypeUnitRate: null,
+        rateTypeFlatRate: null
+      }, {
+        rateTypeCode: "OTHUNIT",
+        rateTypeDesc: "Other Unit Rate",
+        rateTypeUnitRate: null,
+        rateTypeFlatRate: null
+      }
+    ]
   }, {
-    term: "20191",
+    term: 20191,
     termRates: [{
       rateTypeCode: "MPA",
       rateTypeDesc: "Master in Physician Assistant",
@@ -363,10 +388,20 @@ const TUITIONRATES = [
       rateTypeCode: "BUSG",
       rateTypeDesc: "Graduate Business",
       rateTypeUnitRate: 1912,
+      rateTypeFlatRate: null
+    }, {
+      rateTypeCode: "OTHFLAT",
+      rateTypeDesc: "Other Flat Rate",
+      rateTypeUnitRate: null,
+      rateTypeFlatRate: null
+    }, {
+      rateTypeCode: "OTHUNIT",
+      rateTypeDesc: "Other Unit Rate",
+      rateTypeUnitRate: null,
       rateTypeFlatRate: null
     }]
   }, {
-    term: "20192",
+    term: 20192,
     termRates: [{
       rateTypeCode: "MPA",
       rateTypeDesc: "Master in Physician Assistant",
@@ -446,6 +481,16 @@ const TUITIONRATES = [
       rateTypeCode: "BUSG",
       rateTypeDesc: "Graduate Business",
       rateTypeUnitRate: 1912,
+      rateTypeFlatRate: null
+    }, {
+      rateTypeCode: "OTHFLAT",
+      rateTypeDesc: "Other Flat Rate",
+      rateTypeUnitRate: null,
+      rateTypeFlatRate: null
+    }, {
+      rateTypeCode: "OTHUNIT",
+      rateTypeDesc: "Other Unit Rate",
+      rateTypeUnitRate: null,
       rateTypeFlatRate: null
     }]
   }
@@ -5495,7 +5540,7 @@ const SESSIONCODES = [
 ];
 
 const ACTIVETERMS = [
-  { code: "", name: "" },
+  { code: null, name: "" },
   { code: 20182, name: "2018 Summer" },
   { code: 20183, name: "2018 Fall" },
   { code: 20191, name: "2019 Spring" },

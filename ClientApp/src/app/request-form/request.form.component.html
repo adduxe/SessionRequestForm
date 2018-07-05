@@ -286,7 +286,7 @@
       </div>
     </div>
 
-    <div class="form-group col-md-6" id="blankBox">
+    <div class="form-group col-md-6" id="blankBox"  *ngIf="showFlatRateFields">
       <div class="col-md-6">&nbsp;</div>
       <div class="col-md-6">
         <div class="col-md-6"><b>Min</b></div>
@@ -298,7 +298,7 @@
 
   <div class="row">
 
-    <div class="form-group col-md-6" id="tuitionFlatRateBox">
+    <div class="form-group col-md-6" id="tuitionFlatRateBox"  *ngIf="showFlatRateFields">
       <label for="tuitionFlatRate" class="col-md-5 control-label">
         Tuition Amount Flat Rate
       </label>
@@ -313,7 +313,7 @@
       </div>
     </div>
 
-    <div class="form-group col-md-6" id="ugradFlatRateRangeBox">
+    <div class="form-group col-md-6" id="ugradFlatRateRangeBox"  *ngIf="showFlatRateFields">
 
       <label for="flatUnitsMin" class="col-md-6 control-label">
         <abbr title="Tuition flat rate range in units">Undergrad Flat Rate Range (units)</abbr>
@@ -326,6 +326,7 @@
                               [format]="'n0'"
                               [min]="1"
                               [max]="MAXUNITS - 1"
+                              [disabled]="disableUnitRange"
                               style="width:75px;">
         </kendo-numerictextbox>
 
@@ -336,6 +337,7 @@
                               [format]="'n0'"
                               [min]="2"
                               [max]="MAXUNITS - 1"
+                              [disabled]="disableUnitRange"
                               style="width:75px;">
         </kendo-numerictextbox>
         &nbsp;<b><abbr title="Indicate the Undergraduate Flat Rate Unit Range.">&#9432;</abbr></b>
@@ -347,7 +349,7 @@
 
   <div class="row">
 
-    <div class="form-group col-md-6" id="tuitionPerUnitBox">
+    <div class="form-group col-md-6" id="tuitionPerUnitBox" *ngIf="showPerUnitBox">
 
       <label for="tuitionUnitRate" class="col-md-5 control-label">
         Tuition Amount per Unit
@@ -365,7 +367,7 @@
       </div>
     </div>
 
-    <div class="form-group col-md-6" id="gradFlatRateRangeBox">
+    <div class="form-group col-md-6" id="gradFlatRateRangeBox" *ngIf="showFlatRateFields">
 
       <label for="gradFlatUnitsMin" class="col-md-6 control-label">
         <abbr title="Tuition flat rate in dollars">Graduate Flat Rate Range (units)</abbr>
@@ -378,6 +380,7 @@
                               [format]="'n0'"
                               [min]="1"
                               [max]="MAXUNITS - 1"
+                              [disabled]="disableUnitRange"
                               style="width:75px;">
         </kendo-numerictextbox>
 
@@ -388,6 +391,7 @@
                               [format]="'n0'"
                               [min]="2"
                               [max]="MAXUNITS - 1"
+                              [disabled]="disableUnitRange"
                               style="width:75px;">
         </kendo-numerictextbox>
         &nbsp;<b><abbr title="Indicate the Graduate Flat Rate Unit Range.">&#9432;</abbr></b>

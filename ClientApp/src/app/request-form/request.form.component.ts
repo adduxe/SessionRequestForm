@@ -40,6 +40,9 @@ export class RequestFormComponent implements OnInit{
   public CampusNameArray: string[] = [];
   public EnrollTypes: any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
+  public disableUnitRange: boolean = false;
+  public showPerUnitBox: boolean = false;
+  public showFlatRateFields: boolean = false;
 
   constructor(
     private peDataService: PEDataService,
@@ -263,7 +266,7 @@ export class RequestFormComponent implements OnInit{
   }
 
 
-  private formSpecialFeeArray(acadTerm: string, feeList: any): any[] {
+  private formSpecialFeeArray(acadTerm: number, feeList: any): any[] {
 
     var specFeeArray: any[] = [];
     var feeName: string = "";
@@ -308,12 +311,24 @@ export class RequestFormComponent implements OnInit{
     return cleanStr;
   }
 
+  private ResetRateFields() {
+
+    this.session.rateType.rateTypeCode = null;
+    this.session.rateType.rateTypeDesc = null;
+    this.session.rateType.rateTypeFlatRate = null;
+    this.session.rateType.rateTypeUnitRate = null;
+    this.session.flatRateUnitRange.undergraduate.minimum = null;
+    this.session.flatRateUnitRange.undergraduate.maximum = null;
+    this.session.flatRateUnitRange.undergraduate.minimum = null;
+    this.session.flatRateUnitRange.undergraduate.maximum = null;
+
+  }
+
   public TermSelected(selectedTerm: any) {
 
-    var term = selectedTerm.code;
-
-    var TuitionRates = this.peDataService.getTermTuitionRates(term);
-    this.termRates = TuitionRates[0].termRates;
+    var term: number = selectedTerm.code;
+    this.termRates = this.peDataService.getTermTuitionRates(term);
+    this.ResetRateFields();
 
     var FeeList = this.peDataService.getSpecialFeeList(term);
     this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
@@ -325,10 +340,6 @@ export class RequestFormComponent implements OnInit{
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
   //}
 
-  public CampusEntered(event: any) {
-    alert('valueChange: ' + event);
-  }
-
   public FormSubmitted() {
     alert('Form Submitted');
     console.log(this.session);
@@ -337,11 +348,42 @@ export class RequestFormComponent implements OnInit{
 
   public RateSelected(rateSelected: any) {
 
+    switch (rateSelected.rateTypeCode) {
+
+      case 'OTHFLAT':
+        this.showFlatRateFields = true;
+        this.showPerUnitBox = true;
+        break;
+
+      case 'OTHUNIT':
+        this.showFlatRateFields = false;
+        this.showPerUnitBox = true;
+        break;
+
+      default:
+        this.showFlatRateFields = false;
+        this.showPerUnitBox = false;
+        break;
+    }
+
+
+
     if (rateSelected.rateTypeCode == 'ZERO') {
+
       this.session.flatRateUnitRange.graduate.minimum = 98;
       this.session.flatRateUnitRange.graduate.maximum = 99;
       this.session.flatRateUnitRange.undergraduate.minimum = 98;
       this.session.flatRateUnitRange.undergraduate.maximum = 99;
+      this.disableUnitRange = true;
+
+    } else {
+
+      this.session.flatRateUnitRange.graduate.minimum = '';
+      this.session.flatRateUnitRange.graduate.maximum = '';
+      this.session.flatRateUnitRange.undergraduate.minimum = '';
+      this.session.flatRateUnitRange.undergraduate.maximum = '';
+      this.disableUnitRange = false;
+
     }
 
   }
