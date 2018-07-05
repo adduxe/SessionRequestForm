@@ -323,7 +323,7 @@
       <div class="col-md-6" style="align-items:center;">
 
         <kendo-numerictextbox id="flatUnitsMin"
-                              [(ngModel)]="session.flatRateUnitRange.undergraduate.minimum"
+                              [(ngModel)]="session.rateType.flatRateUnitRange.undergraduate.minimum"
                               [format]="'n0'"
                               [min]="1"
                               [max]="MAXUNITS - 1"
@@ -334,7 +334,7 @@
         &nbsp;to&nbsp;
 
         <kendo-numerictextbox id="flatUnitsMax"
-                              [(ngModel)]="session.flatRateUnitRange.undergraduate.maximum"
+                              [(ngModel)]="session.rateType.flatRateUnitRange.undergraduate.maximum"
                               [format]="'n0'"
                               [min]="2"
                               [max]="MAXUNITS - 1"
@@ -377,7 +377,7 @@
       <div class="col-md-6" style="align-items:center;">
 
         <kendo-numerictextbox id="gradFlatUnitsMin"
-                              [(ngModel)]="session.flatRateUnitRange.graduate.minimum"
+                              [(ngModel)]="session.rateType.flatRateUnitRange.graduate.minimum"
                               [format]="'n0'"
                               [min]="1"
                               [max]="MAXUNITS - 1"
@@ -388,7 +388,7 @@
         &nbsp;to&nbsp;
 
         <kendo-numerictextbox id="gradFlatUnitsMax"
-                              [(ngModel)]="session.flatRateUnitRange.graduate.maximum"
+                              [(ngModel)]="session.rateType.flatRateUnitRange.graduate.maximum"
                               [format]="'n0'"
                               [min]="2"
                               [max]="MAXUNITS - 1"

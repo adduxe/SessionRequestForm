@@ -30,29 +30,31 @@ export class RequestFormComponent implements OnInit{
 
   pageTitle: string = "Session Request Form";
 
-  public MAXUNITS: number = 100;
-  public UscCampuses: any[];
-  public SpecialFeeList: any[];
-  public termRates: any[];
-  public SessionCodes: any[];
-  public semesters: any[];
-  public GradeLevel: any[] = GRADELEVEL;
+  public MAXUNITS       : number = 100;
+  public UscCampuses    : any[];
+  public SpecialFeeList : any[];
+  public termRates      : any[];
+  public SessionCodes   : any[];
+  public semesters      : any[];
+  public GradeLevel     : any[] = GRADELEVEL;
   public CampusNameArray: string[] = [];
-  public EnrollTypes: any[] = ENROLLMENTTYPES;
+  public EnrollTypes    : any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
   public disableUnitRange: boolean = false;
-  public showPerUnitBox: boolean = false;
+  public showPerUnitBox : boolean = false;
   public showFlatRateFields: boolean = false;
 
   constructor(
     private peDataService: PEDataService,
     private router: Router
   ) {
+
     this.UscCampuses = this.peDataService.getCampusLocations();
 
     this.SessionCodes = this.peDataService.getSessionCodes();
     this.semesters = this.peDataService.getActiveTerms();
-  }
+  } // constructor()
+
 
   ngOnInit() {
 
@@ -60,9 +62,17 @@ export class RequestFormComponent implements OnInit{
     //  this.UscCampuses = locations;
     //});
 
-    if (this.session.academicTerm.code > 0) {
+    if (this.session.academicTerm.code > 0) {                           // if existing request exists,
+
       var term: number = this.session.academicTerm.code;
-      this.termRates = this.peDataService.getTermTuitionRates(term);
+
+      this.termRates = this.peDataService.getTermTuitionRates(term);    // get the term-related rates
+
+      var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
+      this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
+
+      this.RateSelected(this.session.rateType);
+
     }
 
     for (var i = 0; i < this.UscCampuses.length; ++i){
@@ -73,19 +83,26 @@ export class RequestFormComponent implements OnInit{
       this.AddClassLocation('');
     }
 
-  }
+  }   // ngOnInit()
+
 
   public session = {
 
     academicTerm: { code: 20182, name: "2018 Summer" },
+
     code: {
       sessionCode: "004",
       sessionDesc: "PHAR",
     },
+
     firstDayOfClasses: new Date("10/01/1996"),
+
     lastDayOfClasses: new Date("10/31/2006"),
+
     firstDayOfFinals: new Date("02/25/1995"),
+
     lastDayOfFinals: new Date("03/01/1995"),
+
     classLocations: [
       {
         code: { campusCode: "CAT", campusName: "Catalina" },
@@ -98,26 +115,32 @@ export class RequestFormComponent implements OnInit{
         endDate: new Date("11/31/1997")
       }
     ],
+
     sessionBreaks: [
       { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
       { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
     ],
+
     rateType: {
-    rateTypeCode: "DENSP",
-    rateTypeDesc: "Special Dentistry International",
-    rateTypeUnitRate: 1800,
-    rateTypeFlatRate: 30409
+
+      rateTypeCode: "OTHFLAT",
+      rateTypeDesc: "Other Flat Rate",
+      rateTypeUnitRate: 1800,
+      rateTypeFlatRate: 30409,
+
+      flatRateUnitRange: {
+          graduate: {
+            minimum: 1,
+            maximum: 5
+          },
+
+          undergraduate: {
+            minimum: 6,
+            maximum: 10
+          }
+        }
     },
-    flatRateUnitRange: {
-      graduate: {
-        minimum: 1,
-        maximum: 5
-      },
-      undergraduate: {
-        minimum: 6,
-        maximum: 10
-      }
-    },
+
     specialFees: [
       {
         fee: { code: "T30320182", name: "CNTV Resource Access Fee" },
@@ -137,7 +160,10 @@ export class RequestFormComponent implements OnInit{
         gradeLevel: { code: "B", name: "All" },
         enrollType: { code: "FULL", name: "Full Load"}
       }
-    ]
+    ],
+
+    comment: "This is the User's comments for this request."
+
   };
 
 
@@ -336,10 +362,10 @@ export class RequestFormComponent implements OnInit{
     this.session.rateType.rateTypeDesc = null;
     this.session.rateType.rateTypeFlatRate = null;
     this.session.rateType.rateTypeUnitRate = null;
-    this.session.flatRateUnitRange.undergraduate.minimum = null;
-    this.session.flatRateUnitRange.undergraduate.maximum = null;
-    this.session.flatRateUnitRange.undergraduate.minimum = null;
-    this.session.flatRateUnitRange.undergraduate.maximum = null;
+    this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
+    this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
+    this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
+    this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
 
   }
 
@@ -372,6 +398,14 @@ export class RequestFormComponent implements OnInit{
 
     switch (rateSelected.rateTypeCode) {
 
+      case 'ZERO':
+        this.session.rateType.flatRateUnitRange.graduate.minimum = 98;
+        this.session.rateType.flatRateUnitRange.graduate.maximum = 99;
+        this.session.rateType.flatRateUnitRange.undergraduate.minimum = 98;
+        this.session.rateType.flatRateUnitRange.undergraduate.maximum = 99;
+        this.disableUnitRange = true;
+        break;
+
       case 'OTHFLAT':
         this.showFlatRateFields = true;
         this.showPerUnitBox = true;
@@ -380,31 +414,33 @@ export class RequestFormComponent implements OnInit{
       case 'OTHUNIT':
         this.showFlatRateFields = false;
         this.showPerUnitBox = true;
+
+        this.session.rateType.flatRateUnitRange.graduate.minimum = null;
+        this.session.rateType.flatRateUnitRange.graduate.maximum = null;
+        this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
+        this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
         break;
 
       default:
+
+        this.session.rateType.flatRateUnitRange.graduate.minimum = null;
+        this.session.rateType.flatRateUnitRange.graduate.maximum = null;
+        this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
+        this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
+
+        this.disableUnitRange = false;
         this.showFlatRateFields = false;
         this.showPerUnitBox = false;
         break;
     }
 
-    if (rateSelected.rateTypeCode == 'ZERO') {
+    //if (rateSelected.rateTypeCode == 'ZERO') {
 
-      this.session.flatRateUnitRange.graduate.minimum = 98;
-      this.session.flatRateUnitRange.graduate.maximum = 99;
-      this.session.flatRateUnitRange.undergraduate.minimum = 98;
-      this.session.flatRateUnitRange.undergraduate.maximum = 99;
-      this.disableUnitRange = true;
 
-    } else {
+    //} else {
 
-      this.session.flatRateUnitRange.graduate.minimum = null;
-      this.session.flatRateUnitRange.graduate.maximum = null;
-      this.session.flatRateUnitRange.undergraduate.minimum = null;
-      this.session.flatRateUnitRange.undergraduate.maximum = null;
-      this.disableUnitRange = false;
 
-    }
+    //}
 
   }
 
