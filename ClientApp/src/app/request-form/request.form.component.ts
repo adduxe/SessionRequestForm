@@ -91,8 +91,10 @@ export class RequestFormComponent implements OnInit{
     comment: ''
   }; // session
 
-  private modifyRequest: boolean = true;
-
+  private term: number = 20183;
+  private sessionCode: string = "555";
+  private preLoadValues: boolean = false;
+  
   constructor(
     private peDataService: PEDataService,
     private sqlDataService: SQLDataService,
@@ -108,8 +110,10 @@ export class RequestFormComponent implements OnInit{
 
   ngOnInit() {
 
-    if (this.modifyRequest) {
+    if ((this.term > 0) && (this.sessionCode > '')) {
+      this.preLoadValues = true;
       this.PreLoadTheForm();
+      this.preLoadValues = false;
     }
 
     //this.peDataService.getCampusLocations().subscribe(locations => {
@@ -140,7 +144,7 @@ export class RequestFormComponent implements OnInit{
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
-      this.RateSelected(this.session.rateType);
+//      this.RateSelected(this.session.rateType);
     }
   }   // PreLoadTheForm()
 
@@ -356,7 +360,7 @@ export class RequestFormComponent implements OnInit{
 
       case 'ZERO':
 
-        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+        if (!this.preLoadValues) {          // New request?  Don't set the unit range fields.
           this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
         }
         this.disableUnitRange = true;
@@ -364,7 +368,7 @@ export class RequestFormComponent implements OnInit{
 
       case 'OTHFLAT':
 
-        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+        if (!this.preLoadValues) {          // New request?  Don't set the unit range fields.
           this.BlankOutFlatRateUnitRangeFields();
         }
         this.requireFlatRateFields = true;
@@ -373,7 +377,7 @@ export class RequestFormComponent implements OnInit{
 
       case 'OTHUNIT':
 
-        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+        if (!this.preLoadValues) {          // New request?  Don't set the unit range fields.
           this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
         }
         this.requireFlatRateFields = false;
@@ -382,7 +386,7 @@ export class RequestFormComponent implements OnInit{
 
       default:
 
-        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+        if (!this.preLoadValues) {          // New request?  Don't set the unit range fields.
           this.BlankOutFlatRateUnitRangeFields();
         }
         this.disableUnitRange = false;
@@ -390,6 +394,7 @@ export class RequestFormComponent implements OnInit{
         this.showPerUnitBox = false;
         break;
     }
+    return;
   }   // RateSelected()
 
 }
