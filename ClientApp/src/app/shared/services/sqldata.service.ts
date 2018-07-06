@@ -51,32 +51,32 @@ export class SQLDataService {
   }
 
 
-  public getCurrentRevisionByRequestID(reqID: string) {    // gets the latest revision's data (assumes the first record is the latest)
+  public getCurrentRevisionByRequestID(acadTerm: number, sessCode: string) {    // gets the latest revision's data (assumes the first record is the latest)
     return ALLVERSIONSPERREQUEST[0];
   }
 
 
-  public getRequestByRevisionID(reqID: string, revNum: number) {          // Just one revision's data by Revision ID
+  public getRequestByRevisionID(acadTerm: number, sessCode: string, revNum: number) {          // Just one revision's data by Revision ID
     return ALLVERSIONSPERREQUEST.find(req => req.version === revNum);
   }
 
 
-  public getAllRevsStatusByRequestID(reqID: string) {     // All revisions' status associated to a request by Request ID (i.e. Term + Sess Code)
+  public getAllRevsStatusByRequestID(acadTerm: number, sessCode: string) {     // All revisions' status associated to a request by Request ID (i.e. Term + Sess Code)
     return ALLREVSBYREQUESTID.revisions;
   }
 
 
-  public getAllRevsDataByRequestID(reqID: string) {       // All revisions' data associated to a request by Request ID (i.e. Term + Sess Code)
+  public getAllRevsDataByRequestID(acadTerm: number, sessCode: string) {      // All revisions' data associated to a request
     return ALLVERSIONSPERREQUEST;
   }
 
 
-  public getPreviousRevisionByRequestID(reqID: string) {               // Get the most recent revision with a status
+  public getPreviousRevisionByRequestID(acadTerm: number, sessCode: string) { // Get the most recent revision with a status
     return PREVIOUSREQUEST;
   }
 
 
-  public getCurrentRevByReqID(term: number, sessionCode: string) {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+  public getCurrentRevByReqID(acadTerm: number, sessionCode: string) {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
     return ALLREVISIONSBYREQID;
   }
 

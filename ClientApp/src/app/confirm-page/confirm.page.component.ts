@@ -37,7 +37,6 @@ export class ConfirmPageComponent implements OnInit{
 
   private term: number = 20183;
   private sessionCode: string = "888";
-  private requestID: string = this.term.toString() + this.sessionCode;
   private acadYear: number = +(this.term.toString().substr(0,4));
 
   public session: any;
@@ -46,7 +45,7 @@ export class ConfirmPageComponent implements OnInit{
   public USCHolidays: any[];
 
   constructor(private sqlDataService: SQLDataService, private peDataService: PEDataService) {
-    this.session = sqlDataService.getRequestByRevisionID(this.requestID, this.revNumber);
+    this.session = sqlDataService.getRequestByRevisionID(this.term, this.sessionCode, this.revNumber);
     this.Session001Dates = this.peDataService.GetSession001(this.term.toString());
     this.USCHolidays = this.peDataService.GetUSCHolidays(this.acadYear);
   }

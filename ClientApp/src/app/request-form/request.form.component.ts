@@ -112,7 +112,6 @@ export class RequestFormComponent implements OnInit{
     //});
     this.session = this.sqlDataService.getCurrentRevByReqID(20183, "555");
 
-
     if (this.session.academicTerm.code > 0) {                           // if existing request exists,
 
       var term: number = this.session.academicTerm.code;
@@ -280,6 +279,7 @@ export class RequestFormComponent implements OnInit{
     return cleanStr;
   }
 
+
   private ResetRateFields() {
 
     this.session.rateType.rateTypeCode = null;
@@ -292,6 +292,7 @@ export class RequestFormComponent implements OnInit{
     this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
 
   }
+
 
   public TermSelected(selectedTerm: any) {
 
@@ -346,7 +347,6 @@ export class RequestFormComponent implements OnInit{
         break;
 
       default:
-
         this.session.rateType.flatRateUnitRange.graduate.minimum = null;
         this.session.rateType.flatRateUnitRange.graduate.maximum = null;
         this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
@@ -357,15 +357,6 @@ export class RequestFormComponent implements OnInit{
         this.showPerUnitBox = false;
         break;
     }
-
-    //if (rateSelected.rateTypeCode == 'ZERO') {
-
-
-    //} else {
-
-
-    //}
-
-  }
+  }   // RateSelected()
 
 }

@@ -14,7 +14,9 @@ import { SQLDataService } from '../shared/services/sqldata.service';
 
 export class DiffPageComponent{
 
-  private reqID: string = "20183888";
+  private term: number = 20183;
+  private sessionCode: string = "888";
+  private reqID: string = this.term.toString() + this.sessionCode;
   private revID: number = 4;
   private subScribe: any;
 
@@ -28,9 +30,9 @@ export class DiffPageComponent{
 
   constructor(private sqlDataService: SQLDataService, private route: ActivatedRoute) {
 
-    this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.reqID);
-    this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.reqID);
-    this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.reqID);
+    this.currSess = this.sqlDataService.getCurrentRevisionByRequestID(this.term, this.sessionCode);
+    this.prevSess = this.sqlDataService.getPreviousRevisionByRequestID(this.term, this.sessionCode);
+    this.allRevsData = this.sqlDataService.getAllRevsDataByRequestID(this.term, this.sessionCode);
 
   }
 
