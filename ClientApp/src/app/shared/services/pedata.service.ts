@@ -28,8 +28,8 @@ export class PEDataService {
 
     var activeTerms: any[];
 
-    return this.ComputeActiveTerms();
-//    return ACTIVETERMS;
+    return this.ComputeActiveTerms();     // not sure if we still need a call to PE for this
+
   }
 
   public getCampusLocations(): any[]{
@@ -51,7 +51,7 @@ export class PEDataService {
     return SESSIONCODES;
   }
 
-  public GetSession001(term: string) {
+  public GetSession001(term: number) {
     return SESSION001DATES;
   }
 
@@ -5594,14 +5594,6 @@ const SESSIONCODES = [
     sessionDesc: "TEST999",
     ugUnitFeeFlag: "N"
   }
-];
-
-const ACTIVETERMS = [
-  { code: null, name: "" },
-  { code: 20182, name: "2018 Summer" },
-  { code: 20183, name: "2018 Fall" },
-  { code: 20191, name: "2019 Spring" },
-  { code: 20192, name: "2019 Summer" }
 ];
 
 const SESSION001DATES = {

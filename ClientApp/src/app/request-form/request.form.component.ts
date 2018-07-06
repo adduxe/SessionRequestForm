@@ -41,10 +41,9 @@ export class RequestFormComponent implements OnInit{
   public CampusNameArray: string[] = [];
   public EnrollTypes    : any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
-  public disableUnitRange: boolean = false;
   public showPerUnitBox : boolean = false;
-  public showFlatRateFields: boolean = false;
-//  public session: any;
+  public disableUnitRange     : boolean = false;
+  public requireFlatRateFields: boolean = false;
 
   public session : any = {
 
@@ -71,26 +70,28 @@ export class RequestFormComponent implements OnInit{
     sessionBreaks: [],
 
     rateType: {
+
       rateTypeCode: null,
       rateTypeDesc: null,
       rateTypeUnitRate: null,
-      rateTypeFlatRate: null
-    },
+      rateTypeFlatRate: null,
 
-    flatRateUnitRange: {
-      graduate: {
-        minimum: null,
-        maximum: null
+      flatRateUnitRange: {
+          graduate: {
+            minimum: null,
+            maximum: null
+          },
+          undergraduate: {
+            minimum: null,
+            maximum: null
+          }
       },
-      undergraduate: {
-        minimum: null,
-        maximum: null
-      }
     },
-
-    specialFees: []
+    specialFees: [],
+    comment: ''
   }; // session
 
+  private modifyRequest: boolean = true;
 
   constructor(
     private peDataService: PEDataService,
@@ -107,9 +108,27 @@ export class RequestFormComponent implements OnInit{
 
   ngOnInit() {
 
+    if (this.modifyRequest) {
+      this.PreLoadTheForm();
+    }
+
     //this.peDataService.getCampusLocations().subscribe(locations => {
     //  this.UscCampuses = locations;
     //});
+
+    for (var i = 0; i < this.UscCampuses.length; ++i){
+      this.CampusNameArray[i] = this.UscCampuses[i].campusName;
+    }
+
+    if (this.session.classLocations.length == 0) {
+      this.AddClassLocation('');
+    }
+
+  }   // ngOnInit()
+
+
+  private PreLoadTheForm() {
+
     this.session = this.sqlDataService.getCurrentRevByReqID(20183, "555");
 
     if (this.session.academicTerm.code > 0) {                           // if existing request exists,
@@ -121,19 +140,9 @@ export class RequestFormComponent implements OnInit{
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
-      this.RateSelected(this.session.rateType);
-
+      //      this.RateSelected(this.session.rateType);
     }
-
-    for (var i = 0; i < this.UscCampuses.length; ++i){
-      this.CampusNameArray[i] = this.UscCampuses[i].campusName;
-    }
-
-    if (this.session.classLocations.length == 0) {
-      this.AddClassLocation('');
-    }
-
-  }   // ngOnInit()
+  }   // PreLoadTheForm()
 
 
   public AddClassLocation(selectedCampus: string) {
@@ -284,14 +293,16 @@ export class RequestFormComponent implements OnInit{
 
     this.session.rateType.rateTypeCode = null;
     this.session.rateType.rateTypeDesc = null;
+
     this.session.rateType.rateTypeFlatRate = null;
     this.session.rateType.rateTypeUnitRate = null;
+
     this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
     this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
     this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
     this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
 
-  }
+  }   // ResetRateFields()
 
 
   public TermSelected(selectedTerm: any) {
@@ -319,41 +330,54 @@ export class RequestFormComponent implements OnInit{
   } // FormSubmitted()
 
 
-  public RateSelected(rateSelected: any) {
+  private BlankOutFlatRateUnitRangeFields(): void {      // Blank out the Flat Rate Unit Range fields
+
+    this.session.rateType.flatRateUnitRange.graduate.minimum = null;
+    this.session.rateType.flatRateUnitRange.graduate.maximum = null;
+    this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
+    this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
+
+  }   // BlankOutFlatRateUnitRangeFields()
+
+
+  private MaxOutFlatRateUnitRangeFields(): void {       // Sets the min and max unit ranges to maximum values.
+    
+    this.session.rateType.flatRateUnitRange.graduate.maximum = this.MAXUNITS;
+    this.session.rateType.flatRateUnitRange.graduate.minimum = this.MAXUNITS - 1;
+    this.session.rateType.flatRateUnitRange.undergraduate.maximum = this.MAXUNITS;
+    this.session.rateType.flatRateUnitRange.undergraduate.minimum = this.MAXUNITS - 1;
+
+  }   // MaxOutFlatRateUnitRangeFields()
+
+
+  public RateSelected(rateSelected: any): void {
 
     switch (rateSelected.rateTypeCode) {
 
       case 'ZERO':
-        this.session.rateType.flatRateUnitRange.graduate.minimum = 98;
-        this.session.rateType.flatRateUnitRange.graduate.maximum = 99;
-        this.session.rateType.flatRateUnitRange.undergraduate.minimum = 98;
-        this.session.rateType.flatRateUnitRange.undergraduate.maximum = 99;
+        this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
         this.disableUnitRange = true;
         break;
 
       case 'OTHFLAT':
-        this.showFlatRateFields = true;
+
+        this.BlankOutFlatRateUnitRangeFields();
+        this.requireFlatRateFields = true;
         this.showPerUnitBox = true;
         break;
 
       case 'OTHUNIT':
-        this.showFlatRateFields = false;
-        this.showPerUnitBox = true;
 
-        this.session.rateType.flatRateUnitRange.graduate.minimum = null;
-        this.session.rateType.flatRateUnitRange.graduate.maximum = null;
-        this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
-        this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
+        this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
+        this.requireFlatRateFields = false;
+        this.showPerUnitBox = true;
         break;
 
       default:
-        this.session.rateType.flatRateUnitRange.graduate.minimum = null;
-        this.session.rateType.flatRateUnitRange.graduate.maximum = null;
-        this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
-        this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
 
+        this.BlankOutFlatRateUnitRangeFields();
         this.disableUnitRange = false;
-        this.showFlatRateFields = false;
+        this.requireFlatRateFields = false;
         this.showPerUnitBox = false;
         break;
     }

@@ -46,7 +46,7 @@ export class ConfirmPageComponent implements OnInit{
 
   constructor(private sqlDataService: SQLDataService, private peDataService: PEDataService) {
     this.session = sqlDataService.getRequestByRevisionID(this.term, this.sessionCode, this.revNumber);
-    this.Session001Dates = this.peDataService.GetSession001(this.term.toString());
+    this.Session001Dates = this.peDataService.GetSession001(this.term);
     this.USCHolidays = this.peDataService.GetUSCHolidays(this.acadYear);
   }
 
