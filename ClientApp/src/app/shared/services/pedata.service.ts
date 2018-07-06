@@ -25,7 +25,11 @@ export class PEDataService {
   //}
 
   public getActiveTerms() {
-    return ACTIVETERMS;
+
+    var activeTerms: any[];
+
+    return this.ComputeActiveTerms();
+//    return ACTIVETERMS;
   }
 
   public getCampusLocations(): any[]{
@@ -62,7 +66,60 @@ export class PEDataService {
     return HOLIDAYS;
   }
 
+  private ComputeActiveTerms(): any[] {
+
+    var currDate = new Date();
+    var currYear = currDate.getFullYear();
+    var nextYear = parseInt(currYear.toString()) + 1;
+
+    var springDate = new Date("01/01/" + currYear);
+    var summerDate = new Date("05/01/" + currYear);
+    var fallDate = new Date("08/01/" + currYear);
+
+    var semChoices = [];
+
+    switch (true) {
+
+      case (currDate >= springDate) && (currDate < summerDate): // Display semesters from Spring current year to Spring next year 
+
+        semChoices = [
+          { code: null, name: "" },
+          { code: currYear + '1', name: currYear + ' Spring' },
+          { code: currYear + '2', name: currYear + ' Summer' },
+          { code: currYear + '3', name: currYear + ' Fall' },
+          { code: currYear + '1', name: nextYear + ' Spring' }
+        ];
+        break;
+
+      case (currDate >= summerDate) && (currDate < fallDate): // Display semesters from Summer current year to Summer next year
+
+        semChoices = [
+          { code: null, name: "" },
+          { code: currYear + '2', name: currYear + ' Summer' },
+          { code: currYear + '3', name: currYear + ' Fall' },
+          { code: nextYear + '1', name: nextYear + ' Spring' },
+          { code: nextYear + '2', name: nextYear + ' Summer' }
+        ];
+        break;
+
+      default:                                                // Display semested from current year's Fall to next year's Fall
+        semChoices = [
+          { code: null, name: "" },
+          { code: currYear + '3', name: currYear + ' Fall' },
+          { code: nextYear + '1', name: currYear + ' Spring' },
+          { code: nextYear + '2', name: nextYear + ' Summer' },
+          { code: nextYear + '3', name: nextYear + ' Fall' }
+        ];
+        break;
+
+    }   // switch()
+
+    return semChoices;
+  }
+
 }
+
+
 
 const CAMPUSLOCS = [
   {
