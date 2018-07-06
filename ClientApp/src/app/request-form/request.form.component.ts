@@ -140,7 +140,7 @@ export class RequestFormComponent implements OnInit{
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
-      //      this.RateSelected(this.session.rateType);
+      this.RateSelected(this.session.rateType);
     }
   }   // PreLoadTheForm()
 
@@ -355,27 +355,36 @@ export class RequestFormComponent implements OnInit{
     switch (rateSelected.rateTypeCode) {
 
       case 'ZERO':
-        this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
+
+        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+          this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
+        }
         this.disableUnitRange = true;
         break;
 
       case 'OTHFLAT':
 
-        this.BlankOutFlatRateUnitRangeFields();
+        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+          this.BlankOutFlatRateUnitRangeFields();
+        }
         this.requireFlatRateFields = true;
         this.showPerUnitBox = true;
         break;
 
       case 'OTHUNIT':
 
-        this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
+        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+          this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
+        }
         this.requireFlatRateFields = false;
         this.showPerUnitBox = true;
         break;
 
       default:
 
-        this.BlankOutFlatRateUnitRangeFields();
+        if (this.modifyRequest == false) {          // New request?  Don't set the unit range fields.
+          this.BlankOutFlatRateUnitRangeFields();
+        }
         this.disableUnitRange = false;
         this.requireFlatRateFields = false;
         this.showPerUnitBox = false;
