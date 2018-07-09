@@ -3,6 +3,58 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/RX';
 import { catchError } from 'rxjs/operators';
 
+interface peRate {
+  rateTypeCode: string;
+  rateTypeDesc: string;
+  rateTypeUnitRate: number;
+  rateTypeFlatRate: number;
+};
+
+class range {
+  minimum: number;
+  maximum: number;
+};
+
+class flatRate {
+  graduate: range;
+  undergraduate: range;
+};
+
+
+class rate {
+
+  rateTypeCode: string;
+
+  rateTypeDesc: string;
+
+  rateTypeUnitRate: number;
+
+  rateTypeFlatRate: number;
+
+  flatRateUnitRange: flatRate;
+
+  constructor(PErate: peRate) {
+
+    this.rateTypeCode = PErate.rateTypeCode;
+    this.rateTypeDesc = PErate.rateTypeDesc;
+    this.rateTypeUnitRate = PErate.rateTypeUnitRate;
+    this.rateTypeFlatRate = PErate.rateTypeFlatRate;
+
+    this.flatRateUnitRange = new flatRate();
+    this.flatRateUnitRange.graduate = new range();
+    this.flatRateUnitRange.undergraduate = new range();
+
+    this.flatRateUnitRange.graduate.minimum = null;
+    this.flatRateUnitRange.graduate.maximum = null;
+    this.flatRateUnitRange.undergraduate.minimum = null;
+    this.flatRateUnitRange.undergraduate.maximum = null;
+
+  } // constructor()
+
+}
+
+
+
 @Injectable()
 
 export class PEDataService {
@@ -42,8 +94,17 @@ export class PEDataService {
 
   public getTermTuitionRates(acadTerm: number) {
 
-    var termRates = TUITIONRATES.filter((tRates) => tRates.term == acadTerm);
-    return termRates[0].termRates;
+    var rawRates = TUITIONRATES.filter((tRates) => tRates.term == acadTerm);
+
+    var termRates = rawRates[0].termRates;
+    var rateArray = new Array<rate>();
+
+    for (var i = 0; i < termRates.length; ++i) {
+      var eachRate = new rate(termRates[i]);
+      rateArray.push(eachRate);
+    }
+
+    return rateArray;
 
   }
 
@@ -118,7 +179,6 @@ export class PEDataService {
   }
 
 }
-
 
 
 const CAMPUSLOCS = [

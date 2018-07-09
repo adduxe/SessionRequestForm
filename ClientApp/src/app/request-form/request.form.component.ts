@@ -144,7 +144,7 @@ export class RequestFormComponent implements OnInit{
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
-//      this.RateSelected(this.session.rateType);
+      this.RateSelected(this.session.rateType);
     }
   }   // PreLoadTheForm()
 
@@ -346,10 +346,10 @@ export class RequestFormComponent implements OnInit{
 
   private MaxOutFlatRateUnitRangeFields(): void {       // Sets the min and max unit ranges to maximum values.
     
-    this.session.rateType.flatRateUnitRange.graduate.maximum = this.MAXUNITS;
-    this.session.rateType.flatRateUnitRange.graduate.minimum = this.MAXUNITS - 1;
-    this.session.rateType.flatRateUnitRange.undergraduate.maximum = this.MAXUNITS;
-    this.session.rateType.flatRateUnitRange.undergraduate.minimum = this.MAXUNITS - 1;
+    this.session.rateType.flatRateUnitRange.graduate.maximum = this.MAXUNITS - 1;
+    this.session.rateType.flatRateUnitRange.graduate.minimum = this.MAXUNITS - 2;
+    this.session.rateType.flatRateUnitRange.undergraduate.maximum = this.MAXUNITS - 1;
+    this.session.rateType.flatRateUnitRange.undergraduate.minimum = this.MAXUNITS - 2;
 
   }   // MaxOutFlatRateUnitRangeFields()
 
@@ -363,6 +363,7 @@ export class RequestFormComponent implements OnInit{
         if (!this.preLoadValues) {          // New request?  Don't set the unit range fields.
           this.MaxOutFlatRateUnitRangeFields();     // Set the Flat Unit Ranges to maximum values
         }
+        this.requireFlatRateFields = false;
         this.disableUnitRange = true;
         break;
 
@@ -384,7 +385,7 @@ export class RequestFormComponent implements OnInit{
         this.showPerUnitBox = true;
         break;
 
-      default:
+      default:                             // Standard rate: do not show any of the rate values; they are implied.
 
         if (!this.preLoadValues) {          // New request?  Don't set the unit range fields.
           this.BlankOutFlatRateUnitRangeFields();
