@@ -23,22 +23,22 @@ class flatRate {
 
 class rate {
 
-  rateTypeCode: string;
+  code: string;
 
-  rateTypeDesc: string;
+  description: string;
 
-  rateTypeUnitRate: number;
+  unitRate: number;
 
-  rateTypeFlatRate: number;
+  flatRate: number;
 
   flatRateUnitRange: flatRate;
 
   constructor(PErate: peRate) {
 
-    this.rateTypeCode = PErate.rateTypeCode;
-    this.rateTypeDesc = PErate.rateTypeDesc;
-    this.rateTypeUnitRate = PErate.rateTypeUnitRate;
-    this.rateTypeFlatRate = PErate.rateTypeFlatRate;
+    this.code = PErate.rateTypeCode;
+    this.description = PErate.rateTypeDesc;
+    this.unitRate = PErate.rateTypeUnitRate;
+    this.flatRate = PErate.rateTypeFlatRate;
 
     this.flatRateUnitRange = new flatRate();
     this.flatRateUnitRange.graduate = new range();

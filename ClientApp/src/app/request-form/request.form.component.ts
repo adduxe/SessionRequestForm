@@ -71,10 +71,10 @@ export class RequestFormComponent implements OnInit{
 
     rateType: {
 
-      rateTypeCode: null,
-      rateTypeDesc: null,
-      rateTypeUnitRate: null,
-      rateTypeFlatRate: null,
+      code: null,
+      description: null,
+      unitRate: null,
+      flatRate: null,
 
       flatRateUnitRange: {
           graduate: {
@@ -356,7 +356,7 @@ export class RequestFormComponent implements OnInit{
 
   public RateSelected(rateSelected: any): void {
 
-    switch (rateSelected.rateTypeCode) {
+    switch (rateSelected.code) {
 
       case 'ZERO':
 

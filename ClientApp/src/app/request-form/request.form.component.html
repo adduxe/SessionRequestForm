@@ -276,8 +276,8 @@
         <kendo-dropdownlist *ngIf="(termRates.length > 0)"
                             [(ngModel)]="session.rateType"
                             [data]="termRates"
-                            [valueField]="'rateTypeCode'"
-                            [textField]="'rateTypeDesc'"
+                            [valueField]="'code'"
+                            [textField]="'description'"
                             (selectionChange)="RateSelected($event)"
                             style="width:225px;">
         </kendo-dropdownlist>
@@ -303,7 +303,7 @@
       </label>
       <div class="col-md-7">
         <kendo-numerictextbox id="tuitionFlatRate"
-                              [(ngModel)]="session.rateType.rateTypeFlatRate"
+                              [(ngModel)]="session.rateType.flatRate"
                               [format]="'a0'"
                               [min]="0"
                               [spinners]="false">
@@ -356,7 +356,8 @@
 
       <div class="col-md-7">
 
-        <kendo-numerictextbox [(ngModel)]="session.rateType.rateTypeUnitRate"
+        <kendo-numerictextbox id="tuitionUnitRate"
+                              [(ngModel)]="session.rateType.unitRate"
                               [format]="'a0'"
                               [min]="0"
                               [spinners]="false">

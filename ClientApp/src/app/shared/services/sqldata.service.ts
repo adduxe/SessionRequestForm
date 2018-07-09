@@ -833,10 +833,10 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
 
   rateType: {
 
-    rateTypeCode: "OTHFLAT",
-    rateTypeDesc: "Other Flat Rate",
-    rateTypeUnitRate: 1800,
-    rateTypeFlatRate: 30409,
+    code: "OTHFLAT",
+    description: "Other Flat Rate",
+    unitRate: 1800,
+    flatRate: 30409,
 
     flatRateUnitRange: {
       graduate: {
