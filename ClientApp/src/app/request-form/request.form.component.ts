@@ -183,8 +183,14 @@ export class RequestFormComponent implements OnInit{
 
 
   public DeleteClassLocation(idx) {               // Delete a Class Location Entry
+
     this.session.classLocations.splice(idx, 1);
-  }
+    if (this.session.classLocations.length == 1) {
+      this.session.classLocations[0].startDate = this.session.firstDayOfClasses;
+      this.session.classLocations[0].endDate = this.session.lastDayOfClasses;
+    }
+
+  }   // DeleteClassLocation()
 
 
   public AddSessionBreak(haveSessionBreaks) {

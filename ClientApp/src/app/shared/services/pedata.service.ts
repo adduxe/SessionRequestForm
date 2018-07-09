@@ -15,7 +15,7 @@ class range {
   maximum: number;
 };
 
-class flatRate {
+class unitRanges {
   graduate: range;
   undergraduate: range;
 };
@@ -31,7 +31,7 @@ class rate {
 
   flatRate: number;
 
-  flatRateUnitRange: flatRate;
+  flatRateUnitRange: unitRanges;
 
   constructor(PErate: peRate) {
 
@@ -40,7 +40,7 @@ class rate {
     this.unitRate = PErate.rateTypeUnitRate;
     this.flatRate = PErate.rateTypeFlatRate;
 
-    this.flatRateUnitRange = new flatRate();
+    this.flatRateUnitRange = new unitRanges();
     this.flatRateUnitRange.graduate = new range();
     this.flatRateUnitRange.undergraduate = new range();
 
