@@ -152,18 +152,23 @@
       <b>Break {{ (x + 1) }} Start Date</b>
       &nbsp;<b><abbr title="Indicate the start date for this Session Break.">&#9432;</abbr></b>
       <br />
-      <kendo-datepicker [(ngModel)]="eachBreak.startDate"
+      <!--<kendo-datepicker [(ngModel)]="eachBreak.startDate"
                         placeholder="Optional">
-      </kendo-datepicker>
-    </div>
+      </kendo-datepicker>-->
+      <kendo-dateinput kendoDateRangeStartInput>
+      </kendo-dateinput>
+
+</div>
 
     <div class="col-md-3">
       <b>Break {{ (x + 1) }} End Date</b>
       &nbsp;<b><abbr title="Indicate the end date for this Session Break.">&#9432;</abbr></b>
       <br />
-      <kendo-datepicker [(ngModel)]="eachBreak.endDate"
-                        placeholder="Optional">
-      </kendo-datepicker>
+      <!--<kendo-datepicker [(ngModel)]="eachBreak.endDate"
+                    placeholder="Optional">
+      </kendo-datepicker>-->
+      <kendo-dateinput kendoDateRangeEndInput>
+      </kendo-dateinput>
     </div>
 
     <!--<div class="col-md-3" style="align-self:center;">-->
