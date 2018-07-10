@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscriber } from 'rxjs/RX';
+
 import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
-import { Observable, Subscriber } from 'rxjs/RX';
-import { Router } from '@angular/router';
+import { SubmitFormService } from '../shared/services/submit.form.service';
 
 import { SpecialFee } from '../shared/models/SpecialFee';
 
@@ -98,7 +99,7 @@ export class RequestFormComponent implements OnInit{
   constructor(
     private peDataService: PEDataService,
     private sqlDataService: SQLDataService,
-    private router: Router
+    private submitFormService: SubmitFormService
   ) {
 
     this.semesters = this.peDataService.getActiveTerms();       // pre-populate the Semester dropdown
@@ -331,11 +332,11 @@ export class RequestFormComponent implements OnInit{
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
   //}
 
-  public FormSubmitted() {
+  public SubmitForm() {
 
     alert('Form Submitted');
     console.log(this.session);
-    this.router.navigate(['/confirm-page']);
+    this.submitFormService.submitForm(this.session);
 
   } // FormSubmitted()
 

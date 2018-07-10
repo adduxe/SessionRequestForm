@@ -1,6 +1,7 @@
 import { Component, Output, OnInit } from '@angular/core';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { PEDataService } from '../shared/services/pedata.service';
+import { SubmitFormService } from '../shared/services/submit.form.service';
 
 enum SECT {
   GENINFO = 0,
@@ -44,14 +45,18 @@ export class ConfirmPageComponent implements OnInit{
   public Session001Dates: any;
   public USCHolidays: any[];
 
-  constructor(private sqlDataService: SQLDataService, private peDataService: PEDataService) {
-    this.session = sqlDataService.getRequestByRevisionID(this.term, this.sessionCode, this.revNumber);
+  constructor(
+    private sqlDataService: SQLDataService,
+    private peDataService: PEDataService,
+    private submitFormService: SubmitFormService
+  ) {
+    this.session = this.submitFormService.session;
+//    this.session = this.sqlDataService.getRequestByRevisionID(this.term, this.sessionCode, this.revNumber);
     this.Session001Dates = this.peDataService.GetSession001(this.term);
     this.USCHolidays = this.peDataService.GetUSCHolidays(this.acadYear);
   }
 
   ngOnInit() {
-
     this.ShowHideAll();
     this.ComputeDates();
   }

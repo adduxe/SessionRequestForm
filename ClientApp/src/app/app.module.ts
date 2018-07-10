@@ -27,6 +27,7 @@ import { TestPageComponent } from './test-page/test.page.component';
 import { SessionRequestService } from './shared/services/sessionrequest.service';
 import { PEDataService } from './shared/services/pedata.service';
 import { SQLDataService } from './shared/services/sqldata.service';
+import { SubmitFormService } from './shared/services/submit.form.service'; 
 
 import { appRoutes } from './app.routes';
 
@@ -60,7 +61,8 @@ import { appRoutes } from './app.routes';
   providers: [
     SessionRequestService,
     PEDataService,
-    SQLDataService
+    SQLDataService,
+    SubmitFormService
   ],
   bootstrap: [AppComponent]
 })
