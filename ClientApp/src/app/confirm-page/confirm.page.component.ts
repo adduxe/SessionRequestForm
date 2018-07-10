@@ -34,31 +34,34 @@ export class ConfirmPageComponent implements OnInit{
 
   @Output() pageTitle: string = "Submission Confirmation Page";
   
-  private revNumber: number = 4;
-
-  private term: number = 20183;
-  private sessionCode: string = "888";
-  private acadYear: number = +(this.term.toString().substr(0,4));
-
   public session: any;
   public showAllValues: boolean = false;
   public Session001Dates: any;
   public USCHolidays: any[];
 
   constructor(
+
     private sqlDataService: SQLDataService,
     private peDataService: PEDataService,
     private submitFormService: SubmitFormService
-  ) {
+
+  ){
+
     this.session = this.submitFormService.session;
-//    this.session = this.sqlDataService.getRequestByRevisionID(this.term, this.sessionCode, this.revNumber);
-    this.Session001Dates = this.peDataService.GetSession001(this.term);
-    this.USCHolidays = this.peDataService.GetUSCHolidays(this.acadYear);
+
+    var term: number = this.session.academicTerm.code;
+    var acadYear: number = +(term.toString().substr(0, 4));
+    
+    this.Session001Dates = this.peDataService.GetSession001(term);
+    this.USCHolidays = this.peDataService.GetUSCHolidays(acadYear);
+
   }
 
   ngOnInit() {
-    this.ShowHideAll();
+
+    this.ShowHideAll();   // Show all the data. 
     this.ComputeDates();
+
   }
 
   public SECT = SECT;
@@ -84,6 +87,15 @@ export class ConfirmPageComponent implements OnInit{
     }
   }
 
+  public requestInfo = {
+
+    owningDepartment: "Computer Engineering",
+    owningSchool: "College of Engineering",
+    userContact: "Albert E. Einstein",
+    userPhone: "213.810.5693",
+    userEmail: "aeinstein@usc.edu"
+
+  };
 
 
   private ComputeDates(): void {

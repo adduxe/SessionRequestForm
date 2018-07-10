@@ -58,17 +58,31 @@ export class RequestFormComponent implements OnInit{
       sessionDesc: null,
     },
 
-    firstDayOfClasses: null,
+    dates: {
 
-    lastDayOfClasses: null,
+      firstDayOfClasses: null,
 
-    firstDayOfFinals: null,
+      lastDayOfClasses: null,
 
-    lastDayOfFinals: null,
+      firstDayOfFinals: null,
+
+      lastDayOfFinals: null,
+
+      lastDayForAddDrop: null,
+
+      lastDayForWithdrawal: null,
+
+      lastDayForEnrollmentChange: null,
+
+      firstDayForFinalGrading: null,
+
+      lastDayForFinalGrading: null,
+
+      sessionBreaks: []
+
+    },
 
     classLocations: [],
-
-    sessionBreaks: [],
 
     rateType: {
 
@@ -88,8 +102,11 @@ export class RequestFormComponent implements OnInit{
           }
       },
     },
+
     specialFees: [],
-    comment: ''
+
+    comments: '',
+
   }; // session
 
   private term: number = 20183;
@@ -179,7 +196,6 @@ export class RequestFormComponent implements OnInit{
       }
 
     }
-
   }   // AddClassLocation()
 
 
