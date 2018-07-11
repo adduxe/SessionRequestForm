@@ -338,11 +338,10 @@ export class RequestFormComponent implements OnInit{
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
   //}
 
-  public SubmitForm() {
+  public ConfirmData() {
 
-    alert('Form Submitted');
     console.log(this.session);
-    this.submitFormService.submitForm(this.session);
+    this.submitFormService.cacheSubmittedFields(this.session);
 
   } // FormSubmitted()
 

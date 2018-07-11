@@ -127,7 +127,7 @@ export class ConfirmPageComponent implements OnInit{
         if ((sess001StartDate === sessReqStartDate) && (sess001EndDate === sessReqEndDate)) {
 
           this.computedDates.lastDayForAddDrop = Sess001Dates.lastAddDropDate;
-          this.computedDates.lastDayForEnrollmentOptionChange = Sess001Dates.lastEnrollmentOptionDate;
+          this.computedDates.lastDayForEnrollmentChange = Sess001Dates.lastEnrollmentOptionDate;
           this.computedDates.lastDayForWithdrawal = Sess001Dates.withdrawWithWDate;
           this.session.dates.firstDayOfFinals = Sess001Dates.finalExamBeginDate;
           this.session.dates.lastDayOfFinals = Sess001Dates.finalExamEndDate;

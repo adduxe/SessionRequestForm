@@ -155,7 +155,7 @@
       </tr>
       <tr *ngFor="let eachLocation of session.classLocations">
         <td>
-          {{ eachLocation.location }}
+          {{ eachLocation.code.campusName }}
         </td>
         <td>
           {{ eachLocation.startDate | date:"MMM dd, yyyy" }}
@@ -265,10 +265,11 @@
   <table width="100%">
     <tr>
       <td align="center">
-        <button kendoButton [primary]="true">Submit</button>
+        <input type="submit" value="Submit">
       </td>
     </tr>
   </table>
-
+  <br/>
+  <br/>
 </body>
 </html>
