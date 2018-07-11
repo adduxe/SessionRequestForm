@@ -807,9 +807,9 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
 
   dates: {
 
-    firstDayOfClasses: new Date("10/01/1996"),
+    firstDayOfClass: new Date("10/01/1996"),
 
-    lastDayOfClasses: new Date("10/31/2006"),
+    lastDayOfClass: new Date("10/31/2006"),
 
     firstDayOfFinals: new Date("02/25/1995"),
 

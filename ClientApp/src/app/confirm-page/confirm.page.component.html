@@ -73,13 +73,13 @@
     <tbody *ngIf="showThisSection[SECT.DATES]">
       <tr>
         <td colspan="2" align="center">
-          <b>Last Day Add/Drop:</b>&nbsp;&nbsp;{{ session.dates.lastDayForAddDrop | date:"MMM dd, yyyy" }}
+          <b>Last Day Add/Drop:</b>&nbsp;&nbsp;{{ computedDates.lastDayForAddDrop | date:"MMM dd, yyyy" }}
         </td>
         <td colspan="2" align="center">
-          <b>Last day Withdraw:</b>&nbsp;&nbsp;{{ session.dates.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
+          <b>Last day Withdraw:</b>&nbsp;&nbsp;{{ computedDates.lastDayForWithdrawal | date:"MMM dd, yyyy" }}
         </td>
         <td colspan="2" align="center">
-          <b>Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ session.dates.lastDayForEnrollmentChange | date:"MMM dd, yyyy" }}
+          <b>Last day for Enrollment Change:</b>&nbsp;&nbsp;{{ computedDates.lastDayForEnrollmentChange | date:"MMM dd, yyyy" }}
         </td>
       </tr>
       <tr>
@@ -115,7 +115,7 @@
           {{ session.dates.firstDayOfFinals | date:"MMM dd, yyyy" }}
         </td>
         <td>
-          {{ session.dates.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
+          {{ computedDates.firstDayForFinalGrading | date:"MMM dd, yyyy" }}
         </td>
       </tr>
       <tr>
@@ -135,7 +135,7 @@
           {{ session.dates.lastDayOfFinals | date:"MMM dd, yyyy" }}
         </td>
         <td>
-          {{ session.dates.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
+          {{ computedDates.lastDayForFinalGrading | date:"MMM dd, yyyy" }}
         </td>
       </tr>
     </tbody>

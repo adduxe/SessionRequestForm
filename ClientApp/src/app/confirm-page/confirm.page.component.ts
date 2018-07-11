@@ -24,6 +24,16 @@ enum WEEKDAY {
 
 const MAXDAYS_TO_GRADE = 4; 
 
+class ComputedDates {
+
+  lastDayForAddDrop: string;
+  lastDayForEnrollmentChange: string;
+  lastDayForWithdrawal: string;
+  firstDayForFinalGrading: string;
+  lastDayForFinalGrading: string;
+
+};
+
 @Component({
   selector: 'confirm-page',
   templateUrl: './confirm.page.component.html',
@@ -38,6 +48,7 @@ export class ConfirmPageComponent implements OnInit{
   public showAllValues: boolean = false;
   public Session001Dates: any;
   public USCHolidays: any[];
+  public computedDates: ComputedDates;
 
   constructor(
 
@@ -59,6 +70,7 @@ export class ConfirmPageComponent implements OnInit{
 
   ngOnInit() {
 
+    this.computedDates = new ComputedDates();
     this.ShowHideAll();   // Show all the data. 
     this.ComputeDates();
 
@@ -109,16 +121,16 @@ export class ConfirmPageComponent implements OnInit{
 
         var sess001StartDate = this.FormatDate(Sess001Dates.classBeginDate);
         var sess001EndDate = this.FormatDate(Sess001Dates.classEndDate);
-        var sessReqStartDate = this.FormatDate(this.session.firstDayOfClass);
-        var sessReqEndDate = this.FormatDate(this.session.lastDayOfClass);
+        var sessReqStartDate = this.FormatDate(this.session.dates.firstDayOfClass);
+        var sessReqEndDate = this.FormatDate(this.session.dates.lastDayOfClass);
 
         if ((sess001StartDate === sessReqStartDate) && (sess001EndDate === sessReqEndDate)) {
 
-          this.session.lastDayForAddDrop = Sess001Dates.lastAddDropDate;
-          this.session.lastDayForEnrollmentOptionChange = Sess001Dates.lastEnrollmentOptionDate;
-          this.session.lastDayForWithdrawal = Sess001Dates.withdrawWithWDate;
-          this.session.firstDayOfFinals = Sess001Dates.finalExamBeginDate;
-          this.session.lastDayOfFinals = Sess001Dates.finalExamEndDate;
+          this.computedDates.lastDayForAddDrop = Sess001Dates.lastAddDropDate;
+          this.computedDates.lastDayForEnrollmentOptionChange = Sess001Dates.lastEnrollmentOptionDate;
+          this.computedDates.lastDayForWithdrawal = Sess001Dates.withdrawWithWDate;
+          this.session.dates.firstDayOfFinals = Sess001Dates.finalExamBeginDate;
+          this.session.dates.lastDayOfFinals = Sess001Dates.finalExamEndDate;
           calculateDates = false;
 
         } else {
@@ -132,12 +144,12 @@ export class ConfirmPageComponent implements OnInit{
 
     if (calculateDates) {     // No Session 001 dates found for the semester or Session 001 dates doesn't match beginning/end class dates
                               // Then...compute the dates.
-      var classBeginDate = this.session.firstDayOfClass;
-      var classEndDate = this.session.lastDayOfClass;
+      var classBeginDate = this.session.dates.firstDayOfClass;
+      var classEndDate = this.session.dates.lastDayOfClass;
 
-      this.session.lastDayForAddDrop = this.ComputeDate(classBeginDate, classEndDate, 20);
-      this.session.lastDayForEnrollmentOptionChange = this.ComputeDate(classBeginDate, classEndDate, 40);
-      this.session.lastDayForWithdrawal = this.ComputeDate(classBeginDate, classEndDate, 80);
+      this.computedDates.lastDayForAddDrop = this.ComputeDate(classBeginDate, classEndDate, 20);
+      this.computedDates.lastDayForEnrollmentChange = this.ComputeDate(classBeginDate, classEndDate, 40);
+      this.computedDates.lastDayForWithdrawal = this.ComputeDate(classBeginDate, classEndDate, 80);
 
     }
 
@@ -149,9 +161,9 @@ export class ConfirmPageComponent implements OnInit{
 
   private ComputeFinalGradingDates() {    // Computes the First and Last Day of Final Grading
 
-    this.session.firstDayForFinalGrading = this.FormatDate(this.session.firstDayOfFinals);
+    this.computedDates.firstDayForFinalGrading = this.FormatDate(this.session.dates.firstDayOfFinals);
 
-    var finalGradingDay = new Date(this.session.lastDayOfFinals);
+    var finalGradingDay = new Date(this.session.dates.lastDayOfFinals);
 
     for (var i = 0; i < MAXDAYS_TO_GRADE; ++i) {    // allow MAXDAYS_TO_GRADE days to compute grades
 
@@ -159,7 +171,7 @@ export class ConfirmPageComponent implements OnInit{
       finalGradingDay = this.AdjustDate(finalGradingDay.toDateString());
     }
 
-    this.session.lastDayForFinalGrading = this.FormatDate(finalGradingDay.toDateString());
+    this.computedDates.lastDayForFinalGrading = this.FormatDate(finalGradingDay.toDateString());
 
   } // ComputeFinalGradingDates
 

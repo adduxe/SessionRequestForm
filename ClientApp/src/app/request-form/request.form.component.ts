@@ -60,9 +60,9 @@ export class RequestFormComponent implements OnInit{
 
     dates: {
 
-      firstDayOfClasses: null,
+      firstDayOfClass: null,
 
-      lastDayOfClasses: null,
+      lastDayOfClass: null,
 
       firstDayOfFinals: null,
 
