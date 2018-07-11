@@ -805,13 +805,21 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
     sessionDesc: "PHAR",
   },
 
-  firstDayOfClasses: new Date("10/01/1996"),
+  dates: {
 
-  lastDayOfClasses: new Date("10/31/2006"),
+    firstDayOfClasses: new Date("10/01/1996"),
 
-  firstDayOfFinals: new Date("02/25/1995"),
+    lastDayOfClasses: new Date("10/31/2006"),
 
-  lastDayOfFinals: new Date("03/01/1995"),
+    firstDayOfFinals: new Date("02/25/1995"),
+
+    lastDayOfFinals: new Date("03/01/1995"),
+
+    sessionBreaks: [
+      { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
+      { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+    ]
+  },
 
   classLocations: [
     {
@@ -826,10 +834,6 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
     }
   ],
 
-  sessionBreaks: [
-    { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
-    { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
-  ],
 
   rateType: {
 

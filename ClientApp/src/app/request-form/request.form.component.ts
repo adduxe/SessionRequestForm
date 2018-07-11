@@ -68,16 +68,6 @@ export class RequestFormComponent implements OnInit{
 
       lastDayOfFinals: null,
 
-      lastDayForAddDrop: null,
-
-      lastDayForWithdrawal: null,
-
-      lastDayForEnrollmentChange: null,
-
-      firstDayForFinalGrading: null,
-
-      lastDayForFinalGrading: null,
-
       sessionBreaks: []
 
     },

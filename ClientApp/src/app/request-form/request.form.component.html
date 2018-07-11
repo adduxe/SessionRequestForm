@@ -69,7 +69,7 @@
 
     <kendo-datepicker
           id="classStartDate"
-          [(ngModel)]="session.firstDayOfClasses">
+          [(ngModel)]="session.dates.firstDayOfClasses">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
 
@@ -85,7 +85,7 @@
 
     <kendo-datepicker
           id="classEndDate"
-          [(ngModel)]="session.lastDayOfClasses">
+          [(ngModel)]="session.dates.lastDayOfClasses">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
 
@@ -105,7 +105,7 @@
     <br />
     <kendo-datepicker
           id="finalsStartDate"
-          [(ngModel)]="session.firstDayOfFinals">
+          [(ngModel)]="session.dates.firstDayOfFinals">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Finals Start Date">&#9432;</abbr></b>
 
@@ -119,7 +119,7 @@
     <br />
     <kendo-datepicker
           id="finalsEndDate"
-          [(ngModel)]="session.lastDayOfFinals">
+          [(ngModel)]="session.dates.lastDayOfFinals">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Finals End Date">&#9432;</abbr></b>
 
@@ -144,9 +144,9 @@
 </div>
 
 <!--  Session Breaks section -->
-<div *ngIf="session.sessionBreaks.length" class="Breaks">
+<div *ngIf="session.dates.sessionBreaks.length" class="Breaks">
 
-  <div class="row" *ngFor="let eachBreak of session.sessionBreaks; let x = index" [attr.data.index]="x">
+  <div class="row" *ngFor="let eachBreak of session.dates.sessionBreaks; let x = index" [attr.data.index]="x">
 
     <div class="col-md-3">
       <b>Break {{ (x + 1) }} Start Date</b>
@@ -178,7 +178,7 @@
 </div>
 <!-- End of Session Breaks Section -->
 
-<div id="locationFields" *ngIf="session.firstDayOfClasses  &&  session.lastDayOfClasses">
+<div id="locationFields" *ngIf="session.dates.firstDayOfClasses  &&  session.dates.lastDayOfClasses">
 
   <h4 style="color:darkred;padding:0px;">Locations</h4>
   <hr style="border-color:darkred" />

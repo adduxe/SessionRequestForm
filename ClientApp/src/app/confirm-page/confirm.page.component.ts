@@ -87,7 +87,7 @@ export class ConfirmPageComponent implements OnInit{
     }
   }
 
-  public requestInfo = {
+  public requestInfo = {      // this will be coming from a web service
 
     owningDepartment: "Computer Engineering",
     owningSchool: "College of Engineering",
