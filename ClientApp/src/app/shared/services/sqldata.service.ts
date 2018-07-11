@@ -876,7 +876,7 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
     }
   ],
 
-  comment: "This is the User's comments for this request."
+  comments: "This is the User's comments for this request."
 
 };
 

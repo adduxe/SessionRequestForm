@@ -69,7 +69,7 @@
 
     <kendo-datepicker
           id="classStartDate"
-          [(ngModel)]="session.dates.firstDayOfClasses">
+          [(ngModel)]="session.dates.firstDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
 
@@ -85,7 +85,7 @@
 
     <kendo-datepicker
           id="classEndDate"
-          [(ngModel)]="session.dates.lastDayOfClasses">
+          [(ngModel)]="session.dates.lastDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
 
@@ -178,7 +178,7 @@
 </div>
 <!-- End of Session Breaks Section -->
 
-<div id="locationFields" *ngIf="session.dates.firstDayOfClasses  &&  session.dates.lastDayOfClasses">
+<div id="locationFields" *ngIf="session.dates.firstDayOfClass  &&  session.dates.lastDayOfClass">
 
   <h4 style="color:darkred;padding:0px;">Locations</h4>
   <hr style="border-color:darkred" />
@@ -490,7 +490,7 @@
     <h4 style="color:darkred;padding:0px;">Commments</h4>
     <hr style="border-color:darkred" />
     <div class="row" style="float:none; width:100%;">
-      <textarea style="width:100%;">{{ session.comment }}</textarea>
+      <textarea style="width:100%;">{{ session.comments }}</textarea>
     </div>
   </div>
 </div>
