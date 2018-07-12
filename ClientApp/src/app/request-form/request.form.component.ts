@@ -46,6 +46,8 @@ export class RequestFormComponent implements OnInit{
   public showPerUnitBox : boolean = false;
   public disableUnitRange     : boolean = false;
   public requireFlatRateFields: boolean = false;
+  public formIsValid: boolean = true;
+  public formError: string = "* Please fill in all highlighted fields.";
 
   public session : any = {
 
@@ -257,7 +259,6 @@ export class RequestFormComponent implements OnInit{
 
     if (this.session.specialFees[feeIndex].fee) {
       var feeCode = this.session.specialFees[feeIndex].fee.code;
-      alert("Fee code: " + feeCode);
 //    var i = usedFees.indexOf(feeCode);        // deletes the special fee from used fees array 
 //    usedFees.splice(i, 1);                    // so that it can be re-used later.
     }
@@ -357,13 +358,38 @@ export class RequestFormComponent implements OnInit{
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
   //}
 
-  public ConfirmData() {
+  public ConfirmData(): void {
 
     console.log(this.session);
-    this.submitFormService.cacheSubmittedFields(this.session);
+
+    if (this.IsFormValid()) {
+      this.submitFormService.cacheSubmittedFields(this.session);
+    } else {
+      this.formError = "Entered value/s invalid.  Please correct entries before proceeding.";
+    }
 
   } // FormSubmitted()
 
+
+  private IsFormValid(): boolean {
+
+    var formValid: boolean = true;
+
+    switch (true) {
+
+      case (this.session.academicTerm == null):
+      case (this.session.code.sessionCode == null):
+      case (this.session.dates.firstDayOfClass == null):
+      case (this.session.dates.lastDayOfClass == null):
+        formValid = false;
+        break;
+
+      default:
+        break;
+    }
+
+    return formValid;
+  }
 
   private BlankOutFlatRateUnitRangeFields(): void {      // Blank out the Flat Rate Unit Range fields
 

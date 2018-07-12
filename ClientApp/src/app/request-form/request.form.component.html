@@ -71,12 +71,10 @@
 
     <br />
 
-    <kendo-datepicker
-          id="classStartDate"
+    <kendo-datepicker id="classStartDate"
           name="classStartDate"
           [class.has-error]="(session.dates.firstDayOfClass == null)"
           [(ngModel)]="session.dates.firstDayOfClass">
-                        [class.has-error]="(session.code.sessionCode == null)"
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
 
@@ -111,13 +109,15 @@
     <label for="finalsStartDate" class="control-label">
       First Day of Finals 
     </label>
+
     <br />
-    <kendo-datepicker
-          id="finalsStartDate"
-          name="finalsStartDate"
-          [(ngModel)]="session.dates.firstDayOfFinals"
-          [class.has-error]="(session.dates.firstDayOfFinals == null)">
+
+    <kendo-datepicker id="finalsStartDate"
+                      name="finalsStartDate"
+                      [(ngModel)]="session.dates.firstDayOfFinals"
+                      [class.has-error]="(session.dates.firstDayOfFinals == null)">
     </kendo-datepicker>
+
     &nbsp;<b><abbr title="Finals Start Date">&#9432;</abbr></b>
 
   </div>
@@ -128,11 +128,10 @@
       Last Day of Finals
     </label>
     <br />
-    <kendo-datepicker
-          id="finalsEndDate"
-          name="finalsEndDate"
-          [class.has-error]="(session.dates.lastDayOfFinals == null)"
-          [(ngModel)]="session.dates.lastDayOfFinals">
+    <kendo-datepicker id="finalsEndDate"
+                      name="finalsEndDate"
+                      [class.has-error]="(session.dates.lastDayOfFinals == null)"
+                      [(ngModel)]="session.dates.lastDayOfFinals">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Finals End Date">&#9432;</abbr></b>
 
@@ -586,14 +585,14 @@
 
 <br />
 <div class="row" style="align-content:center;">
-    <div class="col-md-5 red" style="text-align: center;">
-      <h4><b>{{ formError }}</b></h4>
-    </div>
-    <div class="col-md-2">
-      <input type="Submit" [disabled]="" (click)="ConfirmData();" value="Next" />
-    </div>
-    <div class="col-md-5">
-    </div>
+  <div class="col-md-5" style="text-align: center;">
+    <h4 style=" color: red;">{{ formError }}</h4>
+  </div>
+  <div class="col-md-2">
+    <input type="Submit" [disabled]="!formIsValid" (click)="ConfirmData();" value="Next" />
+  </div>
+  <div class="col-md-5">
+  </div>
 </div>
 
 </form>
