@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs/RX';
+import { NgForm } from '@angular/forms';
 
 import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
@@ -204,14 +205,17 @@ export class RequestFormComponent implements OnInit{
 
     if (haveSessionBreaks) {
 
-      if (this.session.sessionBreaks.length < MAX_SESSION_BREAKS) {
+      if (this.session.dates.sessionBreaks.length < MAX_SESSION_BREAKS) {
+
         for (var i = 0; i < MAX_SESSION_BREAKS; ++i) {
+
           var newBreak = { startDate: null, endDate: null };
-          this.session.sessionBreaks.push(newBreak);
+          this.session.dates.sessionBreaks.push(newBreak);
         }
       }
+
     } else {
-      this.session.sessionBreaks = [];
+      this.session.dates.sessionBreaks = [];
     }
 
   }     // AddSessionBreak()
