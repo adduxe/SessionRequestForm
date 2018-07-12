@@ -7,23 +7,23 @@
 <h4 style="color:darkred;padding:0px;">Session Details</h4>
 <hr style="border-color:darkred" />
 
-<form #sessionForm= "ngForm">
+<form #sessionForm="ngForm">
 
 <div class="row">
 
-  <div class="form-group col-md-3" id="semesterBox">
+  <div class="form-group col-md-3 " id="semesterBox">
 
     <label for="semester" class="control-label">
       For Semester
     </label>
 
     <br />
-
     <kendo-dropdownlist #semester
                         id="semester"
                         name="semester"
                         required
                         [(ngModel)]="session.academicTerm"
+                        [class.has-error]="(session.academicTerm.code == null)"
                         [data]="semesters"
                         [valueField]="'code'"
                         [textField]="'name'"
@@ -44,12 +44,12 @@
     <kendo-dropdownlist id="sessCode"
                         name="sessCode"
                         [(ngModel)]="session.code"
+                        [class.has-error]="(session.code.sessionCode == null)"
                         [data]="SessionCodes"
                         [valueField]="'sessionCode'"
                         [textField]="'sessionDesc'"
                         [filterable]="true"
                         (filterChange)="filterSessionCodes($event)"
-                        (selectionChange)="SessionCodeSelected($event)"
                         style="width:250px;">
     </kendo-dropdownlist>
     &nbsp;<b><abbr title="Choose a code that is assigned to this session.">&#9432;</abbr></b>
@@ -66,7 +66,7 @@
   <div class="form-group col-md-3" id="firstDayClassBox">
 
     <label for="classesStartDate" class="control-label">
-      First Day of Classes
+      First Day of Class
     </label>
 
     <br />
@@ -74,7 +74,9 @@
     <kendo-datepicker
           id="classStartDate"
           name="classStartDate"
+          [class.has-error]="(session.dates.firstDayOfClass == null)"
           [(ngModel)]="session.dates.firstDayOfClass">
+                        [class.has-error]="(session.code.sessionCode == null)"
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
 
@@ -83,7 +85,7 @@
   <div class="form-group col-md-3" id="lastDayClassBox">
 
     <label for="classesEndDate" class="control-label">
-      Last Day of Classes
+      Last Day of Class
     </label>
 
     <br />
@@ -91,6 +93,7 @@
     <kendo-datepicker
           id="classEndDate"
           name="classEndDate"
+          [class.has-error]="(session.dates.lastDayOfClass == null)"
           [(ngModel)]="session.dates.lastDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
@@ -103,7 +106,7 @@
 
 <div class="row">
 
-  <div class="form-group col-md-3" id="firstDayFinalsBox">
+  <div id="firstDayFinalsBox" class="form-group col-md-3">
 
     <label for="finalsStartDate" class="control-label">
       First Day of Finals 
@@ -112,7 +115,8 @@
     <kendo-datepicker
           id="finalsStartDate"
           name="finalsStartDate"
-          [(ngModel)]="session.dates.firstDayOfFinals">
+          [(ngModel)]="session.dates.firstDayOfFinals"
+          [class.has-error]="(session.dates.firstDayOfFinals == null)">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Finals Start Date">&#9432;</abbr></b>
 
@@ -127,6 +131,7 @@
     <kendo-datepicker
           id="finalsEndDate"
           name="finalsEndDate"
+          [class.has-error]="(session.dates.lastDayOfFinals == null)"
           [(ngModel)]="session.dates.lastDayOfFinals">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Finals End Date">&#9432;</abbr></b>
@@ -138,18 +143,34 @@
 <div class="row">
 
   <div class="col-md-6">
+
     <!--<button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
     Add Session Break
   </button>-->
-    Does this session have any breaks?&nbsp;&nbsp;
-    <input type="radio" name="sessBreaks" value="true" (click)="AddSessionBreak(true)" />&nbsp;<b>Yes</b>&nbsp;&nbsp;
-    <input type="radio" name="sessBreaks" value="false" (click)="AddSessionBreak(false)" />&nbsp;<b>No</b>&nbsp;&nbsp;
-    <b><abbr title="Click No ONLY IF this session will not have an interruption of instruction for five days or more. For example, click No if classes will continue for students in this session during the university's Thanksgiving holiday or during Spring Break.">&#9432;</abbr></b>
+    <b>Does this session have any breaks?</b>&nbsp;&nbsp;
+
+    <span id="sessBreaksRadio" [class.has-error]="!haveSessionBreaks">
+      <input type="radio"
+             name="sessBreaks"
+             value="true"
+             [(ngModel)]="haveSessionBreaks"
+             (click)="AddSessionBreak(true)" />
+
+      &nbsp;Yes&nbsp;&nbsp;
+
+      <input type="radio"
+             name="sessBreaks"
+             value="false"
+             [(ngModel)]="haveSessionBreaks"
+             (click)="AddSessionBreak(false)" />
+
+      &nbsp;No&nbsp;&nbsp;
+      </span>
+      <b><abbr title="Click No ONLY IF this session will not have an interruption of instruction for five days or more. For example, click No if classes will continue for students in this session during the university's Thanksgiving holiday or during Spring Break.">&#9432;</abbr></b>
+    </div>
     <br /><br />
 
   </div>
-
-</div>
 
 <!--  Session Breaks section -->
 <div *ngIf="session.dates.sessionBreaks.length" class="Breaks">
@@ -232,6 +253,7 @@
                 style="width: 250px; margin-left:50px;"
                 [(ngModel)]="eachLocation.code"
                 [ngModelOptions]="{standalone: true}"
+                [class.has-error]="(eachLocation.code.campusCode == null)"
                 [data]="UscCampuses"
                 [valueField]="'campusCode'"
                 [textField]="'campusName'"
@@ -244,8 +266,9 @@
 
         <kendo-datepicker
                 *ngIf="(session.classLocations.length > 1)"
-                [ngModelOptions]="{standalone: true}"
-                [(ngModel)]="eachLocation.startDate">
+                [class.has-error]="(eachLocation.startDate == null)"
+                [(ngModel)]="eachLocation.startDate"
+                [ngModelOptions]="{standalone: true}">
         </kendo-datepicker>
 
       </div>
@@ -253,6 +276,7 @@
 
         <kendo-datepicker
               *ngIf="(session.classLocations.length > 1)"
+              [class.has-error]="(eachLocation.endDate == null)"
               [(ngModel)]="eachLocation.endDate"
               [ngModelOptions]="{standalone: true}">
         </kendo-datepicker>
@@ -300,15 +324,17 @@
         Tuition Rate Type
       </label>
       <div class="col-md-7">
-        <kendo-dropdownlist *ngIf="(termRates.length > 0)"
-                            id="rateType"
-                            name="rateType"
-                            [(ngModel)]="session.rateType"
-                            [data]="termRates"
-                            [valueField]="'code'"
-                            [textField]="'description'"
-                            (selectionChange)="RateSelected($event)"
-                            style="width:225px;">
+        <kendo-dropdownlist
+              *ngIf="(termRates.length > 0)"
+              id="rateType"
+              name="rateType"
+              [(ngModel)]="session.rateType"
+              [class.has-error]="(session.rateType.code == null)"
+              [data]="termRates"
+              [valueField]="'code'"
+              [textField]="'description'"
+              (selectionChange)="RateSelected($event)"
+              style="width:225px;">
         </kendo-dropdownlist>
         &nbsp;<b><abbr title="Indicate the appropriate tuition rate type for this Session">&#9432;</abbr></b>
       </div>
@@ -331,12 +357,14 @@
         Tuition Amount Flat Rate
       </label>
       <div class="col-md-7">
-        <kendo-numerictextbox id="tuitionFlatRate"
-                              name="tuitionFlatRate"
-                              [(ngModel)]="session.rateType.flatRate"
-                              [format]="'a0'"
-                              [min]="0"
-                              [spinners]="false">
+        <kendo-numerictextbox
+                id="tuitionFlatRate"
+                name="tuitionFlatRate"
+                [(ngModel)]="session.rateType.flatRate"
+                [class.has-error]="(session.rateType.flatRate == null)"
+                [format]="'a0'"
+                [min]="0"
+                [spinners]="false">
         </kendo-numerictextbox>
         &nbsp;<b><abbr title="Tuition flat rate in dollars">&#9432;</abbr></b>
       </div>
@@ -351,25 +379,28 @@
       <div class="col-md-6" style="align-items:center;">
 
         <kendo-numerictextbox
-                        id="flatUnitsMin"
-                        name="flatUnitsMin"
-                        [(ngModel)]="session.rateType.flatRateUnitRange.undergraduate.minimum"
-                        [format]="'n0'"
-                        [min]="1"
-                        [max]="MAXUNITS - 1"
-                        [disabled]="disableUnitRange"
-                        style="width:75px;">
+              id="flatUnitsMin"
+              name="flatUnitsMin"
+              [(ngModel)]="session.rateType.flatRateUnitRange.undergraduate.minimum"
+              [class.has-error]="(session.rateType.flatRateUnitRange.undergraduate.minimum == null)"
+              [format]="'n0'"
+              [min]="1"
+              [max]="MAXUNITS - 1"
+              [disabled]="disableUnitRange"
+              style="width:75px;">
         </kendo-numerictextbox>
         &nbsp;to&nbsp;
 
-        <kendo-numerictextbox id="flatUnitsMax"
-                              name="flatUnitsMax"
-                              [(ngModel)]="session.rateType.flatRateUnitRange.undergraduate.maximum"
-                              [format]="'n0'"
-                              [min]="2"
-                              [max]="MAXUNITS - 1"
-                              [disabled]="disableUnitRange"
-                              style="width:75px;">
+        <kendo-numerictextbox
+              id="flatUnitsMax"
+              name="flatUnitsMax"
+              [(ngModel)]="session.rateType.flatRateUnitRange.undergraduate.maximum"
+              [class.has-error]="(session.rateType.flatRateUnitRange.undergraduate.maximum == null)"
+              [format]="'n0'"
+              [min]="2"
+              [max]="MAXUNITS - 1"
+              [disabled]="disableUnitRange"
+              style="width:75px;">
         </kendo-numerictextbox>
 
         &nbsp;<b><abbr title="Indicate the Undergraduate Flat Rate Unit Range.">&#9432;</abbr></b>
@@ -389,12 +420,14 @@
 
       <div class="col-md-7">
 
-        <kendo-numerictextbox id="tuitionUnitRate"
-                              name="tuitionUnitRate"
-                              [(ngModel)]="session.rateType.unitRate"
-                              [format]="'a0'"
-                              [min]="0"
-                              [spinners]="false">
+        <kendo-numerictextbox
+              id="tuitionUnitRate"
+              name="tuitionUnitRate"
+              [(ngModel)]="session.rateType.unitRate"
+              [class.has-error]="(session.rateType.unitRate == null)"
+              [format]="'a0'"
+              [min]="0"
+              [spinners]="false">
         </kendo-numerictextbox>
         &nbsp;<b><abbr title="Tuition per unit rate in dollars">&#9432;</abbr></b>
 
@@ -410,26 +443,29 @@
       <div class="col-md-6" style="align-items:center;">
 
         <kendo-numerictextbox
-                        id="gradFlatUnitsMin"
-                        name="gradFlatUnitsMin"
-                        [(ngModel)]="session.rateType.flatRateUnitRange.graduate.minimum"
-                        [format]="'n0'"
-                        [min]="1"
-                        [max]="MAXUNITS - 1"
-                        [disabled]="disableUnitRange"
-                        style="width:75px;">
+              id="gradFlatUnitsMin"
+              name="gradFlatUnitsMin"
+              [(ngModel)]="session.rateType.flatRateUnitRange.graduate.minimum"
+              [class.has-error]="(session.rateType.flatRateUnitRange.graduate.minimum == null)"
+              [format]="'n0'"
+              [min]="1"
+              [max]="MAXUNITS - 1"
+              [disabled]="disableUnitRange"
+              style="width:75px;">
         </kendo-numerictextbox>
 
         &nbsp;to&nbsp;
 
-        <kendo-numerictextbox id="gradFlatUnitsMax"
-                              name="gradFlatUnitsMax"
-                              [(ngModel)]="session.rateType.flatRateUnitRange.graduate.maximum"
-                              [format]="'n0'"
-                              [min]="2"
-                              [max]="MAXUNITS - 1"
-                              [disabled]="disableUnitRange"
-                              style="width:75px;">
+        <kendo-numerictextbox
+              id="gradFlatUnitsMax"
+              name="gradFlatUnitsMax"
+              [(ngModel)]="session.rateType.flatRateUnitRange.graduate.maximum"
+              [class.has-error]="(session.rateType.flatRateUnitRange.graduate.maximum == null)"
+              [format]="'n0'"
+              [min]="2"
+              [max]="MAXUNITS - 1"
+              [disabled]="disableUnitRange"
+              style="width:75px;">
         </kendo-numerictextbox>
         &nbsp;<b><abbr title="Indicate the Graduate Flat Rate Unit Range.">&#9432;</abbr></b>
       </div>
@@ -471,6 +507,7 @@
               *ngIf="(SpecialFeeList.length > 0)"
               [(ngModel)]="eachFee.fee"
               [ngModelOptions]="{standalone: true}"
+              [class.has-error]="(eachFee.fee.code == null)"
               [data]="SpecialFeeList"
               [valueField]="'code'"
               [textField]="'name'"
@@ -483,6 +520,7 @@
         <kendo-numerictextbox
               [(ngModel)]="eachFee.amount"
               [ngModelOptions]="{standalone: true}"
+              [class.has-error]="(eachFee.amount == null)"
               [format]="'a0'"
               [min]="0"
               [spinners]="false">
@@ -494,6 +532,7 @@
         <kendo-dropdownlist
               [(ngModel)]="eachFee.gradeLevel"
               [ngModelOptions]="{standalone: true}"
+              [class.has-error]="(eachFee.gradeLevel.code == null)"
               [data]="GradeLevel"
               [valueField]="'code'"
               [textField]="'name'">
@@ -504,6 +543,7 @@
         <kendo-dropdownlist
               [(ngModel)]="eachFee.enrollType"
               [ngModelOptions]="{standalone: true}"
+              [class.has-error]="(eachFee.enrollType.code == null)"
               [data]="EnrollTypes"
               [valueField]="'code'"
               [textField]="'name'">
@@ -550,7 +590,7 @@
       <h4><b>{{ formError }}</b></h4>
     </div>
     <div class="col-md-2">
-      <input type="Submit" [disabled]="sessionForm.invalid" (click)="ConfirmData();" value="Next" />
+      <input type="Submit" [disabled]="" (click)="ConfirmData();" value="Next" />
     </div>
     <div class="col-md-5">
     </div>

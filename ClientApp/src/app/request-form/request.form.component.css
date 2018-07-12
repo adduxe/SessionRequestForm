@@ -43,3 +43,7 @@
   background-image: none;
   border-color: #dc3545;
 }
+
+.has-error {
+  border: solid 1px red;
+}

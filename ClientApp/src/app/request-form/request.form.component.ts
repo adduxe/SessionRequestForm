@@ -119,11 +119,11 @@ export class RequestFormComponent implements OnInit{
 
   ngOnInit() {
 
-    if ((this.term > 0) && (this.sessionCode > '')) {
-      this.preLoadValues = true;
-      this.PreLoadTheForm();
-      this.preLoadValues = false;
-    }
+    //if ((this.term > 0) && (this.sessionCode > '')) {
+    //  this.preLoadValues = true;
+    //  this.PreLoadTheForm();
+    //  this.preLoadValues = false;
+    //}
 
     //this.peDataService.getCampusLocations().subscribe(locations => {
     //  this.UscCampuses = locations;
@@ -169,7 +169,7 @@ export class RequestFormComponent implements OnInit{
       },
       startDate: null,
       endDate: null
-    }
+    };
 
     this.session.classLocations.push(newLocation);
 
@@ -228,7 +228,22 @@ export class RequestFormComponent implements OnInit{
 
   public AddSpecialFee(acadTerm: any) {
 
-    var newFee = new SpecialFee();
+//    var newFee = new SpecialFee();
+    var newFee = {
+      fee: {
+        code: null,
+        name: null
+      },
+      amount: null,
+      gradeLevel: {
+        code: null,
+        name: null
+      },
+      enrollType: {
+        code: null,
+        name: null
+      }
+    };
 
     var term : string = acadTerm.value.code;
 //    var term: string = this.session.academicTerm.code;   // this will work too!
