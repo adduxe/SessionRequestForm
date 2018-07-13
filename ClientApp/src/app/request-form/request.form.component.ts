@@ -204,9 +204,9 @@ export class RequestFormComponent implements OnInit{
   }   // DeleteClassLocation()
 
 
-  public AddSessionBreak(haveSessionBreaks) {
+  public AddSessionBreak(haveBreaks) {
 
-    if (haveSessionBreaks) {
+    if (haveBreaks) {
 
       if (this.session.dates.sessionBreaks.length < MAX_SESSION_BREAKS) {
 
@@ -225,7 +225,7 @@ export class RequestFormComponent implements OnInit{
 
 
   public DeleteSessionBreak(idx) {
-    this.session.sessionBreaks.splice(idx, 1);
+    this.session.dates.sessionBreaks.splice(idx, 1);
   }
 
 
@@ -373,6 +373,40 @@ export class RequestFormComponent implements OnInit{
   } // FormSubmitted()
 
 
+  private AreClassLocationsGood(): boolean {
+
+    var classLocs = this.session.classLocations;
+    var locationsGood = true;
+
+    switch (classLocs.length) {
+
+      case 1:               // only one class location provided
+
+        if (classLocs[0].code.campusCode == null) {
+          locationsGood = false;
+        }
+        break;
+
+      default:              // more than one location provided
+
+        for (var i = 0; i < classLocs.length; ++i) {
+
+          if (classLocs[i].code.campusCode != null) {  // if a location is not provided
+            if (classLocs[i].startDate == null) {   //  check it's start and end dates
+              locationsGood = false;
+              break;
+            } else if (classLocs[i].endDate == null) {
+              locationsGood = false;
+              break;
+            }
+          } // if (classLocs[i]
+        } // for (var...
+
+    } // switch()
+
+    return locationsGood;
+  }
+
   private IsFormValid(): boolean {
 
     var formValid: boolean = true;
@@ -385,13 +419,28 @@ export class RequestFormComponent implements OnInit{
       case (this.session.dates.lastDayOfClass == null):             // Last Day of Classes blank
       case (this.haveSessionBreaks == null):                        // Have Session Breaks unchecked
       case (this.session.rateType.code == null):                    // Rate Type blank
-      case (this.session.classLocations[0].code.campusCode == null):  // No class location
+      case (this.session.classLocations[0].code.campusCode == null):  // No class location specified
         formValid = false;
         break;
 
       default:
         break;
     }
+
+    if (formValid) {      // Required fields all provided
+
+      switch (true) {
+
+        case !(this.AreClassLocationsGood()):
+          formValid = false;
+          break;
+
+        default:
+          formValid = true;
+          break;
+      } // switch()
+
+    } // if (formValid)
 
     return formValid;
   }
