@@ -48,6 +48,7 @@ export class RequestFormComponent implements OnInit{
   public requireFlatRateFields: boolean = false;
   public formIsValid: boolean = true;
   public formError: string = "* Please fill in all highlighted fields.";
+  public haveSessionBreaks: boolean = null;
 
   public session : any = {
 
@@ -365,6 +366,7 @@ export class RequestFormComponent implements OnInit{
     if (this.IsFormValid()) {
       this.submitFormService.cacheSubmittedFields(this.session);
     } else {
+      this.formIsValid = false;
       this.formError = "Entered value/s invalid.  Please correct entries before proceeding.";
     }
 
@@ -377,10 +379,13 @@ export class RequestFormComponent implements OnInit{
 
     switch (true) {
 
-      case (this.session.academicTerm == null):
-      case (this.session.code.sessionCode == null):
-      case (this.session.dates.firstDayOfClass == null):
-      case (this.session.dates.lastDayOfClass == null):
+      case (this.session.academicTerm == null):                     // Academic Term blank
+      case (this.session.code.sessionCode == null):                 // Session Code blank
+      case (this.session.dates.firstDayOfClass == null):            // First Day of Classes blank
+      case (this.session.dates.lastDayOfClass == null):             // Last Day of Classes blank
+      case (this.haveSessionBreaks == null):                        // Have Session Breaks unchecked
+      case (this.session.rateType.code == null):                    // Rate Type blank
+      case (this.session.classLocations[0].code.campusCode == null):  // No class location
         formValid = false;
         break;
 
