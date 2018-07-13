@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/RX';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 interface peRate {
