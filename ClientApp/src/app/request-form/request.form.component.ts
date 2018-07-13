@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs/RX';
-import { NgForm } from '@angular/forms';
 
 import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
