@@ -73,7 +73,7 @@
 
     <kendo-datepicker id="classStartDate"
                       name="classStartDate"
-                      [class.has-error]="(session.dates.firstDayOfClass == null)"
+                      [class.has-error]="(session.dates.firstDayOfClass == '') || (session.dates.firstDayOfClass == null)"
                       (valueChange)="SessionDateEntered($event)"
                       [(ngModel)]="session.dates.firstDayOfClass">
     </kendo-datepicker>
@@ -91,7 +91,7 @@
 
     <kendo-datepicker id="classEndDate"
                       name="classEndDate"
-                      [class.has-error]="(session.dates.lastDayOfClass == null)"
+                      [class.has-error]="(session.dates.lastDayOfClass == '') || (session.dates.lastDayOfClass == null)"
                       (valueChange)="SessionDateEntered($event)"
                       [(ngModel)]="session.dates.lastDayOfClass">
     </kendo-datepicker>
@@ -587,7 +587,7 @@
 <br />
 <div class="row" style="align-content:center;">
   <div class="col-md-5" style="text-align: center;">
-    <h4 style=" color: red;" *ngIf="!formIsValid">{{ formError }}</h4>
+    <h4 style=" color: red;" *ngIf="formError">{{ formError }}</h4>
   </div>
   <div class="col-md-2">
     <input type="Submit" (click)="ConfirmData();" value="Next" />

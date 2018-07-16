@@ -371,8 +371,10 @@ export class RequestFormComponent implements OnInit{
 
     console.log(this.session);
 
+    this.formError = '';      // reset all validation messages.
+
     if (this.IsFormValid()) {
-      this.submitFormService.cacheSubmittedFields(this.session);
+      this.submitFormService.cacheSubmittedFields(this.session);    // go to confirmation page to view submitted fields
     } else {
       this.formIsValid = false;
       this.formError = "Entered value/s invalid.  Please correct entries before proceeding.";
@@ -503,6 +505,7 @@ export class RequestFormComponent implements OnInit{
             break;
 
           default:  // either none of the dates was provided or both are blank
+            this.formError = '';
             break;
         } // switch()
 
@@ -524,13 +527,13 @@ export class RequestFormComponent implements OnInit{
 
       switch (dateCheck) {
 
-        case DATECHECK.STARTDATEAFTERLASTDAY:           // First Day of Class is later than the Last Day of Class
-          this.session.dates.firstDayOfClass = null;
-          break;
-
         case DATECHECK.ENDDATEBEFOREFIRSTDATE:          // Last Day of Class is earlier than the First Day of Class 
         case DATECHECK.ENDDATEBEFOREFIRSTDAY:
-          this.session.dates.lastDayOfClass = null;
+          this.session.dates.lastDayOfClass = '';
+          break;
+
+        case DATECHECK.STARTDATEAFTERLASTDAY:           // First Day of Class is later than the Last Day of Class
+          this.session.dates.firstDayOfClass = '';
           break;
 
         default:
@@ -557,22 +560,22 @@ export class RequestFormComponent implements OnInit{
     switch (true) {
 
       case (date1 < firstDayOfClass):
-        this.formError = rangeName + " start date is earlier than the start date of the session.";
+        this.formError = rangeName + " start date is earlier than the first day of classes.";
         dateCheck = DATECHECK.STARTDATEBEFOREFIRSTDAY;
         break;
 
       case (date1 > lastDayOfClass):
-        this.formError = rangeName + " start date is later than the start date of the session.";
+        this.formError = rangeName + " start date is later than the last day of classes.";
         dateCheck = DATECHECK.STARTDATEAFTERLASTDAY;
         break;
 
       case (date2 < firstDayOfClass):
-        this.formError = rangeName + " end date is earlier than the first day of the session.";
+        this.formError = rangeName + " end date is earlier than the first day of classes.";
         dateCheck = DATECHECK.ENDDATEBEFOREFIRSTDATE;
         break;
 
       case (date2 > lastDayOfClass):
-        this.formError = rangeName + " end date is later than the last day of the session.";
+        this.formError = rangeName + " end date is later than the last day of classes.";
         dateCheck = DATECHECK.ENDDATEAFTERLASTDAY;
         break;
 
