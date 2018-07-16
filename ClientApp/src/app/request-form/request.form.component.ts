@@ -22,8 +22,14 @@ const ENROLLMENTTYPES = [
 const MAX_SESSION_BREAKS = 2;
 
 class error {
+
   code: number;
   message: string;
+
+  constructor() {
+    this.code = null;
+    this.message = null;
+  }
 }
 
 enum DATE_RANGE_CHECK {
@@ -564,9 +570,11 @@ export class RequestFormComponent implements OnInit{
 
   private FinalsDateEntered(): void {
 
+
+
     if ((this.session.dates.firstDayOfFinals != null) && (this.session.dates.lastDayOfFinals != null)) {
 
-      var dateCheck: error = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass);
+      var dateCheck: error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
 
       switch (dateCheck.code) {
 
@@ -581,14 +589,15 @@ export class RequestFormComponent implements OnInit{
           this.session.dates.lastDayOfFinals = null;
           break;
 
-        case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:      // Start of Finals after Last Day of Class -> OK
+        case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:      // Start of Finals is after Last Day of Class -> OK
         case DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY:        // End of Finals after Last Day of Class -> OK
         default:
+          this.formError = '';
           break;
       } // switch()
 
     } //  if ((this.session...)
-      return;
+    return;
   }   // FinalsDateEntered()
   
 
