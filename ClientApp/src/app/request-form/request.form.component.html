@@ -74,6 +74,7 @@
     <kendo-datepicker id="classStartDate"
                       name="classStartDate"
                       [class.has-error]="(session.dates.firstDayOfClass == null)"
+                      (valueChange)="sessionDateEntered($event)"
                       [(ngModel)]="session.dates.firstDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
@@ -91,6 +92,7 @@
     <kendo-datepicker id="classEndDate"
                       name="classEndDate"
                       [class.has-error]="(session.dates.lastDayOfClass == null)"
+                      (valueChange)="sessionDateEntered($event)"
                       [(ngModel)]="session.dates.lastDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
@@ -101,7 +103,7 @@
 
 <br/>
 
-<div class="row">
+<div class="row" id="finalsDateRangeRow" *ngIf="(session.dates.firstDayOfClass && session.dates.lastDayOfClass)">
 
   <div id="firstDayFinalsBox" class="form-group col-md-3">
 
@@ -138,7 +140,7 @@
 
 </div>
 
-<div class="row">
+<div class="row" id="haveSessionBreaksRadio" *ngIf="(session.dates.firstDayOfClass && session.dates.lastDayOfClass)">
 
   <div class="col-md-6">
 

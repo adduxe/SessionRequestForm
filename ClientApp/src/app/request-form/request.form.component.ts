@@ -469,7 +469,7 @@ export class RequestFormComponent implements OnInit{
             sessBreaksOK = false;
             break;
 
-          case !(this.AreDatesOK(sBreaks[i].startDate, sBreaks[i].endDate)):      // end date is earlier 
+          case !(this.IsDateRangeOK(sBreaks[i].startDate, sBreaks[i].endDate)):      // end date is earlier 
             break;
 
           default:  // either none of the dates was provided or both are blank
@@ -483,7 +483,18 @@ export class RequestFormComponent implements OnInit{
 
 
 
-  private AreDatesOK(beginDate: string, endDate: string): boolean {
+  private sessionDateEntered(): void {
+    alert("Session Date entered");
+    return;
+  }
+
+
+
+  private IsDateRangeOK(beginDate: string, endDate: string): boolean {
+        // checks the date range if:
+        //  - start/end dates are not earlier than the first day of classes
+        //  - start/end dates are not later than the last day of classes
+        //  - end date is not earlier than the start date
 
     var datesOk: boolean = true;
     var firstDayOfClass: Date = new Date(this.session.dates.firstDayOfClass);

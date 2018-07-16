@@ -106,10 +106,10 @@
           {{ session.dates.firstDayOfClass | date:"MMM dd, yyyy" }}
         </td>
         <td>
-          {{ session.dates.sessionBreaks[0].startDate | date:"MMM dd, yyyy" }}
+          {{ session.dates.sessionBreaks[0] ? (session.dates.sessionBreaks[0].startDate | date:"MMM dd, yyyy") : '' }}
         </td>
         <td>
-          {{ session.dates.sessionBreaks[1].endDate | date:"MMM dd, yyyy" }}
+          {{ session.dates.sessionBreaks[1] ? (session.dates.sessionBreaks[1].startDate | date:"MMM dd, yyyy") : '' }}
         </td>
         <td>
           {{ session.dates.firstDayOfFinals | date:"MMM dd, yyyy" }}
@@ -126,10 +126,10 @@
           {{ session.dates.lastDayOfClass | date: "MMM dd, yyyy" }}
         </td>
         <td>
-          {{ session.dates.sessionBreaks[0].endDate | date:"MMM dd, yyyy" }}
+          {{ session.dates.sessionBreaks[0] ? (session.dates.sessionBreaks[0].endDate | date:"MMM dd, yyyy") : '' }}
         </td>
         <td>
-          {{ session.dates.sessionBreaks[1].endDate | date:"MMM dd, yyyy" }}
+          {{ session.dates.sessionBreaks[1] ? (session.dates.sessionBreaks[1].endDate | date:"MMM dd, yyyy") : '' }}
         </td>
         <td>
           {{ session.dates.lastDayOfFinals | date:"MMM dd, yyyy" }}
