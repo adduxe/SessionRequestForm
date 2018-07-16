@@ -371,7 +371,7 @@ export class RequestFormComponent implements OnInit{
   } // FormSubmitted()
 
 
-  private AreClassLocationsGood(): boolean {
+  private AreClassLocationsOK(): boolean {
 
     var classLocs = this.session.classLocations;
     var locationsGood = true;
@@ -389,8 +389,8 @@ export class RequestFormComponent implements OnInit{
 
         for (var i = 0; i < classLocs.length; ++i) {
 
-          if (classLocs[i].code.campusCode != null) {  // if a location is not provided
-            if (classLocs[i].startDate == null) {   //  check it's start and end dates
+          if (classLocs[i].code.campusCode != null) {   // if a location is not provided
+            if (classLocs[i].startDate == null) {       //  check it's start and end dates
               locationsGood = false;
               break;
             } else if (classLocs[i].endDate == null) {
@@ -403,7 +403,8 @@ export class RequestFormComponent implements OnInit{
     } // switch()
 
     return locationsGood;
-  }
+  }   // AreClassLocationsGood()
+
 
   private IsFormValid(): boolean {
 
@@ -429,7 +430,11 @@ export class RequestFormComponent implements OnInit{
 
       switch (true) {
 
-        case !(this.AreClassLocationsGood()):
+        case !(this.AreClassLocationsOK()):
+          formValid = false;
+          break;
+
+        case !(this.AreSessionBreaksOK()):
           formValid = false;
           break;
 
@@ -441,6 +446,83 @@ export class RequestFormComponent implements OnInit{
     } // if (formValid)
 
     return formValid;
+  }
+
+
+  private AreSessionBreaksOK() {
+
+    var sessBreaksOK: boolean = true;
+
+    if (this.haveSessionBreaks) {
+      var sBreaks = this.session.dates.sessionBreaks;
+      for (var i = 0; i < sBreaks.length; ++i) {
+
+        switch (true) {
+
+          case ((sBreaks[i].startDate != null) && (sBreaks[i].endDate == null)):
+            this.formError = "Please provide a start date for each Session Break.";
+            sessBreaksOK = false;
+            break;
+
+          case ((sBreaks[i].endDate == null) && (sBreaks[i].endDate != null)):
+            this.formError = "Please provide an end date for each Session Break.";
+            sessBreaksOK = false;
+            break;
+
+          case !(this.AreDatesOK(sBreaks[i].startDate, sBreaks[i].endDate)):      // end date is earlier 
+            break;
+
+          default:  // either none of the dates was provided or both are blank
+            break;
+        } // switch()
+      } // for()
+    } // if(this.haveSessionBreaks)
+
+    return sessBreaksOK;
+  }   // AreSessionBreaksOK()
+
+
+
+  private AreDatesOK(beginDate: string, endDate: string): boolean {
+
+    var datesOk: boolean = true;
+    var firstDayOfClass: Date = new Date(this.session.dates.firstDayOfClass);
+    var date1: Date = new Date(beginDate);
+    var date2: Date = new Date(endDate);
+    var lastDayOfClass: Date = new Date(this.session.dates.lastDayOfClass);
+
+    switch (true) {
+
+      case (date1 < firstDayOfClass):
+        this.formError = "Start date is earlier than the start date of the session.";
+        datesOk = false;
+        break;
+
+      case (date1 < lastDayOfClass):
+        this.formError = "Start date is later than the start date of the session.";
+        datesOk = false;
+        break;
+
+      case (date2 < firstDayOfClass):
+        this.formError = "End date is earlier than the first day of the session.";
+        datesOk = false;
+        break;
+
+      case (date2 < lastDayOfClass):
+        this.formError = "End date is later than the last day of the session.";
+        datesOk = false;
+        break;
+
+      case (date2 < date1):
+        this.formError = "End date is earlier than the start date.";
+        datesOk = false;
+        break;
+
+      default:
+        break;
+    } // switch()
+
+    return datesOk;
   }
 
   private BlankOutFlatRateUnitRangeFields(): void {      // Blank out the Flat Rate Unit Range fields
