@@ -116,6 +116,7 @@
     <kendo-datepicker id="finalsStartDate"
                       name="finalsStartDate"
                       [(ngModel)]="session.dates.firstDayOfFinals"
+                      (valueChange)="FinalsDateEntered($event)"
                       [class.has-error]="(session.dates.firstDayOfFinals == null)">
     </kendo-datepicker>
 
@@ -131,8 +132,9 @@
     <br />
     <kendo-datepicker id="finalsEndDate"
                       name="finalsEndDate"
-                      [class.has-error]="(session.dates.lastDayOfFinals == null)"
-                      [(ngModel)]="session.dates.lastDayOfFinals">
+                      [(ngModel)]="session.dates.lastDayOfFinals"
+                      (valueChange)="FinalsDateEntered($event)"
+                      [class.has-error]="(session.dates.lastDayOfFinals == null)">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Finals End Date">&#9432;</abbr></b>
 

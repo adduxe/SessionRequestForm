@@ -21,13 +21,20 @@ const ENROLLMENTTYPES = [
 
 const MAX_SESSION_BREAKS = 2;
 
-enum DATECHECK {
-  ALLDATESOK,
-  STARTDATEBEFOREFIRSTDAY,
-  STARTDATEAFTERLASTDAY,
-  ENDDATEBEFOREFIRSTDAY,
-  ENDDATEAFTERLASTDAY,
-  ENDDATEBEFOREFIRSTDATE
+class error {
+  code: number;
+  message: string;
+}
+
+enum DATE_RANGE_CHECK {
+  ALL_DATES_OK,                     // Both start and end dates are good.
+  NO_START_DATE,                    // No start date provided.
+  NO_END_DATE,                      // No end date provided.
+  START_DATE_BEFORE_FIRST_DAY,      // Start date is earlier than the First Day of Classes
+  START_DATE_AFTER_LAST_DAY,        // Start date is later than the Last Day of Classes
+  END_DATE_BEFORE_FIRST_DAY,        // End date is earlier than the First Day of Classes
+  END_DATE_AFTER_LAST_DAY,          // End Date is later than the Last Day of Classes
+  END_DATE_BEFORE_START_DATE        // End Date is before the Start Date
 }
 
 @Component({
@@ -115,9 +122,11 @@ export class RequestFormComponent implements OnInit{
   private preLoadValues: boolean = false;
   
   constructor(
+
     private peDataService: PEDataService,
     private sqlDataService: SQLDataService,
     private submitFormService: SubmitFormService
+
   ) {
 
     this.semesters = this.peDataService.getActiveTerms();       // pre-populate the Semester dropdown
@@ -464,10 +473,12 @@ export class RequestFormComponent implements OnInit{
   private AreSessionBreaksOK() {
 
     var sessBreaksOK: boolean = true;
-    var dateCheck: number = null;
+    var dateCheck: error = new error();
 
-    if (this.haveSessionBreaks) {
+    if (this.haveSessionBreaks) {     // User checked Yes on Session have breaks?
+
       var sBreaks = this.session.dates.sessionBreaks;
+
       for (var i = 0; i < sBreaks.length; ++i) {
 
         dateCheck = this.IsDateRangeOK(sBreaks[i].startDate, sBreaks[i].endDate);
@@ -484,33 +495,36 @@ export class RequestFormComponent implements OnInit{
             sessBreaksOK = false;
             break;
 
-          case (dateCheck != DATECHECK.ALLDATESOK):      // At least one of the dates is invalid
+          case (dateCheck.code != DATE_RANGE_CHECK.ALL_DATES_OK):      // At least one of the dates is invalid
 
             sessBreaksOK = false;
 
-            //switch (dateCheck) {
+            switch (dateCheck.code) {
 
-            //  case DATECHECK.ENDDATEBEFOREFIRSTDAY:              
-            //  case DATECHECK.STARTDATEBEFOREFIRSTDAY:
-            //  case DATECHECK.STARTDATEAFTERLASTDAY:
-            //    sBreaks[i].startDate = null
+              case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:              
+              case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:
+              case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
+                this.formError = "Session Break " + dateCheck.message;
+                sBreaks[i].startDate = '';
+                break;
 
-            //  case DATECHECK.ENDDATEBEFOREFIRSTDATE:
-            //  case DATECHECK.ENDDATEBEFOREFIRSTDATE:
-            //    sBreaks[i].endDate = null;
+              case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:
+                this.formError = "Session Break " + dateCheck.message;
+                sBreaks[i].endDate = '';
+                break;
 
-            //  default:
-            //    break;
-            //}
+              default:
+                this.formError = '';
+                break;
+            }
             break;
 
           default:  // either none of the dates was provided or both are blank
-            this.formError = '';
             break;
         } // switch()
 
-        if (!sessBreaksOK) {
-          break;
+        if (!sessBreaksOK) {    // if a session break is found with a problem, 
+          break;                // stop checking the rest of the dates
         }
       } // for()
     } // if(this.haveSessionBreaks)
@@ -523,35 +537,68 @@ export class RequestFormComponent implements OnInit{
 
     if ((this.session.dates.firstDayOfClass != null) && (this.session.dates.lastDayOfClass != null)) {
 
-      var dateCheck: number = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass, "Class");
+      var dateCheck: error = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass);
 
-      switch (dateCheck) {
+      switch (dateCheck.code) {
 
-        case DATECHECK.ENDDATEBEFOREFIRSTDATE:          // Last Day of Class is earlier than the First Day of Class 
-        case DATECHECK.ENDDATEBEFOREFIRSTDAY:
-          this.session.dates.lastDayOfClass = '';
+        case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:          // Last Day of Class is earlier than the First Day of Class 
+        case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:           // Last Day of Class is earlier than the First Day of Class
+          this.formError = "Class Date: " + dateCheck.message;
+          this.session.dates.lastDayOfClass = null;
           break;
 
-        case DATECHECK.STARTDATEAFTERLASTDAY:           // First Day of Class is later than the Last Day of Class
-          this.session.dates.firstDayOfClass = '';
+        case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:           // First Day of Class is later than the Last Day of Class
+          this.formError = "Class Date: " + dateCheck.message;
+          this.session.dates.firstDayOfClass = null;
           break;
 
         default:
+          this.formError = '';
           break;
         } // switch()
       } // if((this.session.dates...)
     
     return;
   }   // SessionDateEntered()
+
+
+  private FinalsDateEntered(): void {
+
+    if ((this.session.dates.firstDayOfFinals != null) && (this.session.dates.lastDayOfFinals != null)) {
+
+      var dateCheck: error = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass);
+
+      switch (dateCheck.code) {
+
+        case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:    // Finals Start Date is earlier than the First Day of Classes
+          this.formError = "Finals: " + dateCheck.message;
+          this.session.dates.firstDayOfFinals = null;
+          break;
+
+        case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:      // Finals End Date is earlier than First Day of Classes
+        case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:     // Finals End Date is earlier than the Finals Start Date
+          this.formError = "Finals: " + dateCheck.message;
+          this.session.dates.lastDayOfFinals = null;
+          break;
+
+        case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:      // Start of Finals after Last Day of Class -> OK
+        case DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY:        // End of Finals after Last Day of Class -> OK
+        default:
+          break;
+      } // switch()
+
+    } //  if ((this.session...)
+      return;
+  }   // FinalsDateEntered()
   
 
-  private IsDateRangeOK(beginDate: string, endDate: string, rangeName: string): number {
+  private IsDateRangeOK(beginDate: string, endDate: string): error {
         // checks the date range if:
         //  - start/end dates are not earlier than the first day of classes
         //  - start/end dates are not later than the last day of classes
         //  - end date is not earlier than the start date
+    var dateCheck = new error();
 
-    var dateCheck: number = null;
     var firstDayOfClass: Date = new Date(this.session.dates.firstDayOfClass);
     var date1: Date = new Date(beginDate);
     var date2: Date = new Date(endDate);
@@ -559,33 +606,44 @@ export class RequestFormComponent implements OnInit{
 
     switch (true) {
 
+      case (beginDate == null):
+        dateCheck.message = "No start date was provided";
+        dateCheck.code = DATE_RANGE_CHECK.NO_START_DATE;
+        break;
+
+      case (endDate == null):
+        dateCheck.message = "No end date was provided";
+        dateCheck.code = DATE_RANGE_CHECK.NO_END_DATE;
+        break;
+
       case (date1 < firstDayOfClass):
-        this.formError = rangeName + " start date is earlier than the first day of classes.";
-        dateCheck = DATECHECK.STARTDATEBEFOREFIRSTDAY;
+        dateCheck.message = "Start date is earlier than the first day of classes";
+        dateCheck.code = DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY;
         break;
 
       case (date1 > lastDayOfClass):
-        this.formError = rangeName + " start date is later than the last day of classes.";
-        dateCheck = DATECHECK.STARTDATEAFTERLASTDAY;
+        dateCheck.message = "Start date is later than the last day of classes";
+        dateCheck.code = DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY;
         break;
 
       case (date2 < firstDayOfClass):
-        this.formError = rangeName + " end date is earlier than the first day of classes.";
-        dateCheck = DATECHECK.ENDDATEBEFOREFIRSTDATE;
+        dateCheck.message = "End date is earlier than the first day of classes";
+        dateCheck.code = DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE;
         break;
 
       case (date2 > lastDayOfClass):
-        this.formError = rangeName + " end date is later than the last day of classes.";
-        dateCheck = DATECHECK.ENDDATEAFTERLASTDAY;
+        dateCheck.message = "End date is later than the last day of classes";
+        dateCheck.code = DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY;
         break;
 
       case (date2 < date1):
-        this.formError = rangeName + " end date is earlier than the start date.";
-        dateCheck = DATECHECK.ENDDATEBEFOREFIRSTDATE;
+        dateCheck.message = "End date is earlier than the start date";
+        dateCheck.code = DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE;
         break;
 
       default:
-        dateCheck = DATECHECK.ALLDATESOK
+        dateCheck.message = '';
+        dateCheck.code = DATE_RANGE_CHECK.ALL_DATES_OK
         break;
     } // switch()
 
