@@ -21,6 +21,15 @@ const ENROLLMENTTYPES = [
 
 const MAX_SESSION_BREAKS = 2;
 
+enum DATECHECK {
+  ALLDATESOK,
+  STARTDATEBEFOREFIRSTDAY,
+  STARTDATEAFTERLASTDAY,
+  ENDDATEBEFOREFIRSTDAY,
+  ENDDATEAFTERLASTDAY,
+  ENDDATEBEFOREFIRSTDATE
+}
+
 @Component({
   selector: 'request-form',
   templateUrl: './request.form.component.html',
@@ -356,6 +365,7 @@ export class RequestFormComponent implements OnInit{
   //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
   //    .filter((sFees) => sFees.sessionDesc.toLowerCase().indexOf(feeList.toLowerCase()) !== -1);
   //}
+  
 
   public ConfirmData(): void {
 
@@ -369,7 +379,7 @@ export class RequestFormComponent implements OnInit{
     }
 
   } // FormSubmitted()
-
+  
 
   private AreClassLocationsOK(): boolean {
 
@@ -404,7 +414,7 @@ export class RequestFormComponent implements OnInit{
 
     return locationsGood;
   }   // AreClassLocationsGood()
-
+  
 
   private IsFormValid(): boolean {
 
@@ -447,15 +457,18 @@ export class RequestFormComponent implements OnInit{
 
     return formValid;
   }
-
+  
 
   private AreSessionBreaksOK() {
 
     var sessBreaksOK: boolean = true;
+    var dateCheck: number = null;
 
     if (this.haveSessionBreaks) {
       var sBreaks = this.session.dates.sessionBreaks;
       for (var i = 0; i < sBreaks.length; ++i) {
+
+        dateCheck = this.IsDateRangeOK(sBreaks[i].startDate, sBreaks[i].endDate);
 
         switch (true) {
 
@@ -469,34 +482,73 @@ export class RequestFormComponent implements OnInit{
             sessBreaksOK = false;
             break;
 
-          case !(this.IsDateRangeOK(sBreaks[i].startDate, sBreaks[i].endDate)):      // end date is earlier 
+          case (dateCheck != DATECHECK.ALLDATESOK):      // At least one of the dates is invalid
+
+            sessBreaksOK = false;
+
+            //switch (dateCheck) {
+
+            //  case DATECHECK.ENDDATEBEFOREFIRSTDAY:              
+            //  case DATECHECK.STARTDATEBEFOREFIRSTDAY:
+            //  case DATECHECK.STARTDATEAFTERLASTDAY:
+            //    sBreaks[i].startDate = null
+
+            //  case DATECHECK.ENDDATEBEFOREFIRSTDATE:
+            //  case DATECHECK.ENDDATEBEFOREFIRSTDATE:
+            //    sBreaks[i].endDate = null;
+
+            //  default:
+            //    break;
+            //}
             break;
 
           default:  // either none of the dates was provided or both are blank
             break;
         } // switch()
+
+        if (!sessBreaksOK) {
+          break;
+        }
       } // for()
     } // if(this.haveSessionBreaks)
 
     return sessBreaksOK;
   }   // AreSessionBreaksOK()
+  
 
+  private SessionDateEntered(): void {
 
+    if ((this.session.dates.firstDayOfClass != null) && (this.session.dates.lastDayOfClass != null)) {
 
-  private sessionDateEntered(): void {
-    alert("Session Date entered");
+      var dateCheck: number = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass, "Class");
+
+      switch (dateCheck) {
+
+        case DATECHECK.STARTDATEAFTERLASTDAY:           // First Day of Class is later than the Last Day of Class
+          this.session.dates.firstDayOfClass = null;
+          break;
+
+        case DATECHECK.ENDDATEBEFOREFIRSTDATE:          // Last Day of Class is earlier than the First Day of Class 
+        case DATECHECK.ENDDATEBEFOREFIRSTDAY:
+          this.session.dates.lastDayOfClass = null;
+          break;
+
+        default:
+          break;
+        } // switch()
+      } // if((this.session.dates...)
+    
     return;
-  }
+  }   // SessionDateEntered()
+  
 
-
-
-  private IsDateRangeOK(beginDate: string, endDate: string): boolean {
+  private IsDateRangeOK(beginDate: string, endDate: string, rangeName: string): number {
         // checks the date range if:
         //  - start/end dates are not earlier than the first day of classes
         //  - start/end dates are not later than the last day of classes
         //  - end date is not earlier than the start date
 
-    var datesOk: boolean = true;
+    var dateCheck: number = null;
     var firstDayOfClass: Date = new Date(this.session.dates.firstDayOfClass);
     var date1: Date = new Date(beginDate);
     var date2: Date = new Date(endDate);
@@ -505,36 +557,38 @@ export class RequestFormComponent implements OnInit{
     switch (true) {
 
       case (date1 < firstDayOfClass):
-        this.formError = "Start date is earlier than the start date of the session.";
-        datesOk = false;
+        this.formError = rangeName + " start date is earlier than the start date of the session.";
+        dateCheck = DATECHECK.STARTDATEBEFOREFIRSTDAY;
         break;
 
-      case (date1 < lastDayOfClass):
-        this.formError = "Start date is later than the start date of the session.";
-        datesOk = false;
+      case (date1 > lastDayOfClass):
+        this.formError = rangeName + " start date is later than the start date of the session.";
+        dateCheck = DATECHECK.STARTDATEAFTERLASTDAY;
         break;
 
       case (date2 < firstDayOfClass):
-        this.formError = "End date is earlier than the first day of the session.";
-        datesOk = false;
+        this.formError = rangeName + " end date is earlier than the first day of the session.";
+        dateCheck = DATECHECK.ENDDATEBEFOREFIRSTDATE;
         break;
 
-      case (date2 < lastDayOfClass):
-        this.formError = "End date is later than the last day of the session.";
-        datesOk = false;
+      case (date2 > lastDayOfClass):
+        this.formError = rangeName + " end date is later than the last day of the session.";
+        dateCheck = DATECHECK.ENDDATEAFTERLASTDAY;
         break;
 
       case (date2 < date1):
-        this.formError = "End date is earlier than the start date.";
-        datesOk = false;
+        this.formError = rangeName + " end date is earlier than the start date.";
+        dateCheck = DATECHECK.ENDDATEBEFOREFIRSTDATE;
         break;
 
       default:
+        dateCheck = DATECHECK.ALLDATESOK
         break;
     } // switch()
 
-    return datesOk;
-  }
+    return dateCheck;
+  } // IsDateRangeOK()
+  
 
   private BlankOutFlatRateUnitRangeFields(): void {      // Blank out the Flat Rate Unit Range fields
 
@@ -544,7 +598,7 @@ export class RequestFormComponent implements OnInit{
     this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
 
   }   // BlankOutFlatRateUnitRangeFields()
-
+  
 
   private MaxOutFlatRateUnitRangeFields(): void {       // Sets the min and max unit ranges to maximum values.
     
@@ -554,7 +608,7 @@ export class RequestFormComponent implements OnInit{
     this.session.rateType.flatRateUnitRange.undergraduate.minimum = this.MAXUNITS - 2;
 
   }   // MaxOutFlatRateUnitRangeFields()
-
+  
 
   public RateSelected(rateSelected: any): void {
 

@@ -74,7 +74,7 @@
     <kendo-datepicker id="classStartDate"
                       name="classStartDate"
                       [class.has-error]="(session.dates.firstDayOfClass == null)"
-                      (valueChange)="sessionDateEntered($event)"
+                      (valueChange)="SessionDateEntered($event)"
                       [(ngModel)]="session.dates.firstDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
@@ -92,7 +92,7 @@
     <kendo-datepicker id="classEndDate"
                       name="classEndDate"
                       [class.has-error]="(session.dates.lastDayOfClass == null)"
-                      (valueChange)="sessionDateEntered($event)"
+                      (valueChange)="SessionDateEntered($event)"
                       [(ngModel)]="session.dates.lastDayOfClass">
     </kendo-datepicker>
     &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
