@@ -20,15 +20,22 @@ const ENROLLMENTTYPES = [
 
 const MAX_SESSION_BREAKS = 2;
 
-class error {
+enum DATE_RANGE_CHECK {
+  ALL_DATES_OK,                     // Both start and end dates are good.
+  NO_START_DATE,                    // No start date provided.
+  NO_END_DATE,                      // No end date provided.
+  START_DATE_BEFORE_FIRST_DAY,      // Start date is earlier than the First Day of Classes
+  START_DATE_AFTER_LAST_DAY,        // Start date is later than the Last Day of Classes
+  END_DATE_BEFORE_FIRST_DAY,        // End date is earlier than the First Day of Classes
+  END_DATE_AFTER_LAST_DAY,          // End Date is later than the Last Day of Classes
+  END_DATE_BEFORE_START_DATE        // End Date is before the Start Date
+}
+
+class Error {
 
   code: number;
   message: string;
 
-  constructor() {
-    this.code = null;
-    this.message = null;
-  }
 }
 
 
@@ -51,50 +58,8 @@ class SpecialFee {
     name: string;
   }
 
-  constructor() {
-    this.fee.code = null;
-    this.fee.name = null;
-    this.amount = null;
-    this.gradeLevel.code = null;
-    this.gradeLevel.name = null;
-    this.enrollType.code = null;
-    this.enrollType.name = null;
-  }
 }
 
-
-class Location {
-
-  code: {
-    campusCode: string;
-    campusName: string;
-  }
-
-  startDate: string;
-
-  endDate: string;
-
-  constructor() {
-
-    this.code.campusCode = null;
-    this.code.campusName = null;
-    this.startDate = null;
-    this.endDate = null;
-
-  }
-}
-
-
-enum DATE_RANGE_CHECK {
-  ALL_DATES_OK,                     // Both start and end dates are good.
-  NO_START_DATE,                    // No start date provided.
-  NO_END_DATE,                      // No end date provided.
-  START_DATE_BEFORE_FIRST_DAY,      // Start date is earlier than the First Day of Classes
-  START_DATE_AFTER_LAST_DAY,        // Start date is later than the Last Day of Classes
-  END_DATE_BEFORE_FIRST_DAY,        // End date is earlier than the First Day of Classes
-  END_DATE_AFTER_LAST_DAY,          // End Date is later than the Last Day of Classes
-  END_DATE_BEFORE_START_DATE        // End Date is before the Start Date
-}
 
 @Component({
   selector: 'request-form',
@@ -120,7 +85,7 @@ export class RequestFormComponent implements OnInit{
   public disableUnitRange     : boolean = false;
   public requireFlatRateFields: boolean = false;
   public formIsValid: boolean = true;
-  public formError: string = "* Please fill in all highlighted fields.";
+  public formError: string = "Please fill in all highlighted fields.";
   public haveSessionBreaks: boolean = null;
 
   public session : any = {
@@ -235,11 +200,19 @@ export class RequestFormComponent implements OnInit{
     }
   }   // PreLoadTheForm()
 
-
+  
   public AddClassLocation(selectedCampus: string) {
 
     var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
-    var newLocation = new Location();
+
+    var newLocation = {
+      code: {
+        campusCode : null,
+        campusName : null
+      },
+      startDate :  null,
+      endDate : null 
+    };
 
     this.session.classLocations.push(newLocation);
 
@@ -308,7 +281,7 @@ export class RequestFormComponent implements OnInit{
   } // AddSpecialFee()
 
 
-  public DeleteThisFee(feeIndex) {
+  public DeleteThisFee(feeIndex) {       // deletes a Special Fee entry
 
     if (this.session.specialFees[feeIndex].fee) {
       var feeCode = this.session.specialFees[feeIndex].fee.code;
@@ -318,19 +291,19 @@ export class RequestFormComponent implements OnInit{
 
     this.session.specialFees.splice(feeIndex, 1);
     return;
-  }   // deletes a Special Fee entry
+  }   // DeleteThisFee()
 
 
   public filterSessionCodes(codes) {
     this.SessionCodes = this.peDataService.getSessionCodes()
       .filter((sCodes) => sCodes.sessionDesc.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
-  }
+  }   // filterSessionCodes()
 
 
   public filterCampusLocation(campuses) {   // limit the list as the user types
     this.UscCampuses = this.peDataService.getCampusLocations()
       .filter((locations) => locations.campusName.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
-  }
+  }   // filterCampusLocation()
 
 
   private formSpecialFeeArray(acadTerm: number, feeList: any): any[] {
@@ -366,7 +339,7 @@ export class RequestFormComponent implements OnInit{
     }
 
     return specFeeArray;
-  }
+  }   // formSpecialFeeArray()
 
 
   private CleanupFeeName(termYear: string, feeDesc: string): string {
@@ -376,7 +349,7 @@ export class RequestFormComponent implements OnInit{
     cleanStr = cleanStr.replace(termYear, '');
     
     return cleanStr;
-  }
+  }   // CleanupFeeName()
 
 
   private ResetRateFields() {
@@ -395,7 +368,7 @@ export class RequestFormComponent implements OnInit{
   }   // ResetRateFields()
 
 
-  public TermSelected(selectedTerm: any) {
+  public TermSelected(selectedTerm: any) {    // when the user selects a term in the Semester dropdown
 
     var term: number = selectedTerm.code;
     this.termRates = this.peDataService.getTermTuitionRates(term);
@@ -404,7 +377,7 @@ export class RequestFormComponent implements OnInit{
     var FeeList = this.peDataService.getSpecialFeeList(term);
     this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
-  }
+  }   // TermSelected()
   
   //public filterSpecialFees(feeList) {
   //  this.SpecialFeeList = this.peDataService.getSpecialFeeList()
@@ -412,9 +385,9 @@ export class RequestFormComponent implements OnInit{
   //}
   
 
-  public ConfirmData(): void {
-
-    console.log(this.session);
+  public ConfirmData(): void {    // validates the entered values by the user
+                                  // and sends the data to the confimation page 
+    console.log(this.session);    // when all values are good.
 
     this.formError = '';      // reset all validation messages.
 
@@ -503,13 +476,13 @@ export class RequestFormComponent implements OnInit{
     } // if (formValid)
 
     return formValid;
-  }
+  }   // IsFormValid()
   
 
   private AreSessionBreaksOK() {
 
     var sessBreaksOK: boolean = true;
-    var dateCheck: error = new error();
+    var dateCheck: Error = new Error();
 
     if (this.haveSessionBreaks) {     // User checked Yes on Session have breaks?
 
@@ -569,11 +542,11 @@ export class RequestFormComponent implements OnInit{
   }   // AreSessionBreaksOK()
   
 
-  private SessionDateEntered(): void {
+  private ClassDateEntered(): void {
 
     if ((this.session.dates.firstDayOfClass != null) && (this.session.dates.lastDayOfClass != null)) {
 
-      var dateCheck: error = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass);
+      var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass);
 
       switch (dateCheck.code) {
 
@@ -595,16 +568,14 @@ export class RequestFormComponent implements OnInit{
       } // if((this.session.dates...)
     
     return;
-  }   // SessionDateEntered()
+  }   // ClassDateEntered()
 
 
   private FinalsDateEntered(): void {
 
-
-
     if ((this.session.dates.firstDayOfFinals != null) && (this.session.dates.lastDayOfFinals != null)) {
 
-      var dateCheck: error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
+      var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
 
       switch (dateCheck.code) {
 
@@ -631,12 +602,12 @@ export class RequestFormComponent implements OnInit{
   }   // FinalsDateEntered()
   
 
-  private IsDateRangeOK(beginDate: string, endDate: string): error {
+  private IsDateRangeOK(beginDate: string, endDate: string): Error {
         // checks the date range if:
         //  - start/end dates are not earlier than the first day of classes
         //  - start/end dates are not later than the last day of classes
         //  - end date is not earlier than the start date
-    var dateCheck = new error();
+    var dateCheck = new Error();
 
     var firstDayOfClass: Date = new Date(this.session.dates.firstDayOfClass);
     var date1: Date = new Date(beginDate);

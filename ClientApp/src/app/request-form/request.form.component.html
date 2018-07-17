@@ -4,7 +4,7 @@
   Complete this form to request the new session for your department.
 </div><br />
 
-<h4 style="color:darkred;padding:0px;">Session Details</h4> &nbsp;&nbsp;<span style="display:inline; color: red;" *ngIf="formError">{{ formError }}</span>
+<h4 style="color:darkred;padding:0px;">Session Details</h4> &nbsp;&nbsp;<span style="display:inline; color: red;" *ngIf="formError"><b>* {{ formError }}</b></span>
 
 <hr style="border-color:darkred" />
 
@@ -75,7 +75,7 @@
       <kendo-datepicker id="classStartDate"
                         name="classStartDate"
                         [class.has-error]="(session.dates.firstDayOfClass == '') || (session.dates.firstDayOfClass == null)"
-                        (valueChange)="SessionDateEntered($event)"
+                        (valueChange)="ClassDateEntered($event)"
                         [(ngModel)]="session.dates.firstDayOfClass">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
@@ -93,7 +93,7 @@
       <kendo-datepicker id="classEndDate"
                         name="classEndDate"
                         [class.has-error]="(session.dates.lastDayOfClass == '') || (session.dates.lastDayOfClass == null)"
-                        (valueChange)="SessionDateEntered($event)"
+                        (valueChange)="ClassDateEntered($event)"
                         [(ngModel)]="session.dates.lastDayOfClass">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
@@ -267,6 +267,7 @@
           <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
                             [class.has-error]="(eachLocation.startDate == null)"
                             [(ngModel)]="eachLocation.startDate"
+                            (valueChange)="LocationDateEntered(eachLocation.startDate, eachLocation.endDate)"
                             [ngModelOptions]="{standalone: true}">
           </kendo-datepicker>
 
@@ -276,6 +277,7 @@
           <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
                             [class.has-error]="(eachLocation.endDate == null)"
                             [(ngModel)]="eachLocation.endDate"
+                            (valueChange)="LocationDateEntered(eachLocation.startDate, eachLocation.endDate)"
                             [ngModelOptions]="{standalone: true}">
           </kendo-datepicker>
 
