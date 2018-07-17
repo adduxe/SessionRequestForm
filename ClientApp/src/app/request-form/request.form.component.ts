@@ -557,13 +557,13 @@ export class RequestFormComponent implements OnInit{
 
         case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:          // Last Day of Class is earlier than the First Day of Class 
         case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:           // Last Day of Class is earlier than the First Day of Class
-          this.formError = "Class Dates: " + dateCheck.message;
+        case DATE_RANGE_CHECK.NO_START_DATE:
           this.session.dates.lastDayOfClass = null;
           datesValid = false;
           break;
 
+        case DATE_RANGE_CHECK.NO_END_DATE:
         case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:           // First Day of Class is later than the Last Day of Class
-          this.formError = "Class Dates: " + dateCheck.message;
           this.session.dates.firstDayOfClass = null;
           datesValid = false;
           break;
@@ -574,6 +574,10 @@ export class RequestFormComponent implements OnInit{
           break;
       } // switch()
 
+      if (!datesValid) {
+        this.formError = "Class Dates: " + dateCheck.message;
+      }
+
     } // if((this.session.dates...)
 
     return datesValid;
@@ -582,36 +586,37 @@ export class RequestFormComponent implements OnInit{
 
   private FinalsDateEntered(): boolean {
 
+    var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
     var datesValid: boolean = true;
 
-    if ((this.session.dates.firstDayOfFinals != null) && (this.session.dates.lastDayOfFinals != null)) {
+    switch (dateCheck.code) {
 
-      var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
+      case DATE_RANGE_CHECK.NO_START_DATE:
+      case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:    // Finals Start Date is earlier than the First Day of Classes
+        this.session.dates.firstDayOfFinals = null;
+        datesValid = false;
+        break;
 
-      switch (dateCheck.code) {
+      case DATE_RANGE_CHECK.NO_END_DATE:
+      case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:      // Finals End Date is earlier than First Day of Classes
+      case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:     // Finals End Date is earlier than the Finals Start Date
+        this.session.dates.lastDayOfFinals = null;
+        datesValid = false;
+        break;
 
-        case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:    // Finals Start Date is earlier than the First Day of Classes
-          this.formError = "Finals dates: " + dateCheck.message;
-          this.session.dates.firstDayOfFinals = null;
-          datesValid = false;
-          break;
+      case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:      // Start of Finals after Last Day of Class -> OK
+      case DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY:        // End of Finals after Last Day of Class -> OK
+      case DATE_RANGE_CHECK.ALL_DATES_OK:
+      default:
+        datesValid = true;
+        break;
+    } // switch()
 
-        case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:      // Finals End Date is earlier than First Day of Classes
-        case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:     // Finals End Date is earlier than the Finals Start Date
-          this.formError = "Finals dates: " + dateCheck.message;
-          this.session.dates.lastDayOfFinals = null;
-          datesValid = false;
-          break;
+    if (!datesValid) {
+      this.formError = "Finals dates: " + dateCheck.message;
+    }
 
-        case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:      // Start of Finals after Last Day of Class -> OK
-        case DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY:        // End of Finals after Last Day of Class -> OK
-        default:
-          datesValid = true;
-          break;
-      } // switch()
-
-    } //  if ((this.session...)
-      return datesValid;
+    return datesValid;
   }   // FinalsDateEntered()
   
 
@@ -741,39 +746,33 @@ export class RequestFormComponent implements OnInit{
 
     var startDate = this.session.classLocations[x].startDate;
     var endDate = this.session.classLocations[x].endDate;
+    var dateCheck: Error = this.IsDateRangeOK(startDate, endDate)
     var datesValid: boolean = true;
 
-//    if ((startDate != null) && (endDate != null)) {
+    switch (dateCheck.code) {
 
-      var dateCheck: Error = this.IsDateRangeOK(startDate, endDate)
+      case DATE_RANGE_CHECK.NO_START_DATE:
+      case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
+        this.session.classLocations[x].startDate = null;
+        datesValid = false;
+        break;
 
-      switch (dateCheck.code) {
+      case DATE_RANGE_CHECK.NO_END_DATE:
+      case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:
+      case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:
+        this.session.classLocations[x].endDate = null;
+        datesValid = false;
+        break;
 
-        case DATE_RANGE_CHECK.NO_START_DATE:
-        case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
-          this.session.classLocations[x].startDate = null;
-          datesValid = false;
-          break;
+      default:
+        this.formError = '';
+        datesValid = true;
+        break;
+    } // switch()
 
-        case DATE_RANGE_CHECK.NO_END_DATE:
-        case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:
-        case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:
-          this.session.classLocations[x].endDate = null;
-          datesValid = false;
-          break;
-
-        case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:
-        case DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY:
-        default:
-          this.formError = '';
-          datesValid = true;
-          break;
-      } // switch()
-
-      if (!datesValid) {
-        this.formError = "Location dates: " + dateCheck.message;
-      }
-//    }
+    if (!datesValid) {
+      this.formError = "Location dates: " + dateCheck.message;
+    }
 
     return datesValid;
   }   // LocationDateEntered()
