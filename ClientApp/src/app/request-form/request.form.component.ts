@@ -4,16 +4,15 @@ import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
 
-import { SpecialFee } from '../shared/models/SpecialFee';
-
 const GRADELEVEL = [
-  { code: "", name: "" },
+  { code: null, name: null },
   { code: "G", name: "Graduate" },
   { code: "U", name: "Undergraduate" },
   { code: "B", name: "All" }
 ];
 
 const ENROLLMENTTYPES = [
+  { code: null, name: null },
   { code: "FULL", name: "Full Load" },
   { code: "HALF", name: "Half Load" },
   { code: "NONE", name: "Not Enrolled" }
@@ -31,6 +30,60 @@ class error {
     this.message = null;
   }
 }
+
+
+class SpecialFee {
+
+  fee: {
+    code: string;
+    name: string;
+  }
+
+  amount: number;
+
+  gradeLevel: {
+    code: string;
+    name: string;
+  }
+
+  enrollType: {
+    code: string;
+    name: string;
+  }
+
+  constructor() {
+    this.fee.code = null;
+    this.fee.name = null;
+    this.amount = null;
+    this.gradeLevel.code = null;
+    this.gradeLevel.name = null;
+    this.enrollType.code = null;
+    this.enrollType.name = null;
+  }
+}
+
+
+class Location {
+
+  code: {
+    campusCode: string;
+    campusName: string;
+  }
+
+  startDate: string;
+
+  endDate: string;
+
+  constructor() {
+
+    this.code.campusCode = null;
+    this.code.campusName = null;
+    this.startDate = null;
+    this.endDate = null;
+
+  }
+}
+
 
 enum DATE_RANGE_CHECK {
   ALL_DATES_OK,                     // Both start and end dates are good.
@@ -186,15 +239,7 @@ export class RequestFormComponent implements OnInit{
   public AddClassLocation(selectedCampus: string) {
 
     var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
-
-    var newLocation = {
-      code: {
-        campusCode: null,
-        campusName: null
-      },
-      startDate: null,
-      endDate: null
-    };
+    var newLocation = new Location();
 
     this.session.classLocations.push(newLocation);
 
@@ -253,22 +298,7 @@ export class RequestFormComponent implements OnInit{
 
   public AddSpecialFee(acadTerm: any) {
 
-//    var newFee = new SpecialFee();
-    var newFee = {
-      fee: {
-        code: null,
-        name: null
-      },
-      amount: null,
-      gradeLevel: {
-        code: null,
-        name: null
-      },
-      enrollType: {
-        code: null,
-        name: null
-      }
-    };
+    var newFee = new SpecialFee();
 
     var term : string = acadTerm.value.code;
 //    var term: string = this.session.academicTerm.code;   // this will work too!
@@ -549,12 +579,12 @@ export class RequestFormComponent implements OnInit{
 
         case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:          // Last Day of Class is earlier than the First Day of Class 
         case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:           // Last Day of Class is earlier than the First Day of Class
-          this.formError = "Class Date: " + dateCheck.message;
+          this.formError = "Class Dates: " + dateCheck.message;
           this.session.dates.lastDayOfClass = null;
           break;
 
         case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:           // First Day of Class is later than the Last Day of Class
-          this.formError = "Class Date: " + dateCheck.message;
+          this.formError = "Class Dates: " + dateCheck.message;
           this.session.dates.firstDayOfClass = null;
           break;
 
@@ -579,13 +609,13 @@ export class RequestFormComponent implements OnInit{
       switch (dateCheck.code) {
 
         case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:    // Finals Start Date is earlier than the First Day of Classes
-          this.formError = "Finals: " + dateCheck.message;
+          this.formError = "Finals dates: " + dateCheck.message;
           this.session.dates.firstDayOfFinals = null;
           break;
 
         case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:      // Finals End Date is earlier than First Day of Classes
         case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:     // Finals End Date is earlier than the Finals Start Date
-          this.formError = "Finals: " + dateCheck.message;
+          this.formError = "Finals dates: " + dateCheck.message;
           this.session.dates.lastDayOfFinals = null;
           break;
 
@@ -625,6 +655,11 @@ export class RequestFormComponent implements OnInit{
         dateCheck.code = DATE_RANGE_CHECK.NO_END_DATE;
         break;
 
+      case (date2 < date1):
+        dateCheck.message = "End date is earlier than the start date";
+        dateCheck.code = DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE;
+        break;
+
       case (date1 < firstDayOfClass):
         dateCheck.message = "Start date is earlier than the first day of classes";
         dateCheck.code = DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY;
@@ -643,11 +678,6 @@ export class RequestFormComponent implements OnInit{
       case (date2 > lastDayOfClass):
         dateCheck.message = "End date is later than the last day of classes";
         dateCheck.code = DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY;
-        break;
-
-      case (date2 < date1):
-        dateCheck.message = "End date is earlier than the start date";
-        dateCheck.code = DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE;
         break;
 
       default:
