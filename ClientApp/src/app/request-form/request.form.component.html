@@ -267,7 +267,7 @@
           <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
                             [class.has-error]="(eachLocation.startDate == null)"
                             [(ngModel)]="eachLocation.startDate"
-                            (valueChange)="LocationDateEntered(eachLocation.startDate, eachLocation.endDate)"
+                            (valueChange)="LocationDateEntered(i)"
                             [ngModelOptions]="{standalone: true}">
           </kendo-datepicker>
 
@@ -277,7 +277,7 @@
           <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
                             [class.has-error]="(eachLocation.endDate == null)"
                             [(ngModel)]="eachLocation.endDate"
-                            (valueChange)="LocationDateEntered(eachLocation.startDate, eachLocation.endDate)"
+                            (valueChange)="LocationDateEntered(i)"
                             [ngModelOptions]="{standalone: true}">
           </kendo-datepicker>
 
@@ -551,7 +551,7 @@
     <div class="row">
       <div class="col-md-10">&nbsp;</div>
       <div class="col-md-2">
-        <button class="form-control btn-outline-danger" value="Add Special Fees" (click)="AddSpecialFee(semester);">
+        <button class="form-control btn-outline-danger" value="Add Special Fees" (click)="AddSpecialFee();">
           Add Special Fee
         </button>
       </div>
@@ -559,19 +559,22 @@
 
     <!-- End of Special Fees Section -->
 
-    <div id="userComments">
+  </div>
 
-      <h4 style="color:darkred;padding:0px;">Commments</h4>
-      <hr style="border-color:darkred" />
-      <div class="row" style="float:none; width:100%;">
-        <textarea style="width:100%;"
-                  id="comments"
-                  name="comments"
-                  [(ngModel)]="session.comments">
+  <div id="userComments">
+
+    <h4 style="color:darkred;padding:0px;">Commments</h4>
+    <hr style="border-color:darkred" />
+    <div class="row" style="float:none; width:100%;">
+      <textarea style="width:100%;"
+                id="comments"
+                name="comments"
+                [(ngModel)]="session.comments">
       </textarea>
-      </div>
     </div>
   </div>
+
+
 
   <br />
   <div class="row" style="align-content:center;">
