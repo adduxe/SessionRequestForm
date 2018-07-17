@@ -43,7 +43,6 @@ class Error {
 
 }
 
-
 @Component({
   selector: 'request-form',
   templateUrl: './request.form.component.html',
@@ -409,32 +408,47 @@ export class RequestFormComponent implements OnInit{
     var classLocs = this.session.classLocations;
     var locationsGood = true;
 
-    switch (classLocs.length) {
+    if (classLocs.length == 1) {
 
-      case 1:               // only one class location provided
+      if (classLocs[0].code.campusCode == null) {
 
-        if (classLocs[0].code.campusCode == null) {
-          locationsGood = false;
-        }
-        break;
+        locationsGood = false;
 
-      default:              // more than one location provided
+      } else {  // if only one class location provided
+                // start and end date is assumed to be class start and end dates
+        this.session.classLocations.startDate = this.session.firstDayOfClass;
+        this.session.classLocations.endDate = this.session.firstDayOfClass;
+      }
+
+    } else {                    // more than one location provided
 
         for (var i = 0; i < classLocs.length; ++i) {
 
-          if (classLocs[i].code.campusCode != null) {   // if a location is not provided
-            if (classLocs[i].startDate == null) {       //  check it's start and end dates
-              locationsGood = false;
-              break;
-            } else if (classLocs[i].endDate == null) {
-              locationsGood = false;
-              break;
+          if (classLocs[i].code.campusCode == null) {   // if a location is not provided
+
+            locationsGood = false;                       
+            break;              
+
+          } else {
+
+            switch (true) {
+
+              case (classLocs[i].startDate == null):    // if start date is blank
+              case (classLocs[i].endDate == null):      // if end date is blank
+
+                locationsGood = false;
+                break;    // for switch()
+
+              default:                                      // if both start and end dates are provided
+                locationsGood = this.LocationDateEntered(i);// validate the dates
+                break;
+            }   // switch()
+            if (!locationsGood) {
+              break;    //break the for-loop
             }
-          } // if (classLocs[i]
+          } // else
         } // for (var...
-
-    } // switch()
-
+    } // else (classLocs[i]
     return locationsGood;
   }   // AreClassLocationsGood()
   
@@ -637,16 +651,6 @@ export class RequestFormComponent implements OnInit{
         dateCheck.code = DATE_RANGE_CHECK.NO_START_DATE;
         break;
 
-      case (endDate == null):
-        dateCheck.message = "No end date was provided";
-        dateCheck.code = DATE_RANGE_CHECK.NO_END_DATE;
-        break;
-
-      case (endDate < beginDate):
-        dateCheck.message = "End date is earlier than the start date";
-        dateCheck.code = DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE;
-        break;
-
       case (beginDate < firstDayOfClass):
         dateCheck.message = "Start date is earlier than the first day of classes";
         dateCheck.code = DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY;
@@ -655,6 +659,16 @@ export class RequestFormComponent implements OnInit{
       case (beginDate > lastDayOfClass):
         dateCheck.message = "Start date is later than the last day of classes";
         dateCheck.code = DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY;
+        break;
+
+      case (endDate == null):
+        dateCheck.message = "No end date was provided";
+        dateCheck.code = DATE_RANGE_CHECK.NO_END_DATE;
+        break;
+
+      case (endDate < beginDate):
+        dateCheck.message = "End date is earlier than the start date";
+        dateCheck.code = DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE;
         break;
 
       case (endDate < firstDayOfClass):
