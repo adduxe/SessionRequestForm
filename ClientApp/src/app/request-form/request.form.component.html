@@ -4,7 +4,16 @@
   Complete this form to request the new session for your department.
 </div><br />
 
-<h4 style="color:darkred;padding:0px;">Session Details</h4> &nbsp;&nbsp;<span style="display:inline; color: red;" *ngIf="formError"><b>* {{ formError }}</b></span>
+<h4 style="color:darkred;padding:0px;">Session Details</h4>
+<div style="color: red;">
+  <div *ngIf="formError.general">* {{ formError.general }}</div>
+  <div *ngIf="formError.classDates">* {{ "Class Dates:" + formError.classDates }}</div>
+  <div *ngIf="formError.finalsDates">* {{ "Finals Dates: " + formError.finalsDates }}</div>
+  <div *ngIf="formError.sessionBreaks">* {{ "Session Breaks: " + formError.sessionBreaks }}</div>
+  <div *ngIf="formError.locations">* {{ "Class Locations: " + formError.locations }}</div>
+  <div *ngIf="formError.rates">* {{ "Rates: " + formError.rates }}</div>
+  <div *ngIf="formError.specialFees">* {{ "Special Fees: " + formError.specialFees }}</div>
+</div>
 
 <hr style="border-color:darkred" />
 
@@ -75,7 +84,7 @@
       <kendo-datepicker id="classStartDate"
                         name="classStartDate"
                         [class.has-error]="(session.dates.firstDayOfClass == '') || (session.dates.firstDayOfClass == null)"
-                        (valueChange)="SessionDatesValid($event)"
+                        (valueChange)="ClassDatesValid($event)"
                         [(ngModel)]="session.dates.firstDayOfClass">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
@@ -93,7 +102,7 @@
       <kendo-datepicker id="classEndDate"
                         name="classEndDate"
                         [class.has-error]="(session.dates.lastDayOfClass == '') || (session.dates.lastDayOfClass == null)"
-                        (valueChange)="SessionDatesValid($event)"
+                        (valueChange)="ClassDatesValid($event)"
                         [(ngModel)]="session.dates.lastDayOfClass">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>

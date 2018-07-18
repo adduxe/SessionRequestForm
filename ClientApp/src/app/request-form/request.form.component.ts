@@ -67,7 +67,6 @@ export class RequestFormComponent implements OnInit{
   public disableUnitRange     : boolean = false;
   public requireFlatRateFields: boolean = false;
   public formIsValid: boolean = true;
-  public formError: string = "Please fill in all highlighted fields.";
   public haveSessionBreaks: boolean = null;
 
   public session : any = {
@@ -122,6 +121,16 @@ export class RequestFormComponent implements OnInit{
     comments: '',
 
   }; // session
+
+  public formError: any = {
+    general: "Please fill-in the highlighted fields.",
+    classDates: null,
+    finalsDates: null,
+    sessionBreaks: null,
+    locations: null,
+    rates: null,
+    specialFees: null
+  };
 
   private term: number = 20183;
   private sessionCode: string = "555";
@@ -391,8 +400,6 @@ export class RequestFormComponent implements OnInit{
                                   // and sends the data to the confimation page 
     console.log(this.session);    // when all values are good.
 
-    this.formError = '';      // reset all validation messages.
-
     if (this.IsFormValid()) {
 
       this.submitFormService.cacheSubmittedFields(this.session);    // go to confirmation page to view submitted fields
@@ -400,8 +407,7 @@ export class RequestFormComponent implements OnInit{
     } else {
 
       this.formIsValid = false;
-      this.formError = "Please provide valid values in the highlighted fields before clicking Next.";
-
+      this.formError.general = "Please correct or fill-in the highlighted fields.";
     } // else
 
   } // FormSubmitted()
@@ -420,8 +426,9 @@ export class RequestFormComponent implements OnInit{
 
       } else {  // if only one class location provided
                 // start and end date is assumed to be class start and end dates
-        this.session.classLocations.startDate = this.session.firstDayOfClass;
-        this.session.classLocations.endDate = this.session.firstDayOfClass;
+        this.session.classLocations[0].startDate = this.session.dates.firstDayOfClass;
+        this.session.classLocations[0].endDate = this.session.dates.lastDayOfClass;
+
       }
 
     } else {                    // more than one location provided
@@ -429,7 +436,7 @@ export class RequestFormComponent implements OnInit{
         for (var i = 0; i < classLocs.length; ++i) {
 
           if (classLocs[i].code.campusCode == null) {   // if a location is not provided
-
+            this.formError.locations = "Please provide all Class Locations.";
             locationsGood = false;                       
             break;              
 
@@ -438,13 +445,18 @@ export class RequestFormComponent implements OnInit{
             switch (true) {
 
               case (classLocs[i].startDate == null):    // if start date is blank
-              case (classLocs[i].endDate == null):      // if end date is blank
+                this.formError.locations = "Please provide a start date for Class Location: " + classLocs[i].code.campusName;
+                locationsGood = false;
+                break;
 
+              case (classLocs[i].endDate == null):      // if end date is blank
+                this.formError.locations = "Please provide an end date for Class Location: " + classLocs[i].code.campusName;
                 locationsGood = false;
                 break;
 
               default:                                      // if both start and end dates are provided
-                locationsGood = this.LocationDateValid(i);// validate the dates
+                locationsGood = this.LocationDateValid(i);  // validate the dates
+                                                            // locations formError is set in LocationDateValid
                 break;
             }
 
@@ -454,27 +466,37 @@ export class RequestFormComponent implements OnInit{
           } // else
         } // for (var...
     } // else (classLocs[i]
+
+    if (locationsGood) {
+      this.formError.locations = null;
+    }
+
     return locationsGood;
+
   }   // AreClassLocationsGood()
   
 
   private IsFormValid(): boolean {
 
-    var formValid: boolean = true;
+    var formValid: boolean = null;
 
     switch (true) {   // Check minimal required fields
 
-      case (this.session.academicTerm == null):                     // Academic Term blank
-      case (this.session.code.sessionCode == null):                 // Session Code blank
-      case (this.session.dates.firstDayOfClass == null):            // First Day of Classes blank
-      case (this.session.dates.lastDayOfClass == null):             // Last Day of Classes blank
-      case (this.haveSessionBreaks == null):                        // Have Session Breaks unchecked
-      case (this.session.rateType.code == null):                    // Rate Type blank
-      case (this.session.classLocations[0].code.campusCode == null):  // No class location specified
+      case (this.session.academicTerm.code == null):                // Academic Term blank?
+      case (this.session.code.sessionCode == null):                 // Session Code blank?
+      case (this.session.dates.firstDayOfClass == null):            // First Day of Classes blank?
+      case (this.session.dates.lastDayOfClass == null):             // Last Day of Classes blank?
+      case (this.session.dates.firstDayOfFinals == null):           // First Day of Finals blank?
+      case (this.session.dates.lastDayOfFinals == null):            // Last Day of Finals blank?
+      case (this.haveSessionBreaks == null):                        // Have Session Breaks unchecked?
+      case (this.session.classLocations[0].code.campusCode == null):// No class location specified?
+      case (this.session.rateType.code == null):                    // Rate Type blank?
+
         formValid = false;
         break;
 
       default:
+        formValid = true;
         break;
     }
 
@@ -482,7 +504,7 @@ export class RequestFormComponent implements OnInit{
 
       switch (true) {       // check each section
 
-        case !(this.SessionDatesValid()):
+        case !(this.ClassDatesValid()):
           formValid = false;
           break;
 
@@ -554,7 +576,7 @@ export class RequestFormComponent implements OnInit{
         break;
 
       default:
-        positiveNum = false;
+        positiveNum = true;
         break;
     } // switch()
 
@@ -572,21 +594,42 @@ export class RequestFormComponent implements OnInit{
     switch (true) {
 
       case !this.IsPositiveNumber(rate.flatRate):           //    1) Flat Rate amount
+        this.formError.rates = "Please enter a positive whole number for the Tuition Amount Flat Rate.";
+        flatRateFieldsOK = false;
+        break;
 
       case !this.IsPositiveNumber(rate.unitRate):           //    2) Unit Rate amount
+        this.formError.rates = "Please enter a positive whole number for the Tuition Amount Unit Rate.";
+        flatRateFieldsOK = false;
+        break;
 
       case !this.IsPositiveNumber(uGradUnitRange.minimum):  //    3) Undergrad Unit range: minimum
+        this.formError.rates = "Please enter a positive whole number for the Undergraduate Unit minimum.";
+        flatRateFieldsOK = false;
+        break;
 
       case !this.IsPositiveNumber(uGradUnitRange.maximum):  //    4) Undergrad Unit range: maximum
-                                                            //    5) Undergrad unit range.
+        this.formError.rates = "Please enter a positive whole number for the Undergraduate Unit maximum.";
+        flatRateFieldsOK = false;
+        break;
+
       case !this.IsUnitRangeOK(uGradUnitRange.minimum, uGradUnitRange.maximum):
+        this.formError.rates = "Please check the Undergraduate Flat Rate Unit Range. The maximum should be equal or more than the minimum.";
+        flatRateFieldsOK = false;
+        break;
 
       case !this.IsPositiveNumber(gradUnitRange.minimum):   //    6) Graduate Unit range: minimum
+        this.formError.rates = "Please enter a positive whole number for the Graduate Unit minimum.";
+        flatRateFieldsOK = false;
+        break;
 
-      case !this.IsPositiveNumber(gradUnitRange.maximum):   //    7) Graduate Unit range: minimum
+      case !this.IsPositiveNumber(gradUnitRange.maximum):   //    7) Graduate Unit range: maximum
+        this.formError.rates = "Please enter a positive whole number for the Graduate Unit maximum.";
+        flatRateFieldsOK = false;
+        break;
                                                             //    8) Graduate unit range.
       case !this.IsUnitRangeOK(gradUnitRange.minimum, gradUnitRange.maximum):
-
+        this.formError.rates = "Please check the Graduate Flat Rate Unit Range. The maximum should be equal or more than the minimum.";
         flatRateFieldsOK = false;
         break;
 
@@ -600,17 +643,21 @@ export class RequestFormComponent implements OnInit{
 
   }   // AreFlatRateFields()
 
-
-  
+    
   private AreRateFieldsOK(): boolean {
 
-    var rateFieldsOK: boolean = true;
+    this.formError.rates = '';    // Reset rate error messages.
+
+    var rateFieldsOK: boolean = null;
     var rateTypeCode: string = (this.session.rateType.code).toUpperCase();
 
     switch (rateTypeCode) {
 
       case 'OTHFLAT':        // check:
+
         if (!this.AreFlatRateFieldsOK()) {
+          rateFieldsOK = false;
+        } else if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
           rateFieldsOK = false;
         }
         break;
@@ -656,6 +703,7 @@ export class RequestFormComponent implements OnInit{
 
   public SessionBreakDateValid(i): boolean {
 
+    this.formError.sessionBreaks = '';      // reset the Session Break error message
     var datesValid: boolean = null;
 
     var startDate: Date = this.session.dates.sessionBreaks[i].startDate;
@@ -684,18 +732,16 @@ export class RequestFormComponent implements OnInit{
         break;
     } // switch()
 
-    if (datesValid) {
-      this.formError = '';
-    } else {
-      this.formError = "Session Break dates: " + dateCheck.message;
+    if (!datesValid) {
+      this.formError.sessionBreaks = "Session Break dates: " + dateCheck.message;
     }
 
     return datesValid;
 
-  }   // SessBreakEntered()
+  }   // SessionBreakDateValid()
 
 
-  private SessionDatesValid(): boolean {
+  private ClassDatesValid(): boolean {
 
     var datesValid: boolean = true;
 
@@ -726,15 +772,15 @@ export class RequestFormComponent implements OnInit{
       } // switch()
 
       if (datesValid) {
-        this.formError = '';
+        this.formError.classDates = '';     // reset the Class Date error message
       } else {
-        this.formError = "Class Dates: " + dateCheck.message;
+        this.formError.classDates = "Class Dates: " + dateCheck.message;
       }
 
     } // if((this.session.dates...)
 
     return datesValid;
-  }   // SessionDatesValid()
+  }   // ClassDatesValid()
 
 
   private FinalsDateValid(): boolean {
@@ -772,9 +818,9 @@ export class RequestFormComponent implements OnInit{
     } // switch()
 
     if (datesValid) {
-      this.formError = '';
+      this.formError.finalsDates = null;      // reset the finals dates error messages
     } else {
-      this.formError = "Finals dates: " + dateCheck.message;
+      this.formError.finalsDates = "Finals dates: " + dateCheck.message;
     }
 
     return datesValid;
@@ -909,7 +955,7 @@ export class RequestFormComponent implements OnInit{
     var endDate = this.session.classLocations[x].endDate;
 
     var dateCheck: Error = this.IsDateRangeOK(startDate, endDate)
-    var datesValid: boolean = true;
+    var datesValid: boolean = null;
 
     switch (dateCheck.code) {
 
@@ -931,10 +977,8 @@ export class RequestFormComponent implements OnInit{
         break;
     } // switch()
 
-    if (datesValid) {
-      this.formError = '';
-    } else {
-      this.formError = "Location dates: " + dateCheck.message;
+    if (!datesValid) {
+      this.formError.locations = "Location date for " + this.session.classLocations[x].code.campusName + ": " + dateCheck.message;
     }
 
     return datesValid;
