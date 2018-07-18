@@ -437,12 +437,13 @@ export class RequestFormComponent implements OnInit{
               case (classLocs[i].endDate == null):      // if end date is blank
 
                 locationsGood = false;
-                break;    // for switch()
+                break;
 
               default:                                      // if both start and end dates are provided
-                locationsGood = this.LocationDateEntered(i);// validate the dates
+                locationsGood = this.LocationDateValid(i);// validate the dates
                 break;
-            }   // switch()
+            }
+
             if (!locationsGood) {
               break;    //break the for-loop
             }
@@ -506,7 +507,7 @@ export class RequestFormComponent implements OnInit{
 
       for (var i = 0; i < sBreaks.length; ++i) {
 
-        if (!this.SessBreakDateEntered(i)) {
+        if (!this.SessionBreakDateValid(i)) {
           sessBreaksOK = false;
           break;
         }
@@ -518,7 +519,7 @@ export class RequestFormComponent implements OnInit{
   }   // AreSessionBreaksOK()
 
 
-  public SessBreakDateEntered(i): boolean {
+  public SessionBreakDateValid(i): boolean {
 
     var datesValid: boolean = null;
 
@@ -556,7 +557,7 @@ export class RequestFormComponent implements OnInit{
   }   // SessBreakEntered()
 
 
-  private ClassDateEntered(): boolean {
+  private SessionDatesValid(): boolean {
 
     var datesValid: boolean = true;
 
@@ -593,18 +594,19 @@ export class RequestFormComponent implements OnInit{
     } // if((this.session.dates...)
 
     return datesValid;
-  }   // ClassDateEntered()
+  }   // SessionDatesValid()
 
 
-  private FinalsDateEntered(): boolean {
+  private FinalsDateValid(): boolean {
 
-    var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
     var datesValid: boolean = true;
+    var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
 
     switch (dateCheck.code) {
 
       case DATE_RANGE_CHECK.NO_START_DATE:
       case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:    // Finals Start Date is earlier than the First Day of Classes
+
         this.session.dates.firstDayOfFinals = null;
         datesValid = false;
         break;
@@ -612,6 +614,7 @@ export class RequestFormComponent implements OnInit{
       case DATE_RANGE_CHECK.NO_END_DATE:
       case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:      // Finals End Date is earlier than First Day of Classes
       case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:     // Finals End Date is earlier than the Finals Start Date
+
         this.session.dates.lastDayOfFinals = null;
         datesValid = false;
         break;
@@ -620,6 +623,7 @@ export class RequestFormComponent implements OnInit{
       case DATE_RANGE_CHECK.END_DATE_AFTER_LAST_DAY:        // End of Finals after Last Day of Class -> OK
       case DATE_RANGE_CHECK.ALL_DATES_OK:
       default:
+
         datesValid = true;
         break;
     } // switch()
@@ -631,7 +635,7 @@ export class RequestFormComponent implements OnInit{
     }
 
     return datesValid;
-  }   // FinalsDateEntered()
+  }   // FinalsDateValid()
   
 
   private IsDateRangeOK(beginDate: Date, endDate: Date): Error {
@@ -756,10 +760,11 @@ export class RequestFormComponent implements OnInit{
   }   // RateSelected()
 
 
-  public LocationDateEntered(x: number): boolean {
+  public LocationDateValid(x: number): boolean {
 
     var startDate = this.session.classLocations[x].startDate;
     var endDate = this.session.classLocations[x].endDate;
+
     var dateCheck: Error = this.IsDateRangeOK(startDate, endDate)
     var datesValid: boolean = true;
 
@@ -790,6 +795,6 @@ export class RequestFormComponent implements OnInit{
     }
 
     return datesValid;
-  }   // LocationDateEntered()
+  }   // LocationDateValid()
 
 }   // export class...

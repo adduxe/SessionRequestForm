@@ -75,7 +75,7 @@
       <kendo-datepicker id="classStartDate"
                         name="classStartDate"
                         [class.has-error]="(session.dates.firstDayOfClass == '') || (session.dates.firstDayOfClass == null)"
-                        (valueChange)="ClassDateEntered($event)"
+                        (valueChange)="SessionDatesValid($event)"
                         [(ngModel)]="session.dates.firstDayOfClass">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session Start Date">&#9432;</abbr></b>
@@ -93,7 +93,7 @@
       <kendo-datepicker id="classEndDate"
                         name="classEndDate"
                         [class.has-error]="(session.dates.lastDayOfClass == '') || (session.dates.lastDayOfClass == null)"
-                        (valueChange)="ClassDateEntered($event)"
+                        (valueChange)="SessionDatesValid($event)"
                         [(ngModel)]="session.dates.lastDayOfClass">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
@@ -117,7 +117,7 @@
       <kendo-datepicker id="finalsStartDate"
                         name="finalsStartDate"
                         [(ngModel)]="session.dates.firstDayOfFinals"
-                        (valueChange)="FinalsDateEntered($event)"
+                        (valueChange)="FinalsDateValid($event)"
                         [class.has-error]="(session.dates.firstDayOfFinals == null)">
       </kendo-datepicker>
 
@@ -134,7 +134,7 @@
       <kendo-datepicker id="finalsEndDate"
                         name="finalsEndDate"
                         [(ngModel)]="session.dates.lastDayOfFinals"
-                        (valueChange)="FinalsDateEntered($event)"
+                        (valueChange)="FinalsDateValid($event)"
                         [class.has-error]="(session.dates.lastDayOfFinals == null)">
       </kendo-datepicker>
       &nbsp;<b><abbr title="Finals End Date">&#9432;</abbr></b>
@@ -188,7 +188,7 @@
 
         <kendo-datepicker [(ngModel)]="eachBreak.startDate"
                           [ngModelOptions]="{standalone: true}"
-                          (valueChange)="SessBreakDateEntered(x)"
+                          (valueChange)="SessionBreakDateValid(x)"
                           placeholder="Optional">
         </kendo-datepicker>
 
@@ -202,7 +202,7 @@
 
         <kendo-datepicker [(ngModel)]="eachBreak.endDate"
                           [ngModelOptions]="{standalone: true}"
-                          (valueChange)="SessBreakDateEntered(x)"
+                          (valueChange)="SessionBreakDateValid(x)"
                           placeholder="Optional">
         </kendo-datepicker>
 
@@ -269,7 +269,7 @@
           <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
                             [class.has-error]="(eachLocation.startDate == null)"
                             [(ngModel)]="eachLocation.startDate"
-                            (valueChange)="LocationDateEntered(i)"
+                            (valueChange)="LocationDateValid(i)"
                             [ngModelOptions]="{standalone: true}">
           </kendo-datepicker>
 
@@ -279,7 +279,7 @@
           <kendo-datepicker *ngIf="(session.classLocations.length > 1)"
                             [class.has-error]="(eachLocation.endDate == null)"
                             [(ngModel)]="eachLocation.endDate"
-                            (valueChange)="LocationDateEntered(i)"
+                            (valueChange)="LocationDateValid(i)"
                             [ngModelOptions]="{standalone: true}">
           </kendo-datepicker>
 
