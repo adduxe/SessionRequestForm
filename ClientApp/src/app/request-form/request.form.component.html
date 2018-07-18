@@ -189,6 +189,7 @@
         <kendo-datepicker [(ngModel)]="eachBreak.startDate"
                           [ngModelOptions]="{standalone: true}"
                           (valueChange)="SessionBreakDateValid(x)"
+                          [class.has-error]="(eachBreak.startDate == null)"
                           placeholder="Optional">
         </kendo-datepicker>
 
@@ -203,6 +204,7 @@
         <kendo-datepicker [(ngModel)]="eachBreak.endDate"
                           [ngModelOptions]="{standalone: true}"
                           (valueChange)="SessionBreakDateValid(x)"
+                          [class.has-error]="(eachBreak.endDate == null)"
                           placeholder="Optional">
         </kendo-datepicker>
 

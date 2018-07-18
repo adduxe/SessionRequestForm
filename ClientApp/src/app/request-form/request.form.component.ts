@@ -394,11 +394,15 @@ export class RequestFormComponent implements OnInit{
     this.formError = '';      // reset all validation messages.
 
     if (this.IsFormValid()) {
+
       this.submitFormService.cacheSubmittedFields(this.session);    // go to confirmation page to view submitted fields
+
     } else {
+
       this.formIsValid = false;
-      this.formError = "Entered value/s invalid.  Please correct entries before proceeding.";
-    }
+      this.formError = "Please provide valid values in the highlighted fields before clicking Next.";
+
+    } // else
 
   } // FormSubmitted()
   
@@ -458,7 +462,7 @@ export class RequestFormComponent implements OnInit{
 
     var formValid: boolean = true;
 
-    switch (true) {
+    switch (true) {   // Check minimal required fields
 
       case (this.session.academicTerm == null):                     // Academic Term blank
       case (this.session.code.sessionCode == null):                 // Session Code blank
@@ -474,15 +478,27 @@ export class RequestFormComponent implements OnInit{
         break;
     }
 
-    if (formValid) {      // Required fields all provided
+    if (formValid) {        // If all required fields are provided
 
-      switch (true) {
+      switch (true) {       // check each section
+
+        case !(this.SessionDatesValid()):
+          formValid = false;
+          break;
+
+        case !(this.FinalsDateValid()):
+          formValid = false;
+          break;
+
+        case !(this.AreSessionBreaksOK()):
+          formValid = false;
+          break;
 
         case !(this.AreClassLocationsOK()):
           formValid = false;
           break;
 
-        case !(this.AreSessionBreaksOK()):
+        case !(this.AreRateFieldsOK()):
           formValid = false;
           break;
 
@@ -495,7 +511,126 @@ export class RequestFormComponent implements OnInit{
 
     return formValid;
   }   // IsFormValid()
+
+
+  private IsUnitRangeOK(loLimit: number, hiLimit: number): boolean {
+
+    var unitRangeOK: boolean = null;
+
+    switch (true) {
+
+      case (loLimit == null):
+        unitRangeOK = false;
+        break;
+
+      case (hiLimit == null):
+        unitRangeOK = false;
+        break;
+
+      case (loLimit > hiLimit):
+        unitRangeOK = false;
+        break;
+
+      default:
+        unitRangeOK = true;
+        break;
+    } // switch()
+
+    return unitRangeOK;
+  }
+
+
+  private IsPositiveNumber(n? : number): boolean {
+
+    var positiveNum: boolean = null;
+
+    switch (true) {
+
+      case (Number(n) < 1):           // a negative value:
+
+      case Number.isNaN(Number(n)):   // not a number?
+
+        positiveNum = false;
+        break;
+
+      default:
+        positiveNum = false;
+        break;
+    } // switch()
+
+    return positiveNum;
+  }   // IsPositiveNumber()
+
+
+  private AreFlatRateFieldsOK(): boolean {
+
+    var flatRateFieldsOK: boolean = null;
+    var rate = this.session.rateType;
+    var gradUnitRange = rate.flatRateUnitRange.graduate;
+    var uGradUnitRange = rate.flatRateUnitRange.undergraduate;
+
+    switch (true) {
+
+      case !this.IsPositiveNumber(rate.flatRate):           //    1) Flat Rate amount
+
+      case !this.IsPositiveNumber(rate.unitRate):           //    2) Unit Rate amount
+
+      case !this.IsPositiveNumber(uGradUnitRange.minimum):  //    3) Undergrad Unit range: minimum
+
+      case !this.IsPositiveNumber(uGradUnitRange.maximum):  //    4) Undergrad Unit range: maximum
+                                                            //    5) Undergrad unit range.
+      case !this.IsUnitRangeOK(uGradUnitRange.minimum, uGradUnitRange.maximum):
+
+      case !this.IsPositiveNumber(gradUnitRange.minimum):   //    6) Graduate Unit range: minimum
+
+      case !this.IsPositiveNumber(gradUnitRange.maximum):   //    7) Graduate Unit range: minimum
+                                                            //    8) Graduate unit range.
+      case !this.IsUnitRangeOK(gradUnitRange.minimum, gradUnitRange.maximum):
+
+        flatRateFieldsOK = false;
+        break;
+
+      default:                      // All fields are good.
+        flatRateFieldsOK = true;
+        break;
+
+    }   // switch()
+
+    return flatRateFieldsOK;
+
+  }   // AreFlatRateFields()
+
+
   
+  private AreRateFieldsOK(): boolean {
+
+    var rateFieldsOK: boolean = true;
+    var rateTypeCode: string = (this.session.rateType.code).toUpperCase();
+
+    switch (rateTypeCode) {
+
+      case 'OTHFLAT':        // check:
+        if (!this.AreFlatRateFieldsOK()) {
+          rateFieldsOK = false;
+        }
+        break;
+
+      case 'OTHUNIT':
+        if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
+          rateFieldsOK = false;
+        }
+        break;
+
+      default:              // any standard rate
+        rateFieldsOK = true;
+        break;
+
+    }   // switch()
+
+    return rateFieldsOK;
+
+  }   // AreRateFieldsOK()
+
 
   private AreSessionBreaksOK() {
 
@@ -523,8 +658,9 @@ export class RequestFormComponent implements OnInit{
 
     var datesValid: boolean = null;
 
-    var startDate: Date = this.session.sessionBreaks[i].startDate;
-    var endDate: Date = this.session.sessionBreaks[i].endDate;
+    var startDate: Date = this.session.dates.sessionBreaks[i].startDate;
+    var endDate: Date = this.session.dates.sessionBreaks[i].endDate;
+
     var dateCheck: Error = this.IsDateRangeOK(startDate, endDate);
 
     switch (dateCheck.code) {
@@ -532,12 +668,14 @@ export class RequestFormComponent implements OnInit{
       case DATE_RANGE_CHECK.NO_START_DATE:
       case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:
       case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
+        this.session.dates.sessionBreaks[i].startDate = null;
         datesValid = false;
         break;
 
       case DATE_RANGE_CHECK.NO_END_DATE:
       case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:
       case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:
+        this.session.dates.sessionBreaks[i].endDate = null;
         datesValid = false;
         break;
 
@@ -563,7 +701,9 @@ export class RequestFormComponent implements OnInit{
 
     if ((this.session.dates.firstDayOfClass != null) && (this.session.dates.lastDayOfClass != null)) {
 
-      var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfClass, this.session.dates.lastDayOfClass);
+      var startDate: Date = this.session.dates.firstDayOfClass;
+      var endDate: Date = this.session.dates.lastDayOfClass;
+      var dateCheck: Error = this.IsDateRangeOK(startDate, endDate);
 
       switch (dateCheck.code) {
 
@@ -600,7 +740,10 @@ export class RequestFormComponent implements OnInit{
   private FinalsDateValid(): boolean {
 
     var datesValid: boolean = true;
-    var dateCheck: Error = this.IsDateRangeOK(this.session.dates.firstDayOfFinals, this.session.dates.lastDayOfFinals);
+
+    var startDate: Date = this.session.dates.firstDayOfFinals;
+    var endDate: Date = this.session.dates.lastDayOfFinals;
+    var dateCheck: Error = this.IsDateRangeOK(startDate, endDate);
 
     switch (dateCheck.code) {
 
