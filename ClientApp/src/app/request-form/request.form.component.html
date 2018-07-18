@@ -188,6 +188,7 @@
 
         <kendo-datepicker [(ngModel)]="eachBreak.startDate"
                           [ngModelOptions]="{standalone: true}"
+                          (valueChange)="SessBreakDateEntered(x)"
                           placeholder="Optional">
         </kendo-datepicker>
 
@@ -201,6 +202,7 @@
 
         <kendo-datepicker [(ngModel)]="eachBreak.endDate"
                           [ngModelOptions]="{standalone: true}"
+                          (valueChange)="SessBreakDateEntered(x)"
                           placeholder="Optional">
         </kendo-datepicker>
 

@@ -499,7 +499,6 @@ export class RequestFormComponent implements OnInit{
   private AreSessionBreaksOK() {
 
     var sessBreaksOK: boolean = true;
-    var dateCheck: Error = new Error();
 
     if (this.haveSessionBreaks) {     // User checked Yes on Session have breaks?
 
@@ -507,57 +506,55 @@ export class RequestFormComponent implements OnInit{
 
       for (var i = 0; i < sBreaks.length; ++i) {
 
-        dateCheck = this.IsDateRangeOK(sBreaks[i].startDate, sBreaks[i].endDate);
-
-        switch (true) {
-
-          case ((sBreaks[i].startDate != null) && (sBreaks[i].endDate == null)):
-            this.formError = "Please provide a start date for each Session Break.";
-            sessBreaksOK = false;
-            break;
-
-          case ((sBreaks[i].endDate == null) && (sBreaks[i].endDate != null)):
-            this.formError = "Please provide an end date for each Session Break.";
-            sessBreaksOK = false;
-            break;
-
-          case (dateCheck.code != DATE_RANGE_CHECK.ALL_DATES_OK):      // At least one of the dates is invalid
-
-            sessBreaksOK = false;
-
-            switch (dateCheck.code) {
-
-              case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:              
-              case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:
-              case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
-                this.formError = "Session Break " + dateCheck.message;
-                sBreaks[i].startDate = '';
-                break;
-
-              case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:
-                this.formError = "Session Break " + dateCheck.message;
-                sBreaks[i].endDate = '';
-                break;
-
-              default:
-                this.formError = '';
-                break;
-            }
-            break;
-
-          default:  // either none of the dates was provided or both are blank
-            break;
-        } // switch()
-
-        if (!sessBreaksOK) {    // if a session break is found with a problem, 
-          break;                // stop checking the rest of the dates
+        if (!this.SessBreakDateEntered(i)) {
+          sessBreaksOK = false;
+          break;
         }
       } // for()
+
     } // if(this.haveSessionBreaks)
 
     return sessBreaksOK;
   }   // AreSessionBreaksOK()
-  
+
+
+  public SessBreakDateEntered(i): boolean {
+
+    var datesValid: boolean = null;
+
+    var startDate: Date = this.session.sessionBreaks[i].startDate;
+    var endDate: Date = this.session.sessionBreaks[i].endDate;
+    var dateCheck: Error = this.IsDateRangeOK(startDate, endDate);
+
+    switch (dateCheck.code) {
+
+      case DATE_RANGE_CHECK.NO_START_DATE:
+      case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:
+      case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
+        datesValid = false;
+        break;
+
+      case DATE_RANGE_CHECK.NO_END_DATE:
+      case DATE_RANGE_CHECK.END_DATE_BEFORE_START_DATE:
+      case DATE_RANGE_CHECK.END_DATE_BEFORE_FIRST_DAY:
+        datesValid = false;
+        break;
+
+      default:
+        datesValid = true;
+        break;
+    } // switch()
+
+    if (datesValid) {
+      this.formError = '';
+    } else {
+      this.formError = "Session Break dates: " + dateCheck.message;
+    }
+
+    return datesValid;
+
+  }   // SessBreakEntered()
+
 
   private ClassDateEntered(): boolean {
 
@@ -583,12 +580,13 @@ export class RequestFormComponent implements OnInit{
           break;
 
         default:
-          this.formError = '';
           datesValid = true;
           break;
       } // switch()
 
-      if (!datesValid) {
+      if (datesValid) {
+        this.formError = '';
+      } else {
         this.formError = "Class Dates: " + dateCheck.message;
       }
 
@@ -626,7 +624,9 @@ export class RequestFormComponent implements OnInit{
         break;
     } // switch()
 
-    if (!datesValid) {
+    if (datesValid) {
+      this.formError = '';
+    } else {
       this.formError = "Finals dates: " + dateCheck.message;
     }
 
@@ -779,12 +779,13 @@ export class RequestFormComponent implements OnInit{
         break;
 
       default:
-        this.formError = '';
         datesValid = true;
         break;
     } // switch()
 
-    if (!datesValid) {
+    if (datesValid) {
+      this.formError = '';
+    } else {
       this.formError = "Location dates: " + dateCheck.message;
     }
 
