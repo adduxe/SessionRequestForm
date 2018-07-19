@@ -26,6 +26,7 @@ class error {
 }
 
 enum SPEC_FEE_FIELD {
+  GET_FROM_FORM,                 // All values will come from the Special Fee Array
   CODE,
   POPULATION,
   ENROLLMENT
@@ -301,15 +302,12 @@ export class RequestFormComponent implements OnInit{
   } // AddSpecialFee()
 
 
-  public DeleteThisFee(feeIndex) {       // deletes a Special Fee entry
-
-    if (this.session.specialFees[feeIndex].fee) {
-      var feeCode = this.session.specialFees[feeIndex].fee.code;
-//    var i = usedFees.indexOf(feeCode);        // deletes the special fee from used fees array 
-//    usedFees.splice(i, 1);                    // so that it can be re-used later.
-    }
+  public DeleteThisFee(feeIndex: number): void {       // deletes a Special Fee entry
 
     this.session.specialFees.splice(feeIndex, 1);
+
+    this.AreSpecialFeesOK();                          // check the remaining fees
+
     return;
   }   // DeleteThisFee()
 
@@ -485,6 +483,24 @@ export class RequestFormComponent implements OnInit{
   }   // AreClassLocationsGood()
 
 
+  private AreSpecialFeesOK(): boolean {
+
+    var specialFeesOK: boolean = true;
+
+    for (var i = 0; i < this.session.specialFees.length; ++i) {
+      if (!this.SpecialFeeValid(i, SPEC_FEE_FIELD.GET_FROM_FORM, null)){
+        specialFeesOK = false;
+        break;
+      }
+    }
+
+    if (specialFeesOK) {
+      this.formError.specialFees = null;
+    }
+    return specialFeesOK;
+  }   // AreSpecialFeesOK()
+
+
   private AreCommentsOK(): boolean {
 
     var commentsOK: boolean = true;
@@ -553,6 +569,10 @@ export class RequestFormComponent implements OnInit{
           break;
 
         case !(this.AreRateFieldsOK()):
+          formValid = false;
+          break;
+
+        case !(this.AreSpecialFeesOK()):
           formValid = false;
           break;
 
@@ -876,7 +896,7 @@ export class RequestFormComponent implements OnInit{
     switch (true) {
 
       case (beginDate == null):
-        dateCheck.message = "No start date was provided";
+        dateCheck.message = "No start date provided";
         dateCheck.code = DATE_RANGE_CHECK.NO_START_DATE;
         break;
 
@@ -891,7 +911,7 @@ export class RequestFormComponent implements OnInit{
         break;
 
       case (endDate == null):
-        dateCheck.message = "No end date was provided";
+        dateCheck.message = "No end date provided";
         dateCheck.code = DATE_RANGE_CHECK.NO_END_DATE;
         break;
 
@@ -1023,19 +1043,22 @@ export class RequestFormComponent implements OnInit{
   }   // LocationDateValid()
 
 
-  public SpecialFeeValid(i: number, specField: SPEC_FEE_FIELD, specValue: any): boolean {
+  public SpecialFeeValid(i: number, specField: SPEC_FEE_FIELD, specValue?: any): boolean {
 
     var specialFeeValid: boolean = null;
     var allFees = this.session.specialFees;
     var specFee = allFees[i];
+
     var fee = {
       code: null,
+      name: null,
+      amount: null,
       grade: null,
       enroll: null
     };
 
-    switch (specField){
-
+    switch (specField){                             // Since all three dropdowns share a single Checking routine,
+                                                    // It has to assign the $event value accordingly.
       case SPEC_FEE_FIELD.CODE:
         fee.code = specValue.code;
         fee.grade = specFee.gradeLevel.code;
@@ -1054,53 +1077,91 @@ export class RequestFormComponent implements OnInit{
         fee.enroll = specFee.enrollType.code;
         break;
 
-      default:
+      case SPEC_FEE_FIELD.GET_FROM_FORM:
+        fee.code = specFee.fee.code;
+        fee.grade = specFee.gradeLevel.code;
+        fee.enroll = specFee.enrollType.code;
+        break;
+
+      default:      // fee.code, fee.grade, and fee.enroll will all be nulls
         break;
     }   // switch()
 
+    fee.amount = specFee.amount;          // fee amount will always come from the amount input box
+    fee.name = specFee.fee.name;              // fee description
 
-    if ((allFees.length == 1) ||     // 1) if there is only one entry so far, no need to check
-      (fee.code == null) ||                   // 2) only if all the fields for a fee are entered 
-      (fee.grade == null) ||                    //    can it be compared with the other fees
-      (fee.enroll == null)) {
+    switch (true) {
 
-      specialFeeValid = true;
+      case (fee.code == null):              // blank special fee code
+        this.formError.specialFees = "Please specify the Special Fee code for each fee.";
+        specialFeeValid = false;
+        break;
 
-    } else {
+      case (fee.amount == null):            // blank fee amount
+        this.formError.specialFees = "Please specify the amount for " + fee.name + ".";
+        specialFeeValid = false;
+        break;
 
-      var otherGrade: string = null;
-      var otherEnroll: string = null;
-      var otherCode: string = null;
+      case (fee.enroll == null):            //  blank Enrollment type
+        this.formError.specialFees = "Please specify the Enrollment type for " + fee.name + ".";
+        specialFeeValid = false;
+        break;
 
-      specialFeeValid = true; // fee will be valid until a matching fee is found
-      for (var j = 0; j < allFees.length; ++j) {
+      case (allFees.length == 1):           // all values are provided, but if there is only one entry
+        this.formError.specialFees = '';    // no need to check for duplicates
+        specialFeeValid = true;
+        break;
 
-        if (j == i) {   // do not compare the special fee with it's self
+      case (fee.grade == null):             // blank Population type
+        this.formError.specialFees = "Please specify the Population type for " + fee.name + ".";
+        specialFeeValid = false;
+        break;
 
-          continue;
-
-        } else {
-
-          otherGrade = allFees[j].gradeLevel.code;
-          otherEnroll = allFees[j].enrollType.code;
-          otherCode = allFees[j].fee.code;
-
-          if ((fee.code == otherCode) &&          // A matching fee is found!
-            (fee.grade == otherGrade) &&
-            (fee.enroll == otherEnroll)) {
-
-            alert("Special Fee already used.");
-            specialFeeValid = false;
-            break;
-
-          } // if ((specFee.fee...
-        } // else
-      } // for(var x...)
-    } // if ((specFee.fee.code...
+      default:
+        specialFeeValid = this.IsThereAFeeDuplicate(fee, i);
+        break;
+    }
 
     return specialFeeValid;
 
   }   // SpecialFeeValid()
+
+
+  private IsThereAFeeDuplicate(targetFee: any, feeIndex: number): boolean {
+
+    var otherGrade: string = null;
+    var otherEnroll: string = null;
+    var otherCode: string = null;
+    var allFees = this.session.specialFees;
+
+    var duplicateFeeFound = false;
+
+    for (var x = 0; x < allFees.length; ++x) {
+
+      if (x == feeIndex) {   // do not compare the special fee with it's self
+
+        continue;
+
+      } else {
+
+        otherGrade = allFees[x].gradeLevel.code;
+        otherEnroll = allFees[x].enrollType.code;
+        otherCode = allFees[x].fee.code;
+
+        if ((targetFee.code == otherCode) &&          // A matching fee is found!
+          (targetFee.grade == otherGrade) &&
+          (targetFee.enroll == otherEnroll)) {
+
+          this.formError.specialFees = "Fee " + allFees[x].fee.name + " is already used with the same Population and Enrollment options.";
+          duplicateFeeFound = true;
+          break;
+
+        } // if ((specFee.fee...
+      } // else
+    } // for(var j...)
+
+    return duplicateFeeFound;
+  }   // IsThereAFeeDuplicate()
 
 
 }   // export class...
