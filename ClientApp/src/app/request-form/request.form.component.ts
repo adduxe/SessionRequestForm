@@ -504,16 +504,23 @@ export class RequestFormComponent implements OnInit{
   private AreCommentsOK(): boolean {
 
     var commentsOK: boolean = true;
+    var campusCode: string = null;
 
-    if (this.session.classLocations.length > 1) {
+    for (var i = 0; i < this.session.classLocations.length; ++i) {
 
-      var trimmedComment = (this.session.comments);
+      campusCode = this.session.classLocations[i].code.campusCode;
 
-      if (trimmedComment.length == 0) {
-        this.formError.comments = "Comments are required if there is more than one Class Location given.";
-        commentsOK = false;
-      }
-    }
+      if (campusCode == 'OTH') {
+
+        var trimmedComment = (this.session.comments);
+
+        if (trimmedComment.length == 0) {
+          this.formError.comments = "Comments are required Others is indicated as a class location.";
+          commentsOK = false;
+          break;
+        }
+      } // if (campusCode)
+    } // for()
 
     if (commentsOK) {
       this.formError.comments = '';

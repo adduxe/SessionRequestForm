@@ -224,6 +224,9 @@ const CAMPUSLOCS = [
   }, {
     campusCode: "DC",
     campusName: "Washington D.C."
+  }, {
+    campusCode: "OTH",
+    campusName: "Others"
   }];
 
 const SPECIALFEES = [
