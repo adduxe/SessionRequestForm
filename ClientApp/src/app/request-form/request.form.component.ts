@@ -132,7 +132,7 @@ export class RequestFormComponent implements OnInit{
   }; // session
 
   public formError: any = {
-    general: "Please fill-in the highlighted fields.",
+    general: "Please fill in the highlighted fields then click Next",
     classDates: null,
     finalsDates: null,
     sessionBreaks: null,
@@ -272,7 +272,10 @@ export class RequestFormComponent implements OnInit{
     if (this.session.dates.sessionBreaks.length < 1) {
       this.haveSessionBreaks = null;
     }
-  }
+
+    this.AreSessionBreaksOK();    // validate the remaining Session Breaks 
+                                  // and reset the Session Break errors
+  }   // DeleteSessionBreak()
 
 
   public AddSpecialFee() {
@@ -657,12 +660,7 @@ export class RequestFormComponent implements OnInit{
     switch (true) {
 
       case !this.IsPositiveNumber(rate.flatRate):           //    1) Flat Rate amount
-        this.formError.rates = "Please enter a positive whole number for the Tuition Amount Flat Rate.";
-        flatRateFieldsOK = false;
-        break;
-
-      case !this.IsPositiveNumber(rate.unitRate):           //    2) Unit Rate amount
-        this.formError.rates = "Please enter a positive whole number for the Tuition Amount Unit Rate.";
+        this.formError.rates = "Please enter a positive whole number for the Tuition Flat Rate Amount .";
         flatRateFieldsOK = false;
         break;
 
@@ -711,7 +709,7 @@ export class RequestFormComponent implements OnInit{
 
     this.formError.rates = '';    // Reset rate error messages.
 
-    var rateFieldsOK: boolean = null;
+    var rateFieldsOK: boolean = true;
     var rateTypeCode: string = (this.session.rateType.code).toUpperCase();
 
     switch (rateTypeCode) {
@@ -722,12 +720,15 @@ export class RequestFormComponent implements OnInit{
           rateFieldsOK = false;
         } else if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
           rateFieldsOK = false;
+          this.formError.rates = "Please enter a positive Tuition Unit Rate Amount.";
         }
         break;
 
       case 'OTHUNIT':
+
         if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
           rateFieldsOK = false;
+          this.formError.rates = "Please enter a positive Tuition Unit Rate Amount.";
         }
         break;
 
@@ -744,6 +745,7 @@ export class RequestFormComponent implements OnInit{
 
   private AreSessionBreaksOK() {
 
+    this.formError.sessionBreaks = '';      // reset the Session Break error message
     var sessBreaksOK: boolean = true;
 
     if (this.haveSessionBreaks) {     // User checked Yes on Session have breaks?
@@ -1180,6 +1182,5 @@ export class RequestFormComponent implements OnInit{
 
     return duplicateFeeFound;
   }   // IsThereADuplicateFee()
-
 
 }   // export class...
