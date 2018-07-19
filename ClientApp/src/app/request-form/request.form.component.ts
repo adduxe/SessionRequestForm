@@ -129,7 +129,8 @@ export class RequestFormComponent implements OnInit{
     sessionBreaks: null,
     locations: null,
     rates: null,
-    specialFees: null
+    specialFees: null,
+    comments: null
   };
 
   private term: number = 20183;
@@ -456,7 +457,7 @@ export class RequestFormComponent implements OnInit{
 
               default:                                      // if both start and end dates are provided
                 locationsGood = this.LocationDateValid(i);  // validate the dates
-                                                            // locations formError is set in LocationDateValid
+                                                            // Note: locations formError is set in LocationDateValid
                 break;
             }
 
@@ -474,7 +475,30 @@ export class RequestFormComponent implements OnInit{
     return locationsGood;
 
   }   // AreClassLocationsGood()
-  
+
+
+  private AreCommentsOK(): boolean {
+
+    var commentsOK: boolean = true;
+
+    if (this.session.classLocations.length > 1) {
+
+      var trimmedComment = (this.session.comments);
+
+      if (trimmedComment.length == 0) {
+        this.formError.comments = "Comments are required if there is more than one Class Location given.";
+        commentsOK = false;
+      }
+    }
+
+    if (commentsOK) {
+      this.formError.comments = '';
+    }
+
+    return commentsOK;
+
+  } // AreCommentsOK()
+
 
   private IsFormValid(): boolean {
 
@@ -521,6 +545,10 @@ export class RequestFormComponent implements OnInit{
           break;
 
         case !(this.AreRateFieldsOK()):
+          formValid = false;
+          break;
+
+        case !(this.AreCommentsOK()):
           formValid = false;
           break;
 
@@ -774,7 +802,7 @@ export class RequestFormComponent implements OnInit{
       if (datesValid) {
         this.formError.classDates = '';     // reset the Class Date error message
       } else {
-        this.formError.classDates = "Class Dates: " + dateCheck.message;
+        this.formError.classDates = dateCheck.message;
       }
 
     } // if((this.session.dates...)
@@ -820,7 +848,7 @@ export class RequestFormComponent implements OnInit{
     if (datesValid) {
       this.formError.finalsDates = null;      // reset the finals dates error messages
     } else {
-      this.formError.finalsDates = "Finals dates: " + dateCheck.message;
+      this.formError.finalsDates = dateCheck.message;
     }
 
     return datesValid;
@@ -977,8 +1005,10 @@ export class RequestFormComponent implements OnInit{
         break;
     } // switch()
 
-    if (!datesValid) {
-      this.formError.locations = "Location date for " + this.session.classLocations[x].code.campusName + ": " + dateCheck.message;
+    if (datesValid) {
+      this.formError.locations = '';
+    } else {
+      this.formError.locations = "Dates for " + this.session.classLocations[x].code.campusName + ": " + dateCheck.message;
     }
 
     return datesValid;
