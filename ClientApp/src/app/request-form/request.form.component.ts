@@ -25,6 +25,12 @@ class error {
   message: string;
 }
 
+enum SPEC_FEE_FIELD {
+  CODE,
+  POPULATION,
+  ENROLLMENT
+}
+
 enum DATE_RANGE_CHECK {
   ALL_DATES_OK,                     // Both start and end dates are good.
   NO_START_DATE,                    // No start date provided.
@@ -53,15 +59,17 @@ export class RequestFormComponent implements OnInit{
 
   pageTitle: string = "Session Request Form";
 
-  public MAXUNITS       : number = 100;
+  public MAXUNITS: number = 100;
+  public SPEC_FEE_FIELD = SPEC_FEE_FIELD;
+  public GradeLevel: any[] = GRADELEVEL;
+  public EnrollTypes: any[] = ENROLLMENTTYPES;
+
   public UscCampuses    : any[];
   public SpecialFeeList : any[];
   public termRates      : any[];
   public SessionCodes   : any[];
   public semesters      : any[];
-  public GradeLevel     : any[] = GRADELEVEL;
   public CampusNameArray: string[] = [];
-  public EnrollTypes    : any[] = ENROLLMENTTYPES;
   public Session001Dates: any;
   public showPerUnitBox : boolean = false;
   public disableUnitRange     : boolean = false;
@@ -1013,5 +1021,86 @@ export class RequestFormComponent implements OnInit{
 
     return datesValid;
   }   // LocationDateValid()
+
+
+  public SpecialFeeValid(i: number, specField: SPEC_FEE_FIELD, specValue: any): boolean {
+
+    var specialFeeValid: boolean = null;
+    var allFees = this.session.specialFees;
+    var specFee = allFees[i];
+    var fee = {
+      code: null,
+      grade: null,
+      enroll: null
+    };
+
+    switch (specField){
+
+      case SPEC_FEE_FIELD.CODE:
+        fee.code = specValue.code;
+        fee.grade = specFee.gradeLevel.code;
+        fee.enroll = specFee.enrollType.code;
+        break;
+
+      case SPEC_FEE_FIELD.ENROLLMENT:
+        fee.code = specFee.fee.code;
+        fee.grade = specFee.gradeLevel.code;
+        fee.enroll = specValue.code;
+        break;
+
+      case SPEC_FEE_FIELD.POPULATION:
+        fee.code = specFee.fee.code;
+        fee.grade = specValue.code;
+        fee.enroll = specFee.enrollType.code;
+        break;
+
+      default:
+        break;
+    }   // switch()
+
+
+    if ((allFees.length == 1) ||     // 1) if there is only one entry so far, no need to check
+      (fee.code == null) ||                   // 2) only if all the fields for a fee are entered 
+      (fee.grade == null) ||                    //    can it be compared with the other fees
+      (fee.enroll == null)) {
+
+      specialFeeValid = true;
+
+    } else {
+
+      var otherGrade: string = null;
+      var otherEnroll: string = null;
+      var otherCode: string = null;
+
+      specialFeeValid = true; // fee will be valid until a matching fee is found
+      for (var j = 0; j < allFees.length; ++j) {
+
+        if (j == i) {   // do not compare the special fee with it's self
+
+          continue;
+
+        } else {
+
+          otherGrade = allFees[j].gradeLevel.code;
+          otherEnroll = allFees[j].enrollType.code;
+          otherCode = allFees[j].fee.code;
+
+          if ((fee.code == otherCode) &&          // A matching fee is found!
+            (fee.grade == otherGrade) &&
+            (fee.enroll == otherEnroll)) {
+
+            alert("Special Fee already used.");
+            specialFeeValid = false;
+            break;
+
+          } // if ((specFee.fee...
+        } // else
+      } // for(var x...)
+    } // if ((specFee.fee.code...
+
+    return specialFeeValid;
+
+  }   // SpecialFeeValid()
+
 
 }   // export class...

@@ -513,6 +513,7 @@
           <kendo-dropdownlist *ngIf="(SpecialFeeList.length > 0)"
                               [(ngModel)]="eachFee.fee"
                               [ngModelOptions]="{standalone: true}"
+                              (selectionChange)="SpecialFeeValid(n, SPEC_FEE_FIELD.CODE, $event)"
                               [class.has-error]="(eachFee.fee.code == null)"
                               [data]="SpecialFeeList"
                               [valueField]="'code'"
@@ -536,6 +537,7 @@
 
           <kendo-dropdownlist [(ngModel)]="eachFee.gradeLevel"
                               [ngModelOptions]="{standalone: true}"
+                              (selectionChange)="SpecialFeeValid(n, SPEC_FEE_FIELD.POPULATION, $event)"
                               [class.has-error]="(eachFee.gradeLevel.code == null)"
                               [data]="GradeLevel"
                               [valueField]="'code'"
@@ -546,6 +548,7 @@
         <div class="col-md-2">
           <kendo-dropdownlist [(ngModel)]="eachFee.enrollType"
                               [ngModelOptions]="{standalone: true}"
+                              (selectionChange)="SpecialFeeValid(n, SPEC_FEE_FIELD.ENROLLMENT, $event)"
                               [class.has-error]="(eachFee.enrollType.code == null)"
                               [data]="EnrollTypes"
                               [valueField]="'code'"
