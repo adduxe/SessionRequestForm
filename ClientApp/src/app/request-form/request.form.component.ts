@@ -1061,24 +1061,28 @@ export class RequestFormComponent implements OnInit{
                                                     // It has to assign the $event value accordingly.
       case SPEC_FEE_FIELD.CODE:
         fee.code = specValue.code;
+        fee.name = specValue.name;
         fee.grade = specFee.gradeLevel.code;
         fee.enroll = specFee.enrollType.code;
         break;
 
       case SPEC_FEE_FIELD.ENROLLMENT:
         fee.code = specFee.fee.code;
+        fee.name = specFee.fee.name;
         fee.grade = specFee.gradeLevel.code;
         fee.enroll = specValue.code;
         break;
 
       case SPEC_FEE_FIELD.POPULATION:
         fee.code = specFee.fee.code;
+        fee.name = specFee.fee.name;
         fee.grade = specValue.code;
         fee.enroll = specFee.enrollType.code;
         break;
 
       case SPEC_FEE_FIELD.GET_FROM_FORM:
         fee.code = specFee.fee.code;
+        fee.name = specFee.fee.name;
         fee.grade = specFee.gradeLevel.code;
         fee.enroll = specFee.enrollType.code;
         break;
@@ -1088,12 +1092,11 @@ export class RequestFormComponent implements OnInit{
     }   // switch()
 
     fee.amount = specFee.amount;          // fee amount will always come from the amount input box
-    fee.name = specFee.fee.name;              // fee description
 
     switch (true) {
 
       case (fee.code == null):              // blank special fee code
-        this.formError.specialFees = "Please specify the Special Fee code for each fee.";
+        this.formError.specialFees = "Please specify the code for each fee.";
         specialFeeValid = false;
         break;
 
@@ -1118,8 +1121,16 @@ export class RequestFormComponent implements OnInit{
         break;
 
       default:
-        specialFeeValid = this.IsThereAFeeDuplicate(fee, i);
+        if (this.IsThereADuplicateFee(fee, i)) {  // duplicate fees found
+          specialFeeValid = false;
+        } else {                                  // no duplicates found
+          specialFeeValid = true;
+        }
         break;
+    }
+
+    if (specialFeeValid) {
+      this.formError.specialFees = '';
     }
 
     return specialFeeValid;
@@ -1127,7 +1138,7 @@ export class RequestFormComponent implements OnInit{
   }   // SpecialFeeValid()
 
 
-  private IsThereAFeeDuplicate(targetFee: any, feeIndex: number): boolean {
+  private IsThereADuplicateFee(targetFee: any, feeIndex: number): boolean {
 
     var otherGrade: string = null;
     var otherEnroll: string = null;
@@ -1161,7 +1172,7 @@ export class RequestFormComponent implements OnInit{
     } // for(var j...)
 
     return duplicateFeeFound;
-  }   // IsThereAFeeDuplicate()
+  }   // IsThereADuplicateFee()
 
 
 }   // export class...
