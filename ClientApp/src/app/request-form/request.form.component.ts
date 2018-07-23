@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
+
+import { RequestHistoryComponent } from '../request-history/request.history.component';
 
 const GRADELEVEL = [
   { code: null, name: null },
@@ -19,11 +22,6 @@ const ENROLLMENTTYPES = [
 ];
 
 const MAX_SESSION_BREAKS = 2;
-
-class error {
-  code: number;
-  message: string;
-}
 
 enum SPEC_FEE_FIELD {
   GET_FROM_FORM,                 // All values will come from the Special Fee Array
@@ -56,7 +54,7 @@ class Error {
   styleUrls: ['./request.form.component.css']
 })
 
-export class RequestFormComponent implements OnInit{
+export class RequestFormComponent implements OnInit, OnDestroy{
 
   pageTitle: string = "Session Request Form";
 
@@ -76,7 +74,7 @@ export class RequestFormComponent implements OnInit{
   public disableUnitRange     : boolean = false;
   public requireFlatRateFields: boolean = false;
   public formIsValid: boolean = true;
-  public haveSessionBreaks: boolean = null;
+  public haveSessionBreaks: string = null;
 
   public session : any = {
 
@@ -142,15 +140,17 @@ export class RequestFormComponent implements OnInit{
     comments: null
   };
 
-  private term: number = 20183;
-  private sessionCode: string = "555";
+  private term: number = null;
+  private sessionCode: string = null;
   private preLoadValues: boolean = false;
+  private subscribe: any;
   
   constructor(
 
     private peDataService: PEDataService,
     private sqlDataService: SQLDataService,
-    private submitFormService: SubmitFormService
+    private submitFormService: SubmitFormService,
+    private route: ActivatedRoute,
 
   ) {
 
@@ -163,11 +163,16 @@ export class RequestFormComponent implements OnInit{
 
   ngOnInit() {
 
-    //if ((this.term > 0) && (this.sessionCode > '')) {
-    //  this.preLoadValues = true;
-    //  this.PreLoadTheForm();
-    //  this.preLoadValues = false;
-    //}
+    this.subscribe = this.route.params.subscribe(params => {
+      this.term = +params['term'];
+      this.sessionCode = params['sessioncode'];
+    });
+
+    if ((this.term > 0) && (this.sessionCode > '')) {
+      this.preLoadValues = true;
+      this.PreLoadTheForm(this.term, this.sessionCode);
+      this.preLoadValues = false;
+    }
 
     //this.peDataService.getCampusLocations().subscribe(locations => {
     //  this.UscCampuses = locations;
@@ -183,10 +188,13 @@ export class RequestFormComponent implements OnInit{
 
   }   // ngOnInit()
 
+  ngOnDestroy() {
+    this.subscribe.unsubscribe();
+  }
 
-  private PreLoadTheForm() {
+  private PreLoadTheForm(term: number, sessCode: string): void {
 
-    this.session = this.sqlDataService.getCurrentRevByReqID(20183, "555");
+    this.session = this.sqlDataService.getCurrentRevByReqID(term, sessCode);
 
     if (this.session.academicTerm.code > 0) {                           // if existing request exists,
 
@@ -197,7 +205,12 @@ export class RequestFormComponent implements OnInit{
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
+      if (this.session.specialFees.length > 0) {
+        this.haveSessionBreaks = 'Yes';
+      }
+
       this.RateSelected(this.session.rateType);
+
     }
   }   // PreLoadTheForm()
 
@@ -245,7 +258,7 @@ export class RequestFormComponent implements OnInit{
   }   // DeleteClassLocation()
 
 
-  public AddSessionBreak(haveBreaks) {
+  public AddSessionBreak(haveBreaks: boolean): void {
 
     if (haveBreaks) {
 
@@ -258,9 +271,14 @@ export class RequestFormComponent implements OnInit{
         }
       }
 
+      this.haveSessionBreaks = 'Yes';
+
     } else {
+
       this.session.dates.sessionBreaks = [];
-    }
+      this.haveSessionBreaks = 'No';
+
+    } // if (haveBreaks)
 
   }     // AddSessionBreak()
 
@@ -748,19 +766,25 @@ export class RequestFormComponent implements OnInit{
     this.formError.sessionBreaks = '';      // reset the Session Break error message
     var sessBreaksOK: boolean = true;
 
-    if (this.haveSessionBreaks) {     // User checked Yes on Session have breaks?
+    if (this.haveSessionBreaks == null) {
 
-      var sBreaks = this.session.dates.sessionBreaks;
+      sessBreaksOK = false;
 
-      for (var i = 0; i < sBreaks.length; ++i) {
+    } else {
 
-        if (!this.SessionBreakDateValid(i)) {
-          sessBreaksOK = false;
-          break;
-        }
-      } // for()
+      if (this.haveSessionBreaks == 'Yes') {     // User checked Yes on Session have breaks?
 
-    } // if(this.haveSessionBreaks)
+        var sBreaks = this.session.dates.sessionBreaks;
+
+        for (var i = 0; i < sBreaks.length; ++i) {
+
+          if (!this.SessionBreakDateValid(i)) {
+            sessBreaksOK = false;
+            break;
+          }
+        } // for()
+      } // if(this.haveSessionBreaks)
+    } // else
 
     return sessBreaksOK;
   }   // AreSessionBreaksOK()

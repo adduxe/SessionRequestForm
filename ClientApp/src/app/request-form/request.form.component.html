@@ -162,10 +162,10 @@
       </button>-->
       <b>Does this session have any breaks?</b>&nbsp;&nbsp;
 
-      <span id="sessBreaksRadio" [class.has-error]="!haveSessionBreaks">
+      <span id="sessBreaksRadio" [class.has-error]="haveSessionBreaks == null">
         <input type="radio"
                name="sessBreaks"
-               value="true"
+               value='Yes'
                [(ngModel)]="haveSessionBreaks"
                (click)="AddSessionBreak(true)" />
 
@@ -173,7 +173,7 @@
 
         <input type="radio"
                name="sessBreaks"
-               value="false"
+               value='No'
                [(ngModel)]="haveSessionBreaks"
                (click)="AddSessionBreak(false)" />
 
@@ -590,11 +590,10 @@
       </textarea>
     </div>
   </div>
-
-
-
+  
   <br />
-  <div class="row" style="align-content:center;">
+
+  <div class="row">
     <div class="col-md-5" style="text-align: center;">
       &nbsp;
     </div>
@@ -602,9 +601,17 @@
       <input type="Submit" (click)="ConfirmData();" value="Next" />
     </div>
     <div class="col-md-5">
+      &nbsp;
     </div>
   </div>
 
 </form>
 
 <br />
+
+<div class="row">
+<details open>
+  <summary><h4 style="color:darkred;padding:0px;">Request History</h4></summary>
+  <request-history></request-history>
+</details>
+</div>

@@ -18,6 +18,7 @@ export const appRoutes: Routes = [
   { path: 'srlist/:operation', component: SessionRequestListComponent },
   { path: 'diff-page/:requestid', component: DiffPageComponent },
   { path: 'confirm-page', component: ConfirmPageComponent },
+  { path: 'request-form/:term/:sessioncode', component: RequestFormComponent },
   { path: 'request-form', component: RequestFormComponent },
   { path: 'request-history', component: RequestHistoryComponent },
   { path: 'admin-page', component: AdminPageComponent },
