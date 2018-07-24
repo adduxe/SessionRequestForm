@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { SessionRequest } from '../models/sessionRequest';
-
+import { Session } from '../models/Request.Form.Model';
 @Injectable()
 
 export class SQLDataService {
@@ -76,7 +76,7 @@ export class SQLDataService {
   }
 
 
-  public getCurrentRevByReqID(acadTerm: number, sessionCode: string) {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Session  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
     return ALLREVISIONSBYREQID;
   }
 
@@ -796,7 +796,7 @@ const ALLREQUESTSSTATUS = [
 const ALLREVISIONSBYREQID = {        // new: actual json structure to be followed.  Will eventually replace ALLREVSBYREQUESTID.
 
   academicTerm: {
-    code: 20182,
+    code: "20182",
     name: "2018 Summer"
   },
 

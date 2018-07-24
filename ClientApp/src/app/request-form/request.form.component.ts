@@ -5,6 +5,8 @@ import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
 
+import { Session, sessBreak, classLoc, specialFee } from '../shared/models/Request.Form.Model';
+
 import { RequestHistoryComponent } from '../request-history/request.history.component';
 
 const GRADELEVEL = [
@@ -76,59 +78,61 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public formIsValid: boolean = true;
   public haveSessionBreaks: string = null;
 
-  public session : any = {
+  //public session : any = {
 
-    academicTerm: {
-      code: null,
-      name: null
-    },
+  //  academicTerm: {
+  //    code: null,
+  //    name: null
+  //  },
 
-    code: {
-      sessionCode: null,
-      sessionDesc: null,
-    },
+  //  code: {
+  //    sessionCode: null,
+  //    sessionDesc: null,
+  //  },
 
-    dates: {
+  //  dates: {
 
-      firstDayOfClass: null,
+  //    firstDayOfClass: null,
 
-      lastDayOfClass: null,
+  //    lastDayOfClass: null,
 
-      firstDayOfFinals: null,
+  //    firstDayOfFinals: null,
 
-      lastDayOfFinals: null,
+  //    lastDayOfFinals: null,
 
-      sessionBreaks: []
+  //    sessionBreaks: []
 
-    },
+  //  },
 
-    classLocations: [],
+  //  classLocations: [],
 
-    rateType: {
+  //  rateType: {
 
-      code: null,
-      description: null,
-      unitRate: null,
-      flatRate: null,
+  //    code: null,
+  //    description: null,
+  //    unitRate: null,
+  //    flatRate: null,
 
-      flatRateUnitRange: {
-          graduate: {
-            minimum: null,
-            maximum: null
-          },
-          undergraduate: {
-            minimum: null,
-            maximum: null
-          }
-      },
-    },
+  //    flatRateUnitRange: {
+  //        graduate: {
+  //          minimum: null,
+  //          maximum: null
+  //        },
+  //        undergraduate: {
+  //          minimum: null,
+  //          maximum: null
+  //        }
+  //    },
+  //  },
 
-    specialFees: [],
+  //  specialFees: [],
 
-    comments: '',
+  //  comments: '',
 
-  }; // session
+  //}; // session
 
+  public session: Session;
+  
   public formError: any = {
     general: "Please fill in the highlighted fields then click Next",
     classDates: null,
@@ -163,14 +167,16 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
 
+    this.session = new Session();
+
     this.subscribe = this.route.params.subscribe(params => {
-      this.term = +params['term'];
+      this.term = params['term'];
       this.sessionCode = params['sessioncode'];
     });
 
     if ((this.term > 0) && (this.sessionCode > '')) {
       this.preLoadValues = true;
-      this.PreLoadTheForm(this.term, this.sessionCode);
+      this.PreLoadTheForm(this.term.toString(), this.sessionCode);
       this.preLoadValues = false;
     }
 
@@ -182,9 +188,9 @@ export class RequestFormComponent implements OnInit, OnDestroy{
       this.CampusNameArray[i] = this.UscCampuses[i].campusName;
     }
 
-    if (this.session.classLocations.length == 0) {
-      this.AddClassLocation('');
-    }
+    //if (this.session.classLocations.length == 0) {
+    //  this.AddClassLocation('');
+    //}
 
   }   // ngOnInit()
 
@@ -192,13 +198,13 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     this.subscribe.unsubscribe();
   }
 
-  private PreLoadTheForm(term: number, sessCode: string): void {
+  private PreLoadTheForm(term: string, sessCode: string): void {
 
     this.session = this.sqlDataService.getCurrentRevByReqID(term, sessCode);
 
-    if (this.session.academicTerm.code > 0) {                           // if existing request exists,
+    if (this.session.academicTerm.code > '') {                           // if existing request exists,
 
-      var term: number = this.session.academicTerm.code;
+      var term: string = this.session.academicTerm.code;
 
       this.termRates = this.peDataService.getTermTuitionRates(term);    // get the term-related rates
 
@@ -231,14 +237,14 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     this.session.classLocations.push(newLocation);
 
     if (this.session.classLocations.length == 1) {    // if there is only 1 location, assign the start and end dates
-                                                      // to be the first and last day of classes respectively.
-      this.session.classLocations[0].startDate = this.session.firstDayOfClasses;
-      this.session.classLocations[0].endDate = this.session.lastDayOfClasses;
+      // to be the first and last day of classes respectively.
+      this.session.classLocations[0].startDate = this.session.dates.firstDayOfClass;
+      this.session.classLocations[0].endDate = this.session.dates.lastDayOfClass;
 
     } else {    // require the start and end dates only when there are more than 1 location
 
-      if ((this.session.classLocations[0].startDate == this.session.firstDayOfClasses) &&
-          (this.session.classLocations[0].endDate == this.session.lastDayOfClasses)) {
+      if ((this.session.classLocations[0].startDate == this.session.dates.firstDayOfClass) &&
+          (this.session.classLocations[0].endDate == this.session.dates.lastDayOfClass)) {
         this.session.classLocations[0].startDate = null;
         this.session.classLocations[0].endDate = null;
       }
@@ -251,8 +257,8 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     this.session.classLocations.splice(idx, 1);
     if (this.session.classLocations.length == 1) {
-      this.session.classLocations[0].startDate = this.session.firstDayOfClasses;
-      this.session.classLocations[0].endDate = this.session.lastDayOfClasses;
+      this.session.classLocations[0].startDate = this.session.dates.firstDayOfClass;
+      this.session.classLocations[0].endDate = this.session.dates.lastDayOfClass;
     }
 
   }   // DeleteClassLocation()
@@ -345,7 +351,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   }   // filterCampusLocation()
 
 
-  private formSpecialFeeArray(acadTerm: number, feeList: any): any[] {
+  private formSpecialFeeArray(acadTerm: string, feeList: any): any[] {
 
     var specFeeArray: any[] = [];
     var feeName: string = "";
@@ -393,11 +399,11 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   private ResetRateFields() {
 
-    this.session.rateType.rateTypeCode = null;
-    this.session.rateType.rateTypeDesc = null;
+    this.session.rateType.code = null;
+    this.session.rateType.description = null;
 
-    this.session.rateType.rateTypeFlatRate = null;
-    this.session.rateType.rateTypeUnitRate = null;
+    this.session.rateType.flatRate = null;
+    this.session.rateType.unitRate = null;
 
     this.session.rateType.flatRateUnitRange.undergraduate.minimum = null;
     this.session.rateType.flatRateUnitRange.undergraduate.maximum = null;
@@ -409,7 +415,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   public TermSelected(selectedTerm: any) {    // when the user selects a term in the Semester dropdown
 
-    var term: number = selectedTerm.code;
+    var term: string = selectedTerm.code;
     this.termRates = this.peDataService.getTermTuitionRates(term);
     this.ResetRateFields();
 

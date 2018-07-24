@@ -88,13 +88,13 @@ export class PEDataService {
     return CAMPUSLOCS;
   }
 
-  public getSpecialFeeList(acadTerm: number): any[]{
+  public getSpecialFeeList(acadTerm: string): any[]{
     return SPECIALFEES;
   }
 
-  public getTermTuitionRates(acadTerm: number) {
+  public getTermTuitionRates(acadTerm: string) {
 
-    var rawRates = TUITIONRATES.filter((tRates) => tRates.term == acadTerm);
+    var rawRates = TUITIONRATES.filter((tRates) => tRates.term == parseInt(acadTerm));
 
     var termRates = rawRates[0].termRates;
     var rateArray = new Array<rate>();
