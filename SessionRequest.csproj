@@ -38,6 +38,7 @@
     <None Remove="ClientApp\src\app\request-history\request.history.component.ts" />
     <None Remove="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <None Remove="ClientApp\src\app\shared\models\Request.Form.Model.ts" />
+    <None Remove="ClientApp\src\app\shared\models\Revision.Model.ts" />
     <None Remove="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <None Remove="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
     <None Remove="ClientApp\src\app\shared\models\sessionrequeststate.ts" />
@@ -58,6 +59,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\request-history\request.history.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\data\sessionrequests.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\Request.Form.Model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\Revision.Model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\sessionrequest.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\SessionRequestRevision.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\sessionrequeststate.ts" />
