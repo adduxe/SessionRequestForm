@@ -5,7 +5,7 @@ import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
 
-import { Session, sessBreak, classLoc, specialFee } from '../shared/models/Request.Form.Model';
+import { Session, sessBreak, classLoc, SpecialFee, CodeNamePair } from '../shared/models/Request.Form.Model';
 
 import { RequestHistoryComponent } from '../request-history/request.history.component';
 
@@ -78,59 +78,6 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public formIsValid: boolean = true;
   public haveSessionBreaks: string = null;
 
-  //public session : any = {
-
-  //  academicTerm: {
-  //    code: null,
-  //    name: null
-  //  },
-
-  //  code: {
-  //    sessionCode: null,
-  //    sessionDesc: null,
-  //  },
-
-  //  dates: {
-
-  //    firstDayOfClass: null,
-
-  //    lastDayOfClass: null,
-
-  //    firstDayOfFinals: null,
-
-  //    lastDayOfFinals: null,
-
-  //    sessionBreaks: []
-
-  //  },
-
-  //  classLocations: [],
-
-  //  rateType: {
-
-  //    code: null,
-  //    description: null,
-  //    unitRate: null,
-  //    flatRate: null,
-
-  //    flatRateUnitRange: {
-  //        graduate: {
-  //          minimum: null,
-  //          maximum: null
-  //        },
-  //        undergraduate: {
-  //          minimum: null,
-  //          maximum: null
-  //        }
-  //    },
-  //  },
-
-  //  specialFees: [],
-
-  //  comments: '',
-
-  //}; // session
-
   public session: Session;
   
   public formError: any = {
@@ -188,9 +135,9 @@ export class RequestFormComponent implements OnInit, OnDestroy{
       this.CampusNameArray[i] = this.UscCampuses[i].campusName;
     }
 
-    //if (this.session.classLocations.length == 0) {
-    //  this.AddClassLocation('');
-    //}
+    if (this.session.classLocations.length == 0) {
+      this.session.classLocations.push(new classLoc());
+    }
 
   }   // ngOnInit()
 
@@ -225,14 +172,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
 
-    var newLocation = {
-      code: {
-        campusCode : null,
-        campusName : null
-      },
-      startDate :  null,
-      endDate : null 
-    };
+    var newLocation = new classLoc();
 
     this.session.classLocations.push(newLocation);
 
@@ -272,7 +212,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
         for (var i = 0; i < MAX_SESSION_BREAKS; ++i) {
 
-          var newBreak = { startDate: null, endDate: null };
+          var newBreak = new sessBreak();
           this.session.dates.sessionBreaks.push(newBreak);
         }
       }
@@ -304,27 +244,9 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   public AddSpecialFee() {
 
-    var SpecialFee = {
+    var newFee = new SpecialFee();
 
-      fee: {
-        code: null,
-        name: null
-      },
-
-      amount: null,
-
-      gradeLevel: {
-        code: null,
-        name: null
-      },
-
-      enrollType: {
-        code: null,
-        name: null
-      }
-    };
-
-    this.session.specialFees.push(SpecialFee);
+    this.session.specialFees.push(newFee);
 
   } // AddSpecialFee()
 
@@ -379,8 +301,9 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     for (var i = 0; i < feeList.length; ++i) {
       feeName = this.CleanupFeeName(termAbbrev, feeList[i]);
-      feeCode = feeName.substring(0, feeName.indexOf(' '))
-      specFeeArray.push({ "code": feeCode, "name": feeName });
+      feeCode = feeName.substring(0, feeName.indexOf(' '));
+      var newCode = new CodeNamePair(feeCode, feeName);
+      specFeeArray.push(newCode);
     }
 
     return specFeeArray;
