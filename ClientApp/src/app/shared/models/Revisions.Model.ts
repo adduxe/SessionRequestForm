@@ -1,4 +1,4 @@
-import { Session, DateRange, ClassLoc } from '../models/Request.Form.Model';
+import { Session, DateRange, ClassLoc, SpecialFee } from '../models/Request.Form.Model';
 
 class Action {
 
@@ -76,13 +76,25 @@ class Fee {
   population: string;
   enrollment: string;
 
-  constructor() {
+  constructor(specialFee?: SpecialFee) {
 
     this.id = null;
-    this.code = null;
-    this.amount = null;
-    this.population = null;
-    this.enrollment = null;
+
+    if (!!specialFee) {
+
+      this.code = specialFee.fee.code;
+      this.amount = specialFee.amount;
+      this.enrollment = specialFee.enrollType.code;
+      this.population = specialFee.gradeLevel.code;
+
+    } else {
+
+      this.code = null;
+      this.amount = null;
+      this.population = null;
+      this.enrollment = null;
+
+    } // if (!!specialFee)
 
   }   // constructor()
 
@@ -140,6 +152,21 @@ export class Revision {
     } // for (var i...)
   }   // FormLocations()
 
+
+  private FormSpecialFees(specialFees: SpecialFee[]): void {
+
+    var eachFee: Fee = null;
+
+    for (var i = 0; i < specialFees.length; ++i) {
+
+      eachFee = new Fee(specialFees[i]);
+      this.specialFees.push(eachFee);
+
+    } // for(var i = 0...
+
+  } // FormSpecialFees()
+
+
   constructor(session?: Session) {
 
     alert("In Revision.constructor!");
@@ -153,6 +180,7 @@ export class Revision {
 
       this.FormSessionBreaks(session.dates.sessionBreaks);
       this.FormLocations(session.classLocations);
+      this.FormSpecialFees(session.specialFees);
 
     } else {
 
