@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Revision, Revisions } from '../models/Revisions.Model';
+import { Revision, Request } from '../models/Revisions.Model';
 import { Session } from '../models/Request.Form.Model';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class SubmitFormService {
   
   public saveToDatabase() {     // Save the submitted fields to the database.
 
-    var webServicePacket: Revisions = new Revisions(this.session);
+    var webServicePacket: Request = new Request(this.session);
 
     if (this.sendToDB(webServicePacket)) {
 

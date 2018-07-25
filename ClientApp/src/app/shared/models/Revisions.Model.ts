@@ -1,4 +1,4 @@
-import { Session } from '../models/Request.Form.Model';
+import { Session, DateRange, ClassLoc } from '../models/Request.Form.Model';
 
 class Action {
 
@@ -29,13 +29,24 @@ class Location {
   end: Date;
   revisionId: number;
 
-  constructor() {
+  constructor(classLoc?: ClassLoc) {
 
     this.id = null;
-    this.code = null;
-    this.start = null;
-    this.end = null;
     this.revisionId = null;
+
+    if (!!classLoc) {
+
+      this.code = classLoc.campus.code;
+      this.start = classLoc.startDate;
+      this.end = classLoc.endDate;
+
+    } else {
+
+      this.code = null;
+      this.start = null;
+      this.end = null;
+
+    } // if(!!classLoc)
 
   } //constructor()
 
@@ -99,11 +110,39 @@ export class Revision {
   createdDTM: Date;
   requestId: number;
   actions: Action[];
-  breaks: any[];
+  breaks: DateRange[];
   locations: Location[];
   specialFees: Fee[];
 
+
+  private FormSessionBreaks(sessionBreaks: DateRange[]): void {
+
+    var eachBreak: DateRange = null;
+
+    for (var i = 0; i < sessionBreaks.length; ++i) {      // Session Breaks
+
+      eachBreak = new DateRange(sessionBreaks[i].startDate, sessionBreaks[i].endDate);
+      this.breaks.push(eachBreak);
+
+    } // for(var i...)
+  }   // FormSessionBreaks()
+
+
+  private FormLocations(classLocations: ClassLoc[]): void {
+
+    var eachLoc: Location = null;
+
+    for (var i = 0; i < classLocations.length; ++i) {
+
+      eachLoc = new Location(classLocations[i]);
+      this.locations.push(eachLoc);
+
+    } // for (var i...)
+  }   // FormLocations()
+
   constructor(session?: Session) {
+
+    alert("In Revision.constructor!");
 
     this.actions = [];
     this.breaks = [];
@@ -111,15 +150,37 @@ export class Revision {
     this.specialFees = [];
 
     if (!!session) {
-      alert("In Revision.constructor!");
 
+      this.FormSessionBreaks(session.dates.sessionBreaks);
+      this.FormLocations(session.classLocations);
+
+    } else {
+
+      this.id = null;
+      this.firstDayOfClass = null;
+      this.lastDayOfClass = null;
+      this.firstDayOfFinals = null;
+      this.lastDayOfFinals = null;
+      this.rateType = null;
+      this.ratePerUnitAmount = null;
+      this.otherFlatRateAmount = null;
+      this.otherRatePerUnit = null;
+      this.undergradFlatRateMin = null;
+      this.undergradFlatRateMax = null;
+      this.gradFlatRateMin = null;
+      this.gradFlatRateMax = null;
+      this.comments = null;
+      this.createdBy = null;
+      this.creatorEmail = null;
+      this.createdDTM = null;
+      this.requestId = null;
 
     }
   }   // constructor()
 }   // Revision{}
 
 
-export class Revisions {
+export class Request {
 
   id: number;
   term: string;
@@ -130,16 +191,18 @@ export class Revisions {
 
   constructor(session?: Session) {
 
+    alert('In Request constructor!');
+
     this.revisions = [];
 
     if (!!session) {
 
       this.id = 0;
       this.term = session.academicTerm.code;
-//      this.code = session.code;
-    
+      this.code = session.session.code;
+      this.departmentCode = "XXX";
+      this.currentStatus = null;
 
-      alert('In revision constructor!');
       var newRevision: Revision = new Revision(session);
       this.revisions.push(newRevision);
 

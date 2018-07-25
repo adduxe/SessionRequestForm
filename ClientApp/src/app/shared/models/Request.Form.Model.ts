@@ -7,13 +7,16 @@ export class CodeNamePair {
   constructor(Code ?: any | null, Name ?: string | null){
 
     if (!!Code) {
+
       this.code = Code.toString();
       this.name = Name;
+
     } else {
+
       this.code = null;
       this.name = null;
-    }
-  }
+    } // if(!!code)
+  } // constructor()
 };
 
 export class DateRange {
@@ -21,10 +24,20 @@ export class DateRange {
   startDate: Date;
   endDate: Date;
 
-  constructor() {
-    this.startDate = null;
-    this.endDate = null;
-  }
+  constructor(startDate?: Date, endDate?: Date) {
+
+    if (!!startDate && !!endDate) {
+
+      this.startDate = startDate;
+      this.endDate = endDate;
+
+    } else {
+
+      this.startDate = null;
+      this.endDate = null;
+
+    } // if(!!start..)
+  } // constructor()
 }   // DateRange{}
 
 
@@ -35,13 +48,14 @@ export class ClassLoc {
   startDate: Date;
   endDate: Date;
 
-  constructor() {
+  constructor(classLoc?: ClassLoc) {
 
-    this.campus = new CodeNamePair();
+    this.campus = new CodeNamePair(classLoc.campus.code, classLoc.campus.name);
     this.startDate = null;
     this.endDate = null;
-  }
-};
+
+  }   // constructor()
+};  // classLoc{}
 
 
 export class SpecialFee {
