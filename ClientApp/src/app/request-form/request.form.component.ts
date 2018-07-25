@@ -91,7 +91,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     comments: null
   };
 
-  private term: number = null;
+  private semester: number = null;
   private sessionCode: string = null;
   private preLoadValues: boolean = false;
   private subscribe: any;
@@ -117,13 +117,13 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     this.session = new Session();
 
     this.subscribe = this.route.params.subscribe(params => {
-      this.term = params['term'];
+      this.semester = params['term'];
       this.sessionCode = params['sessioncode'];
     });
 
-    if ((this.term > 0) && (this.sessionCode > '')) {
+    if ((this.semester > 0) && (this.sessionCode > '')) {
       this.preLoadValues = true;
-      this.PreLoadTheForm(this.term.toString(), this.sessionCode);
+      this.PreLoadTheForm(this.semester.toString(), this.sessionCode);
       this.preLoadValues = false;
     }
 
