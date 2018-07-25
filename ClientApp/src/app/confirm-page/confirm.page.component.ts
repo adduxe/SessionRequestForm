@@ -251,4 +251,10 @@ export class ConfirmPageComponent implements OnInit{
 
   } // AdjustDate()
 
+
+  public SubmitForm() {
+    this.submitFormService.saveToDatabase();
+
+  } // SubmitForm()
+
 }

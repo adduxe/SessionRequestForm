@@ -610,8 +610,8 @@
 
 <br />
 
-<div class="row" *ngIf="semester != null">
-<details open>
+<div class="row">
+<details open *ngIf="modifyMode">
   <summary><h4 style="color:darkred;padding:0px;">Request History</h4></summary>
   <request-history></request-history>
 </details>

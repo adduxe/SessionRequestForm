@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Revision, Revisions } from '../models/Revisions.Model';
+import { Session } from '../models/Request.Form.Model';
+
 @Injectable()
 
 export class SubmitFormService {
@@ -9,23 +12,32 @@ export class SubmitFormService {
     private router: Router
   ) { }
 
-  public session: any;
+  public session: Session;
   
-  public cacheSubmittedFields(submittedFields: any) {   // Just to save the data here in this service.
+  public cacheSubmittedFields(submittedFields: Session) {   // Just to save the data here in this service.
+
     this.session = submittedFields;
     var submitSuccess = true;
     this.router.navigate(['/confirm-page']);
     return submitSuccess;
-  }
+
+  }   // cacheSubmittedFields()
+
   
   public saveToDatabase() {     // Save the submitted fields to the database.
 
-    if (this.sendToDB(this.session)) {
+    var packetToDB: Revision = new Revision(this.session);
+
+    if (this.sendToDB(packetToDB)) {
+
       alert('Data sent to database');
       this.router.navigate(['/admin-page']);
+
     } else {
+
       alert('Error in writing to the database!');
       this.router.navigate(['/request-form']);
+
     }
    
   } // saveToDatabase()
@@ -33,6 +45,8 @@ export class SubmitFormService {
 
 
   private sendToDB(sessReqData: any) {      // dummy web service call
+
+
     return true;
   }
 

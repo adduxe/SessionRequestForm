@@ -73,10 +73,11 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public CampusNameArray: string[] = [];
   public Session001Dates: any;
   public showPerUnitBox : boolean = false;
-  public disableUnitRange     : boolean = false;
-  public requireFlatRateFields: boolean = false;
-  public formIsValid: boolean = true;
+  public formIsValid    : boolean = true;
   public haveSessionBreaks: string = null;
+  public disableUnitRange : boolean = false;
+  public requireFlatRateFields: boolean = false;
+  public modifyMode: boolean = false;
 
   public session: Session;
   
@@ -91,7 +92,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     comments: null
   };
 
-  private semester: number = null;
+  private semester: string = null;
   private sessionCode: string = null;
   private preLoadValues: boolean = false;
   private subscribe: any;
@@ -121,10 +122,11 @@ export class RequestFormComponent implements OnInit, OnDestroy{
       this.sessionCode = params['sessioncode'];
     });
 
-    if ((this.semester > 0) && (this.sessionCode > '')) {
+    if ((this.semester > '') && (this.sessionCode > '')) {
       this.preLoadValues = true;
       this.PreLoadTheForm(this.semester.toString(), this.sessionCode);
       this.preLoadValues = false;
+      this.modifyMode = true;
     }
 
     //this.peDataService.getCampusLocations().subscribe(locations => {
@@ -978,6 +980,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     switch (dateCheck.code) {
 
       case DATE_RANGE_CHECK.NO_START_DATE:
+      case DATE_RANGE_CHECK.START_DATE_BEFORE_FIRST_DAY:
       case DATE_RANGE_CHECK.START_DATE_AFTER_LAST_DAY:
         this.session.classLocations[x].startDate = null;
         datesValid = false;

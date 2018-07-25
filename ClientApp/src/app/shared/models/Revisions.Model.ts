@@ -1,3 +1,5 @@
+import { Session } from '../models/Request.Form.Model';
+
 class Action {
 
   id: number;
@@ -101,7 +103,7 @@ export class Revision {
   locations: Location[];
   specialFees: Fee[];
 
-  constructor() {
+  constructor(session?: Session) {
 
     this.actions = [];
     this.breaks = [];
@@ -121,7 +123,7 @@ export class Revisions {
   currentStatus: string;
   revisions: Revision[];
 
-  constructor() {
+  constructor(session?: Session) {
 
     this.id = null;
     this.term = null;
@@ -130,6 +132,10 @@ export class Revisions {
     this.currentStatus = null;
     this.revisions = [];
 
-  } // constructor()
+    if (!!session) {
+      alert('In revision constructor!');
 
+    }
+
+  } // constructor()
 }   // Revisions{}

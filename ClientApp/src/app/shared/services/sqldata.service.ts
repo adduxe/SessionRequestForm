@@ -710,30 +710,30 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
 
   dates: {
 
-    firstDayOfClass: new Date("10/01/1996"),
+    firstDayOfClass: new Date("07/01/2018"),
 
-    lastDayOfClass: new Date("10/31/2006"),
+    lastDayOfClass: new Date("08/30/2018"),
 
-    firstDayOfFinals: new Date("02/25/1995"),
+    firstDayOfFinals: new Date("08/28/2018"),
 
-    lastDayOfFinals: new Date("03/01/1995"),
+    lastDayOfFinals: new Date("08/30/2018"),
 
     sessionBreaks: [
-      { startDate: new Date("02/01/1997"), endDate: new Date("03/31/1997") },
-      { startDate: new Date("04/01/1997"), endDate: new Date("05/31/1997") }
+      { startDate: new Date("07/22/2018"), endDate: new Date("07/28/2018") },
+      { startDate: new Date("08/12/2018"), endDate: new Date("08/18/2018") }
     ]
   },
 
   classLocations: [
     {
       campus: { code: "CAT", name: "Catalina" },
-      startDate: new Date("01/01/1996"),
-      endDate: new Date("12/31/1996")
+      startDate: new Date("07/01/2018"),
+      endDate: new Date("07/31/2018")
     },
     {
       campus: { code: "ATT", name: "ATT Center" },
-      startDate: new Date("02/01/1997"),
-      endDate: new Date("11/31/1997")
+      startDate: new Date("08/01/2018"),
+      endDate: new Date("08/30/2018")
     }
   ],
 
