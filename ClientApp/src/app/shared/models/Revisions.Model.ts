@@ -110,3 +110,26 @@ export class Revision {
 
   }   // constructor()
 }   // Revision{}
+
+
+export class Revisions {
+
+  id: number;
+  term: string;
+  code: string;
+  departmentCode: string;
+  currentStatus: string;
+  revisions: Revision[];
+
+  constructor() {
+
+    this.id = null;
+    this.term = null;
+    this.code = null;
+    this.departmentCode = null;
+    this.currentStatus = null;
+    this.revisions = [];
+
+  } // constructor()
+
+}   // Revisions{}

@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { SessionRequest } from '../models/sessionRequest';
 import { Session } from '../models/Request.Form.Model';
 @Injectable()
 
