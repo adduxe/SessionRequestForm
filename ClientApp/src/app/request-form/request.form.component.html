@@ -266,12 +266,12 @@
 
           <kendo-dropdownlist *ngIf="(UscCampuses.length)"
                               style="width: 250px; margin-left:50px;"
-                              [(ngModel)]="eachLocation.code"
+                              [(ngModel)]="eachLocation.campus"
                               [ngModelOptions]="{standalone: true}"
-                              [class.has-error]="(eachLocation.code.campusCode == null)"
+                              [class.has-error]="(eachLocation.campus.code == null)"
                               [data]="UscCampuses"
-                              [valueField]="'campusCode'"
-                              [textField]="'campusName'"
+                              [valueField]="'code'"
+                              [textField]="'name'"
                               [filterable]="true"
                               (filterChange)="filterCampusLocation($event)">
           </kendo-dropdownlist>

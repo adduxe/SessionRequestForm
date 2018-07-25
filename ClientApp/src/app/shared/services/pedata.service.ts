@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { ClassLoc, CodeNamePair } from '../models/Request.Form.Model';
+
 interface peRate {
   rateTypeCode: string;
   rateTypeDesc: string;
@@ -84,8 +86,21 @@ export class PEDataService {
 
   }
 
-  public getCampusLocations(): any[]{
-    return CAMPUSLOCS;
+  public getCampusLocations(): CodeNamePair[]{
+
+    var uscCampuses: CodeNamePair[] = [];
+    var uscCampus: CodeNamePair;
+
+    for (var i = 0; i < CAMPUSLOCS.length; ++i) {
+
+      uscCampus = new CodeNamePair();
+
+      uscCampus.code = CAMPUSLOCS[i].campusCode;
+      uscCampus.name = CAMPUSLOCS[i].campusName;
+
+      uscCampuses.push(uscCampus);
+    }
+    return uscCampuses;
   }
 
   public getSpecialFeeList(acadTerm: string): any[]{
@@ -112,7 +127,7 @@ export class PEDataService {
     return SESSIONCODES;
   }
 
-  public GetSession001(term: number) {
+  public GetSession001(term: string) {
     return SESSION001DATES;
   }
 
