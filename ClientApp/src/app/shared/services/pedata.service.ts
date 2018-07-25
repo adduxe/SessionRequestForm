@@ -123,9 +123,23 @@ export class PEDataService {
 
   }
 
-  public getSessionCodes() {
-    return SESSIONCODES;
-  }
+  public getSessionCodes(): CodeNamePair[] {
+
+    var eachSessCode: CodeNamePair = null;
+    var sessCodeList: CodeNamePair[] = [];
+
+    for (var i = 0; i < SESSIONCODES.length; ++i){
+
+      eachSessCode = new CodeNamePair();
+      eachSessCode.code = SESSIONCODES[i].sessionCode;
+      eachSessCode.name = SESSIONCODES[i].sessionDesc;
+      sessCodeList.push(eachSessCode);
+
+    }
+
+    return sessCodeList;
+  }   // getSessionCodes()
+
 
   public GetSession001(term: string) {
     return SESSION001DATES;

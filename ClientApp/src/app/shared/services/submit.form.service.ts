@@ -26,9 +26,9 @@ export class SubmitFormService {
   
   public saveToDatabase() {     // Save the submitted fields to the database.
 
-    var packetToDB: Revision = new Revision(this.session);
+    var webServicePacket: Revisions = new Revisions(this.session);
 
-    if (this.sendToDB(packetToDB)) {
+    if (this.sendToDB(webServicePacket)) {
 
       alert('Data sent to database');
       this.router.navigate(['/admin-page']);
@@ -38,7 +38,7 @@ export class SubmitFormService {
       alert('Error in writing to the database!');
       this.router.navigate(['/request-form']);
 
-    }
+    } // else
    
   } // saveToDatabase()
 

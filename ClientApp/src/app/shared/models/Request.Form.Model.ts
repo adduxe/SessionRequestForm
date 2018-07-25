@@ -87,7 +87,7 @@ export class Session {
 
   academicTerm: CodeNamePair;
 
-  code: any;
+  session: CodeNamePair;
 
   dates: sessDates;
 
@@ -109,9 +109,9 @@ export class Session {
 
     this.academicTerm = new CodeNamePair();
 
-    this.code = {
-      sessionCode: null,
-      sessionDesc: null
+    this.session = {
+      code: null,
+      name: null
     }
 
     this.rateType = {

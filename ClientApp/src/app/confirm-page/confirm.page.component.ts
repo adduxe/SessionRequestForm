@@ -253,6 +253,7 @@ export class ConfirmPageComponent implements OnInit{
 
 
   public SubmitForm() {
+
     this.submitFormService.saveToDatabase();
 
   } // SubmitForm()

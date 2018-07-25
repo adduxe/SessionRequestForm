@@ -65,10 +65,10 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public GradeLevel: any[] = GRADELEVEL;
   public EnrollTypes: any[] = ENROLLMENTTYPES;
 
-  public UscCampuses: CodeNamePair[];
-  public SpecialFeeList : any[];
-  public termRates      : any[];
-  public SessionCodes   : any[];
+  public UscCampuses    : CodeNamePair[] = [];
+  public SpecialFeeList : any[] = [];
+  public termRates      : any[] = [];
+  public SessionCodes   : CodeNamePair[] = [];
   public semesters      : any[];
   public CampusNameArray: string[] = [];
   public Session001Dates: any;
@@ -265,7 +265,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   public filterSessionCodes(codes) {
     this.SessionCodes = this.peDataService.getSessionCodes()
-      .filter((sCodes) => sCodes.sessionDesc.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
+      .filter((sCodes) => sCodes.name.toLowerCase().indexOf(codes.toLowerCase()) !== -1);
   }   // filterSessionCodes()
 
 
@@ -490,7 +490,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     switch (true) {   // Check minimal required fields
 
       case (this.session.academicTerm.code == null):                // Academic Term blank?
-      case (this.session.code.sessionCode == null):                 // Session Code blank?
+      case (this.session.session.code == null):                 // Session Code blank?
       case (this.session.dates.firstDayOfClass == null):            // First Day of Classes blank?
       case (this.session.dates.lastDayOfClass == null):             // Last Day of Classes blank?
       case (this.session.dates.firstDayOfFinals == null):           // First Day of Finals blank?

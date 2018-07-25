@@ -110,6 +110,11 @@ export class Revision {
     this.locations = [];
     this.specialFees = [];
 
+    if (!!session) {
+      alert("In Revision.constructor!");
+
+
+    }
   }   // constructor()
 }   // Revision{}
 
@@ -125,15 +130,26 @@ export class Revisions {
 
   constructor(session?: Session) {
 
-    this.id = null;
-    this.term = null;
-    this.code = null;
-    this.departmentCode = null;
-    this.currentStatus = null;
     this.revisions = [];
 
     if (!!session) {
+
+      this.id = 0;
+      this.term = session.academicTerm.code;
+//      this.code = session.code;
+    
+
       alert('In revision constructor!');
+      var newRevision: Revision = new Revision(session);
+      this.revisions.push(newRevision);
+
+    } else {
+
+      this.id = null;
+      this.term = null;
+      this.code = null;
+      this.departmentCode = null;
+      this.currentStatus = null;
 
     }
 

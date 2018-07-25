@@ -703,9 +703,9 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
     name: "2018 Summer"
   },
 
-  code: {
-    sessionCode: "004",
-    sessionDesc: "PHAR",
+  session: {
+    code: "004",
+    name: "PHAR",
   },
 
   dates: {

@@ -54,11 +54,11 @@
 
       <kendo-dropdownlist id="sessCode"
                           name="sessCode"
-                          [(ngModel)]="session.code"
-                          [class.has-error]="(session.code.sessionCode == null)"
+                          [(ngModel)]="session.session"
+                          [class.has-error]="(session.session.code == null)"
                           [data]="SessionCodes"
-                          [valueField]="'sessionCode'"
-                          [textField]="'sessionDesc'"
+                          [valueField]="'code'"
+                          [textField]="'name'"
                           [filterable]="true"
                           (filterChange)="filterSessionCodes($event)"
                           style="width:250px;">
