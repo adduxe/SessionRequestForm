@@ -17,6 +17,7 @@ export class CodeNamePair {
 };
 
 export class DateRange {
+
   startDate: Date;
   endDate: Date;
 
@@ -55,6 +56,7 @@ export class SpecialFee {
 
   constructor() {
     this.fee = new CodeNamePair();
+    this.amount = null;
     this.gradeLevel = new CodeNamePair();
     this.enrollType = new CodeNamePair();
   }

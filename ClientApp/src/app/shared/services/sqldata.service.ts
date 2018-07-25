@@ -823,12 +823,12 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
 
   classLocations: [
     {
-      code: { campusCode: "CAT", campusName: "Catalina" },
+      campus: { code: "CAT", name: "Catalina" },
       startDate: new Date("01/01/1996"),
       endDate: new Date("12/31/1996")
     },
     {
-      code: { campusCode: "ATT", campusName: "ATT Center" },
+      campus: { code: "ATT", name: "ATT Center" },
       startDate: new Date("02/01/1997"),
       endDate: new Date("11/31/1997")
     }

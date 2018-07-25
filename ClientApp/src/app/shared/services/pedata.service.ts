@@ -127,7 +127,7 @@ export class PEDataService {
     return SESSIONCODES;
   }
 
-  public GetSession001(term: number) {
+  public GetSession001(term: string) {
     return SESSION001DATES;
   }
 

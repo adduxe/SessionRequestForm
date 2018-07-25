@@ -132,7 +132,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     //});
 
     for (var i = 0; i < this.UscCampuses.length; ++i){
-      this.CampusNameArray[i] = this.UscCampuses[i].campusName;
+      this.CampusNameArray[i] = this.UscCampuses[i].name;
     }
 
     if (this.session.classLocations.length == 0) {
@@ -170,7 +170,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   
   public AddClassLocation(selectedCampus: string) {
 
-    var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
+    var campus = this.UscCampuses.filter(location => location.name === selectedCampus);
 
     var newLocation = new ClassLoc();
 
@@ -269,7 +269,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   public filterCampusLocation(campuses) {   // limit the list as the user types
     this.UscCampuses = this.peDataService.getCampusLocations()
-      .filter((locations) => locations.campus.name.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
+      .filter((locations) => locations.name.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
   }   // filterCampusLocation()
 
 
@@ -392,7 +392,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
         for (var i = 0; i < classLocs.length; ++i) {
 
-          if (classLocs[i].code.campusCode == null) {   // if a location is not provided
+          if (classLocs[i].campus.code == null) {   // if a location is not provided
             this.formError.locations = "Please provide all Class Locations.";
             locationsGood = false;                       
             break;              
@@ -402,12 +402,12 @@ export class RequestFormComponent implements OnInit, OnDestroy{
             switch (true) {
 
               case (classLocs[i].startDate == null):    // if start date is blank
-                this.formError.locations = "Please provide a start date for Class Location: " + classLocs[i].code.campusName;
+                this.formError.locations = "Please provide a start date for Class Location: " + classLocs[i].campus.name;
                 locationsGood = false;
                 break;
 
               case (classLocs[i].endDate == null):      // if end date is blank
-                this.formError.locations = "Please provide an end date for Class Location: " + classLocs[i].code.campusName;
+                this.formError.locations = "Please provide an end date for Class Location: " + classLocs[i].campus.name;
                 locationsGood = false;
                 break;
 
@@ -458,7 +458,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     for (var i = 0; i < this.session.classLocations.length; ++i) {
 
-      campusCode = this.session.classLocations[i].code.campusCode;
+      campusCode = this.session.classLocations[i].campus.code;
 
       if (campusCode == 'OTH') {
 
@@ -494,7 +494,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
       case (this.session.dates.firstDayOfFinals == null):           // First Day of Finals blank?
       case (this.session.dates.lastDayOfFinals == null):            // Last Day of Finals blank?
       case (this.haveSessionBreaks == null):                        // Have Session Breaks unchecked?
-      case (this.session.classLocations[0].code.campusCode == null):// No class location specified?
+      case (this.session.classLocations[0].campus.code == null):// No class location specified?
       case (this.session.rateType.code == null):                    // Rate Type blank?
 
         formValid = false;
@@ -998,7 +998,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     if (datesValid) {
       this.formError.locations = '';
     } else {
-      this.formError.locations = "Dates for " + this.session.classLocations[x].code.campusName + ": " + dateCheck.message;
+      this.formError.locations = "Dates for " + this.session.classLocations[x].campus.name + ": " + dateCheck.message;
     }
 
     return datesValid;

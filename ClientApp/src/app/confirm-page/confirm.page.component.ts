@@ -60,7 +60,7 @@ export class ConfirmPageComponent implements OnInit{
 
     this.session = this.submitFormService.session;
 
-    var term: number = this.session.academicTerm.code;
+    var term: string = this.session.academicTerm.code;
     var acadYear: number = +(term.toString().substr(0, 4));
     
     this.Session001Dates = this.peDataService.GetSession001(term);
