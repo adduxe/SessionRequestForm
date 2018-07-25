@@ -16,9 +16,7 @@ export class CodeNamePair {
   }
 };
 
-
-export class sessBreak {
-
+export class DateRange {
   startDate: Date;
   endDate: Date;
 
@@ -26,23 +24,19 @@ export class sessBreak {
     this.startDate = null;
     this.endDate = null;
   }
+}   // DateRange{}
 
-};
 
+export class ClassLoc {
 
-export class classLoc {
-
-  code: any;
+  campus: CodeNamePair;
 
   startDate: Date;
   endDate: Date;
 
   constructor() {
 
-    this.code = {
-      campusCode: null,
-      campusName: null
-    };
+    this.campus = new CodeNamePair();
     this.startDate = null;
     this.endDate = null;
   }
@@ -74,7 +68,7 @@ class sessDates {
   lastDayOfClass: Date;
   firstDayOfFinals: Date;
   lastDayOfFinals: Date;
-  sessionBreaks: sessBreak[];
+  sessionBreaks: DateRange[];
 
   constructor() {
     this.sessionBreaks = [];
@@ -95,7 +89,7 @@ export class Session {
 
   dates: sessDates;
 
-  classLocations: classLoc[];
+  classLocations: ClassLoc[];
 
   rateType: any;
 

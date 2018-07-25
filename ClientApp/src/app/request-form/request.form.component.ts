@@ -5,7 +5,7 @@ import { PEDataService } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
 
-import { Session, sessBreak, classLoc, SpecialFee, CodeNamePair } from '../shared/models/Request.Form.Model';
+import { Session, DateRange, ClassLoc, SpecialFee, CodeNamePair } from '../shared/models/Request.Form.Model';
 
 import { RequestHistoryComponent } from '../request-history/request.history.component';
 
@@ -65,7 +65,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public GradeLevel: any[] = GRADELEVEL;
   public EnrollTypes: any[] = ENROLLMENTTYPES;
 
-  public UscCampuses    : any[];
+  public UscCampuses: CodeNamePair[];
   public SpecialFeeList : any[];
   public termRates      : any[];
   public SessionCodes   : any[];
@@ -136,7 +136,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     }
 
     if (this.session.classLocations.length == 0) {
-      this.session.classLocations.push(new classLoc());
+      this.session.classLocations.push(new ClassLoc());
     }
 
   }   // ngOnInit()
@@ -172,7 +172,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     var campus = this.UscCampuses.filter(location => location.campusName === selectedCampus);
 
-    var newLocation = new classLoc();
+    var newLocation = new ClassLoc();
 
     this.session.classLocations.push(newLocation);
 
@@ -212,7 +212,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
         for (var i = 0; i < MAX_SESSION_BREAKS; ++i) {
 
-          var newBreak = new sessBreak();
+          var newBreak = new DateRange();
           this.session.dates.sessionBreaks.push(newBreak);
         }
       }
@@ -269,7 +269,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   public filterCampusLocation(campuses) {   // limit the list as the user types
     this.UscCampuses = this.peDataService.getCampusLocations()
-      .filter((locations) => locations.campusName.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
+      .filter((locations) => locations.campus.name.toLowerCase().indexOf(campuses.toLowerCase()) !== -1);
   }   // filterCampusLocation()
 
 
@@ -377,7 +377,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     if (classLocs.length == 1) {
 
-      if (classLocs[0].code.campusCode == null) {
+      if (classLocs[0].campus.code == null) {
 
         locationsGood = false;
 
