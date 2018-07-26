@@ -1,4 +1,4 @@
-import { Revision, RevBreak } from '../models/Revisions.Model';
+import { Request, Revision, RevBreak } from '../models/Revisions.Model';
 
 export class CodeNamePair {
 
@@ -82,23 +82,24 @@ export class SpecialFee {
 
 class sessDates {
 
-  firstDayOfClass: Date;
-  lastDayOfClass: Date;
+  firstDayOfClass:  Date;
+  lastDayOfClass:   Date;
   firstDayOfFinals: Date;
-  lastDayOfFinals: Date;
-  sessionBreaks: DateRange[];
+  lastDayOfFinals:  Date;
+  sessionBreaks:    DateRange[];
 
-  constructor(session?: Revision) {
+  constructor(revision?: Revision) {
 
     this.sessionBreaks = [];
 
-    if (!!session) {
+    if (!!revision) {
 
-      this.firstDayOfClass = session.firstDayOfClass;
-      this.lastDayOfClass = session.lastDayOfClass;
-      this.firstDayOfFinals = session.firstDayOfFinals;
-      this.lastDayOfFinals = session.lastDayOfFinals;
-      this.FormSessionBreaks(session.breaks);
+      this.firstDayOfClass = revision.firstDayOfClass;
+      this.lastDayOfClass = revision.lastDayOfClass;
+      this.firstDayOfFinals = revision.firstDayOfFinals;
+      this.lastDayOfFinals = revision.lastDayOfFinals;
+
+      this.FormSessionBreaks(revision.breaks);
 
     } else {
 
@@ -141,24 +142,33 @@ export class Session {
 
   comments: string;
 
-  constructor(revision?: Revision) {
+  constructor(request?: Request) {
 
     this.classLocations = [];
     this.specialFees = [];
 
-    if (!!revision) {
+    if (!!request) {
 
-      this.academicTerm = new CodeNamePair(revision.term, this.ReturnTermName(revision.term));
-      this.dates = new sessDates(revision);                 // Form the Session Dates section
+      this.academicTerm = new CodeNamePair(request.term, this.ReturnTermName(request.term));
+      this.session = new CodeNamePair(request.code);
+
+      if (request.revisions.length > 0) {
+
+        var mostRecentRev: number = request.revisions.length - 1;         // assumes that the last record is the latest revision
+        var latestRev: Revision = request.revisions[mostRecentRev];
+
+        this.dates = new sessDates(latestRev);                            // Form the Session Dates section
+
+      }
 
     } else {
 
       this.academicTerm = new CodeNamePair();
+      this.session = new CodeNamePair();
       this.dates = new sessDates();
 
     }   // if(!!revision)
 
-    this.session = new CodeNamePair();
 
     this.rateType = {
 

@@ -69,7 +69,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public SpecialFeeList : any[] = [];
   public termRates      : any[] = [];
   public SessionCodes   : CodeNamePair[] = [];
-  public semesters      : any[];
+  public Semesters      : any[];
   public CampusNameArray: string[] = [];
   public Session001Dates: any;
   public showPerUnitBox : boolean = false;
@@ -106,7 +106,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   ) {
 
-    this.semesters = this.peDataService.getActiveTerms();       // pre-populate the Semester dropdown
+    this.Semesters = this.peDataService.getActiveTerms();       // pre-populate the Semester dropdown
     this.UscCampuses = this.peDataService.getCampusLocations(); // pre-populate the Campus Location dropdown
     this.SessionCodes = this.peDataService.getSessionCodes();   // pre-populate the Session Codes dropdown
 

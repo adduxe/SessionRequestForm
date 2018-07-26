@@ -1,5 +1,7 @@
 import { Session, DateRange, ClassLoc, SpecialFee } from '../models/Request.Form.Model';
 
+import { PEDataService } from '../services/pedata.service';
+
 class Action {
 
   id: number;
@@ -10,14 +12,15 @@ class Action {
   revisionId: number
 
   constructor() {
+
     this.id = null;
     this.group = null;
     this.name = null;
     this.comments = null;
     this.createdDTM = null;
     this.revisionId = null;
-  }
 
+  }   // constructor()
 }   // Action{}
 
 
@@ -112,7 +115,6 @@ class Fee {
 export class Revision {
 
   id: number;
-  term: string;
   firstDayOfClass: Date;
   lastDayOfClass: Date;
   firstDayOfFinals: Date;
@@ -191,7 +193,7 @@ export class Revision {
       this.breaks.push(eachBreak);
 
     } // for(var i...)
-  }   // FormSessionBreaks()
+  }   // BuildSessionBreaks()
 
 
   private BuildLocations(classLocations: ClassLoc[]): void {

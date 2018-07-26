@@ -35,7 +35,7 @@
                           required
                           [(ngModel)]="session.academicTerm"
                           [class.has-error]="(session.academicTerm.code == null)"
-                          [data]="semesters"
+                          [data]="Semesters"
                           [valueField]="'code'"
                           [textField]="'name'"
                           (selectionChange)="TermSelected($event)">
