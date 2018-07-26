@@ -1,9 +1,11 @@
+import { Revision, SessBreak } from '../models/Revisions.Model';
+
+
 export class CodeNamePair {
 
   public code: string;
   public name: string;
 
-//  constructor();
   constructor(Code ?: any | null, Name ?: string | null){
 
     if (!!Code) {
@@ -17,7 +19,8 @@ export class CodeNamePair {
       this.name = null;
     } // if(!!code)
   } // constructor()
-};
+};  // CodeNamePair{}
+
 
 export class DateRange {
 
@@ -73,9 +76,9 @@ export class SpecialFee {
     this.amount = null;
     this.gradeLevel = new CodeNamePair();
     this.enrollType = new CodeNamePair();
-  }
+  } // constructor()
 
-};
+};  // SpecialFee{}
 
 
 class sessDates {
@@ -86,15 +89,40 @@ class sessDates {
   lastDayOfFinals: Date;
   sessionBreaks: DateRange[];
 
-  constructor() {
-    this.sessionBreaks = [];
-    this.firstDayOfClass = null;
-    this.lastDayOfClass = null;
-    this.firstDayOfFinals = null;
-    this.lastDayOfFinals = null;
-  }
+  private FormSessionBreaks(sessBreaks: SessBreak[]) {
 
-};
+    var eachBreak: DateRange = null;
+
+    for (var i = 0; i < sessBreaks.length; ++i) {
+      eachBreak = new DateRange(sessBreaks[i].start, sessBreaks[i].end);
+      this.sessionBreaks.push(eachBreak);
+    }   // for()
+
+  } // FormSessionBreaks
+
+  constructor(session?: Revision) {
+
+    if (!!session) {
+
+      this.firstDayOfClass = session.firstDayOfClass;
+      this.lastDayOfClass = session.lastDayOfClass;
+      this.firstDayOfFinals = session.firstDayOfFinals;
+      this.lastDayOfFinals = session.lastDayOfFinals;
+      this.FormSessionBreaks(session.breaks);
+      this.sessionBreaks = [];
+
+    } else {
+
+      this.firstDayOfClass = null;
+      this.lastDayOfClass = null;
+      this.firstDayOfFinals = null;
+      this.lastDayOfFinals = null;
+      this.sessionBreaks = [];
+
+    }   // if (!!session)
+  } // constructor
+
+};  // sessDates()
 
 
 export class Session {
@@ -113,20 +141,24 @@ export class Session {
 
   comments: string;
 
-  constructor() {
+  constructor(session?: Revision) {
+
+    if (!!session) {
+
+      this.dates = new sessDates(session);
+
+    } else {
+
+      this.dates = new sessDates();
+    }
 
     this.classLocations = [];
 
     this.specialFees = [];
 
-    this.dates = new sessDates();
-
     this.academicTerm = new CodeNamePair();
 
-    this.session = {
-      code: null,
-      name: null
-    }
+    this.session = new CodeNamePair();
 
     this.rateType = {
 

@@ -53,16 +53,24 @@ class Location {
 }   // Location{}
 
 
-class Break {
+export class SessBreak {
 
   start: Date;
   end: Date;
 
-  constructor() {
+  constructor(startDate?: Date, endDate?: Date) {
 
-    this.start = null;
-    this.end = null;
+    if (!!startDate && !!endDate) {
 
+      this.start = startDate;
+      this.end = endDate;
+
+    } else {
+
+      this.start = null;
+      this.end = null;
+
+    } // if (!!startDate)
   }   // constructor()
 
 }   // Break{}
@@ -122,25 +130,25 @@ export class Revision {
   createdDTM: Date;
   requestId: number;
   actions: Action[];
-  breaks: DateRange[];
+  breaks: SessBreak[];
   locations: Location[];
   specialFees: Fee[];
 
 
-  private FormSessionBreaks(sessionBreaks: DateRange[]): void {
+  private BuildSessionBreaks(sessionBreaks: DateRange[]): void {
 
-    var eachBreak: DateRange = null;
+    var eachBreak: SessBreak = null;
 
     for (var i = 0; i < sessionBreaks.length; ++i) {      // Session Breaks
 
-      eachBreak = new DateRange(sessionBreaks[i].startDate, sessionBreaks[i].endDate);
+      eachBreak = new SessBreak(sessionBreaks[i].startDate, sessionBreaks[i].endDate);
       this.breaks.push(eachBreak);
 
     } // for(var i...)
   }   // FormSessionBreaks()
 
 
-  private FormLocations(classLocations: ClassLoc[]): void {
+  private BuildLocations(classLocations: ClassLoc[]): void {
 
     var eachLoc: Location = null;
 
@@ -150,10 +158,10 @@ export class Revision {
       this.locations.push(eachLoc);
 
     } // for (var i...)
-  }   // FormLocations()
+  }   // BuildLocations()
 
 
-  private FormSpecialFees(specialFees: SpecialFee[]): void {
+  private BuildSpecialFees(specialFees: SpecialFee[]): void {
 
     var eachFee: Fee = null;
 
@@ -164,12 +172,10 @@ export class Revision {
 
     } // for(var i = 0...
 
-  } // FormSpecialFees()
+  } // BuildSpecialFees()
 
 
   constructor(session?: Session) {
-
-    alert("In Revision.constructor!");
 
     this.actions = [];
     this.breaks = [];
@@ -178,9 +184,9 @@ export class Revision {
 
     if (!!session) {
 
-      this.FormSessionBreaks(session.dates.sessionBreaks);
-      this.FormLocations(session.classLocations);
-      this.FormSpecialFees(session.specialFees);
+      this.BuildSessionBreaks(session.dates.sessionBreaks);
+      this.BuildLocations(session.classLocations);
+      this.BuildSpecialFees(session.specialFees);
 
     } else {
 
@@ -218,8 +224,6 @@ export class Request {
   revisions: Revision[];
 
   constructor(session?: Session) {
-
-    alert('In Request constructor!');
 
     this.revisions = [];
 
