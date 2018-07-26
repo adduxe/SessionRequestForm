@@ -1,4 +1,6 @@
-import { Request, Revision, RevBreak } from '../models/Revisions.Model';
+import { PEDataService } from '../services/pedata.service';
+
+import { Request, Revision, RevBreak, RevFee } from '../models/Revisions.Model';
 
 export class CodeNamePair {
 
@@ -70,12 +72,25 @@ export class SpecialFee {
 
   enrollType: CodeNamePair;
 
-  constructor() {
-    this.fee = new CodeNamePair();
-    this.amount = null;
-    this.gradeLevel = new CodeNamePair();
-    this.enrollType = new CodeNamePair();
-  } // constructor()
+  constructor(revFee?: RevFee) {
+
+    if (!!revFee) {
+
+      this.fee = new CodeNamePair(revFee.code, GetFeeName(revFee.code));
+      this.amount = null;
+      this.gradeLevel = new CodeNamePair();
+      this.enrollType = new CodeNamePair();
+
+    } else {
+
+      this.fee = new CodeNamePair();
+      this.amount = null;
+      this.gradeLevel = new CodeNamePair();
+      this.enrollType = new CodeNamePair();
+
+    } // if(!!revFee)
+
+  }   // constructor()
 
 };  // SpecialFee{}
 
@@ -99,7 +114,14 @@ class sessDates {
       this.firstDayOfFinals = revision.firstDayOfFinals;
       this.lastDayOfFinals = revision.lastDayOfFinals;
 
-      this.FormSessionBreaks(revision.breaks);
+      var eachBreak: DateRange = null;
+
+      for (var i = 0; i < revision.breaks.length; ++i) {
+
+        eachBreak = new DateRange(revision.breaks[i].start, revision.breaks[i].end);
+        this.sessionBreaks.push(eachBreak);
+
+      }
 
     } else {
 
@@ -108,22 +130,57 @@ class sessDates {
       this.firstDayOfFinals = null;
       this.lastDayOfFinals = null;
 
-    }   // if (!!session)
-  } // constructor
+    }   // if (!!revision)
 
-
-  private FormSessionBreaks(revBreaks: RevBreak[]) {
-
-    var eachBreak: DateRange = null;
-
-    for (var i = 0; i < revBreaks.length; ++i) {
-      eachBreak = new DateRange(revBreaks[i].start, revBreaks[i].end);
-      this.sessionBreaks.push(eachBreak);
-    } // for()
-
-  } // FormSessionBreaks()
+  } // constructor()
 
 };  // sessDates()
+
+
+class UnitRange {
+
+  minimum: number;
+  maximum: number;
+
+  constructor() {
+    this.minimum = null;
+    this.maximum = null;
+  } // constructor()
+
+}   // UnitRange{}
+
+
+class FlatRateUnitRange {
+
+  graduate: UnitRange;
+  undergraduate: UnitRange
+
+  constructor() {
+    this.graduate = new UnitRange();
+    this.undergraduate = new UnitRange();
+  }
+};  // FlatRateUnitRange{}
+
+
+class RateType {
+
+  code:         string;
+  description:  string;
+  unitRate:     number;
+  flatRate:     number;
+  flatRateUnitRange: FlatRateUnitRange;
+
+  constructor() {
+
+    this.code = null;
+    this.description = null;
+    this.unitRate = null;
+    this.flatRate = null;
+    this.flatRateUnitRange = new FlatRateUnitRange();
+
+  } // constructor()
+
+}   // rateType{}
 
 
 export class Session {
@@ -136,7 +193,7 @@ export class Session {
 
   classLocations: ClassLoc[];
 
-  rateType: any;
+  rateType: RateType;
 
   specialFees: SpecialFee[]
 
@@ -146,20 +203,28 @@ export class Session {
 
     this.classLocations = [];
     this.specialFees = [];
+    this.rateType = new RateType();
 
     if (!!request) {
 
-      this.academicTerm = new CodeNamePair(request.term, this.ReturnTermName(request.term));
+      this.academicTerm = new CodeNamePair(request.term, GetTermName(request.term));
       this.session = new CodeNamePair(request.code);
 
       if (request.revisions.length > 0) {
 
-        var mostRecentRev: number = request.revisions.length - 1;         // assumes that the last record is the latest revision
-        var latestRev: Revision = request.revisions[mostRecentRev];
-
         this.dates = new sessDates(latestRev);                            // Form the Session Dates section
 
-      }
+        var newestRev: number = request.revisions.length - 1;             // assumes that the last record is the latest revision
+        var latestRev: Revision = request.revisions[newestRev];
+
+        var eachFee: SpecialFee;
+
+        for (var i = 0; i < latestRev.specialFees.length; ++i) {
+          eachFee = new SpecialFee()
+          this.specialFees.push();
+        }
+
+      } // if (request...
 
     } else {
 
@@ -167,55 +232,46 @@ export class Session {
       this.session = new CodeNamePair();
       this.dates = new sessDates();
 
-    }   // if(!!revision)
+    }   // if(!!request)
 
-
-    this.rateType = {
-
-      code: null,
-      description: null,
-      unitRate: null,
-      flatRate: null,
-
-      flatRateUnitRange: {
-        graduate: {
-          minimum: null,
-          maximum: null
-        },
-        undergraduate: {
-          minimum: null,
-          maximum: null
-        }
-      }
-    };
   }   // constructor()
 
-  private ReturnTermName(term: string): string {
-
-    var termName: string = '';
-    var acadYear: string = term.substr(0,4);
-    var semCode: string = term.charAt(term.length - 1);
-
-    switch (semCode) {
-
-      case '1':
-        termName = acadYear + " Spring";
-        break;
-
-      case '2':
-        termName = acadYear + " Summer";
-        break;
-
-      case '3':
-        termName = acadYear + " Fall";
-        break;
-
-      default:
-        break;
-
-    }   // switch(semCode)
-
-    return termName;
-  }   // ReturnTermName()
-
 }; // session
+
+
+function GetFeeName(feeCode: string): string {
+
+  var feeName: string = '';
+
+  return feeName;
+
+}   // GetFeeName()
+
+
+function GetTermName(term: string): string {
+
+  var termName: string = '';
+  var acadYear: string = term.substr(0, 4);
+  var semCode: string = term.charAt(term.length - 1);
+
+  switch (semCode) {
+
+    case '1':
+      termName = acadYear + " Spring";
+      break;
+
+    case '2':
+      termName = acadYear + " Summer";
+      break;
+
+    case '3':
+      termName = acadYear + " Fall";
+      break;
+
+    default:
+      break;
+
+  }   // switch(semCode)
+
+  return termName;
+};   // GetTermName()

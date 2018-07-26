@@ -79,7 +79,7 @@ export class RevBreak {
 }   // Break{}
 
 
-class Fee {
+export class RevFee {
 
   id: number;
   code: string;
@@ -135,7 +135,7 @@ export class Revision {
   actions: Action[];
   breaks: RevBreak[];
   locations: Location[];
-  specialFees: Fee[];
+  specialFees: RevFee[];
 
   constructor(session?: Session) {
 
@@ -161,7 +161,6 @@ export class Revision {
     } else {
 
       this.id = null;
-      this.term = null;
       this.firstDayOfClass = null;
       this.lastDayOfClass = null;
       this.firstDayOfFinals = null;
@@ -211,11 +210,11 @@ export class Revision {
 
   private BuildSpecialFees(specialFees: SpecialFee[]): void {
 
-    var eachFee: Fee = null;
+    var eachFee: RevFee = null;
 
     for (var i = 0; i < specialFees.length; ++i) {
 
-      eachFee = new Fee(specialFees[i]);
+      eachFee = new RevFee(specialFees[i]);
       this.specialFees.push(eachFee);
 
     } // for(var i = 0...
