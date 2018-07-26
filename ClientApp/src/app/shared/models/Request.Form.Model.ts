@@ -1,14 +1,13 @@
-import { Revision, SessBreak } from '../models/Revisions.Model';
-
+import { Revision, RevBreak } from '../models/Revisions.Model';
 
 export class CodeNamePair {
 
   public code: string;
   public name: string;
 
-  constructor(Code ?: any | null, Name ?: string | null){
+  constructor(Code ?: any, Name ?: string){
 
-    if (!!Code) {
+    if (!!Code && !!Name) {
 
       this.code = Code.toString();
       this.name = Name;
@@ -51,9 +50,9 @@ export class ClassLoc {
   startDate: Date;
   endDate: Date;
 
-  constructor(classLoc?: ClassLoc) {
-
-    this.campus = new CodeNamePair(classLoc.campus.code, classLoc.campus.name);
+  constructor() {
+   
+    this.campus = new CodeNamePair();
     this.startDate = null;
     this.endDate = null;
 
@@ -89,18 +88,9 @@ class sessDates {
   lastDayOfFinals: Date;
   sessionBreaks: DateRange[];
 
-  private FormSessionBreaks(sessBreaks: SessBreak[]) {
-
-    var eachBreak: DateRange = null;
-
-    for (var i = 0; i < sessBreaks.length; ++i) {
-      eachBreak = new DateRange(sessBreaks[i].start, sessBreaks[i].end);
-      this.sessionBreaks.push(eachBreak);
-    }   // for()
-
-  } // FormSessionBreaks
-
   constructor(session?: Revision) {
+
+    this.sessionBreaks = [];
 
     if (!!session) {
 
@@ -109,7 +99,6 @@ class sessDates {
       this.firstDayOfFinals = session.firstDayOfFinals;
       this.lastDayOfFinals = session.lastDayOfFinals;
       this.FormSessionBreaks(session.breaks);
-      this.sessionBreaks = [];
 
     } else {
 
@@ -117,10 +106,21 @@ class sessDates {
       this.lastDayOfClass = null;
       this.firstDayOfFinals = null;
       this.lastDayOfFinals = null;
-      this.sessionBreaks = [];
 
     }   // if (!!session)
   } // constructor
+
+
+  private FormSessionBreaks(revBreaks: RevBreak[]) {
+
+    var eachBreak: DateRange = null;
+
+    for (var i = 0; i < revBreaks.length; ++i) {
+      eachBreak = new DateRange(revBreaks[i].start, revBreaks[i].end);
+      this.sessionBreaks.push(eachBreak);
+    } // for()
+
+  } // FormSessionBreaks()
 
 };  // sessDates()
 
@@ -141,22 +141,22 @@ export class Session {
 
   comments: string;
 
-  constructor(session?: Revision) {
+  constructor(revision?: Revision) {
 
-    if (!!session) {
+    this.classLocations = [];
+    this.specialFees = [];
 
-      this.dates = new sessDates(session);
+    if (!!revision) {
+
+      this.academicTerm = new CodeNamePair(revision.term, this.ReturnTermName(revision.term));
+      this.dates = new sessDates(revision);                 // Form the Session Dates section
 
     } else {
 
+      this.academicTerm = new CodeNamePair();
       this.dates = new sessDates();
-    }
 
-    this.classLocations = [];
-
-    this.specialFees = [];
-
-    this.academicTerm = new CodeNamePair();
+    }   // if(!!revision)
 
     this.session = new CodeNamePair();
 
@@ -179,5 +179,33 @@ export class Session {
       }
     };
   }   // constructor()
+
+  private ReturnTermName(term: string): string {
+
+    var termName: string = '';
+    var acadYear: string = term.substr(0,4);
+    var semCode: string = term.charAt(term.length - 1);
+
+    switch (semCode) {
+
+      case '1':
+        termName = acadYear + " Spring";
+        break;
+
+      case '2':
+        termName = acadYear + " Summer";
+        break;
+
+      case '3':
+        termName = acadYear + " Fall";
+        break;
+
+      default:
+        break;
+
+    }   // switch(semCode)
+
+    return termName;
+  }   // ReturnTermName()
 
 }; // session

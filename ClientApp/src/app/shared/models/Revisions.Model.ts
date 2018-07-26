@@ -53,7 +53,7 @@ class Location {
 }   // Location{}
 
 
-export class SessBreak {
+export class RevBreak {
 
   start: Date;
   end: Date;
@@ -112,6 +112,7 @@ class Fee {
 export class Revision {
 
   id: number;
+  term: string;
   firstDayOfClass: Date;
   lastDayOfClass: Date;
   firstDayOfFinals: Date;
@@ -130,18 +131,63 @@ export class Revision {
   createdDTM: Date;
   requestId: number;
   actions: Action[];
-  breaks: SessBreak[];
+  breaks: RevBreak[];
   locations: Location[];
   specialFees: Fee[];
 
+  constructor(session?: Session) {
+
+    this.actions = [];
+    this.breaks = [];
+    this.locations = [];
+    this.specialFees = [];
+
+    if (!!session) {
+
+      if (!!session.dates.sessionBreaks) {
+        this.BuildSessionBreaks(session.dates.sessionBreaks);
+      }
+
+      if (!!session.classLocations) {
+        this.BuildLocations(session.classLocations);
+      }
+
+      if (!!session.specialFees) {
+        this.BuildSpecialFees(session.specialFees);
+      }
+
+    } else {
+
+      this.id = null;
+      this.term = null;
+      this.firstDayOfClass = null;
+      this.lastDayOfClass = null;
+      this.firstDayOfFinals = null;
+      this.lastDayOfFinals = null;
+      this.rateType = null;
+      this.ratePerUnitAmount = null;
+      this.otherFlatRateAmount = null;
+      this.otherRatePerUnit = null;
+      this.undergradFlatRateMin = null;
+      this.undergradFlatRateMax = null;
+      this.gradFlatRateMin = null;
+      this.gradFlatRateMax = null;
+      this.comments = null;
+      this.createdBy = null;
+      this.creatorEmail = null;
+      this.createdDTM = null;
+      this.requestId = null;
+
+    }
+  }   // constructor()
 
   private BuildSessionBreaks(sessionBreaks: DateRange[]): void {
 
-    var eachBreak: SessBreak = null;
+    var eachBreak: RevBreak = null;
 
     for (var i = 0; i < sessionBreaks.length; ++i) {      // Session Breaks
 
-      eachBreak = new SessBreak(sessionBreaks[i].startDate, sessionBreaks[i].endDate);
+      eachBreak = new RevBreak(sessionBreaks[i].startDate, sessionBreaks[i].endDate);
       this.breaks.push(eachBreak);
 
     } // for(var i...)
@@ -174,43 +220,6 @@ export class Revision {
 
   } // BuildSpecialFees()
 
-
-  constructor(session?: Session) {
-
-    this.actions = [];
-    this.breaks = [];
-    this.locations = [];
-    this.specialFees = [];
-
-    if (!!session) {
-
-      this.BuildSessionBreaks(session.dates.sessionBreaks);
-      this.BuildLocations(session.classLocations);
-      this.BuildSpecialFees(session.specialFees);
-
-    } else {
-
-      this.id = null;
-      this.firstDayOfClass = null;
-      this.lastDayOfClass = null;
-      this.firstDayOfFinals = null;
-      this.lastDayOfFinals = null;
-      this.rateType = null;
-      this.ratePerUnitAmount = null;
-      this.otherFlatRateAmount = null;
-      this.otherRatePerUnit = null;
-      this.undergradFlatRateMin = null;
-      this.undergradFlatRateMax = null;
-      this.gradFlatRateMin = null;
-      this.gradFlatRateMax = null;
-      this.comments = null;
-      this.createdBy = null;
-      this.creatorEmail = null;
-      this.createdDTM = null;
-      this.requestId = null;
-
-    }
-  }   // constructor()
 }   // Revision{}
 
 
