@@ -120,7 +120,6 @@ export class Revision {
   firstDayOfFinals: Date;
   lastDayOfFinals: Date;
   rateType: string;
-  ratePerUnitAmount: number;
   otherFlatRateAmount: number;
   otherRatePerUnit: number;
   undergradFlatRateMin: number;
@@ -146,16 +145,36 @@ export class Revision {
 
     if (!!session) {
 
+      this.firstDayOfClass = new Date(session.dates.firstDayOfClass);
+      this.lastDayOfClass = new Date(session.dates.lastDayOfClass);
+      this.firstDayOfFinals = new Date(session.dates.firstDayOfFinals);
+      this.lastDayOfFinals = new Date(session.dates.lastDayOfFinals);
+
       if (!!session.dates.sessionBreaks) {
-        this.BuildSessionBreaks(session.dates.sessionBreaks);
+
+        var eachBreak: RevBreak = null;
+        for (var i = 0; i < session.dates.sessionBreaks.length; ++i) {      // Session Breaks
+          eachBreak = new RevBreak(session.dates.sessionBreaks[i].startDate, session.dates.sessionBreaks[i].endDate);
+          this.breaks.push(eachBreak);
+        }
       }
 
       if (!!session.classLocations) {
-        this.BuildLocations(session.classLocations);
+
+        var eachLoc: RevLocation = null;
+        for (var i = 0; i < session.classLocations.length; ++i) {
+          eachLoc = new RevLocation(session.classLocations[i]);
+          this.locations.push(eachLoc);
+        } // for (var i...)
       }
 
       if (!!session.specialFees) {
-        this.BuildSpecialFees(session.specialFees);
+
+        var eachFee: RevFee = null;
+        for (var i = 0; i < session.specialFees.length; ++i) {
+          eachFee = new RevFee(session.specialFees[i]);
+          this.specialFees.push(eachFee);
+        } // for(var i = 0...
       }
 
     } else {
@@ -166,7 +185,6 @@ export class Revision {
       this.firstDayOfFinals = null;
       this.lastDayOfFinals = null;
       this.rateType = null;
-      this.ratePerUnitAmount = null;
       this.otherFlatRateAmount = null;
       this.otherRatePerUnit = null;
       this.undergradFlatRateMin = null;
@@ -182,44 +200,6 @@ export class Revision {
     }
   }   // constructor()
 
-  private BuildSessionBreaks(sessionBreaks: DateRange[]): void {
-
-    var eachBreak: RevBreak = null;
-
-    for (var i = 0; i < sessionBreaks.length; ++i) {      // Session Breaks
-
-      eachBreak = new RevBreak(sessionBreaks[i].startDate, sessionBreaks[i].endDate);
-      this.breaks.push(eachBreak);
-
-    } // for(var i...)
-  }   // BuildSessionBreaks()
-
-
-  private BuildLocations(classLocations: ClassLoc[]): void {
-
-    var eachLoc: RevLocation = null;
-
-    for (var i = 0; i < classLocations.length; ++i) {
-
-      eachLoc = new RevLocation(classLocations[i]);
-      this.locations.push(eachLoc);
-
-    } // for (var i...)
-  }   // BuildLocations()
-
-
-  private BuildSpecialFees(specialFees: SpecialFee[]): void {
-
-    var eachFee: RevFee = null;
-
-    for (var i = 0; i < specialFees.length; ++i) {
-
-      eachFee = new RevFee(specialFees[i]);
-      this.specialFees.push(eachFee);
-
-    } // for(var i = 0...
-
-  } // BuildSpecialFees()
 
 }   // Revision{}
 

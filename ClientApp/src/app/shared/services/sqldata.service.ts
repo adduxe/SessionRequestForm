@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Session } from '../models/Request.Form.Model';
+import { Request } from '../models/Revisions.Model';
 @Injectable()
 
 export class SQLDataService {
@@ -70,8 +71,10 @@ export class SQLDataService {
   }
 
 
-  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Session  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
-    return ALLREVISIONSBYREQID;
+  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Request  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+
+    return SAMPLE_REQUEST[0];
+//    return ALLREVISIONSBYREQID;
   }
 
 }
@@ -783,7 +786,7 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
 
 };
 
-const SAMPLE_REQUEST =
+const SAMPLE_REQUEST = [
   {
     id: 73,
     term: "20182",
@@ -872,6 +875,6 @@ const SAMPLE_REQUEST =
     }
   ],
   approvals: null
-};
+}];
 
 
