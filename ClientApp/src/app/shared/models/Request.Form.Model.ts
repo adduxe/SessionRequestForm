@@ -1,6 +1,6 @@
 import { PEDataService } from '../services/pedata.service';
 
-import { Request, Revision, RevBreak, RevFee } from '../models/Revisions.Model';
+import { Request, Revision, RevBreak, RevFee, RevLocation } from '../models/Revisions.Model';
 
 export class CodeNamePair {
 
@@ -52,12 +52,21 @@ export class ClassLoc {
   startDate: Date;
   endDate: Date;
 
-  constructor() {
-   
-    this.campus = new CodeNamePair();
-    this.startDate = null;
-    this.endDate = null;
+  constructor(revLoc?: RevLocation) {
 
+    if (!!revLoc) {
+
+      this.campus = new CodeNamePair(revLoc.code, GetLocationName(revLoc.code));
+      this.startDate = revLoc.start;
+      this.endDate = revLoc.end;
+
+    } else {
+
+      this.campus = new CodeNamePair();
+      this.startDate = null;
+      this.endDate = null;
+
+    } // if(!!revLoc)
   }   // constructor()
 };  // classLoc{}
 
@@ -202,6 +211,7 @@ export class Session {
     this.rateType = new RateType();
     this.classLocations = [];
     this.specialFees = [];
+    this.comments = null;
 
     if (!!request) {
 
@@ -212,6 +222,9 @@ export class Session {
 
         this.dates = new sessDates(latestRev);                            // Form the Session Dates section
 
+        this.rateType.code = latestRev.rateType;                          // Set the rate-related fields
+        this.rateType.description = GetRateName(latestRev.rateType, request.term);
+
         var newestRev: number = request.revisions.length - 1;             // assumes that the last record is the latest revision
         var latestRev: Revision = request.revisions[newestRev];
 
@@ -221,8 +234,11 @@ export class Session {
           this.specialFees.push();
         }
 
-        this.rateType.code = latestRev.rateType;
-        this.rateType.description = GetRateName(latestRev.rateType, request.term);
+        var eachLocation: ClassLoc;
+        for (var i = 0; i < latestRev.locations.length; ++i){
+          eachLocation = new ClassLoc(latestRev.locations[i]);
+          this.classLocations.push(eachLocation);
+        }
 
       } // if (request...
 
@@ -302,3 +318,15 @@ function GetRateName(rateCode: string, term: string): string {
 
   return rateName;
 } // GetRateName()
+
+
+function GetLocationName(campusCode: string): string {
+
+  var peDataService: PEDataService;
+  var UscCampuses = peDataService.getCampusLocations();
+  var targetCampus = UscCampuses.filter((campuses) => campuses.code === campusCode);
+  var campusName: string = targetCampus[0].name;
+
+  return campusName;
+
+} // GetLocationName()

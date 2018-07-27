@@ -24,7 +24,7 @@ class Action {
 }   // Action{}
 
 
-class Location {
+export class RevLocation {
 
   id: number;
   code: string;
@@ -53,7 +53,7 @@ class Location {
 
   } //constructor()
 
-}   // Location{}
+}   // RevLocation{}
 
 
 export class RevBreak {
@@ -134,7 +134,7 @@ export class Revision {
   requestId: number;
   actions: Action[];
   breaks: RevBreak[];
-  locations: Location[];
+  locations: RevLocation[];
   specialFees: RevFee[];
 
   constructor(session?: Session) {
@@ -197,11 +197,11 @@ export class Revision {
 
   private BuildLocations(classLocations: ClassLoc[]): void {
 
-    var eachLoc: Location = null;
+    var eachLoc: RevLocation = null;
 
     for (var i = 0; i < classLocations.length; ++i) {
 
-      eachLoc = new Location(classLocations[i]);
+      eachLoc = new RevLocation(classLocations[i]);
       this.locations.push(eachLoc);
 
     } // for (var i...)
