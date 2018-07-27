@@ -8,7 +8,7 @@ class Action {
   group: string;
   name: string;
   comments: string;
-  createdDTM: Date;
+  createdDTM: string;
   revisionId: number
 
   constructor() {
@@ -58,15 +58,15 @@ export class RevLocation {
 
 export class RevBreak {
 
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
 
   constructor(startDate?: Date, endDate?: Date) {
 
     if (!!startDate && !!endDate) {
 
-      this.start = startDate;
-      this.end = endDate;
+      this.start = startDate.toDateString();
+      this.end = endDate.toDateString();
 
     } else {
 
@@ -115,10 +115,10 @@ export class RevFee {
 export class Revision {
 
   id: number;
-  firstDayOfClass: Date;
-  lastDayOfClass: Date;
-  firstDayOfFinals: Date;
-  lastDayOfFinals: Date;
+  firstDayOfClass: string;
+  lastDayOfClass: string;
+  firstDayOfFinals: string;
+  lastDayOfFinals: string;
   rateType: string;
   otherFlatRateAmount: number;
   otherRatePerUnit: number;
@@ -129,7 +129,7 @@ export class Revision {
   comments: string;
   createdBy: string;
   creatorEmail: string;
-  createdDTM: Date;
+  createdDTM: string;
   requestId: number;
   actions: Action[];
   breaks: RevBreak[];
@@ -145,10 +145,10 @@ export class Revision {
 
     if (!!session) {
 
-      this.firstDayOfClass = new Date(session.dates.firstDayOfClass);
-      this.lastDayOfClass = new Date(session.dates.lastDayOfClass);
-      this.firstDayOfFinals = new Date(session.dates.firstDayOfFinals);
-      this.lastDayOfFinals = new Date(session.dates.lastDayOfFinals);
+      this.firstDayOfClass = session.dates.firstDayOfClass.toDateString();
+      this.lastDayOfClass = session.dates.lastDayOfClass.toDateString();
+      this.firstDayOfFinals = session.dates.firstDayOfFinals.toDateString();
+      this.lastDayOfFinals = session.dates.lastDayOfFinals.toDateString();
 
       if (!!session.dates.sessionBreaks) {
 

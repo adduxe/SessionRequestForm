@@ -71,10 +71,11 @@ export class SQLDataService {
   }
 
 
-  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Request  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+//  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Request  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Session {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
 
-    return SAMPLE_REQUEST[0];
-//    return ALLREVISIONSBYREQID;
+//    return SAMPLE_REQUEST[0];
+    return ALLREVISIONSBYREQID;
   }
 
 }
@@ -722,8 +723,14 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
     lastDayOfFinals: new Date("08/30/2018"),
 
     sessionBreaks: [
-      { startDate: new Date("07/22/2018"), endDate: new Date("07/28/2018") },
-      { startDate: new Date("08/12/2018"), endDate: new Date("08/18/2018") }
+      {
+        startDate: new Date("07/22/2018"),
+        endDate: new Date("07/28/2018")
+      },
+      {
+        startDate: new Date("08/12/2018"),
+        endDate: new Date("08/18/2018")
+      }
     ]
   },
 

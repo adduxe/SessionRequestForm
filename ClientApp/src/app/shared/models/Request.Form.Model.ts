@@ -28,12 +28,12 @@ export class DateRange {
   startDate: Date;
   endDate: Date;
 
-  constructor(startDate?: Date, endDate?: Date) {
+  constructor(startDate?: string, endDate?: string) {
 
     if (!!startDate && !!endDate) {
 
-      this.startDate = startDate;
-      this.endDate = endDate;
+      this.startDate = new Date(startDate);
+      this.endDate = new Date(endDate);
 
     } else {
 
@@ -106,22 +106,22 @@ export class SpecialFee {
 
 class sessDates {
 
-  firstDayOfClass:  Date;
-  lastDayOfClass:   Date;
+  firstDayOfClass: Date;
+  lastDayOfClass: Date;
   firstDayOfFinals: Date;
-  lastDayOfFinals:  Date;
+  lastDayOfFinals: Date;
   sessionBreaks:    DateRange[];
 
-  constructor(revision?: Revision) {
+  constructor(revision?: Revision){
 
     this.sessionBreaks = [];
 
     if (!!revision) {
 
-      this.firstDayOfClass = revision.firstDayOfClass;
-      this.lastDayOfClass = revision.lastDayOfClass;
-      this.firstDayOfFinals = revision.firstDayOfFinals;
-      this.lastDayOfFinals = revision.lastDayOfFinals;
+      this.firstDayOfClass = new Date(revision.firstDayOfClass);
+      this.lastDayOfClass = new Date(revision.lastDayOfClass);
+      this.firstDayOfFinals = new Date(revision.firstDayOfFinals);
+      this.lastDayOfFinals = new Date(revision.lastDayOfFinals);
 
       var eachBreak: DateRange = null;
 
