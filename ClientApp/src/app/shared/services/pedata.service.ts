@@ -78,7 +78,7 @@ export class PEDataService {
   //    .pipe(catchError(this.handleError<any[]>('getCampusLocations', [])));
   //}
 
-  public getActiveTerms() {
+  public getActiveTerms(): CodeNamePair[] {
 
     var activeTerms: any[];
 
@@ -156,7 +156,7 @@ export class PEDataService {
     return HOLIDAYS;
   }
 
-  private ComputeActiveTerms(): any[] {
+  private ComputeActiveTerms(): CodeNamePair[] {
 
     var currDate = new Date();
     var currYear = currDate.getFullYear();

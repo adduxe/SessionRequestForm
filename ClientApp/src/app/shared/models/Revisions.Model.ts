@@ -28,8 +28,8 @@ export class RevLocation {
 
   id: number;
   code: string;
-  start: Date;
-  end: Date;
+  start: string;      // date string
+  end: string;        // date string
   revisionId: number;
 
   constructor(classLoc?: ClassLoc) {
@@ -40,8 +40,8 @@ export class RevLocation {
     if (!!classLoc) {
 
       this.code = classLoc.campus.code;
-      this.start = classLoc.startDate;
-      this.end = classLoc.endDate;
+      this.start = classLoc.startDate.toDateString();
+      this.end = classLoc.endDate.toDateString();
 
     } else {
 

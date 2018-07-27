@@ -1,5 +1,7 @@
 import { PEDataService } from '../services/pedata.service';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';;
+
 import { Request, Revision, RevBreak, RevFee, RevLocation } from '../models/Revisions.Model';
 
 export class CodeNamePair {
@@ -56,9 +58,10 @@ export class ClassLoc {
 
     if (!!revLoc) {
 
-      this.campus = new CodeNamePair(revLoc.code, GetLocationName(revLoc.code));
-      this.startDate = revLoc.start;
-      this.endDate = revLoc.end;
+//      this.campus = new CodeNamePair(revLoc.code, GetLocationName(revLoc.code));
+      this.campus = new CodeNamePair(revLoc.code, ' ');
+      this.startDate = new Date(revLoc.start);
+      this.endDate = new Date(revLoc.end);
 
     } else {
 
@@ -86,7 +89,7 @@ export class SpecialFee {
     if (!!revFee && !!term) {
 
       this.fee = new CodeNamePair(revFee.code, GetFeeName(revFee.code, term));
-      this.amount = null;
+      this.amount = revFee.amount;
       this.gradeLevel = new CodeNamePair(revFee.population, GetGradeLevel(revFee.population));
       this.enrollType = new CodeNamePair(revFee.enrollment, GetEnrollType(revFee.enrollment));
 
@@ -208,6 +211,7 @@ class RateType {
 
       this.code = revision.rateType;
       this.description = GetRateName(revision.rateType, term);
+      this.description = '';
       this.unitRate = revision.otherRatePerUnit;
       this.flatRate = revision.otherFlatRateAmount;
       this.flatRateUnitRange = new FlatRateUnitRange(revision);
@@ -251,15 +255,15 @@ export class Session {
     if (!!request) {
 
       this.academicTerm = new CodeNamePair(request.term, GetTermName(request.term));
-      this.session = new CodeNamePair(request.code);
+      this.session = new CodeNamePair(request.code, ' ');
 
       if (request.revisions.length > 0) {
 
+        var latestRev: Revision = request.revisions[0];
+
         this.dates = new sessDates(latestRev);                            // Form the Session Dates section
 
-        //this.rateType.code = latestRev.rateType;                          // Set the rate-related fields
-        //this.rateType.description = GetRateName(latestRev.rateType, request.term);
-        this.rateType = new RateType(latestRev, request.term);
+        this.rateType = new RateType(latestRev, request.term);            // Form the Rate Section
 
         var newestRev: number = request.revisions.length - 1;             // assumes that the last record is the latest revision
         var latestRev: Revision = request.revisions[newestRev];
@@ -267,7 +271,7 @@ export class Session {
         var eachFee: SpecialFee;
         for (var i = 0; i < latestRev.specialFees.length; ++i) {
           eachFee = new SpecialFee(latestRev.specialFees[i], request.term);
-          this.specialFees.push();
+          this.specialFees.push(eachFee);
         }
 
         var eachLocation: ClassLoc;
@@ -290,31 +294,6 @@ export class Session {
   }   // constructor()
 
 }; // session
-
-
-function GetFeeName(feeCode: string, term: string): string {
-
-  var peDataService: PEDataService;
-  var TermFees = peDataService.getSpecialFeeList(term); // Get the list of fees for the term
-
-  var eachFee: string = '';
-  var strIndex: number = -1;
-  var feeName: string = '';
-
-  for (var i = 0; i < TermFees.length; ++i) {   // Look for the specific fee and get it's description
-
-    eachFee = TermFees[i];
-    strIndex = eachFee.indexOf(feeCode);
-
-    if (strIndex == 0) {    // found the fee!
-      feeName = eachFee;
-      break;
-    }
-  }
-
-  return feeName;
-
-}   // GetFeeName()
 
 
 function GetTermName(term: string): string {
@@ -345,28 +324,6 @@ function GetTermName(term: string): string {
   return termName;
 };   // GetTermName()
 
-
-function GetRateName(rateCode: string, term: string): string {
-
-  var peDataService: PEDataService;
-  var TermRates = peDataService.getTermTuitionRates(term);
-  var targetRate = TermRates.filter((tRates) => tRates.code === rateCode);
-  var rateName: string = targetRate[0].description;
-
-  return rateName;
-} // GetRateName()
-
-
-function GetLocationName(campusCode: string): string {
-
-  var peDataService: PEDataService;
-  var UscCampuses = peDataService.getCampusLocations();
-  var targetCampus = UscCampuses.filter((campuses) => campuses.code === campusCode);
-  var campusName: string = targetCampus[0].name;
-
-  return campusName;
-
-} // GetLocationName()
 
 function GetGradeLevel(gradeCode: string): string {
 
@@ -420,3 +377,55 @@ function GetEnrollType(enrollCode: string): string {
 
   return enrollmentType;
 }   // GetEnrollType()
+
+
+function GetFeeName(feeCode: string, term: string): string {
+
+  var httpClient: HttpClient;
+  var peDataService: PEDataService = new PEDataService(httpClient);
+  var TermFees = peDataService.getSpecialFeeList(term); // Get the list of fees for the term
+
+  var eachFee: string = '';
+  var strIndex: number = -1;
+  var feeName: string = '';
+
+  for (var i = 0; i < TermFees.length; ++i) {   // Look for the specific fee and get it's description
+
+    eachFee = TermFees[i];
+    strIndex = eachFee.indexOf(feeCode);
+
+    if (strIndex == 0) {    // found the fee!
+      feeName = eachFee;
+      break;
+    }
+  }
+
+  return feeName;
+
+}   // GetFeeName()
+
+
+function GetRateName(rateCode: string, term: string): string {
+
+  var httpClient: HttpClient;
+  var peDataService: PEDataService = new PEDataService(httpClient);
+  var TermRates = peDataService.getTermTuitionRates(term);
+  var targetRate = TermRates.filter((tRates) => tRates.code === rateCode);
+  var rateName: string = targetRate[0].description;
+
+  return rateName;
+} // GetRateName()
+
+
+function GetLocationName(campusCode: string): string {
+
+  var httpClient: HttpClient;
+  var peDataService: PEDataService = new PEDataService(httpClient);
+  var UscCampuses = peDataService.getCampusLocations();
+  var targetCampus = UscCampuses.filter((campuses) => campuses.code === campusCode);
+  var campusName: string = targetCampus[0].name;
+
+  return campusName;
+
+} // GetLocationName()
+

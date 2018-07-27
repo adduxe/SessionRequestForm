@@ -6,6 +6,7 @@ import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
 
 import { Session, DateRange, ClassLoc, SpecialFee, CodeNamePair } from '../shared/models/Request.Form.Model';
+import { Request } from '../shared/models/Revisions.Model';
 
 import { RequestHistoryComponent } from '../request-history/request.history.component';
 
@@ -65,12 +66,12 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public GradeLevel: any[] = GRADELEVEL;
   public EnrollTypes: any[] = ENROLLMENTTYPES;
 
-  public UscCampuses    : CodeNamePair[] = [];
-  public SpecialFeeList : any[] = [];
+  public UscCampuses: CodeNamePair[] = [];
+  public SpecialFeeList: CodeNamePair[] = [];
   public termRates      : any[] = [];
   public SessionCodes   : CodeNamePair[] = [];
-  public Semesters      : any[];
-  public CampusNameArray: string[] = [];
+  public Semesters: CodeNamePair[];
+  public CampusNameArray: CodeNamePair[] = [];
   public Session001Dates: any;
   public showPerUnitBox : boolean = false;
   public formIsValid    : boolean = true;
@@ -134,7 +135,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     //});
 
     for (var i = 0; i < this.UscCampuses.length; ++i){
-      this.CampusNameArray[i] = this.UscCampuses[i].name;
+      this.CampusNameArray[i] = this.UscCampuses[i];
     }
 
     if (this.session.classLocations.length == 0) {
@@ -149,7 +150,9 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   private PreLoadTheForm(term: string, sessCode: string): void {
 
-    this.session = this.sqlDataService.getCurrentRevByReqID(term, sessCode);
+    var request: Request = this.sqlDataService.getCurrentRevByReqID(term, sessCode);
+
+    this.session = new Session(request);
 
     if (this.session.academicTerm.code > '') {                           // if existing request exists,
 
@@ -160,7 +163,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
 
-      if (this.session.specialFees.length > 0) {
+      if (this.session.dates.sessionBreaks.length > 0) {
         this.haveSessionBreaks = 'Yes';
       }
 

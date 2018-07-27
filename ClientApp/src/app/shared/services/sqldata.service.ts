@@ -71,11 +71,11 @@ export class SQLDataService {
   }
 
 
-//  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Request  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
-  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Session {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Request  {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
+//  public getCurrentRevByReqID(acadTerm: string, sessionCode: string): Session {      // uses actual json structure to be used in project.  Will eventually replace getCurrentRevisionByRequestID
 
-//    return SAMPLE_REQUEST[0];
-    return ALLREVISIONSBYREQID;
+    return SAMPLE_REQUEST[0];
+//    return ALLREVISIONSBYREQID;
   }
 
 }
