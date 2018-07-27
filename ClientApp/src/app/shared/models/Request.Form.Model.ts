@@ -72,11 +72,11 @@ export class SpecialFee {
 
   enrollType: CodeNamePair;
 
-  constructor(revFee?: RevFee) {
+  constructor(revFee?: RevFee, term?: string) {
 
-    if (!!revFee) {
+    if (!!revFee && !!term) {
 
-      this.fee = new CodeNamePair(revFee.code, GetFeeName(revFee.code));
+      this.fee = new CodeNamePair(revFee.code, GetFeeName(revFee.code, term));
       this.amount = null;
       this.gradeLevel = new CodeNamePair();
       this.enrollType = new CodeNamePair();
@@ -117,10 +117,8 @@ class sessDates {
       var eachBreak: DateRange = null;
 
       for (var i = 0; i < revision.breaks.length; ++i) {
-
         eachBreak = new DateRange(revision.breaks[i].start, revision.breaks[i].end);
         this.sessionBreaks.push(eachBreak);
-
       }
 
     } else {
@@ -201,9 +199,9 @@ export class Session {
 
   constructor(request?: Request) {
 
+    this.rateType = new RateType();
     this.classLocations = [];
     this.specialFees = [];
-    this.rateType = new RateType();
 
     if (!!request) {
 
@@ -218,11 +216,13 @@ export class Session {
         var latestRev: Revision = request.revisions[newestRev];
 
         var eachFee: SpecialFee;
-
         for (var i = 0; i < latestRev.specialFees.length; ++i) {
-          eachFee = new SpecialFee()
+          eachFee = new SpecialFee(latestRev.specialFees[i], request.term);
           this.specialFees.push();
         }
+
+        this.rateType.code = latestRev.rateType;
+        this.rateType.description = GetRateName(latestRev.rateType, request.term);
 
       } // if (request...
 
@@ -239,9 +239,25 @@ export class Session {
 }; // session
 
 
-function GetFeeName(feeCode: string): string {
+function GetFeeName(feeCode: string, term: string): string {
 
+  var peDataService: PEDataService;
+  var TermFees = peDataService.getSpecialFeeList(term); // Get the list of fees for the term
+
+  var eachFee: string = '';
+  var strIndex: number = -1;
   var feeName: string = '';
+
+  for (var i = 0; i < TermFees.length; ++i) {   // Look for the specific fee and get it's description
+
+    eachFee = TermFees[i];
+    strIndex = eachFee.indexOf(feeCode);
+
+    if (strIndex == 0) {    // found the fee!
+      feeName = eachFee;
+      break;
+    }
+  }
 
   return feeName;
 
@@ -275,3 +291,14 @@ function GetTermName(term: string): string {
 
   return termName;
 };   // GetTermName()
+
+
+function GetRateName(rateCode: string, term: string): string {
+
+  var peDataService: PEDataService;
+  var TermRates = peDataService.getTermTuitionRates(term);
+  var targetRate = TermRates.filter((tRates) => tRates.code === rateCode);
+  var rateName: string = targetRate[0].description;
+
+  return rateName;
+} // GetRateName()

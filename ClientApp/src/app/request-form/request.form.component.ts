@@ -275,7 +275,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   }   // filterCampusLocation()
 
 
-  private formSpecialFeeArray(acadTerm: string, feeList: any): any[] {
+  private formSpecialFeeArray(acadTerm: string, feeList: any): CodeNamePair[] {
 
     var specFeeArray: any[] = [];
     var feeName: string = "";
@@ -283,8 +283,23 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
     var term = acadTerm.toString();   // because it will error out without this
 
+    for (var i = 0; i < feeList.length; ++i) {
+
+      feeName = this.CleanupFeeName(term, feeList[i]);
+      feeCode = feeName.substring(0, feeName.indexOf(' '));
+      var newCode = new CodeNamePair(feeCode, feeName);
+      specFeeArray.push(newCode);
+
+    }
+
+    return specFeeArray;
+  }   // formSpecialFeeArray()
+
+
+  private CleanupFeeName(term: string, feeDesc: string): string {
+
     var acadYear = term.slice(0, 4); // acadTerm.slice(0, 4);
-    var termPrefix = term[term.length - 1]; // get the last digit (e.g. 20183 = '3')
+    var termPrefix = term[term.length - 1]; // get the last digit (e.g. 20183 => '3')
     var termAbbrev = "";
 
     switch (termPrefix) {
@@ -301,24 +316,12 @@ export class RequestFormComponent implements OnInit, OnDestroy{
         break;
     }
 
-    for (var i = 0; i < feeList.length; ++i) {
-      feeName = this.CleanupFeeName(termAbbrev, feeList[i]);
-      feeCode = feeName.substring(0, feeName.indexOf(' '));
-      var newCode = new CodeNamePair(feeCode, feeName);
-      specFeeArray.push(newCode);
-    }
+    var cleanStr: string = feeDesc.replace('- ' + acadYear , '');
 
-    return specFeeArray;
-  }   // formSpecialFeeArray()
-
-
-  private CleanupFeeName(termYear: string, feeDesc: string): string {
-
-    var cleanStr: string = feeDesc.replace('- ' + termYear , '');
-
-    cleanStr = cleanStr.replace(termYear, '');
+    cleanStr = cleanStr.replace(acadYear, '');
     
     return cleanStr;
+
   }   // CleanupFeeName()
 
 
