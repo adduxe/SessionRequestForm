@@ -149,9 +149,19 @@ class UnitRange {
   minimum: number;
   maximum: number;
 
-  constructor() {
-    this.minimum = null;
-    this.maximum = null;
+  constructor(min?: number, max?: number) {
+
+    if (!!min && !!max) {
+
+      this.minimum = min;
+      this.maximum = max;
+
+    } else {
+
+      this.minimum = null;
+      this.maximum = null;
+
+    } //else
   } // constructor()
 
 }   // UnitRange{}
@@ -162,10 +172,25 @@ class FlatRateUnitRange {
   graduate: UnitRange;
   undergraduate: UnitRange
 
-  constructor() {
-    this.graduate = new UnitRange();
-    this.undergraduate = new UnitRange();
-  }
+  constructor(revision?: Revision) {
+
+    if (!!revision) {
+
+      if (!!revision.gradFlatRateMin && !!revision.gradFlatRateMax) {
+        this.graduate = new UnitRange(revision.gradFlatRateMin, revision.gradFlatRateMax);
+      }
+
+      if (!!revision.undergradFlatRateMin && !!revision.undergradFlatRateMax) {
+        this.undergraduate = new UnitRange(revision.undergradFlatRateMin, revision.undergradFlatRateMax);
+      }
+
+    } else {
+
+      this.graduate = new UnitRange();
+      this.undergraduate = new UnitRange();
+
+    } // if(!!revision)
+  } // constructor()
 };  // FlatRateUnitRange{}
 
 
@@ -177,13 +202,24 @@ class RateType {
   flatRate:     number;
   flatRateUnitRange: FlatRateUnitRange;
 
-  constructor() {
+  constructor(revision?: Revision, term?: string) {
 
-    this.code = null;
-    this.description = null;
-    this.unitRate = null;
-    this.flatRate = null;
-    this.flatRateUnitRange = new FlatRateUnitRange();
+    if (!!revision && !!term) {
+
+      this.code = revision.rateType;
+      this.description = GetRateName(revision.rateType, term);
+      this.unitRate = revision.otherRatePerUnit;
+      this.flatRate = revision.otherFlatRateAmount;
+      this.flatRateUnitRange = new FlatRateUnitRange(revision);
+
+    } else {
+
+      this.code = null;
+      this.description = null;
+      this.unitRate = null;
+      this.flatRate = null;
+      this.flatRateUnitRange = new FlatRateUnitRange();
+    } // else
 
   } // constructor()
 
@@ -208,7 +244,6 @@ export class Session {
 
   constructor(request?: Request) {
 
-    this.rateType = new RateType();
     this.classLocations = [];
     this.specialFees = [];
     this.comments = null;
@@ -222,8 +257,9 @@ export class Session {
 
         this.dates = new sessDates(latestRev);                            // Form the Session Dates section
 
-        this.rateType.code = latestRev.rateType;                          // Set the rate-related fields
-        this.rateType.description = GetRateName(latestRev.rateType, request.term);
+        //this.rateType.code = latestRev.rateType;                          // Set the rate-related fields
+        //this.rateType.description = GetRateName(latestRev.rateType, request.term);
+        this.rateType = new RateType(latestRev, request.term);
 
         var newestRev: number = request.revisions.length - 1;             // assumes that the last record is the latest revision
         var latestRev: Revision = request.revisions[newestRev];
@@ -246,6 +282,7 @@ export class Session {
 
       this.academicTerm = new CodeNamePair();
       this.session = new CodeNamePair();
+      this.rateType = new RateType();
       this.dates = new sessDates();
 
     }   // if(!!request)

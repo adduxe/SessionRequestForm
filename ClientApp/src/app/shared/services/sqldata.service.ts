@@ -783,4 +783,66 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
 
 };
 
+const SAMPLE_REQUEST =
+  {
+    id: 73,
+    term: "20182",
+    code: "004",
+    departmentCode: "PHARM",
+    currentStatus: "PendingSessionApproval",
+    revisions: [
+      {
+        id: 93,
+        firstDayOfClass: "2018-07-01T00:00:00",
+        lastDayOfClass: "2018-08-30T00:00:00",
+        firstDayOfFinals: "2018-08-28T00:00:00",
+        lastDayOfFinals: "2018-08-30T00:00:00",
+        rateType: "OTHFLAT",
+        ratePerUnitAmount: 1800,
+        otherFlatRateAmount: 30409,
+        otherRatePerUnit: 0,
+        undergradFlatRateMin: 0,
+        undergradFlatRateMax: 0,
+        gradFlatRateMin: 0,
+        gradFlatRateMax: 0,
+        comments: null,
+        createdBy: "tester 2",
+        creatorEmail: "lipan@usc.edu",
+        createdDTM: "2018-07-10T09:59:12.4999671-07:00",
+        requestId: 73,
+        actions: [
+          {
+            id: 0,
+            group: null,
+            name: "Submit",
+            actor: "tester 2",
+            comments: "from system",
+            createdDTM: "2018-07-10T09:59:12.5454239-07:00",
+            revisionId: 93
+          }
+        ],
+        breaks: null,
+        locations: [
+          {
+            id: 95,
+            code: "CAL",
+            start: "2019-06-05T00:00:00",
+            end: "2019-09-21T00:00:00",
+            revisionId: 93
+          }
+        ],
+        specialFees: [
+          {
+            id: 0,
+            code: "xyz",
+          amount: 0,
+          population: "B",
+          enrollment: "half"
+        }
+    ]
+  }
+  ],
+approvals: null
+};
+
 
