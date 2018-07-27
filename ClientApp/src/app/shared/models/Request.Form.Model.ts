@@ -87,8 +87,8 @@ export class SpecialFee {
 
       this.fee = new CodeNamePair(revFee.code, GetFeeName(revFee.code, term));
       this.amount = null;
-      this.gradeLevel = new CodeNamePair();
-      this.enrollType = new CodeNamePair();
+      this.gradeLevel = new CodeNamePair(revFee.population, GetGradeLevel(revFee.population));
+      this.enrollType = new CodeNamePair(revFee.enrollment, GetEnrollType(revFee.enrollment));
 
     } else {
 
@@ -367,3 +367,56 @@ function GetLocationName(campusCode: string): string {
   return campusName;
 
 } // GetLocationName()
+
+function GetGradeLevel(gradeCode: string): string {
+
+  var gradeLevel: string = '';
+
+  switch (gradeCode.toUpperCase()) {
+
+    case 'B':
+      gradeLevel = "All";
+      break;
+
+    case 'G':
+      gradeLevel = "Graduate";
+      break;
+
+    case 'U':
+      gradeLevel = "Undergraduate";
+      break;
+
+    default:
+      break;
+
+  } // switch()
+
+  return gradeLevel;
+
+} // GetGradeLevel()
+
+
+function GetEnrollType(enrollCode: string): string {
+
+  var enrollmentType: string = '';
+
+  switch (enrollCode.toUpperCase()) {
+
+    case 'FULL':
+      enrollmentType = "Full-load";
+      break;
+
+    case 'HALF':
+      enrollmentType = "Half-load";
+      break;
+
+    case 'NONE':
+      enrollmentType = "Not enrolled";
+      break;
+    default:
+      break;
+
+  } // switch()
+
+  return enrollmentType;
+}   // GetEnrollType()

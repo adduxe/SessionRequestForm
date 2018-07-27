@@ -736,8 +736,7 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
       endDate: new Date("08/30/2018")
     }
   ],
-
-
+  
   rateType: {
 
     code: "OTHFLAT",
@@ -746,14 +745,15 @@ const ALLREVISIONSBYREQID = {        // new: actual json structure to be followe
     flatRate: 30409,
 
     flatRateUnitRange: {
+
       graduate: {
-        minimum: 1,
-        maximum: 5
+        minimum: 3,
+        maximum: 4
       },
 
       undergraduate: {
-        minimum: 6,
-        maximum: 10
+        minimum: 1,
+        maximum: 2
       }
     }
   },
@@ -798,14 +798,13 @@ const SAMPLE_REQUEST =
         firstDayOfFinals: "2018-08-28T00:00:00",
         lastDayOfFinals: "2018-08-30T00:00:00",
         rateType: "OTHFLAT",
-        ratePerUnitAmount: 1800,
         otherFlatRateAmount: 30409,
-        otherRatePerUnit: 0,
-        undergradFlatRateMin: 0,
-        undergradFlatRateMax: 0,
-        gradFlatRateMin: 0,
-        gradFlatRateMax: 0,
-        comments: null,
+        otherRatePerUnit: 1800,
+        undergradFlatRateMin: 3,
+        undergradFlatRateMax: 4,
+        gradFlatRateMin: 1,
+        gradFlatRateMax: 2,
+        comments: "This is a sample Comment",
         createdBy: "tester 2",
         creatorEmail: "lipan@usc.edu",
         createdDTM: "2018-07-10T09:59:12.4999671-07:00",
@@ -821,28 +820,58 @@ const SAMPLE_REQUEST =
             revisionId: 93
           }
         ],
-        breaks: null,
+        breaks: [
+          {
+            start: "2018-07-22T09:59:12.5454239-07:00",
+            end: "2018-07-28T09:59:12.5454239-07:00"
+          },
+          {
+            start: "2018-08-12T09:59:12.5454239-07:00",
+            end: "2018-08-18T09:59:12.5454239-07:00"
+          }
+        ],
         locations: [
           {
             id: 95,
-            code: "CAL",
-            start: "2019-06-05T00:00:00",
-            end: "2019-09-21T00:00:00",
+            code: "CAT",
+            start: "2018-07-05T00:00:00",
+            end: "2019-07-31T00:00:00",
+            revisionId: 93
+          },
+          {
+            id: 96,
+            code: "ATT",
+            start: "2018-08-01T00:00:00",
+            end: "2018-08-30T00:00:00",
             revisionId: 93
           }
         ],
         specialFees: [
           {
             id: 0,
-            code: "xyz",
-          amount: 0,
-          population: "B",
-          enrollment: "half"
-        }
-    ]
-  }
+            code: "T30320182",
+            amount: 300,
+            population: "U",
+            enrollment: "NONE"
+          },
+          {
+            id: 1,
+            code: "T50920182",
+            amount: 500,
+            population: "G",
+            enrollment: "HALF"
+          },
+          {
+            id: 2,
+            code: "M46720182",
+            amount: 100,
+            population: "B",
+            enrollment: "FULL"
+          }
+      ]
+    }
   ],
-approvals: null
+  approvals: null
 };
 
 
