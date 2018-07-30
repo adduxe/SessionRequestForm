@@ -107,7 +107,7 @@ export class SpecialFee {
 };  // SpecialFee{}
 
 
-class sessDates {
+class SessDates {
 
   firstDayOfClass: Date;
   lastDayOfClass: Date;
@@ -144,7 +144,7 @@ class sessDates {
 
   } // constructor()
 
-};  // sessDates()
+};  // SessDates()
 
 
 class UnitRange {
@@ -236,7 +236,7 @@ export class Session {
 
   session: CodeNamePair;
 
-  dates: sessDates;
+  dates: SessDates;
 
   classLocations: ClassLoc[];
 
@@ -261,7 +261,7 @@ export class Session {
 
         var latestRev: Revision = request.revisions[0];
 
-        this.dates = new sessDates(latestRev);                            // Form the Session Dates section
+        this.dates = new SessDates(latestRev);                            // Form the Session Dates section
 
         this.rateType = new RateType(latestRev, request.term);            // Form the Rate Section
 
@@ -287,7 +287,7 @@ export class Session {
       this.academicTerm = new CodeNamePair();
       this.session = new CodeNamePair();
       this.rateType = new RateType();
-      this.dates = new sessDates();
+      this.dates = new SessDates();
 
     }   // if(!!request)
 

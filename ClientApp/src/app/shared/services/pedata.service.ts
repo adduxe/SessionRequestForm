@@ -23,7 +23,7 @@ class unitRanges {
 };
 
 
-class rate {
+export class Rate {
 
   code: string;
 
@@ -107,15 +107,15 @@ export class PEDataService {
     return SPECIALFEES;
   }
 
-  public getTermTuitionRates(acadTerm: string) {
+  public getTermTuitionRates(acadTerm: string): Rate[] {
 
     var rawRates = TUITIONRATES.filter((tRates) => tRates.term == parseInt(acadTerm));
 
-    var termRates = rawRates[0].termRates;
-    var rateArray = new Array<rate>();
+    var semRates = rawRates[0].termRates;
+    var rateArray: Rate[] = [];
 
-    for (var i = 0; i < termRates.length; ++i) {
-      var eachRate = new rate(termRates[i]);
+    for (var i = 0; i < semRates.length; ++i) {
+      var eachRate = new Rate(semRates[i]);
       rateArray.push(eachRate);
     }
 

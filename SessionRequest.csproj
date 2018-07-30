@@ -71,6 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\test-page\child-page\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 

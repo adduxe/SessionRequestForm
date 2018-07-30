@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PEDataService } from '../shared/services/pedata.service';
+import { PEDataService, Rate } from '../shared/services/pedata.service';
 import { SQLDataService } from '../shared/services/sqldata.service';
 import { SubmitFormService } from '../shared/services/submit.form.service';
 
@@ -68,7 +68,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
   public UscCampuses: CodeNamePair[] = [];
   public SpecialFeeList: CodeNamePair[] = [];
-  public termRates      : any[] = [];
+  public TermRates      : Rate[] = [];
   public SessionCodes   : CodeNamePair[] = [];
   public Semesters: CodeNamePair[];
   public CampusNameArray: CodeNamePair[] = [];
@@ -158,7 +158,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
 
       var term: string = this.session.academicTerm.code;
 
-      this.termRates = this.peDataService.getTermTuitionRates(term);    // get the term-related rates
+      this.TermRates = this.peDataService.getTermTuitionRates(term);    // get the term-related rates
 
       var FeeList = this.peDataService.getSpecialFeeList(term);         // get the term-related special fees 
       this.SpecialFeeList = this.formSpecialFeeArray(term, FeeList);
@@ -347,7 +347,7 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public TermSelected(selectedTerm: any) {    // when the user selects a term in the Semester dropdown
 
     var term: string = selectedTerm.code;
-    this.termRates = this.peDataService.getTermTuitionRates(term);
+    this.TermRates = this.peDataService.getTermTuitionRates(term);
     this.ResetRateFields();
 
     var FeeList = this.peDataService.getSpecialFeeList(term);
@@ -496,14 +496,13 @@ export class RequestFormComponent implements OnInit, OnDestroy{
     switch (true) {   // Check minimal required fields
 
       case (this.session.academicTerm.code == null):                // Academic Term blank?
-      case (this.session.session.code == null):                 // Session Code blank?
+      case (this.session.session.code == null):                     // Session Code blank?
       case (this.session.dates.firstDayOfClass == null):            // First Day of Classes blank?
       case (this.session.dates.lastDayOfClass == null):             // Last Day of Classes blank?
       case (this.session.dates.firstDayOfFinals == null):           // First Day of Finals blank?
       case (this.session.dates.lastDayOfFinals == null):            // Last Day of Finals blank?
       case (this.haveSessionBreaks == null):                        // Have Session Breaks unchecked?
-      case (this.session.classLocations[0].campus.code == null):// No class location specified?
-      case (this.session.rateType.code == null):                    // Rate Type blank?
+      case (this.session.classLocations[0].campus.code == null):    // No class location specified?
 
         formValid = false;
         break;
@@ -663,37 +662,40 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   private AreRateFieldsOK(): boolean {
 
     this.formError.rates = '';    // Reset rate error messages.
-
     var rateFieldsOK: boolean = true;
-    var rateTypeCode: string = (this.session.rateType.code).toUpperCase();
 
-    switch (rateTypeCode) {
+    if (this.TermRates.length > 0) {      // Check only if rates for the semester are available.
 
-      case 'OTHFLAT':        // check:
+      var rateTypeCode: string = (this.session.rateType.code).toUpperCase();
 
-        if (!this.AreFlatRateFieldsOK()) {
-          rateFieldsOK = false;
-        } else if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
-          rateFieldsOK = false;
-          this.formError.rates = "Please enter a positive Tuition Unit Rate Amount.";
-        }
-        break;
+      switch (rateTypeCode) {
 
-      case 'OTHUNIT':
+        case 'OTHFLAT':        // check:
 
-        if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
-          rateFieldsOK = false;
-          this.formError.rates = "Please enter a positive Tuition Unit Rate Amount.";
-        }
-        break;
+          if (!this.AreFlatRateFieldsOK()) {
+            rateFieldsOK = false;
+          } else if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
+            rateFieldsOK = false;
+            this.formError.rates = "Please enter a positive Tuition Unit Rate Amount.";
+          }
+          break;
 
-      default:              // any standard rate
-        rateFieldsOK = true;
-        break;
+        case 'OTHUNIT':
 
-    }   // switch()
+          if (!this.IsPositiveNumber(this.session.rateType.unitRate)) {
+            rateFieldsOK = false;
+            this.formError.rates = "Please enter a positive Tuition Unit Rate Amount.";
+          }
+          break;
 
-    return rateFieldsOK;
+        default:              // any standard rate
+          rateFieldsOK = true;
+          break;
+
+      }   // switch()
+
+    }
+      return rateFieldsOK;
 
   }   // AreRateFieldsOK()
 

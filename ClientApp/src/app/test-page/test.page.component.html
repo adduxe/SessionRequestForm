@@ -1,11 +1,9 @@
-<form #sampleForm="ngForm">
 
-  <input type="text" [(ngModel)]="username" name="username" required>
+<input type="text" [(ngModel)]="username" name="username" required>
 
-  <input type="submit" value="Submit">
+<input type="submit" value="Submit">
 
-  {{ session.term }} - {{ session.sessionCode }}
-  <br />
-  {{ session.dates.sessionBreaks[0].startDate }} - {{ session.dates.sessionBreaks[0].endDate }}
+{{ session.term }} - {{ session.sessionCode }}
+<br />
+{{ session.dates.sessionBreaks[0].startDate }} - {{ session.dates.sessionBreaks[0].endDate }}
 
-</form>

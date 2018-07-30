@@ -330,7 +330,7 @@
   </div>
 
 
-  <div id="rateFields" *ngIf="termRates && session.academicTerm.code">
+  <div id="rateFields" *ngIf="TermRates && session.academicTerm.code">
 
     <b class="section-header">Rates</b>&nbsp;<span class="error-msg" *ngIf="formError.rates">* {{ "Rates: " + formError.rates }}</span>
 
@@ -344,12 +344,12 @@
           Tuition Rate Type
         </label>
         <div class="col-md-7">
-          <kendo-dropdownlist *ngIf="(termRates.length > 0)"
+          <kendo-dropdownlist *ngIf="(TermRates.length > 0)"
                               id="rateType"
                               name="rateType"
                               [(ngModel)]="session.rateType"
                               [class.has-error]="(session.rateType.code == null)"
-                              [data]="termRates"
+                              [data]="TermRates"
                               [valueField]="'code'"
                               [textField]="'description'"
                               (selectionChange)="RateSelected($event)"
