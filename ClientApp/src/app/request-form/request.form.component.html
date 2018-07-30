@@ -1,20 +1,11 @@
 
-<h3 style="color:darkred">New Session Request</h3>
-<div class="col-md-pull-5" style="padding: 0px;">
+<h4 style="color:darkred;">New Session Request</h4>
+
+<span class="col-md-pull-5" style="padding: 0px;">
   Complete this form to request the new session for your department.
-</div><br />
+</span><br />
 
 <h4 style="color:darkred;padding:0px;">Session Details</h4>
-<div style="color: red;">
-  <div *ngIf="formError.general">* {{ formError.general }}</div>
-  <div *ngIf="formError.classDates">* {{ "Class Dates:" + formError.classDates }}</div>
-  <div *ngIf="formError.finalsDates">* {{ "Finals Dates: " + formError.finalsDates }}</div>
-  <div *ngIf="formError.sessionBreaks">* {{ "Session Breaks: " + formError.sessionBreaks }}</div>
-  <div *ngIf="formError.locations">* {{ "Class Locations: " + formError.locations }}</div>
-  <div *ngIf="formError.rates">* {{ "Rates: " + formError.rates }}</div>
-  <div *ngIf="formError.specialFees">* {{ "Special Fees: " + formError.specialFees }}</div>
-  <div *ngIf="formError.comments">* {{ "Comments: " + formError.comments }}</div>
-</div>
 
 <hr style="border-color:darkred" />
 
@@ -69,7 +60,8 @@
 
   </div>
 
-  <h4 style="color:darkred;padding:0px;">Dates</h4>
+  <b class="section-header">Dates</b>
+
   <hr style="border-color:darkred" />
 
   <div class="row">
@@ -108,6 +100,10 @@
       </kendo-datepicker>
       &nbsp;<b><abbr title="Session End Date">&#9432;</abbr></b>
 
+    </div>
+
+    <div class="error-msg col-md-4" *ngIf="formError.classDates">
+      {{ formError.classDates }}
     </div>
 
   </div>
@@ -151,15 +147,19 @@
 
     </div>
 
+    <div class="error-msg col-md-4" *ngIf="formError.finalsDates">
+      * {{ formError.finalsDates }}
+    </div>
+
   </div>
 
   <div class="row" id="haveSessionBreaksRadio" *ngIf="(session.dates.firstDayOfClass && session.dates.lastDayOfClass)">
-
+    <br/>
     <div class="col-md-6">
 
       <!--<button class="form-control uscGoldButton" value="Add Session Breaks" (click)="AddSessionBreak();">
-        Add Session Break
-      </button>-->
+      Add Session Break
+    </button>-->
       <b>Does this session have any breaks?</b>&nbsp;&nbsp;
 
       <span id="sessBreaksRadio" [class.has-error]="haveSessionBreaks == null">
@@ -182,9 +182,12 @@
       </span>
       <b><abbr title="Click No ONLY IF this session will not have an interruption of instruction for five days or more. For example, click No if classes will continue for students in this session during the university's Thanksgiving holiday or during Spring Break.">&#9432;</abbr></b>
     </div>
+    <div class="error-msg col-md-4" *ngIf="formError.sessionBreaks">* {{ formError.sessionBreaks }}</div>
+
     <br /><br />
 
   </div>
+
 
   <!--  Session Breaks section -->
   <div *ngIf="session.dates.sessionBreaks.length" class="Breaks">
@@ -234,7 +237,8 @@
 
   <div id="locationFields" *ngIf="session.dates.firstDayOfClass  &&  session.dates.lastDayOfClass">
 
-    <h4 style="color:darkred;padding:0px;">Locations</h4>
+    <b class="section-header">Locations</b>&nbsp;<span class="error-msg" *ngIf="formError.locations">* {{ formError.locations }}</span>
+
     <hr style="border-color:darkred" />
 
     <!-- Start of Class Locations Section -->
@@ -307,13 +311,13 @@
     <div class="row">
       <div class="col-md-10">
         <!--<kendo-autocomplete
-            required
-            [suggest]="true"
-            [placeholder]="'Type the Campus Name'"
-            (valueChange)="AddClassLocation($event)"
-            [data]="CampusNameArray"
-            style="width:400px;">
-        </kendo-autocomplete>-->
+          required
+          [suggest]="true"
+          [placeholder]="'Type the Campus Name'"
+          (valueChange)="AddClassLocation($event)"
+          [data]="CampusNameArray"
+          style="width:400px;">
+      </kendo-autocomplete>-->
       </div>
       <div class="col-md-2">
         <button class="form-control btn-outline-danger" value="Add Class Locations" (click)="AddClassLocation();">
@@ -328,7 +332,8 @@
 
   <div id="rateFields" *ngIf="termRates && session.academicTerm.code">
 
-    <h4 style="color:darkred;padding:0px;">Rates</h4>
+    <b class="section-header">Rates</b>&nbsp;<span class="error-msg" *ngIf="formError.rates">* {{ "Rates: " + formError.rates }}</span>
+
     <hr style="border-color:darkred" />
 
     <div class="row">
@@ -483,7 +488,8 @@
 
   <div id="SpecialFeesSection" *ngIf="SpecialFeeList && session.academicTerm.code">
 
-    <h4 style="color:darkred;padding:0px;">Special Fees</h4>
+    <b class="section-header">Special Fees</b>&nbsp;<span class="error-msg" *ngIf="formError.specialFees">* {{ "Special Fees: " + formError.specialFees }}</span>
+
     <hr style="border-color:darkred" />
 
     <!-- Start of Special Fees Section -->
@@ -581,7 +587,8 @@
 
   <div id="userComments">
 
-    <h4 style="color:darkred;padding:0px;">Commments</h4>
+    <h4 style="color:darkred;padding:0px;">Commments</h4>&nbsp;
+    <span class="error-msg" *ngIf="formError.comments">* {{ formError.comments }}</span>
     <hr style="border-color:darkred" />
     <div class="row" style="float:none; width:100%;">
       <textarea style="width:100%;"
@@ -591,7 +598,7 @@
       </textarea>
     </div>
   </div>
-  
+
   <br />
 
   <div class="row">
@@ -602,7 +609,7 @@
       <input type="Submit" (click)="ConfirmData();" value="Next" />
     </div>
     <div class="col-md-5">
-      &nbsp;
+      <div class="error-msg" *ngIf="formError.general">* {{ formError.general }}</div>
     </div>
   </div>
 

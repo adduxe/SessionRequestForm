@@ -47,3 +47,13 @@
 .has-error {
   border: solid 1px red;
 }
+
+.error-msg {
+  color: red;
+  display: inline;
+}
+
+.section-header {
+  color: darkred;
+  font-size: medium;
+}
