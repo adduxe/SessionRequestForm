@@ -66,11 +66,11 @@ export class RequestFormComponent implements OnInit, OnDestroy{
   public GradeLevel: any[] = GRADELEVEL;
   public EnrollTypes: any[] = ENROLLMENTTYPES;
 
-  public UscCampuses: CodeNamePair[] = [];
-  public SpecialFeeList: CodeNamePair[] = [];
+  public UscCampuses    : CodeNamePair[] = [];
+  public SpecialFeeList : CodeNamePair[] = [];
   public TermRates      : Rate[] = [];
   public SessionCodes   : CodeNamePair[] = [];
-  public Semesters: CodeNamePair[];
+  public Semesters      : CodeNamePair[];
   public CampusNameArray: CodeNamePair[] = [];
   public Session001Dates: any;
   public showPerUnitBox : boolean = false;

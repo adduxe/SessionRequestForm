@@ -1,0 +1,11 @@
+<div>This is inside the child component.</div>
+
+<div> {{ parentValue }} </div>
+
+<button (click)="ChildClick(fromChild)" value="Child Value">Child Click</button>
+<br/>
+{{ fromService }}
+<br/>
+<button (click)="SendToService(sampleInput)">Send to Service</button>
+
+Sample Input: <input type="text" [(ngModel)]="sampleInput" />

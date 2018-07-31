@@ -17,6 +17,7 @@ class range {
   maximum: number;
 };
 
+
 class unitRanges {
   graduate: range;
   undergraduate: range;

@@ -23,11 +23,13 @@ import { RequestHistoryComponent } from './request-history/request.history.compo
 import { SessionRequestListComponent } from './session-request-list/session-request-list.component'
 import { RevisionListComponent } from './revision-list/revision-list.component';
 import { TestPageComponent } from './test-page/test.page.component';
+import { ChildPageComponent } from './test-page/child-page/child.page.component';
 
 import { SessionRequestService } from './shared/services/sessionrequest.service';
 import { PEDataService } from './shared/services/pedata.service';
 import { SQLDataService } from './shared/services/sqldata.service';
-import { SubmitFormService } from './shared/services/submit.form.service'; 
+import { SubmitFormService } from './shared/services/submit.form.service';
+import { TestService } from './shared/services/test.service';
 
 import { appRoutes } from './app.routes';
 
@@ -44,7 +46,8 @@ import { appRoutes } from './app.routes';
     RequestFormComponent,
     RequestHistoryComponent,
     AdminPageComponent,
-    TestPageComponent
+    TestPageComponent,
+    ChildPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,7 +65,8 @@ import { appRoutes } from './app.routes';
     SessionRequestService,
     PEDataService,
     SQLDataService,
-    SubmitFormService
+    SubmitFormService,
+    TestService
   ],
   bootstrap: [AppComponent]
 })

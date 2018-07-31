@@ -1,9 +1,10 @@
+<div>
+  This is the Parent page:
 
-<input type="text" [(ngModel)]="username" name="username" required>
+  {{ childpage.fromChild }}
 
-<input type="submit" value="Submit">
+  <child-page #childpage [parentValue]="fromParent" (ChildEvent)="HandleChildClick($event)">
 
-{{ session.term }} - {{ session.sessionCode }}
-<br />
-{{ session.dates.sessionBreaks[0].startDate }} - {{ session.dates.sessionBreaks[0].endDate }}
+  </child-page>
 
+</div>
